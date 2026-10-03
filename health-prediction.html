@@ -6,6 +6,8 @@
     <meta name="description" content="Dự án học tập Machine Learning: Logistic Regression từ UCI Cleveland, dự đoán trực tiếp trong trình duyệt.">
     <title>Health Prediction | Data Science Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <script src="supabase-config.js" defer></script>
+    <script src="auth.js" defer></script>
     <script src="health-prediction.js" defer></script>
 </head>
 <body class="health-body">
@@ -17,6 +19,11 @@
                 <li><a href="data-analyzer.html">Data Analyzer</a></li>
                 <li><a href="#prediction">Dự đoán</a></li>
                 <li><a href="#model-information">Thông tin mô hình</a></li>
+                <li data-auth-guest><a href="login.html" data-auth-link="login.html">Đăng nhập</a></li>
+                <li data-auth-guest><a href="register.html" data-auth-link="register.html">Đăng ký</a></li>
+                <li data-auth-user hidden><span class="auth-nav-email" data-auth-email></span></li>
+                <li data-auth-user hidden><button class="auth-nav-logout" type="button" data-auth-logout>Đăng xuất</button></li>
+                <li class="auth-nav-message" data-auth-nav-message role="status" hidden></li>
             </ul>
         </nav>
     </header>

@@ -8,6 +8,8 @@
     <title>Data Science Portfolio | Nguyễn Đức Hiếu</title>
 
     <link rel="stylesheet" href="style.css">
+    <script src="supabase-config.js" defer></script>
+    <script src="auth.js" defer></script>
 </head>
 
 <body>
@@ -22,6 +24,11 @@
                 <li><a href="#projects">Dự án</a></li>
                 <li><a href="#tools">Công cụ</a></li>
                 <li><a href="#about">Giới thiệu</a></li>
+                <li data-auth-guest><a href="login.html" data-auth-link="login.html">Đăng nhập</a></li>
+                <li data-auth-guest><a href="register.html" data-auth-link="register.html">Đăng ký</a></li>
+                <li data-auth-user hidden><span class="auth-nav-email" data-auth-email></span></li>
+                <li data-auth-user hidden><button class="auth-nav-logout" type="button" data-auth-logout>Đăng xuất</button></li>
+                <li class="auth-nav-message" data-auth-nav-message role="status" hidden></li>
             </ul>
         </nav>
     </header>

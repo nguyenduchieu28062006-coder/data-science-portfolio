@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>Đăng nhập | Data Science Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="supabase-config.js" defer></script>
+    <script src="auth.js" defer></script>
+</head>
+<body class="auth-body">
+    <header><nav aria-label="Điều hướng chính">
+        <h2>DataScience.</h2>
+        <ul>
+            <li><a href="index.html">Trang chủ</a></li>
+            <li><a href="data-analyzer.html">Data Analyzer</a></li>
+            <li><a href="health-prediction.html">Health Prediction</a></li>
+            <li data-auth-guest><a href="login.html" data-auth-link="login.html" aria-current="page">Đăng nhập</a></li>
+            <li data-auth-guest><a href="register.html" data-auth-link="register.html">Đăng ký</a></li>
+            <li data-auth-user hidden><span class="auth-nav-email" data-auth-email></span></li>
+            <li data-auth-user hidden><button class="auth-nav-logout" type="button" data-auth-logout>Đăng xuất</button></li>
+            <li class="auth-nav-message" data-auth-nav-message role="status" hidden></li>
+        </ul>
+    </nav></header>
+    <main class="auth-page">
+        <section class="auth-card" aria-labelledby="authTitle">
+            <p class="auth-eyebrow">DATA SCIENCE PORTFOLIO</p>
+            <h1 id="authTitle">Đăng nhập</h1>
+            <p class="auth-intro">Truy cập tài khoản của bạn. Các công cụ vẫn dùng được khi chưa đăng nhập.</p>
+            <p id="authConfirmedMessage" class="auth-message" data-kind="success" role="status" aria-atomic="true" hidden>Email đã được xác nhận thành công. Bạn có thể đăng nhập ngay.</p>
+            <p id="authStatus" class="auth-status" role="status">Đang kiểm tra cấu hình tài khoản…</p>
+            <form id="authForm" data-auth-form="login" novalidate aria-describedby="authStatus authMessage">
+                <fieldset id="authFields" disabled>
+                    <legend class="auth-visually-hidden">Thông tin đăng nhập</legend>
+                    <div class="auth-field">
+                        <label for="authEmail">Email</label>
+                        <input id="authEmail" name="email" type="email" autocomplete="username" inputmode="email" required aria-describedby="authEmail-error">
+                        <small id="authEmail-error" class="auth-field-error" hidden></small>
+                    </div>
+                    <div class="auth-field">
+                        <label for="authPassword">Mật khẩu</label>
+                        <div class="auth-password-wrap">
+                            <input id="authPassword" name="password" type="password" autocomplete="current-password" required aria-describedby="authPassword-error">
+                            <button type="button" data-password-toggle="authPassword" aria-controls="authPassword" aria-pressed="false" aria-label="Hiện hoặc ẩn mật khẩu">Hiện</button>
+                        </div>
+                        <small id="authPassword-error" class="auth-field-error" hidden></small>
+                    </div>
+                    <button class="auth-submit" type="submit">Đăng nhập</button>
+                </fieldset>
+            </form>
+            <p id="authMessage" class="auth-message" role="status" hidden></p>
+            <a id="authContinue" class="auth-next-link" href="index.html" hidden>Tiếp tục về trang trước</a>
+            <div class="auth-links">
+                <p>Chưa có tài khoản? <a href="register.html" data-auth-link="register.html">Đăng ký</a></p>
+                <a href="forgot-password.html" data-auth-link="forgot-password.html">Quên mật khẩu?</a>
+                <a href="index.html">Tiếp tục khám phá không cần tài khoản</a>
+            </div>
+            <noscript><p class="auth-field-error">Vui lòng bật JavaScript để sử dụng hệ thống tài khoản.</p></noscript>
+        </section>
+    </main>
+    <footer><p>Data Science Portfolio</p></footer>
+</body>
+</html>

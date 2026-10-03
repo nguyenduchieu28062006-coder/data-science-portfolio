@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>Đăng ký | Data Science Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="supabase-config.js" defer></script>
+    <script src="auth.js" defer></script>
+</head>
+<body class="auth-body">
+    <header><nav aria-label="Điều hướng chính">
+        <h2>DataScience.</h2>
+        <ul>
+            <li><a href="index.html">Trang chủ</a></li>
+            <li><a href="data-analyzer.html">Data Analyzer</a></li>
+            <li><a href="health-prediction.html">Health Prediction</a></li>
+            <li data-auth-guest><a href="login.html" data-auth-link="login.html">Đăng nhập</a></li>
+            <li data-auth-guest><a href="register.html" data-auth-link="register.html" aria-current="page">Đăng ký</a></li>
+            <li data-auth-user hidden><span class="auth-nav-email" data-auth-email></span></li>
+            <li data-auth-user hidden><button class="auth-nav-logout" type="button" data-auth-logout>Đăng xuất</button></li>
+            <li class="auth-nav-message" data-auth-nav-message role="status" hidden></li>
+        </ul>
+    </nav></header>
+    <main class="auth-page">
+        <section class="auth-card" aria-labelledby="authTitle">
+            <p class="auth-eyebrow">DATA SCIENCE PORTFOLIO</p>
+            <h1 id="authTitle">Tạo tài khoản</h1>
+            <p class="auth-intro">Dùng một tài khoản cho website. Bạn vẫn có thể khám phá các công cụ mà không cần đăng ký.</p>
+            <p id="authStatus" class="auth-status" role="status">Đang kiểm tra cấu hình tài khoản…</p>
+            <form id="authForm" data-auth-form="register" novalidate aria-describedby="authStatus authMessage">
+                <fieldset id="authFields" disabled>
+                    <legend class="auth-visually-hidden">Thông tin đăng ký</legend>
+                    <div class="auth-field">
+                        <label for="authEmail">Email</label>
+                        <input id="authEmail" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="authEmail-error">
+                        <small id="authEmail-error" class="auth-field-error" hidden></small>
+                    </div>
+                    <div class="auth-field">
+                        <label for="authPassword">Mật khẩu</label>
+                        <div class="auth-password-wrap">
+                            <input id="authPassword" name="password" type="password" autocomplete="new-password" minlength="8" required aria-describedby="authPassword-help authPassword-error">
+                            <button type="button" data-password-toggle="authPassword" aria-controls="authPassword" aria-pressed="false" aria-label="Hiện hoặc ẩn mật khẩu">Hiện</button>
+                        </div>
+                        <small id="authPassword-help" class="auth-help">Ít nhất 8 ký tự.</small>
+                        <small id="authPassword-error" class="auth-field-error" hidden></small>
+                    </div>
+                    <div class="auth-field">
+                        <label for="authConfirmPassword">Nhập lại mật khẩu</label>
+                        <div class="auth-password-wrap">
+                            <input id="authConfirmPassword" name="confirmPassword" type="password" autocomplete="new-password" minlength="8" required aria-describedby="authConfirmPassword-error">
+                            <button type="button" data-password-toggle="authConfirmPassword" aria-controls="authConfirmPassword" aria-pressed="false" aria-label="Hiện hoặc ẩn mật khẩu nhập lại">Hiện</button>
+                        </div>
+                        <small id="authConfirmPassword-error" class="auth-field-error" hidden></small>
+                    </div>
+                    <button class="auth-submit" type="submit">Đăng ký</button>
+                </fieldset>
+            </form>
+            <p id="authMessage" class="auth-message" role="status" hidden></p>
+            <div class="auth-links">
+                <p>Đã có tài khoản? <a href="login.html" data-auth-link="login.html">Đăng nhập</a></p>
+                <a href="index.html">Tiếp tục khám phá không cần tài khoản</a>
+            </div>
+            <noscript><p class="auth-field-error">Vui lòng bật JavaScript để sử dụng hệ thống tài khoản.</p></noscript>
+        </section>
+    </main>
+    <footer><p>Data Science Portfolio</p></footer>
+</body>
+</html>
