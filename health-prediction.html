@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dự án học tập Machine Learning: Logistic Regression từ UCI Cleveland, dự đoán trực tiếp trong trình duyệt.">
+    <title>Health Prediction | Data Science Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="health-prediction.js" defer></script>
+</head>
+<body class="health-body">
+    <header>
+        <nav aria-label="Điều hướng chính">
+            <h2>DataScience.</h2>
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="data-analyzer.html">Data Analyzer</a></li>
+                <li><a href="#prediction">Dự đoán</a></li>
+                <li><a href="#model-information">Thông tin mô hình</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="health-page">
+        <section class="health-hero" aria-labelledby="health-title">
+            <p class="health-eyebrow">MACHINE LEARNING · CHẠY TRONG TRÌNH DUYỆT</p>
+            <h1 id="health-title">❤️ Health Prediction</h1>
+            <p>Khám phá cách Logistic Regression phân loại mẫu dữ liệu bệnh tim từ 13 đặc trưng của UCI Cleveland.</p>
+        </section>
+        <aside class="health-disclaimer" aria-label="Lưu ý y khoa và quyền riêng tư">
+            <strong>Chỉ phục vụ học tập</strong>
+            <p>Công cụ này là dự án Machine Learning phục vụ mục đích học tập và minh họa, không phải công cụ chẩn đoán y khoa. Kết quả không thay thế tư vấn từ bác sĩ hoặc chuyên gia y tế.</p>
+            <p class="health-privacy">Dữ liệu bạn nhập chỉ được xử lý trong trình duyệt, không lưu lại và không gửi lên server.</p>
+        </aside>
+        <section id="prediction" class="health-panel" aria-labelledby="input-title">
+            <div class="health-panel-heading">
+                <h2 id="input-title">Nhập đặc trưng</h2>
+                <p>Cả 13 trường đều bắt buộc. Có thể điền một mẫu dataset để khám phá mô hình. Các mã xét nghiệm giữ đúng ý nghĩa trong UCI Cleveland.</p>
+            </div>
+            <p id="healthModelStatus" class="health-status" role="status">Đang tải mô hình…</p>
+            <form id="healthForm" autocomplete="off" novalidate aria-describedby="healthModelStatus healthInputError">
+                <fieldset id="healthFields" disabled>
+                    <legend class="health-visually-hidden">13 đặc trưng của mô hình Cleveland</legend>
+                    <div class="health-sample-actions" aria-label="Dữ liệu mẫu Cleveland">
+                        <button type="button" data-health-sample="0">Điền mẫu 1</button>
+                        <button type="button" data-health-sample="1">Điền mẫu 2</button>
+                        <span>Hai mẫu từ dataset, không phải lời khuyên y khoa.</span>
+                    </div>
+                    <div class="health-form-grid">
+                        <div class="health-field">
+                            <label for="health-age">Tuổi (năm)</label>
+                            <input id="health-age" name="age" type="number" min="1" max="120" step="1" placeholder="Ví dụ: 55" required>
+                        </div>
+                        <div class="health-field">
+                            <label for="health-sex">Giới tính (mã của dataset)</label>
+                            <select id="health-sex" name="sex" required>
+                                <option value="">Chọn giới tính</option><option value="0">Nữ</option><option value="1">Nam</option>
+                            </select>
+                        </div>
+                        <div class="health-field">
+                            <label for="health-cp">Loại đau ngực</label>
+                            <select id="health-cp" name="cp" required aria-describedby="health-cp-help">
+                                <option value="">Chọn loại đau ngực</option>
+                                <option value="1">Đau thắt ngực điển hình</option>
+                                <option value="2">Đau thắt ngực không điển hình</option>
+                                <option value="3">Đau không do tim</option>
+                                <option value="4">Không triệu chứng</option>
+                            </select>
+                            <small id="health-cp-help">cp: nhóm triệu chứng đau ngực được ghi nhận trong dataset, mã 1–4.</small>
+                        </div>
+                        <div class="health-field">
+                            <label for="health-trestbps">Huyết áp nghỉ (mmHg)</label>
+                            <input id="health-trestbps" name="trestbps" type="number" min="1" step="1" placeholder="Ví dụ: 130" required>
+                        </div>
+                        <div class="health-field">
+                            <label for="health-chol">Cholesterol (mg/dL)</label>
+                            <input id="health-chol" name="chol" type="number" min="1" step="1" placeholder="Ví dụ: 240" required>
+                        </div>
+                        <div class="health-field">
+                            <label for="health-fbs">Đường huyết lúc đói &gt; 120 mg/dL</label>
+                            <select id="health-fbs" name="fbs" required>
+                                <option value="">Chọn giá trị</option><option value="0">Không</option><option value="1">Có</option>
+                            </select>
+                        </div>
+                        <div class="health-field">
+                            <label for="health-restecg">ECG lúc nghỉ</label>
+                            <select id="health-restecg" name="restecg" required aria-describedby="health-restecg-help">
+                                <option value="">Chọn kết quả ECG</option><option value="0">Bình thường</option>
+                                <option value="1">Bất thường sóng ST-T</option>
+                                <option value="2">Phì đại thất trái theo tiêu chuẩn Estes</option>
+                            </select>
+                            <small id="health-restecg-help">restecg: nhóm kết quả điện tâm đồ lúc nghỉ trong dataset, mã 0–2.</small>
+                        </div>
+                        <div class="health-field">
+                            <label for="health-thalach">Nhịp tim tối đa (nhịp/phút)</label>
+                            <input id="health-thalach" name="thalach" type="number" min="1" step="1" placeholder="Ví dụ: 150" required>
+                        </div>
+                        <div class="health-field">
+                            <label for="health-exang">Đau thắt ngực khi vận động</label>
+                            <select id="health-exang" name="exang" required>
+                                <option value="">Chọn giá trị</option><option value="0">Không</option><option value="1">Có</option>
+                            </select>
+                        </div>
+                        <div class="health-field">
+                            <label for="health-oldpeak">Oldpeak — mức chênh xuống ST</label>
+                            <input id="health-oldpeak" name="oldpeak" type="number" min="0" step="any" placeholder="Ví dụ: 1.2" required aria-describedby="health-oldpeak-help">
+                            <small id="health-oldpeak-help">Do vận động gây ra so với lúc nghỉ.</small>
+                        </div>
+                        <div class="health-field">
+                            <label for="health-slope">Slope — độ dốc đoạn ST khi vận động đỉnh</label>
+                            <select id="health-slope" name="slope" required aria-describedby="health-slope-help">
+                                <option value="">Chọn độ dốc ST</option><option value="1">Dốc lên</option><option value="2">Phẳng</option><option value="3">Dốc xuống</option>
+                            </select>
+                            <small id="health-slope-help">slope: hình dạng độ dốc đoạn ST tại mức vận động đỉnh, mã 1–3.</small>
+                        </div>
+                        <div class="health-field">
+                            <label for="health-ca">Số mạch chính (ca) thấy qua huỳnh quang</label>
+                            <select id="health-ca" name="ca" required aria-describedby="health-ca-help">
+                                <option value="">Chọn số mạch</option><option value="0">0 mạch</option><option value="1">1 mạch</option><option value="2">2 mạch</option><option value="3">3 mạch</option>
+                            </select>
+                            <small id="health-ca-help">ca: số mạch chính được quan sát bằng huỳnh quang, từ 0 đến 3 trong Cleveland.</small>
+                        </div>
+                        <div class="health-field">
+                            <label for="health-thal">Thal — kết quả xét nghiệm tưới máu</label>
+                            <select id="health-thal" name="thal" required aria-describedby="health-thal-help">
+                                <option value="">Chọn kết quả thal</option><option value="3">Bình thường</option><option value="6">Khiếm khuyết cố định</option><option value="7">Khiếm khuyết hồi phục</option>
+                            </select>
+                            <small id="health-thal-help">thal: nhóm kết quả xét nghiệm tưới máu trong dataset; dùng mã gốc 3, 6 và 7.</small>
+                        </div>
+                    </div>
+                    <div class="health-form-actions">
+                        <button type="submit" class="health-predict-button">Dự đoán</button>
+                        <button type="reset" class="health-reset-button">Xóa dữ liệu nhập</button>
+                    </div>
+                </fieldset>
+                <p id="healthInputError" class="health-error" role="alert" hidden></p>
+            </form>
+            <noscript><p class="health-error">Vui lòng bật JavaScript để tải mô hình và dự đoán.</p></noscript>
+        </section>
+        <section id="healthResult" class="health-result" aria-labelledby="result-title" aria-live="polite" hidden>
+            <h2 id="result-title">❤️ Kết quả mô hình</h2>
+            <div class="health-result-layout">
+                <article class="health-panel health-score-card" aria-label="Điểm và lớp dự đoán">
+                    <p class="health-eyebrow">LOGISTIC REGRESSION</p>
+                    <p class="health-probability">Model score: <strong id="healthProbability"></strong></p>
+                    <dl class="health-classification">
+                        <div><dt>Nhóm dự đoán</dt><dd id="healthPredictedClass">—</dd></div>
+                        <div><dt>Ngưỡng phân loại</dt><dd id="healthThreshold">—</dd></div>
+                    </dl>
+                    <p class="health-class-disclaimer">Đây là kết quả phân loại của mô hình trên dữ liệu mẫu, không phải chẩn đoán y khoa.</p>
+                    <p class="health-muted">Class 0 = Nhóm không bệnh tim trong dataset.<br>Class 1 = Nhóm bệnh tim trong dataset.</p>
+                    <progress id="healthGauge" max="100" value="0" aria-label="Model score"></progress>
+                    <div class="health-gauge-labels" aria-hidden="true"><span>0%</span><span>50%</span><span>100%</span></div>
+                    <p id="healthPredictionMessage"></p>
+                    <p id="healthImputationNote" class="health-muted"></p>
+                    <p class="health-muted">Model score là xác suất mô hình gán cho class 1 (target &gt; 0 trong dataset), không phải nguy cơ y khoa cá nhân.</p>
+                </article>
+                <article class="health-panel health-contribution-card" aria-labelledby="contribution-title">
+                    <h3 id="contribution-title">Top 5 đặc trưng ảnh hưởng mạnh nhất</h3>
+                    <div class="health-contribution-intro health-muted">
+                        <p>Các đặc trưng dưới đây cho biết yếu tố nào đang kéo kết quả mô hình về Class 1 hoặc Class 0 trong lần dự đoán này.</p>
+                        <p>Thanh càng dài thì mức ảnh hưởng của đặc trưng đó đến lần dự đoán này càng lớn.</p>
+                        <p>Class 1 = nhóm bệnh tim trong dataset; Class 0 = nhóm không bệnh tim trong dataset.</p>
+                    </div>
+                    <p class="health-muted">Mức đóng góp của từng đặc trưng vào quyết định của mô hình</p>
+                    <div class="health-chart-legend"><span class="health-positive">+ Đẩy về nhóm bệnh tim (Class 1)</span><span class="health-negative">− Đẩy về nhóm không bệnh tim (Class 0)</span></div>
+                    <ol id="healthContributionChart" class="health-contribution-chart" aria-label="Biểu đồ đóng góp của 5 đặc trưng"></ol>
+                    <p class="health-explanation-note">Đây là mức đóng góp trong mô hình Logistic Regression, không thể hiện quan hệ nhân quả và không phải kết luận y khoa.</p>
+                    <details class="health-technical-details">
+                        <summary>Chi tiết dành cho người học Machine Learning</summary>
+                        <p class="health-muted">Các mức đóng góp được tính trên thang linear score / log-odds và sắp xếp theo độ lớn tuyệt đối.</p>
+                        <p id="healthLinearSummary" class="health-muted"></p>
+                    </details>
+                </article>
+            </div>
+        </section>
+        <section id="model-information" class="health-panel" aria-labelledby="model-title">
+            <h2 id="model-title">Thông tin mô hình</h2>
+            <p>Model: <strong>Logistic Regression</strong></p>
+            <p>Dataset: <a href="https://archive.ics.uci.edu/dataset/45/heart+disease" target="_blank" rel="noopener noreferrer">UCI Cleveland Heart Disease</a></p>
+            <p id="healthEvaluationInfo" class="health-muted">Metrics được tải trực tiếp từ model đã huấn luyện.</p>
+            <dl id="healthMetrics" class="health-metrics">
+                <div><dt>Accuracy</dt><dd data-metric="accuracy">—</dd></div>
+                <div><dt>Precision</dt><dd data-metric="precision">—</dd></div>
+                <div><dt>Recall</dt><dd data-metric="recall">—</dd></div>
+                <div><dt>F1-score</dt><dd data-metric="f1">—</dd></div>
+                <div><dt>ROC-AUC</dt><dd data-metric="roc_auc">—</dd></div>
+            </dl>
+            <div class="health-performance-layout">
+                <article class="health-dashboard-chart" aria-labelledby="cm-title">
+                    <h3 id="cm-title">Confusion Matrix</h3>
+                    <p class="health-muted">Hàng: class thực tế. Cột: class dự đoán tại ngưỡng 50%.</p>
+                    <table class="health-confusion-table">
+                        <caption class="health-visually-hidden">Số mẫu test theo class thực tế và class dự đoán</caption>
+                        <thead><tr><th scope="col">Thực tế ↓<br>Dự đoán →</th><th scope="col">Class 0</th><th scope="col">Class 1</th></tr></thead>
+                        <tbody>
+                            <tr><th scope="row">Class 0</th><td data-cm="0,0">—</td><td data-cm="0,1">—</td></tr>
+                            <tr><th scope="row">Class 1</th><td data-cm="1,0">—</td><td data-cm="1,1">—</td></tr>
+                        </tbody>
+                    </table>
+                    <p id="healthConfusionSummary" class="health-muted"></p>
+                </article>
+                <article class="health-dashboard-chart" aria-labelledby="roc-title">
+                    <h3 id="roc-title">ROC Curve</h3>
+                    <p class="health-muted">Tập test; TPR so với FPR khi thay đổi ngưỡng phân loại.</p>
+                    <svg id="healthRocChart" class="health-roc-chart" viewBox="0 0 400 310" role="img" aria-label="Đường ROC trên tập test"></svg>
+                    <p id="healthRocSummary" class="health-muted"></p>
+                </article>
+            </div>
+            <p class="health-muted">Target gốc: 0 → không có bệnh trong dataset; 1–4 → có bệnh trong dataset. Dữ liệu nhỏ và lịch sử; metrics trên một lần chia train/test không chứng minh hiệu quả chẩn đoán hay khả năng áp dụng cho mọi dân số.</p>
+            <p class="health-source">Nguồn: Janosi, Steinbrunn, Pfisterer &amp; Detrano (1989), <a href="https://doi.org/10.24432/C52P4X" target="_blank" rel="noopener noreferrer">Heart Disease, UCI</a>. Giấy phép <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>. Bản CSV dùng 13 đặc trưng gốc và đổi tên nhãn thành target.</p>
+        </section>
+    </main>
+    <footer><p>Data Science Portfolio · Health Prediction</p></footer>
+</body>
+</html>

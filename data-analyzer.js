@@ -54,7 +54,8 @@ function isMissing(value) {
         text === "null" ||
         text === "nan" ||
         text === "na" ||
-        text === "n/a"
+        text === "n/a" ||
+        text === "none"
     );
 }
 
@@ -91,6 +92,42 @@ let uploadedName = "dataset";
 let uploadVersion = 0;
 const primaryColor = document.getElementById("primaryColor");
 const categoryColorMap = new Map();
+const autoCategoryColorMap = new Map();
+const categoryPalette = [
+    "#38bdf8", "#fb923c", "#a78bfa", "#34d399", "#f472b6",
+    "#facc15", "#22d3ee", "#f87171", "#a3e635", "#818cf8"
+];
+
+function generateCategoryColor(index) {
+    if (index < categoryPalette.length) return categoryPalette[index];
+    // Golden-angle spacing spreads additional hues across the color wheel.
+    const hue = ((index - categoryPalette.length) * 137.508 + 17) % 360;
+    const saturation = [0.72, 0.85, 0.64][Math.floor(index / 12) % 3];
+    const lightness = [0.65, 0.57, 0.73][Math.floor(index / 36) % 3];
+    const amplitude = saturation * Math.min(lightness, 1 - lightness);
+    const channel = offset => {
+        const position = (offset + hue / 30) % 12;
+        const value = lightness - amplitude * Math.max(-1, Math.min(position - 3, 9 - position, 1));
+        return Math.round(value * 255).toString(16).padStart(2, "0");
+    };
+    // Color inputs require hex rather than HSL strings.
+    return `#${channel(0)}${channel(8)}${channel(4)}`;
+}
+
+function getCategoryColor(column, category) {
+    const key = JSON.stringify([column, category]);
+    if (categoryColorMap.has(key)) return categoryColorMap.get(key);
+    if (!autoCategoryColorMap.has(column)) autoCategoryColorMap.set(column, new Map());
+    const colors = autoCategoryColorMap.get(column);
+    if (!colors.has(category)) {
+        const usedColors = new Set(colors.values());
+        let index = colors.size;
+        let color = generateCategoryColor(index);
+        while (usedColors.has(color)) color = generateCategoryColor(++index);
+        colors.set(category, color);
+    }
+    return colors.get(category);
+}
 let rawColumnProfile = [];
 let cleanedColumnProfile = new Map();
 let missingValuesChart = null;
@@ -116,6 +153,21 @@ function modeOf(values) {
         if (frequency > count) { value = category; count = frequency; }
     });
     return { value, count };
+}
+
+function inferColumnType(values) {
+    const valid = values.filter(value => !isMissing(value));
+    if (!valid.length) return "text";
+    const numericCount = valid.filter(value => Number.isFinite(toNumber(value))).length;
+    // Infer numbers before considering cardinality or date parsing.
+    if (numericCount / valid.length > 0.5) return "numeric";
+    const dateCount = valid.filter(value => {
+        const text = String(value).trim();
+        return !Number.isFinite(toNumber(value)) && /[-/]/.test(text) && Number.isFinite(Date.parse(text));
+    }).length;
+    if (dateCount / valid.length >= 0.8) return "date";
+    const unique = new Set(valid).size;
+    return unique <= 20 || unique / valid.length <= 0.5 ? "category" : "text";
 }
 
 function cleanDataset(rawHeaders, rawRows) {
@@ -155,15 +207,18 @@ function cleanDataset(rawHeaders, rawRows) {
     });
     keptHeaders.forEach((_, i) => {
         const observed = rows.map(row => row[i]).filter(value => !isMissing(value));
-        const numeric = observed.length > 0 && observed.every(value => Number.isFinite(toNumber(value)));
+        const numeric = inferColumnType(observed) === "numeric";
         let replacement = "Unknown";
         if (numeric) {
-            replacement = medianOf(observed.map(toNumber));
+            replacement = medianOf(observed.map(toNumber).filter(Number.isFinite));
         } else {
             replacement = modeOf(observed).value;
         }
         rows.forEach(row => {
-            if (isMissing(row[i])) { row[i] = replacement; report.missing++; }
+            if (isMissing(row[i]) || (numeric && !Number.isFinite(toNumber(row[i])))) {
+                row[i] = replacement;
+                report.missing++;
+            }
             else if (numeric) row[i] = toNumber(row[i]);
         });
     });
@@ -200,6 +255,7 @@ csvFile.addEventListener("change", event => {
             uploadedName = file.name.replace(/\.csv$/i, "");
             destroyChart();
             categoryColorMap.clear();
+            autoCategoryColorMap.clear();
             document.getElementById("categoryColorPanel").hidden = true;
             chartInsight.textContent = "Chưa có biểu đồ.";
             columnInfo = Object.create(null);
@@ -243,12 +299,14 @@ function updateCategoryColors(labels = []) {
         const label = document.createElement("label");
         const input = document.createElement("input");
         input.type = "color";
-        input.value = categoryColorMap.get(key) || primaryColor.value;
+        input.value = getCategoryColor(xColumnSelect.value, category);
         input.setAttribute("aria-label", `Màu cho ${category}`);
         input.addEventListener("input", () => {
             categoryColorMap.set(key, input.value);
             if (dataChart) {
-                dataChart.data.datasets[0].backgroundColor = dataChart.data.labels.map(value => categoryColorMap.get(JSON.stringify([xColumnSelect.value, value])) || primaryColor.value);
+                const colors = dataChart.data.labels.map(value => getCategoryColor(xColumnSelect.value, value));
+                dataChart.data.datasets[0].backgroundColor = colors;
+                dataChart.data.datasets[0].borderColor = colors;
                 dataChart.update();
             }
         });
@@ -541,92 +599,7 @@ function analyzeColumns() {
             new Set(values);
 
 
-        // ===========================
-        // Numeric
-        // ===========================
-
-        const numericCount =
-            values.filter(
-                value =>
-                    Number.isFinite(
-                        toNumber(value)
-                    )
-            ).length;
-
-
-        const numericRatio =
-            values.length === 0
-                ? 0
-                : numericCount /
-                  values.length;
-
-
-        // ===========================
-        // Date
-        // ===========================
-
-        let dateCount = 0;
-
-
-        values.forEach(value => {
-
-            const text =
-                String(value);
-
-
-            // Chỉ kiểm tra ngày nếu
-            // có ký tự ngày tháng
-            if (
-                /[-/]/.test(text) &&
-                !isNaN(
-                    Date.parse(text)
-                )
-            ) {
-
-                dateCount++;
-
-            }
-
-        });
-
-
-        const dateRatio =
-            values.length === 0
-                ? 0
-                : dateCount /
-                  values.length;
-
-
-        // ===========================
-        // Xác định loại
-        // ===========================
-
-        let type =
-            "text";
-
-
-        if (numericRatio === 1) {
-
-            type =
-                "numeric";
-
-        } else if (dateRatio >= 0.8) {
-
-            type =
-                "date";
-
-        } else if (
-            uniqueValues.size <= 20 ||
-            uniqueValues.size /
-                Math.max(values.length, 1)
-                <= 0.5
-        ) {
-
-            type =
-                "category";
-
-        }
-
+        const type = inferColumnType(values);
 
         // ===========================
         // Phát hiện ID
@@ -1276,7 +1249,9 @@ function drawGroupedChart(
         updateCategoryColors();
         return;
     }
-    const colors = labels.map(category => categoryColorMap.get(JSON.stringify([xColumn, category])) || primaryColor.value);
+    const colors = ["bar", "pie"].includes(chartType)
+        ? labels.map(category => getCategoryColor(xColumn, category))
+        : primaryColor.value;
     updateCategoryColors(labels);
 
     dataChart =
@@ -1304,7 +1279,9 @@ function drawGroupedChart(
                             : primaryColor.value,
 
                     borderColor:
-                        primaryColor.value,
+                        ["bar", "pie"].includes(chartType)
+                            ? colors
+                            : primaryColor.value,
 
                     borderWidth: 2,
 
