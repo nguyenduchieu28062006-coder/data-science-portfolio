@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Data Analyzer | Data Science Portfolio</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <h2>DataScience.</h2>
+
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="#upload">Upload CSV</a></li>
+                <li><a href="#overview">Tổng quan</a></li>
+                <li><a href="#visualization">Biểu đồ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <main class="analyzer-page">
+
+        <!-- Tiêu đề -->
+        <section class="analyzer-hero">
+
+            <p class="analyzer-label">DATA ANALYSIS TOOL</p>
+
+            <h1>📊 Data Analyzer</h1>
+
+            <p>
+                Tải lên dữ liệu CSV để khám phá, thống kê
+                và trực quan hóa dữ liệu.
+            </p>
+
+        </section>
+
+
+        <!-- Upload dữ liệu -->
+        <section id="upload" class="analyzer-section">
+
+            <h2>Tải dữ liệu lên</h2>
+
+            <div class="upload-box">
+
+                <div class="upload-icon">📁</div>
+
+                <h3>Chọn file CSV</h3>
+
+                <p>
+                    Dữ liệu sẽ được đọc và phân tích trực tiếp
+                    trên trình duyệt.
+                </p>
+
+                <input
+                    type="file"
+                    id="csvFile"
+                    accept=".csv"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- Tổng quan dữ liệu -->
+        <section id="overview" class="analyzer-section">
+
+            <h2>Tổng quan dữ liệu</h2>
+
+            <div class="stats-container">
+
+                <div class="stat-card">
+                    <span id="rowCount">0</span>
+                    <p>Số dòng</p>
+                </div>
+
+                <div class="stat-card">
+                    <span id="columnCount">0</span>
+                    <p>Số cột</p>
+                </div>
+
+                <div class="stat-card">
+                    <span id="missingCount">0</span>
+                    <p>Giá trị thiếu</p>
+                </div>
+
+                <div class="stat-card">
+                    <span id="duplicateCount">0</span>
+                    <p>Dòng trùng lặp</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Xem trước dữ liệu -->
+        <section class="analyzer-section">
+
+            <h2>Xem trước dữ liệu</h2>
+
+            <div class="table-container">
+
+                <table id="dataTable">
+
+                    <thead></thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Chưa có dữ liệu.</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- Trực quan hóa -->
+        <section id="visualization" class="analyzer-section">
+
+    <h2>Trực quan hóa dữ liệu</h2>
+
+    <!-- Gợi ý tự động -->
+    <div class="smart-suggestions">
+
+        <h3>💡 Gợi ý biểu đồ tự động</h3>
+
+        <p id="suggestionStatus">
+            Upload CSV để hệ thống phân tích và gợi ý biểu đồ phù hợp.
+        </p>
+
+        <div id="suggestionList" class="suggestion-list"></div>
+
+    </div>
+
+
+    <!-- Chọn X, Y -->
+    <div class="chart-controls">
+
+        <div class="control-group">
+            <label for="xColumnSelect">Trục X</label>
+
+            <select id="xColumnSelect">
+                <option value="">-- Chọn cột X --</option>
+            </select>
+        </div>
+
+
+        <div class="control-group">
+            <label for="yColumnSelect">Trục Y</label>
+
+            <select id="yColumnSelect">
+                <option value="">-- Chọn cột Y --</option>
+            </select>
+        </div>
+
+
+        <div class="control-group">
+            <label for="aggregationSelect">Cách tính Y</label>
+
+            <select id="aggregationSelect">
+                <option value="mean">Trung bình</option>
+                <option value="sum">Tổng</option>
+                <option value="count">Đếm</option>
+                <option value="min">Nhỏ nhất</option>
+                <option value="max">Lớn nhất</option>
+            </select>
+        </div>
+
+
+        <div class="control-group">
+            <label for="chartTypeSelect">Loại biểu đồ</label>
+
+            <select id="chartTypeSelect">
+                <option value="bar">Bar Chart</option>
+                <option value="line">Line Chart</option>
+                <option value="pie">Pie Chart</option>
+                <option value="scatter">Scatter Plot</option>
+            </select>
+        </div>
+
+
+        <button id="drawChartBtn">
+            Vẽ biểu đồ
+        </button>
+
+    </div>
+
+
+    <div id="chartInsight" class="chart-insight">
+        Chưa có biểu đồ.
+    </div>
+
+
+    <div class="chart-box">
+        <canvas id="dataChart"></canvas>
+    </div>
+
+</section>
+    </main>
+
+
+    <footer>
+        <p>Data Science Portfolio • Data Analyzer</p>
+    </footer>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="data-analyzer.js"></script>
+</body>
+
+</html>
