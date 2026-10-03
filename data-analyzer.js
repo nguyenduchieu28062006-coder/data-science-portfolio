@@ -31,7 +31,7 @@ const chartInsight =
 
 let currentHeaders = [];
 let currentRows = [];
-let columnInfo = {};
+let columnInfo = Object.create(null);
 
 let dataChart = null;
 
@@ -78,7 +78,7 @@ function toNumber(value) {
         ""
     );
 
-    return Number(text);
+    return text === "" ? NaN : Number(text);
 }
 
 
@@ -86,63 +86,158 @@ function toNumber(value) {
 // ĐỌC FILE CSV
 // ==========================================
 
-csvFile.addEventListener(
-    "change",
-    function (event) {
+let cleaningReport = { missing: 0, duplicates: 0, emptyColumns: 0, emptyRows: 0 };
+let uploadedName = "dataset";
+let uploadVersion = 0;
+const primaryColor = document.getElementById("primaryColor");
+const categoryColorMap = new Map();
 
-        const file =
-            event.target.files[0];
-
-        if (!file) {
-            return;
+function cleanDataset(rawHeaders, rawRows) {
+    const used = new Set();
+    const headers = rawHeaders.map((name, index) => {
+        const base = String(name || "").trim().toLowerCase().normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d")
+            .replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "") || `column_${index + 1}`;
+        let header = base;
+        let suffix = 2;
+        while (used.has(header)) header = `${base}_${suffix++}`;
+        used.add(header);
+        return header;
+    });
+    const report = { missing: 0, duplicates: 0, emptyColumns: 0, emptyRows: 0 };
+    let rows = rawRows.map(values => headers.map((_, i) => {
+        const value = String(values[i] ?? "").trim();
+        return isMissing(value) ? "" : value;
+    })).filter(values => {
+        if (values.every(isMissing)) { report.emptyRows++; return false; }
+        return true;
+    });
+    const indices = headers.map((_, i) => i).filter(i => rows.some(row => !isMissing(row[i])));
+    report.emptyColumns = headers.length - indices.length;
+    const keptHeaders = indices.map(i => headers[i]);
+    rows = rows.map(row => indices.map(i => row[i]));
+    const seen = new Set();
+    rows = rows.filter(row => {
+        const key = JSON.stringify(row);
+        if (seen.has(key)) { report.duplicates++; return false; }
+        seen.add(key);
+        return true;
+    });
+    keptHeaders.forEach((_, i) => {
+        const observed = rows.map(row => row[i]).filter(value => !isMissing(value));
+        const numeric = observed.length > 0 && observed.every(value => Number.isFinite(toNumber(value)));
+        let replacement = "Unknown";
+        if (numeric) {
+            const sorted = observed.map(toNumber).sort((a, b) => a - b);
+            const middle = Math.floor(sorted.length / 2);
+            replacement = sorted.length % 2 ? sorted[middle] : sorted[middle - 1] / 2 + sorted[middle] / 2;
+        } else {
+            const frequencies = new Map();
+            observed.forEach(value => frequencies.set(value, (frequencies.get(value) || 0) + 1));
+            let best = 0;
+            frequencies.forEach((count, value) => {
+                if (count > best) { best = count; replacement = value; }
+            });
         }
-
-
-        Papa.parse(file, {
-
-            header: true,
-
-            skipEmptyLines: true,
-
-            complete: function (result) {
-
-                currentHeaders =
-                    result.meta.fields || [];
-
-                currentRows =
-                    result.data;
-
-
-                if (
-                    currentHeaders.length === 0 ||
-                    currentRows.length === 0
-                ) {
-
-                    alert(
-                        "Không đọc được dữ liệu trong file CSV."
-                    );
-
-                    return;
-                }
-
-
-                updateOverview();
-
-                showTable();
-
-                analyzeColumns();
-
-                createColumnOptions();
-
-                createSuggestions();
-
-            }
-
+        rows.forEach(row => {
+            if (isMissing(row[i])) { row[i] = replacement; report.missing++; }
+            else if (numeric) row[i] = toNumber(row[i]);
         });
+    });
+    // Imputation can make previously different rows identical.
+    seen.clear();
+    rows = rows.filter(row => {
+        const key = JSON.stringify(row);
+        if (seen.has(key)) { report.duplicates++; return false; }
+        seen.add(key);
+        return true;
+    });
+    return { headers: keptHeaders, rows: rows.map(values => Object.fromEntries(keptHeaders.map((header, i) => [header, values[i]]))), report };
+}
 
-    }
-);
+csvFile.addEventListener("change", event => {
+    const file = event.target.files[0];
+    if (!file) return;
+    const version = ++uploadVersion;
+    document.getElementById("cleaningStatus").textContent = "Đang đọc và làm sạch CSV…";
+    Papa.parse(file, {
+        header: false,
+        skipEmptyLines: false,
+        complete(result) {
+            if (version !== uploadVersion) return;
+            if (result.errors.length || result.data.length < 2 || result.data.slice(1).some(row => row.length > result.data[0].length)) {
+                document.getElementById("cleaningStatus").textContent = "CSV không hợp lệ hoặc không có dữ liệu. Dữ liệu trước đó vẫn được giữ lại.";
+                return;
+            }
+            const cleaned = cleanDataset(result.data[0], result.data.slice(1));
+            currentHeaders = cleaned.headers;
+            currentRows = cleaned.rows;
+            cleaningReport = cleaned.report;
+            uploadedName = file.name.replace(/\.csv$/i, "");
+            destroyChart();
+            categoryColorMap.clear();
+            document.getElementById("categoryColorPanel").hidden = true;
+            chartInsight.textContent = "Chưa có biểu đồ.";
+            columnInfo = Object.create(null);
+            updateOverview();
+            showTable();
+            analyzeColumns();
+            createColumnOptions();
+            document.getElementById("emptyColumnCount").textContent = cleaningReport.emptyColumns;
+            document.getElementById("cleaningStatus").textContent = `Đã làm sạch ${currentRows.length} dòng; xóa ${cleaningReport.emptyRows} hàng rỗng. Median dùng cho cột số; mode dùng cho cột text (nếu hòa, chọn giá trị xuất hiện trước).`;
+            document.getElementById("downloadCleanCsvBtn").disabled = !currentRows.length;
+            createSuggestions();
+        },
+        error() {
+            if (version === uploadVersion) document.getElementById("cleaningStatus").textContent = "Không đọc được file CSV.";
+        }
+    });
+});
 
+document.getElementById("downloadCleanCsvBtn").addEventListener("click", () => {
+    if (!currentRows.length) return;
+    const csv = Papa.unparse({ fields: currentHeaders, data: currentRows.map(row => currentHeaders.map(header => row[header])) });
+    const url = URL.createObjectURL(new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8;" }));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${uploadedName}_clean.csv`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+
+function updateCategoryColors(labels = []) {
+    const panel = document.getElementById("categoryColorPanel");
+    panel.hidden = !["bar", "pie"].includes(chartTypeSelect.value) || !labels.length;
+    const container = document.getElementById("categoryColors");
+    container.replaceChildren();
+    if (panel.hidden) return;
+    labels.forEach(category => {
+        const key = JSON.stringify([xColumnSelect.value, category]);
+        const label = document.createElement("label");
+        const input = document.createElement("input");
+        input.type = "color";
+        input.value = categoryColorMap.get(key) || primaryColor.value;
+        input.setAttribute("aria-label", `Màu cho ${category}`);
+        input.addEventListener("input", () => {
+            categoryColorMap.set(key, input.value);
+            if (dataChart) {
+                dataChart.data.datasets[0].backgroundColor = dataChart.data.labels.map(value => categoryColorMap.get(JSON.stringify([xColumnSelect.value, value])) || primaryColor.value);
+                dataChart.update();
+            }
+        });
+        label.append(input, document.createTextNode(category));
+        container.appendChild(label);
+    });
+}
+
+primaryColor.addEventListener("input", () => { if (dataChart) drawChart(); });
+[xColumnSelect, yColumnSelect, aggregationSelect, chartTypeSelect].forEach(select => select.addEventListener("change", () => {
+    document.getElementById("categoryColorPanel").hidden = true;
+    aggregationSelect.disabled = chartTypeSelect.value === "scatter";
+    if (xColumnSelect.value && yColumnSelect.value) drawChart();
+}));
 
 // ==========================================
 // TỔNG QUAN DỮ LIỆU
@@ -162,57 +257,9 @@ function updateOverview() {
         currentHeaders.length;
 
 
-    let missing = 0;
-
-
-    currentRows.forEach(row => {
-
-        currentHeaders.forEach(header => {
-
-            if (isMissing(row[header])) {
-                missing++;
-            }
-
-        });
-
-    });
-
-
-    document.getElementById(
-        "missingCount"
-    ).textContent =
-        missing;
-
-
-    // ==============================
-    // Duplicate
-    // ==============================
-
-    const rowStrings =
-        currentRows.map(row => {
-
-            return JSON.stringify(
-                currentHeaders.map(
-                    header => row[header]
-                )
-            );
-
-        });
-
-
-    const uniqueRows =
-        new Set(rowStrings);
-
-
-    document.getElementById(
-        "duplicateCount"
-    ).textContent =
-
-        currentRows.length -
-        uniqueRows.size;
-
+    document.getElementById("missingCount").textContent = cleaningReport.missing;
+    document.getElementById("duplicateCount").textContent = cleaningReport.duplicates;
 }
-
 
 // ==========================================
 // HIỂN THỊ BẢNG
@@ -302,7 +349,7 @@ function showTable() {
 
 function analyzeColumns() {
 
-    columnInfo = {};
+    columnInfo = Object.create(null);
 
 
     currentHeaders.forEach(header => {
@@ -384,7 +431,7 @@ function analyzeColumns() {
             "text";
 
 
-        if (numericRatio >= 0.9) {
+        if (numericRatio === 1) {
 
             type =
                 "numeric";
@@ -802,6 +849,7 @@ function applySuggestion(
         suggestion.chart;
 
 
+    aggregationSelect.disabled = chartTypeSelect.value === "scatter";
     drawChart();
 
 }
@@ -883,7 +931,11 @@ function drawGroupedChart(
     chartType
 ) {
 
-    const groups = {};
+    if (aggregation !== "count" && columnInfo[yColumn].type !== "numeric") {
+        alert("Mean, sum, min và max cần trục Y là cột số. Với cột text, hãy chọn count.");
+        return;
+    }
+    const groups = Object.create(null);
 
 
     currentRows.forEach(row => {
@@ -1045,16 +1097,13 @@ function drawGroupedChart(
             .getContext("2d");
 
 
-    const colors =
-        labels.map(
-            (_, index) =>
-
-                `hsl(${(
-                    index * 55
-                ) % 360}, 70%, 55%)`
-
-        );
-
+    if (chartType === "pie" && values.some(value => value < 0)) {
+        chartInsight.textContent = "Pie cần giá trị không âm. Hãy chọn bar hoặc line.";
+        updateCategoryColors();
+        return;
+    }
+    const colors = labels.map(category => categoryColorMap.get(JSON.stringify([xColumn, category])) || primaryColor.value);
+    updateCategoryColors(labels);
 
     dataChart =
         new Chart(ctx, {
@@ -1076,14 +1125,12 @@ function drawGroupedChart(
                         values,
 
                     backgroundColor:
-                        chartType === "pie"
+                        ["bar", "pie"].includes(chartType)
                             ? colors
-                            : "#2563eb",
+                            : primaryColor.value,
 
                     borderColor:
-                        chartType === "line"
-                            ? "#38bdf8"
-                            : "#38bdf8",
+                        primaryColor.value,
 
                     borderWidth: 2,
 
@@ -1193,6 +1240,7 @@ function drawScatterChart(
     }
 
 
+    updateCategoryColors();
     const points = [];
 
 
@@ -1252,7 +1300,7 @@ function drawScatterChart(
                         points,
 
                     backgroundColor:
-                        "#38bdf8"
+                        primaryColor.value
 
                 }]
 

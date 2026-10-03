@@ -664,3 +664,56 @@ footer {
 .project-link:hover {
     background: #3b82f6;
 }
+
+/* Data Analyzer cleaning and color controls */
+.analyzer-page #downloadCleanCsvBtn {
+    margin-top: 18px;
+    padding: 11px 20px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #fff;
+    cursor: pointer;
+}
+.analyzer-page button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.analyzer-page input[type="color"] {
+    width: 48px;
+    height: 40px;
+    padding: 3px;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    background: #0f172a;
+    cursor: pointer;
+}
+.category-color-panel {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 25px;
+}
+.category-colors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    max-height: 240px;
+    overflow-y: auto;
+    margin-top: 12px;
+}
+.category-colors label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-wrap: anywhere;
+}
+#cleaningStatus {
+    color: #cbd5e1;
+    margin-bottom: 10px;
+}
+.analyzer-page :is(button, select, input):focus-visible {
+    outline: 2px solid #38bdf8;
+    outline-offset: 3px;
+}

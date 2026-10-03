@@ -79,7 +79,7 @@
 
                 <div class="stat-card">
                     <span id="rowCount">0</span>
-                    <p>Số dòng</p>
+                    <p>Số dòng sau làm sạch</p>
                 </div>
 
                 <div class="stat-card">
@@ -89,18 +89,26 @@
 
                 <div class="stat-card">
                     <span id="missingCount">0</span>
-                    <p>Giá trị thiếu</p>
+                    <p>Giá trị thiếu đã xử lý</p>
                 </div>
 
                 <div class="stat-card">
                     <span id="duplicateCount">0</span>
-                    <p>Dòng trùng lặp</p>
+                    <p>Dòng trùng đã xóa</p>
                 </div>
 
             </div>
 
         </section>
 
+
+        <section class="analyzer-section" aria-label="Báo cáo làm sạch">
+            <h2>Báo cáo làm sạch</h2>
+            <p id="cleaningStatus" role="status" aria-live="polite">Chưa có dữ liệu.</p>
+            <p>Số cột rỗng đã xóa: <strong id="emptyColumnCount">0</strong></p>
+            <p>Tên cột được chuẩn hóa thành chữ thường, phân cách bằng dấu gạch dưới.</p>
+            <button id="downloadCleanCsvBtn" disabled>Tải file CSV sạch</button>
+        </section>
 
         <!-- Xem trước dữ liệu -->
         <section class="analyzer-section">
@@ -191,12 +199,22 @@
         </div>
 
 
+        <div class="control-group">
+            <label for="primaryColor">Màu chính</label>
+            <input type="color" id="primaryColor" value="#38bdf8">
+        </div>
+
         <button id="drawChartBtn">
             Vẽ biểu đồ
         </button>
 
     </div>
 
+
+    <div id="categoryColorPanel" class="category-color-panel" hidden>
+        <h3>Màu từng category</h3>
+        <div id="categoryColors" class="category-colors"></div>
+    </div>
 
     <div id="chartInsight" class="chart-insight">
         Chưa có biểu đồ.
