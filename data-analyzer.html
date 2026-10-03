@@ -20,6 +20,7 @@
                 <li><a href="index.html">Trang chủ</a></li>
                 <li><a href="#upload">Upload CSV</a></li>
                 <li><a href="#overview">Tổng quan</a></li>
+                <li><a href="#data-profile">Data Profile</a></li>
                 <li><a href="#visualization">Biểu đồ</a></li>
             </ul>
         </nav>
@@ -133,6 +134,40 @@
 
         </section>
 
+
+        <section id="data-profile" class="analyzer-section">
+            <h2>📋 Data Profile</h2>
+            <p class="profile-note">Missing ban đầu được đếm trên toàn bộ hàng CSV gốc (trước khi xóa hàng rỗng và duplicate). Các thống kê khác và phân phối dùng dữ liệu sạch. Tên cột dùng tên đã chuẩn hóa.</p>
+            <div class="table-container" tabindex="0" aria-label="Bảng thống kê từng cột, có thể cuộn ngang">
+                <table id="profileTable">
+                    <caption>Thống kê dữ liệu sạch · Missing từ dữ liệu raw · Std là độ lệch chuẩn tổng thể</caption>
+                    <thead><tr>
+                        <th scope="col">Tên cột</th><th scope="col">Kiểu dữ liệu</th>
+                        <th scope="col">Số giá trị hợp lệ</th><th scope="col">Missing (ban đầu)</th>
+                        <th scope="col">Số giá trị duy nhất</th><th scope="col">Mean</th>
+                        <th scope="col">Median</th><th scope="col">Std</th>
+                        <th scope="col">Min</th><th scope="col">Max</th>
+                        <th scope="col">Mode</th><th scope="col">Số lần xuất hiện của Mode</th>
+                    </tr></thead>
+                    <tbody><tr><td colspan="12">Upload CSV để xem Data Profile.</td></tr></tbody>
+                </table>
+            </div>
+            <div class="profile-card">
+                <h3>Missing Values by Column</h3>
+                <p class="profile-note">Số missing ban đầu, kể cả cột rỗng đã bị xóa khi làm sạch.</p>
+                <div class="profile-chart"><canvas id="missingValuesChart" role="img" aria-label="Số missing ban đầu theo cột"></canvas></div>
+            </div>
+            <div class="profile-card">
+                <h3>Phân phối cột</h3>
+                <div class="control-group">
+                    <label for="distributionColumnSelect">Cột dữ liệu sạch</label>
+                    <select id="distributionColumnSelect" disabled><option value="">-- Chọn cột --</option></select>
+                </div>
+                <p id="distributionStatus" class="profile-note">Chưa có dữ liệu sạch.</p>
+                <div class="profile-chart"><canvas id="distributionChart" role="img" aria-label="Phân phối cột từ dữ liệu sạch"></canvas></div>
+                <p id="profileInsight" class="chart-insight" role="status" aria-live="polite">Upload CSV để xem insight.</p>
+            </div>
+        </section>
 
         <!-- Trực quan hóa -->
         <section id="visualization" class="analyzer-section">

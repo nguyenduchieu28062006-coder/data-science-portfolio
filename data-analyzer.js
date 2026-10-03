@@ -91,6 +91,32 @@ let uploadedName = "dataset";
 let uploadVersion = 0;
 const primaryColor = document.getElementById("primaryColor");
 const categoryColorMap = new Map();
+let rawColumnProfile = [];
+let cleanedColumnProfile = new Map();
+let missingValuesChart = null;
+let distributionChart = null;
+const distributionColumnSelect = document.getElementById("distributionColumnSelect");
+
+function medianOf(values) {
+    const sorted = [...values].sort((a, b) => a - b);
+    const middle = Math.floor(sorted.length / 2);
+    return sorted.length % 2 ? sorted[middle] : sorted[middle - 1] / 2 + sorted[middle] / 2;
+}
+
+function countValues(values) {
+    const counts = new Map();
+    values.forEach(value => counts.set(value, (counts.get(value) || 0) + 1));
+    return counts;
+}
+
+function modeOf(values) {
+    let value = "Unknown";
+    let count = 0;
+    countValues(values).forEach((frequency, category) => {
+        if (frequency > count) { value = category; count = frequency; }
+    });
+    return { value, count };
+}
 
 function cleanDataset(rawHeaders, rawRows) {
     const used = new Set();
@@ -105,6 +131,10 @@ function cleanDataset(rawHeaders, rawRows) {
         return header;
     });
     const report = { missing: 0, duplicates: 0, emptyColumns: 0, emptyRows: 0 };
+    const rawProfile = headers.map((header, i) => ({
+        header,
+        missing: rawRows.reduce((count, row) => count + Number(isMissing(row[i])), 0)
+    }));
     let rows = rawRows.map(values => headers.map((_, i) => {
         const value = String(values[i] ?? "").trim();
         return isMissing(value) ? "" : value;
@@ -128,16 +158,9 @@ function cleanDataset(rawHeaders, rawRows) {
         const numeric = observed.length > 0 && observed.every(value => Number.isFinite(toNumber(value)));
         let replacement = "Unknown";
         if (numeric) {
-            const sorted = observed.map(toNumber).sort((a, b) => a - b);
-            const middle = Math.floor(sorted.length / 2);
-            replacement = sorted.length % 2 ? sorted[middle] : sorted[middle - 1] / 2 + sorted[middle] / 2;
+            replacement = medianOf(observed.map(toNumber));
         } else {
-            const frequencies = new Map();
-            observed.forEach(value => frequencies.set(value, (frequencies.get(value) || 0) + 1));
-            let best = 0;
-            frequencies.forEach((count, value) => {
-                if (count > best) { best = count; replacement = value; }
-            });
+            replacement = modeOf(observed).value;
         }
         rows.forEach(row => {
             if (isMissing(row[i])) { row[i] = replacement; report.missing++; }
@@ -152,7 +175,7 @@ function cleanDataset(rawHeaders, rawRows) {
         seen.add(key);
         return true;
     });
-    return { headers: keptHeaders, rows: rows.map(values => Object.fromEntries(keptHeaders.map((header, i) => [header, values[i]]))), report };
+    return { headers: keptHeaders, rows: rows.map(values => Object.fromEntries(keptHeaders.map((header, i) => [header, values[i]]))), report, rawProfile };
 }
 
 csvFile.addEventListener("change", event => {
@@ -173,6 +196,7 @@ csvFile.addEventListener("change", event => {
             currentHeaders = cleaned.headers;
             currentRows = cleaned.rows;
             cleaningReport = cleaned.report;
+            rawColumnProfile = cleaned.rawProfile;
             uploadedName = file.name.replace(/\.csv$/i, "");
             destroyChart();
             categoryColorMap.clear();
@@ -182,6 +206,7 @@ csvFile.addEventListener("change", event => {
             updateOverview();
             showTable();
             analyzeColumns();
+            renderDataProfile();
             createColumnOptions();
             document.getElementById("emptyColumnCount").textContent = cleaningReport.emptyColumns;
             document.getElementById("cleaningStatus").textContent = `Đã làm sạch ${currentRows.length} dòng; xóa ${cleaningReport.emptyRows} hàng rỗng. Median dùng cho cột số; mode dùng cho cột text (nếu hòa, chọn giá trị xuất hiện trước).`;
@@ -238,6 +263,155 @@ primaryColor.addEventListener("input", () => { if (dataChart) drawChart(); });
     aggregationSelect.disabled = chartTypeSelect.value === "scatter";
     if (xColumnSelect.value && yColumnSelect.value) drawChart();
 }));
+
+// ==========================================
+// DATA PROFILE: raw missing counts and cleaned-data statistics
+// ==========================================
+
+function formatProfileNumber(value) {
+    if (!Number.isFinite(value)) return "—";
+    return Number(value.toPrecision(6)).toLocaleString("vi-VN", { maximumFractionDigits: 6 });
+}
+
+function buildColumnProfile(header) {
+    const type = columnInfo[header].type;
+    const values = currentRows.map(row => row[header]).filter(value => !isMissing(value));
+    const profile = { type, values, valid: values.length, unique: new Set(values).size,
+        cleanMissing: currentRows.length - values.length };
+    if (type === "numeric" && values.length) {
+        const numbers = values.map(toNumber).filter(Number.isFinite);
+        // Welford's algorithm avoids subtracting two large squared sums.
+        let mean = 0, squaredDeviations = 0;
+        numbers.forEach((value, index) => {
+            const delta = value - mean;
+            mean += delta / (index + 1);
+            squaredDeviations += delta * (value - mean);
+        });
+        Object.assign(profile, {
+            mean, median: medianOf(numbers), std: Math.sqrt(Math.max(0, squaredDeviations / numbers.length)),
+            min: numbers.reduce((a, b) => Math.min(a, b), Infinity),
+            max: numbers.reduce((a, b) => Math.max(a, b), -Infinity)
+        });
+    } else if (type === "category" || type === "text") {
+        profile.mode = modeOf(values);
+    }
+    return profile;
+}
+
+function createProfileChart(canvasId, type, labels, values, label, xTitle) {
+    return new Chart(document.getElementById(canvasId).getContext("2d"), {
+        type,
+        data: { labels, datasets: [{ label, data: values, backgroundColor: "#38bdf8",
+            borderColor: "#38bdf8", borderWidth: 1, tension: 0.2 }] },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { labels: { color: "#e5e7eb" } } },
+            scales: {
+                x: { title: { display: true, text: xTitle, color: "#cbd5e1" },
+                    ticks: { color: "#cbd5e1", maxRotation: 60 }, grid: { color: "#1e293b" } },
+                y: { beginAtZero: true, title: { display: true, text: "Số lượng", color: "#cbd5e1" },
+                    ticks: { color: "#cbd5e1", precision: 0 }, grid: { color: "#1e293b" } }
+            }
+        }
+    });
+}
+
+function renderDataProfile() {
+    cleanedColumnProfile = new Map(currentHeaders.map(header => [header, buildColumnProfile(header)]));
+    const tbody = document.getElementById("profileTable").querySelector("tbody");
+    tbody.replaceChildren();
+    rawColumnProfile.forEach(raw => {
+        const profile = cleanedColumnProfile.get(raw.header);
+        const numeric = profile?.type === "numeric";
+        const cells = [raw.header, profile?.type || "Đã xóa (cột rỗng)", profile?.valid || 0,
+            raw.missing, profile?.unique || 0,
+            ...["mean", "median", "std", "min", "max"].map(key => numeric ? formatProfileNumber(profile[key]) : "—"),
+            profile?.mode?.value ?? "—", profile?.mode?.count ?? "—"];
+        const tr = document.createElement("tr");
+        cells.forEach(value => {
+            const td = document.createElement("td");
+            td.textContent = value;
+            tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+    });
+    if (missingValuesChart) missingValuesChart.destroy();
+    missingValuesChart = rawColumnProfile.length ? createProfileChart("missingValuesChart", "bar",
+        rawColumnProfile.map(column => column.header), rawColumnProfile.map(column => column.missing),
+        "Missing ban đầu (raw)", "Tên cột") : null;
+    distributionColumnSelect.replaceChildren();
+    currentHeaders.forEach(header => {
+        const option = document.createElement("option");
+        option.value = header;
+        option.textContent = `${header} (${columnInfo[header].type})`;
+        distributionColumnSelect.appendChild(option);
+    });
+    distributionColumnSelect.disabled = !currentHeaders.length;
+    distributionColumnSelect.value = currentHeaders[0] || "";
+    renderColumnDistribution();
+}
+
+function buildHistogram(values) {
+    const min = values.reduce((a, b) => Math.min(a, b), Infinity);
+    const max = values.reduce((a, b) => Math.max(a, b), -Infinity);
+    if (min === max) return { labels: [formatProfileNumber(min)], counts: [values.length] };
+    const binCount = Math.min(30, Math.max(1, Math.ceil(Math.sqrt(values.length))));
+    const counts = Array(binCount).fill(0);
+    const width = (max - min) / binCount;
+    values.forEach(value => counts[Math.min(binCount - 1, Math.floor((value - min) / width))]++);
+    const labels = counts.map((_, i) => `${formatProfileNumber(min + i * width)} – ${formatProfileNumber(i === binCount - 1 ? max : min + (i + 1) * width)}${i === binCount - 1 ? " (gồm max)" : ""}`);
+    return { labels, counts };
+}
+
+function buildDateDistribution(values) {
+    const times = values.map(value => Date.parse(String(value))).filter(Number.isFinite);
+    if (!times.length) return { labels: [], counts: [], unit: "ngày", skipped: values.length };
+    const min = times.reduce((a, b) => Math.min(a, b), Infinity);
+    const max = times.reduce((a, b) => Math.max(a, b), -Infinity);
+    const days = (max - min) / 86400000;
+    const unit = days > 365 * 3 ? "năm" : days >= 90 ? "tháng" : "ngày";
+    const length = unit === "năm" ? 4 : unit === "tháng" ? 7 : 10;
+    const counts = countValues(times.map(time => new Date(time).toISOString().slice(0, length)));
+    const labels = [...counts.keys()].sort();
+    return { labels, counts: labels.map(label => counts.get(label)), unit, skipped: values.length - times.length };
+}
+
+function renderColumnDistribution() {
+    if (distributionChart) { distributionChart.destroy(); distributionChart = null; }
+    const header = distributionColumnSelect.value;
+    const profile = cleanedColumnProfile.get(header);
+    const status = document.getElementById("distributionStatus");
+    const insight = document.getElementById("profileInsight");
+    if (!profile || !profile.valid) {
+        status.textContent = "Chưa có dữ liệu sạch để phân tích.";
+        insight.textContent = "Không có cột hợp lệ để tạo phân phối.";
+        return;
+    }
+    let labels, counts, type = "bar", description, summary;
+    if (profile.type === "numeric") {
+        ({ labels, counts } = buildHistogram(profile.values.map(toNumber)));
+        description = "Histogram dữ liệu sạch: các khoảng có độ rộng bằng nhau; biên phải chỉ được tính ở khoảng cuối.";
+        summary = `${header} có trung bình ${formatProfileNumber(profile.mean)} và median ${formatProfileNumber(profile.median)}.`;
+    } else if (profile.type === "date") {
+        const distribution = buildDateDistribution(profile.values);
+        ({ labels, counts } = distribution);
+        type = "line";
+        description = `Dữ liệu sạch nhóm theo ${distribution.unit} (UTC); chỉ hiển thị khoảng thời gian có dữ liệu.${distribution.skipped ? ` Bỏ qua ${distribution.skipped} giá trị không đọc được thành ngày.` : ""}`;
+        summary = `${header} có ${profile.unique} giá trị khác nhau, trong ${labels.length} nhóm ${distribution.unit}.`;
+    } else {
+        const frequencies = countValues(profile.values);
+        labels = [...frequencies.keys()];
+        counts = [...frequencies.values()];
+        description = "Số lượng từng category từ dữ liệu sạch.";
+        summary = `${header} có ${profile.unique} giá trị khác nhau; ${profile.mode.value} xuất hiện nhiều nhất (${profile.mode.count} lần).`;
+    }
+    status.textContent = description;
+    const missingSummary = profile.cleanMissing ? `${header} còn ${profile.cleanMissing} missing sau làm sạch.` : `${header} không còn missing sau làm sạch.`;
+    insight.textContent = `${summary} ${missingSummary}`;
+    distributionChart = createProfileChart("distributionChart", type, labels, counts, "Số lượng (dữ liệu sạch)", header);
+}
+
+distributionColumnSelect.addEventListener("change", renderColumnDistribution);
 
 // ==========================================
 // TỔNG QUAN DỮ LIỆU
@@ -374,7 +548,7 @@ function analyzeColumns() {
         const numericCount =
             values.filter(
                 value =>
-                    !isNaN(
+                    Number.isFinite(
                         toNumber(value)
                     )
             ).length;

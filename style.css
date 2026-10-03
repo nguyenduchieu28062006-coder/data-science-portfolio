@@ -717,3 +717,59 @@ footer {
     outline: 2px solid #38bdf8;
     outline-offset: 3px;
 }
+
+/* Data Profile */
+#data-profile .profile-note {
+    color: #94a3b8;
+    margin-bottom: 18px;
+}
+#profileTable {
+    width: 100%;
+    min-width: 1050px;
+    border-collapse: collapse;
+}
+#profileTable caption {
+    text-align: left;
+    padding: 14px 15px;
+    color: #94a3b8;
+}
+#profileTable th,
+#profileTable td {
+    padding: 13px 15px;
+    border-bottom: 1px solid #1e293b;
+    text-align: left;
+    overflow-wrap: anywhere;
+    max-width: 240px;
+}
+#profileTable th {
+    background: #0f172a;
+    color: #38bdf8;
+}
+.profile-card {
+    min-width: 0;
+    padding: 25px;
+    margin-top: 25px;
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 14px;
+}
+.profile-card h3 {
+    margin-bottom: 12px;
+}
+.profile-card .control-group {
+    max-width: 360px;
+    margin-bottom: 16px;
+}
+.profile-chart {
+    position: relative;
+    height: 320px;
+    width: 100%;
+}
+.profile-card .chart-insight {
+    margin: 18px 0 0;
+}
+@media (max-width: 600px) {
+    .profile-card { padding: 16px; }
+    .profile-chart { height: 280px; }
+    .profile-card select { min-width: 0; width: 100%; }
+}
