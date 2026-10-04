@@ -10,9 +10,10 @@
     <link rel="stylesheet" href="style.css">
     <script src="supabase-config.js" defer></script>
     <script src="auth.js" defer></script>
+    <link rel="stylesheet" href="theme.css">
 </head>
 
-<body>
+<body class="home-body">
 
     <!-- Thanh điều hướng -->
     <header>
@@ -38,40 +39,66 @@
     <main>
 
         <section id="home">
-            <h1>Data Science Portfolio</h1>
-
-            <h2>Biến dữ liệu thành thông tin hữu ích</h2>
-
-            <p>
-                Nền tảng Data Science tích hợp phân tích dữ liệu,
-                trực quan hóa và Machine Learning.
-            </p>
-
-            <a href="#projects">Khám phá dự án</a>
+            <div class="hero-copy">
+                <p class="hero-eyebrow">EXPLORE · BUILD · UNDERSTAND</p>
+                <h1>Data Science <span>Portfolio</span></h1>
+                <p>Khám phá dữ liệu, xây dựng mô hình và biến dữ liệu thành insight.</p>
+                <div class="hero-actions">
+                    <a href="#projects">Khám phá dự án <span aria-hidden="true">↗</span></a>
+                    <a href="#about" class="hero-secondary">Giới thiệu</a>
+                </div>
+                <p class="hero-footnote">Data Analysis · Visualization · Machine Learning</p>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+                <div class="visual-topline">
+                    <strong>DataScience / Workspace</strong>
+                    <span class="visual-dots"><i></i><i></i><i></i></span>
+                </div>
+                <div class="visual-caption">QUY TRÌNH MINH HỌA</div>
+                <div class="visual-title">Từ dữ liệu đến insight.</div>
+                <div class="visual-chart">
+                    <i style="--bar-height: 30%"></i><i style="--bar-height: 47%"></i>
+                    <i style="--bar-height: 40%"></i><i style="--bar-height: 63%"></i>
+                    <i style="--bar-height: 55%"></i><i style="--bar-height: 78%"></i>
+                    <i style="--bar-height: 68%"></i><i style="--bar-height: 92%"></i>
+                </div>
+                <div class="visual-stages">
+                    <span><b>01</b>Khám phá</span>
+                    <span><b>02</b>Mô hình</span>
+                    <span><b>03</b>Giải thích</span>
+                </div>
+            </div>
         </section>
 
 
         <!-- Các project -->
         <section id="projects">
 
-            <h2>Dự án Machine Learning</h2>
+            <h2>Dự án Data Science</h2>
+            <p class="home-section-note">Khám phá mô hình, kết quả và cách dữ liệu hỗ trợ quyết định.</p>
 
             <div class="project-container">
 
                 <div class="project-card">
-                    <h3>❤️ Health Prediction</h3>
+                    <div class="project-icon" aria-hidden="true">❤️</div>
+                    <span class="project-badge">Hoạt động</span>
+                    <h3>Health Prediction</h3>
                     <p>Khám phá mô hình dự đoán bệnh tim từ dữ liệu UCI Cleveland.</p>
                     <a href="health-prediction.html" class="project-link">Khám phá</a>
                 </div>
 
                 <div class="project-card">
-                    <h3>🏠 House Price Prediction</h3>
-                    <p>Dự đoán giá nhà dựa trên các đặc điểm đầu vào.</p>
-                    <button>Khám phá</button>
+                    <div class="project-icon" aria-hidden="true">🏠</div>
+                    <span class="project-badge preview">BETA · Dữ liệu rao bán</span>
+                    <h3>Ước tính giá bất động sản Việt Nam</h3>
+                    <p>Tham khảo giá rao bán theo khu vực và loại bất động sản từ dữ liệu đã được lọc.</p>
+                    <a href="vietnam-house-price.html" class="project-link">Khám phá</a>
                 </div>
 
                 <div class="project-card">
-                    <h3>👥 Customer Churn</h3>
+                    <div class="project-icon" aria-hidden="true">👥</div>
+                    <span class="project-badge planned">Sắp ra mắt</span>
+                    <h3>Customer Churn Prediction</h3>
                     <p>Dự đoán khả năng khách hàng rời bỏ dịch vụ.</p>
                     <button>Khám phá</button>
                 </div>
@@ -85,11 +112,14 @@
         <section id="tools">
 
             <h2>Data Science Tools</h2>
+            <p class="home-section-note">Công cụ thực hành cho từng bước trong hành trình dữ liệu.</p>
 
             <div class="project-container">
 
                 <div class="project-card">
-                    <h3>📊 Data Analyzer</h3>
+                    <div class="project-icon" aria-hidden="true">📊</div>
+                    <span class="project-badge">Hoạt động</span>
+                    <h3>Data Analyzer</h3>
                     <p>
                         Upload CSV để thống kê, kiểm tra dữ liệu
                         và trực quan hóa bằng biểu đồ.
@@ -100,7 +130,9 @@
                 </div>
 
                 <div class="project-card">
-                    <h3>🤖 ML Model Comparison</h3>
+                    <div class="project-icon" aria-hidden="true">🤖</div>
+                    <span class="project-badge planned">Sắp ra mắt</span>
+                    <h3>ML Model Comparison</h3>
                     <p>
                         Huấn luyện và so sánh nhiều mô hình
                         Machine Learning.
@@ -109,7 +141,9 @@
                 </div>
 
                 <div class="project-card">
-                    <h3>📈 Sales Forecasting</h3>
+                    <div class="project-icon" aria-hidden="true">📈</div>
+                    <span class="project-badge planned">Sắp ra mắt</span>
+                    <h3>Sales Forecasting</h3>
                     <p>
                         Phân tích dữ liệu theo thời gian
                         và dự báo doanh số.
@@ -168,7 +202,7 @@
         <!-- Giới thiệu -->
         <section id="about">
 
-            <h2>About</h2>
+            <h2>Giới thiệu</h2>
 
             <p>
                 Website được xây dựng nhằm thực hành và trình bày

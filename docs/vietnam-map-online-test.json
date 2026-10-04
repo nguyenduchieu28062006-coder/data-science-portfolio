@@ -1,0 +1,31 @@
+{
+  "state": {
+    "tiles": {
+      "loaded": 0,
+      "errors": 15
+    },
+    "geometry": 34,
+    "model": true
+  },
+  "osm_responses": [],
+  "network_failures": [
+    "net::ERR_NAME_NOT_RESOLVED",
+    "net::ERR_NAME_NOT_RESOLVED",
+    "net::ERR_NAME_NOT_RESOLVED",
+    "net::ERR_NAME_NOT_RESOLVED",
+    "net::ERR_NAME_NOT_RESOLVED",
+    "net::ERR_NAME_NOT_RESOLVED",
+    "net::ERR_NAME_NOT_RESOLVED",
+    "net::ERR_NAME_NOT_RESOLVED",
+    "net::ERR_NAME_NOT_RESOLVED",
+    "net::ERR_NAME_NOT_RESOLVED"
+  ],
+  "online_pass": false,
+  "synthetic_tiles": false,
+  "page": {
+    "url": "http://127.0.0.1:57321/vietnam-house-price.html",
+    "state": "complete",
+    "title": "\u01af\u1edbc t\u00ednh gi\u00e1 b\u1ea5t \u0111\u1ed9ng s\u1ea3n Vi\u1ec7t Nam | Data Science Portfolio",
+    "status": "VERIFIED MARKET ESTIMATE BETA \u00b7 th\u1ed1ng k\u00ea gi\u00e1 rao b\u00e1n \u00b7 kh\u00f4ng ph\u1ea3i Machine Learning."
+  }
+}

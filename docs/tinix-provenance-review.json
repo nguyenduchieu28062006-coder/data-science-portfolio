@@ -1,0 +1,182 @@
+{
+  "publisher": "TiniX AI",
+  "license": "CC BY-NC 4.0",
+  "upstream_websites": "unresolved",
+  "collection_method": "unresolved",
+  "upstream_release_permissions": "unresolved",
+  "sources": [
+    {
+      "name": "commits",
+      "url": "https://huggingface.co/api/datasets/tinixai/vietnam-real-estates/commits/main",
+      "status": 200,
+      "final_url": "https://huggingface.co/api/datasets/tinixai/vietnam-real-estates/commits/main",
+      "sha256": "6b12f065ef3431f8da8063ff96e7411c26f1744698feb55a59fea7c89f71c2f5",
+      "commits": [
+        {
+          "id": "ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f",
+          "title": "Properly format YAML and add vietnamese tags",
+          "date": "2026-04-14T10:37:15.000Z"
+        },
+        {
+          "id": "54c062a545a13b5474f9f13966cdc87dd5f5feac",
+          "title": "Fix YAML formatting and add Tiếng Việt tag",
+          "date": "2026-04-14T10:36:54.000Z"
+        },
+        {
+          "id": "8bfe1143d4461d4c54ba1d459f7886f1fb232c4b",
+          "title": "Add vietnamese tag",
+          "date": "2026-04-14T10:34:09.000Z"
+        },
+        {
+          "id": "52f20a087134c8a4026bd96b7d14856c26d89f5d",
+          "title": "Remove id and street_id columns",
+          "date": "2026-04-14T10:26:18.000Z"
+        },
+        {
+          "id": "0fd9984299b302e059435fe0da9110b6228b23b0",
+          "title": "Upload 3.5M records dataset (2025-2026) with refined filtering and statistics",
+          "date": "2026-04-14T10:15:24.000Z"
+        },
+        {
+          "id": "21ce72ea7f8de8ccf426520b7fc35d99180597e3",
+          "title": "dataset: fix schema mismatch by dropping sensitive and index columns to match README metadata",
+          "date": "2026-04-04T08:48:19.000Z"
+        },
+        {
+          "id": "ae14b50fa54b018bc2dbf0c41a16086053686b6e",
+          "title": "Delete shard_0009.parquet with huggingface_hub",
+          "date": "2026-04-04T08:45:37.000Z"
+        },
+        {
+          "id": "1bb1f4f91933bfea39fb0c8a85aa6604b71f661b",
+          "title": "Delete shard_0008.parquet with huggingface_hub",
+          "date": "2026-04-04T08:45:36.000Z"
+        },
+        {
+          "id": "ac3ac71e680181d3fa77a1556e25dbddd928b577",
+          "title": "Delete shard_0007.parquet with huggingface_hub",
+          "date": "2026-04-04T08:45:35.000Z"
+        },
+        {
+          "id": "8d1bb430ff82638dc102a2e859f4bf8ec13ec282",
+          "title": "Delete shard_0006.parquet with huggingface_hub",
+          "date": "2026-04-04T08:45:34.000Z"
+        },
+        {
+          "id": "2afe7735efb069382b2861c6cc87363cad4e0454",
+          "title": "Delete shard_0005.parquet with huggingface_hub",
+          "date": "2026-04-04T08:45:34.000Z"
+        },
+        {
+          "id": "fdb24cc0d817dff4c0a36a3da35d59f1d2d0f479",
+          "title": "dataset: refine to 1,000,000 records after filtering specific types and updating stats",
+          "date": "2026-04-04T08:41:45.000Z"
+        },
+        {
+          "id": "bcfec3d96e30fe14248c421f95f13c9af5202bfe",
+          "title": "docs: update TiniX AI URL to tinix.ai/",
+          "date": "2026-04-04T06:17:01.000Z"
+        },
+        {
+          "id": "f00553e7b8c7019db5339f5007e38fa0ba401de6",
+          "title": "docs: remove extra trailing code block from README",
+          "date": "2026-04-04T06:15:26.000Z"
+        },
+        {
+          "id": "cc820a1a637bf9d5f72d199d564362b0d03d7948",
+          "title": "docs: remove 'About TiniX AI' section from README",
+          "date": "2026-04-04T06:07:10.000Z"
+        },
+        {
+          "id": "423494df7a714af50c577f73a79f9a7ca0f053d2",
+          "title": "dataset/docs: remove 'id' column and fix README metadata formatting",
+          "date": "2026-04-04T06:05:01.000Z"
+        },
+        {
+          "id": "98b63999cb57efabfec98a6c30c97c073a8be360",
+          "title": "dataset: remove system timestamps (created_at/updated_at) as requested",
+          "date": "2026-04-04T06:02:43.000Z"
+        },
+        {
+          "id": "e82e34e48485c18c10672eea5d2ff2b59099797f",
+          "title": "dataset: remove legal_paper column as requested",
+          "date": "2026-04-04T05:41:46.000Z"
+        },
+        {
+          "id": "d66a2f6168cc3c0b5373c3457a8846ab994b9c76",
+          "title": "privacy: remove raw latitude and longitude coordinates from dataset shards",
+          "date": "2026-04-04T05:35:11.000Z"
+        },
+        {
+          "id": "42426fa02b7cdc2db48b14f3701f0a56364abbe4",
+          "title": "docs: remove data processing and limitations sections as requested",
+          "date": "2026-04-04T05:31:18.000Z"
+        },
+        {
+          "id": "640eaf23419f03bec40e495a3591af9d28807c45",
+          "title": "docs: add comprehensive dataset card with schema, use cases, and quickstart",
+          "date": "2026-04-04T05:23:22.000Z"
+        },
+        {
+          "id": "abda92b1f6ef9f3ee201c8923415e3d110d1673e",
+          "title": "Initial upload of Tinix Vietnam Property Market 2025",
+          "date": "2026-04-04T05:12:25.000Z"
+        },
+        {
+          "id": "3b3b04747db1deecc5446ecc514d3b9926fea167",
+          "title": "initial commit",
+          "date": "2026-04-04T05:01:43.000Z"
+        }
+      ]
+    },
+    {
+      "name": "old_readme",
+      "url": "https://huggingface.co/datasets/tinixai/vietnam-real-estates/raw/640eaf2/README.md",
+      "status": 200,
+      "final_url": "https://huggingface.co/datasets/tinixai/vietnam-real-estates/raw/640eaf2/README.md",
+      "sha256": "697d8a6eb92bbc357506e2d8e0ebb52b99c8374d30acaa1c0c5147fc3ba8dc17",
+      "relevant_lines": [
+        "  license: cc-by-nc-4.0",
+        "| **License** | CC BY-NC 4.0 |",
+        "| **Đất** | Land plots / Residential or commercial land |",
+        "| **Shophouse** | Commercial shophouses |",
+        "## ⚙️ Data Processing & Curation",
+        "1. **HTML Stripping** — Loại bỏ toàn bộ HTML tags trong các trường `name` và `description` bằng BeautifulSoup.",
+        "2. **Phone Number Redaction** — Tất cả số điện thoại Việt Nam (đầu số `03x`, `05x`, `07x`, `08x`, `09x`, `+84`) trong tiêu đề và mô tả được thay bằng `[phone_number]` để bảo vệ quyền riêng tư.",
+        "7. **Sensitive Field Removal** — Các cột `source`, `source_id`, `property_type_id`, `province_id`, `district_id`, `ward_id`, `street_id`, `project_id`, `sector_name`, `block_name`, `floor_number`, `unit_name`, `position`, và `images` đã bị loại bỏ.",
+        "## 📜 License & Citation",
+        "This dataset is released under the **Creative Commons Attribution Non-Commercial 4.0 International ([CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/))** license.",
+        "> ❌ Commercial use requires explicit written permission from TiniX AI."
+      ]
+    },
+    {
+      "name": "current_readme",
+      "url": "https://huggingface.co/datasets/tinixai/vietnam-real-estates/raw/ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f/README.md",
+      "status": 200,
+      "final_url": "https://huggingface.co/datasets/tinixai/vietnam-real-estates/raw/ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f/README.md",
+      "sha256": "da447661193ef056a41aecb1a10a03aa777c7d9141e592c8667e91fb0cfd1e60",
+      "relevant_lines": [
+        "license: cc-by-nc-4.0",
+        "| **License** | CC BY-NC 4.0 |",
+        "| **Đất** | Land plots / Residential or commercial land |",
+        "| **Shophouse** | Commercial shophouses |",
+        "## 📜 License & Citation",
+        "This dataset is released under the **Creative Commons Attribution Non-Commercial 4.0 International ([CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/))** license.",
+        "> ❌ Commercial use requires explicit written permission from TiniX AI."
+      ]
+    },
+    {
+      "name": "publisher_profile",
+      "url": "https://huggingface.co/tinixai",
+      "status": 200,
+      "final_url": "https://huggingface.co/tinixai",
+      "sha256": "6e5c730b0c869934a17bf5a38122f016b33dd99f685d5e3d98bfb359c7daf84d"
+    },
+    {
+      "name": "publisher_website",
+      "url": "https://tinix.ai/",
+      "error_type": "HTTPError",
+      "status": "unavailable"
+    }
+  ]
+}

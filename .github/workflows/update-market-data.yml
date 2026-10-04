@@ -1,0 +1,29 @@
+name: Update approved Vietnam market data
+on:
+  schedule:
+    - cron: '0 3 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: approved-market-sync
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      MARKET_SOURCE_APPROVED: ${{ secrets.MARKET_SOURCE_APPROVED }}
+      MARKET_SOURCE_APPROVAL_REFERENCE: ${{ secrets.MARKET_SOURCE_APPROVAL_REFERENCE }}
+      MARKET_SOURCE_NAME: ${{ secrets.MARKET_SOURCE_NAME }}
+      APPROVED_MARKET_FEED_URL: ${{ secrets.APPROVED_MARKET_FEED_URL }}
+      APPROVED_MARKET_FEED_TOKEN: ${{ secrets.APPROVED_MARKET_FEED_TOKEN }}
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Sync only when approved access is configured
+        run: python -B scripts/update-vietnam-market.py

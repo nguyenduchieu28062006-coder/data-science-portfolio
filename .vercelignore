@@ -1,0 +1,7 @@
+.local-deps/
+scripts/
+tests/
+docs/
+supabase/
+data/*.parquet
+__pycache__/

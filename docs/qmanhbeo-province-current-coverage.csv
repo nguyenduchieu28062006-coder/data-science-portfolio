@@ -1,0 +1,35 @@
+﻿province,row_count,percentage,coverage_assessment,original_labels
+Hà Nội,45762,19.3721266922354,Nhiều mẫu thô; chưa chứng minh model hỗ trợ,ha-noi
+Cao Bằng,1,0.0004233234275651283,Chưa đủ mẫu,cao-bang
+Tuyên Quang,62,0.026246052509037957,Chưa đủ mẫu,ha-giang | tuyen-quang
+Điện Biên,1673,0.7082200943164597,Có mẫu; cần kiểm định theo loại và phường,dien-bien
+Lai Châu,10,0.004233234275651283,Chưa đủ mẫu,lai-chau
+Sơn La,78,0.033019227350080005,Chưa đủ mẫu,son-la
+Lào Cai,353,0.1494331699304903,Rất hạn chế,lao-cai | yen-bai
+Thái Nguyên,424,0.1794891332876144,Rất hạn chế,thai-nguyen | bac-kan
+Lạng Sơn,13,0.005503204558346668,Chưa đủ mẫu,lang-son
+Quảng Ninh,2779,1.1764158052034916,Nhiều mẫu thô; chưa chứng minh model hỗ trợ,quang-ninh
+Bắc Ninh,2292,0.9702572959792741,Nhiều mẫu thô; chưa chứng minh model hỗ trợ,bac-ninh | bac-giang
+Phú Thọ,2569,1.0875178854148146,Nhiều mẫu thô; chưa chứng minh model hỗ trợ,phu-tho | vinh-phuc | hoa-binh
+Hải Phòng,4480,1.8964889554917748,Nhiều mẫu thô; chưa chứng minh model hỗ trợ,hai-phong | hai-duong
+Hưng Yên,2300,0.9736438833997951,Nhiều mẫu thô; chưa chứng minh model hỗ trợ,hung-yen | thai-binh
+Ninh Bình,1641,0.6946737446343756,Có mẫu; cần kiểm định theo loại và phường,ninh-binh | ha-nam | nam-dinh
+Thanh Hóa,818,0.346278563748275,Có mẫu; cần kiểm định theo loại và phường,thanh-hoa
+Nghệ An,280,0.11853055971823592,Rất hạn chế,nghe-an
+Hà Tĩnh,106,0.0448722833219036,Rất hạn chế,ha-tinh
+Quảng Trị,423,0.17906580986004927,Rất hạn chế,quang-tri | quang-binh
+Huế,1220,0.5164545816294566,Có mẫu; cần kiểm định theo loại và phường,thua-thien-hue
+Đà Nẵng,11242,4.759001972687172,Nhiều mẫu thô; chưa chứng minh model hỗ trợ,da-nang | quang-nam
+Quảng Ngãi,463,0.1959987469626544,Rất hạn chế,quang-ngai | kon-tum
+Gia Lai,894,0.37845114424322474,Có mẫu; cần kiểm định theo loại và phường,gia-lai | binh-dinh
+Khánh Hòa,8290,3.5093512145149135,Nhiều mẫu thô; chưa chứng minh model hỗ trợ,khanh-hoa | ninh-thuan
+Đắk Lắk,6458,2.733822695215599,Nhiều mẫu thô; chưa chứng minh model hỗ trợ,dak-lak | phu-yen
+Lâm Đồng,9223,3.9043119724331783,Nhiều mẫu thô; chưa chứng minh model hỗ trợ,lam-dong | dak-nong | binh-thuan
+Đồng Nai,15937,6.74650546510545,Nhiều mẫu thô; chưa chứng minh model hỗ trợ,dong-nai | binh-phuoc
+Hồ Chí Minh,97808,41.40441780329007,Nhiều mẫu thô; chưa chứng minh model hỗ trợ,tp-ho-chi-minh | binh-duong | ba-ria-vung-tau
+Tây Ninh,10316,4.367004478761864,Nhiều mẫu thô; chưa chứng minh model hỗ trợ,tay-ninh | long-an
+Đồng Tháp,1573,0.6658877515599468,Có mẫu; cần kiểm định theo loại và phường,dong-thap | tien-giang
+Vĩnh Long,1766,0.7475891730800166,Có mẫu; cần kiểm định theo loại và phường,vinh-long | ben-tre | tra-vinh
+An Giang,2467,1.0443388958031716,Nhiều mẫu thô; chưa chứng minh model hỗ trợ,an-giang | kien-giang
+Cần Thơ,2283,0.9664473851311879,Nhiều mẫu thô; chưa chứng minh model hỗ trợ,can-tho | hau-giang | soc-trang
+Cà Mau,222,0.09397780091945848,Rất hạn chế,ca-mau | bac-lieu

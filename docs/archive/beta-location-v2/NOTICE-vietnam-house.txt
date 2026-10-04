@@ -1,0 +1,25 @@
+Dataset: tinixai/vietnam-real-estates, publisher TiniX AI.
+Source: https://huggingface.co/datasets/tinixai/vietnam-real-estates
+Revision: ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f.
+License: CC BY-NC 4.0 declared by publisher; noncommercial portfolio use.
+License: https://creativecommons.org/licenses/by-nc/4.0/
+Public mode: VERIFIED MARKET ESTIMATE BETA, beta-location-v2, no ML model trained.
+Canonical subset: 290,282 apartment sale records passing rule consistency checks.
+Publisher listing dates retained: 2025-06-01 through 2026-03-30.
+No independent verification of upstream rights, source listings or transactions.
+
+Modifications: sale-title/total-price consistency filtering, duplicates removed,
+current province aliases applied while historical area names retained; apartment
+subset only; median and quantile aggregates exported with three source examples.
+Source IDs are derived hashes; they are not claimed to be original listing IDs.
+ML quality gate failed (194/200, 97%); no ML metrics or predictions are published.
+72 apartments in that sample had no observed intent/total-price errors; this is
+not a separate 200-row gate or proof of full-population accuracy.
+Raw/canonical Parquet is retained locally and excluded from the public bundle.
+Ward/project fields restored by exact existing ID from read-only cached apartments.
+Historical publisher ward labels and project addresses are not independently
+verified current legal locations. Conflicting duplicate projects are withheld.
+Project/ward/province minimum samples: 20/30/80. Invalid locations never fallback.
+P25/P75 are asking-price quantiles, not statistical confidence intervals.
+Prices are asking prices, not completed transaction prices or realtime data.
+Old Andy notice/model/reports are retained in docs/archive/andy-v1 (not public).

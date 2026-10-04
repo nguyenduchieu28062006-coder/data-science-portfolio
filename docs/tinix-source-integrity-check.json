@@ -1,0 +1,66 @@
+{
+  "revision": "ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f",
+  "checked_after_audit": true,
+  "checks": [
+    {
+      "file": "shard_0000.parquet",
+      "bytes": 163719867,
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "file": "shard_0001.parquet",
+      "bytes": 163980651,
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "file": "shard_0002.parquet",
+      "bytes": 162710834,
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "file": "shard_0003.parquet",
+      "bytes": 163953228,
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "file": "shard_0004.parquet",
+      "bytes": 165642122,
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "file": "shard_0005.parquet",
+      "bytes": 169490615,
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "file": "shard_0006.parquet",
+      "bytes": 169608483,
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "file": "shard_0007.parquet",
+      "bytes": 169599455,
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "file": "shard_0008.parquet",
+      "bytes": 171549582,
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "file": "shard_0009.parquet",
+      "bytes": 168990061,
+      "bytes_match": true,
+      "sha256_match": true
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+﻿property_type,row_count,sale_high_confidence,rent_high_confidence,transaction_ambiguous,total_price_evidence,price_per_m2_evidence,target_ambiguous
+Căn hộ chung cư,28387,13416,6,14965,10359,50,17978
+"Kho, nhà xưởng",4884,3216,85,1583,2677,16,2191
+Khách sạn,717,291,0,426,444,0,273
+Nhà riêng,72821,41163,34,31624,44801,12,28008
+Nhà trọ,1719,677,0,1042,1003,0,716
+Văn phòng,400,71,1,328,247,0,153
+Đất,127298,86084,3,41211,75299,88,51911

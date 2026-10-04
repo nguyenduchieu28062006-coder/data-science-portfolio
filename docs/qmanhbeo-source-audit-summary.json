@@ -1,0 +1,1491 @@
+{
+  "dataset": "qmanhbeo/vietnamese-real-estate-listings-may-2024",
+  "version": 3,
+  "file_count": 1,
+  "source_sha256": "5ad0a02a28eafdfe169307816bff908c2007e75860a595506d630569e7a812c1",
+  "review_date": "2026-10-04",
+  "row_count": 236226,
+  "schema_columns": [
+    "Title",
+    "Price",
+    "Area",
+    "Location",
+    "Listing ID",
+    "Last Updated",
+    "Property Type",
+    "Width",
+    "Length",
+    "Bedrooms",
+    "Bathrooms",
+    "Floors",
+    "Position",
+    "Direction",
+    "Alley Width",
+    "Road Type",
+    "Description",
+    "Latitude",
+    "Longitude",
+    "VIP Account",
+    "Avatar",
+    "Agent Role",
+    "Agent Name",
+    "Agent Listing Count",
+    "Province",
+    "Property Type Slug",
+    "Scraped At",
+    "Last Updated Date"
+  ],
+  "parser_dtypes": {
+    "Title": "object",
+    "Price": "object",
+    "Area": "object",
+    "Location": "object",
+    "Listing ID": "object",
+    "Last Updated": "object",
+    "Property Type": "object",
+    "Width": "object",
+    "Length": "object",
+    "Bedrooms": "object",
+    "Bathrooms": "object",
+    "Floors": "object",
+    "Position": "object",
+    "Direction": "object",
+    "Alley Width": "object",
+    "Road Type": "object",
+    "Description": "object",
+    "Latitude": "object",
+    "Longitude": "object",
+    "VIP Account": "object",
+    "Avatar": "object",
+    "Agent Role": "object",
+    "Agent Name": "object",
+    "Agent Listing Count": "object",
+    "Province": "object",
+    "Property Type Slug": "object",
+    "Scraped At": "object",
+    "Last Updated Date": "object"
+  },
+  "seed": 42,
+  "rule_version": "qmanh-source-audit-v5",
+  "rule_sha256": "5d983ef37bdfc6b51a3fa5d83da00bc148f1cdf26eafcd7649f94357ba7bdff0",
+  "raw_values_modified": 0,
+  "raw_rows_removed": 0,
+  "training_performed": false,
+  "model_created": false,
+  "sampling": "random.Random(42), without replacement per audit class; separate all-row and parse-eligible price samples",
+  "missing_counts": {
+    "Title": 0,
+    "Price": 0,
+    "Area": 296,
+    "Location": 0,
+    "Listing ID": 0,
+    "Last Updated": 0,
+    "Property Type": 0,
+    "Width": 62082,
+    "Length": 137461,
+    "Bedrooms": 170337,
+    "Bathrooms": 198062,
+    "Floors": 187512,
+    "Position": 95690,
+    "Direction": 164444,
+    "Alley Width": 165236,
+    "Road Type": 158469,
+    "Description": 23881,
+    "Latitude": 160456,
+    "Longitude": 160456,
+    "VIP Account": 0,
+    "Avatar": 0,
+    "Agent Role": 0,
+    "Agent Name": 100,
+    "Agent Listing Count": 0,
+    "Province": 0,
+    "Property Type Slug": 0,
+    "Scraped At": 0,
+    "Last Updated Date": 0
+  },
+  "blank_counts": {
+    "Title": 0,
+    "Price": 0,
+    "Area": 296,
+    "Location": 0,
+    "Listing ID": 0,
+    "Last Updated": 0,
+    "Property Type": 0,
+    "Width": 62082,
+    "Length": 137461,
+    "Bedrooms": 170337,
+    "Bathrooms": 198062,
+    "Floors": 187512,
+    "Position": 95690,
+    "Direction": 164444,
+    "Alley Width": 165236,
+    "Road Type": 158469,
+    "Description": 23881,
+    "Latitude": 160456,
+    "Longitude": 160456,
+    "VIP Account": 0,
+    "Avatar": 0,
+    "Agent Role": 0,
+    "Agent Name": 100,
+    "Agent Listing Count": 0,
+    "Province": 0,
+    "Property Type Slug": 0,
+    "Scraped At": 0,
+    "Last Updated Date": 0
+  },
+  "all_fields_blank_count": 0,
+  "numeric_columns": {
+    "Price": {
+      "missing_or_unparseable": 0,
+      "unparseable_nonmissing": 0,
+      "nonfinite_nonnull": 0,
+      "nonpositive": 611,
+      "zero": 611,
+      "min": 0.0,
+      "max": 9223372036850.0
+    },
+    "Area": {
+      "missing_or_unparseable": 296,
+      "unparseable_nonmissing": 0,
+      "nonfinite_nonnull": 0,
+      "nonpositive": 4,
+      "zero": 0,
+      "min": -6.0,
+      "max": 1e+18
+    },
+    "Listing ID": {
+      "missing_or_unparseable": 0,
+      "unparseable_nonmissing": 0,
+      "nonfinite_nonnull": 0,
+      "nonpositive": 0,
+      "zero": 0,
+      "min": 10820.0,
+      "max": 1511829.0
+    },
+    "Width": {
+      "missing_or_unparseable": 62082,
+      "unparseable_nonmissing": 0,
+      "nonfinite_nonnull": 0,
+      "nonpositive": 12,
+      "zero": 10,
+      "min": -0.2,
+      "max": 999999.99
+    },
+    "Length": {
+      "missing_or_unparseable": 137461,
+      "unparseable_nonmissing": 0,
+      "nonfinite_nonnull": 0,
+      "nonpositive": 4,
+      "zero": 2,
+      "min": -0.2,
+      "max": 210963269466.0
+    },
+    "Bedrooms": {
+      "missing_or_unparseable": 170337,
+      "unparseable_nonmissing": 0,
+      "nonfinite_nonnull": 0,
+      "nonpositive": 6,
+      "zero": 6,
+      "min": 0.0,
+      "max": 20224.0
+    },
+    "Bathrooms": {
+      "missing_or_unparseable": 198062,
+      "unparseable_nonmissing": 0,
+      "nonfinite_nonnull": 0,
+      "nonpositive": 14,
+      "zero": 14,
+      "min": 0.0,
+      "max": 127.0
+    },
+    "Floors": {
+      "missing_or_unparseable": 187512,
+      "unparseable_nonmissing": 0,
+      "nonfinite_nonnull": 0,
+      "nonpositive": 10,
+      "zero": 0,
+      "min": -11.0,
+      "max": 919168799.0
+    },
+    "Alley Width": {
+      "missing_or_unparseable": 165236,
+      "unparseable_nonmissing": 0,
+      "nonfinite_nonnull": 0,
+      "nonpositive": 2,
+      "zero": 2,
+      "min": 0.0,
+      "max": 357201974105.0
+    },
+    "Latitude": {
+      "missing_or_unparseable": 160456,
+      "unparseable_nonmissing": 0,
+      "nonfinite_nonnull": 0,
+      "nonpositive": 0,
+      "zero": 0,
+      "min": 0.708315,
+      "max": 23364319310.0
+    },
+    "Longitude": {
+      "missing_or_unparseable": 160456,
+      "unparseable_nonmissing": 0,
+      "nonfinite_nonnull": 0,
+      "nonpositive": 0,
+      "zero": 0,
+      "min": 2.17403,
+      "max": 106588291686.0
+    },
+    "Agent Listing Count": {
+      "missing_or_unparseable": 0,
+      "unparseable_nonmissing": 0,
+      "nonfinite_nonnull": 0,
+      "nonpositive": 0,
+      "zero": 0,
+      "min": 1.0,
+      "max": 3974.0
+    }
+  },
+  "duplicates": {
+    "exact_extra_rows": 0,
+    "exact_rows_in_groups": 0,
+    "listing_id_unique_nonmissing": 216714,
+    "listing_id_repeated_extra": 19512,
+    "listing_id_rows_in_repeat_groups": 39024,
+    "same_listing_core_extra": 0
+  },
+  "dates": {
+    "Scraped At": {
+      "min": "2025-09-12T21:32:52",
+      "max": "2025-09-14T00:46:10",
+      "null_or_blank": 0,
+      "invalid_nonmissing": 0,
+      "future_after_review_day": 0,
+      "future_after_version_upload_day": 0,
+      "timezone_in_source": null
+    },
+    "Last Updated Date": {
+      "min": "2025-03-17T00:25:00",
+      "max": "2025-09-14T00:05:00",
+      "null_or_blank": 0,
+      "invalid_nonmissing": 0,
+      "future_after_review_day": 0,
+      "future_after_version_upload_day": 0,
+      "timezone_in_source": null
+    },
+    "updated_after_scraped": 0
+  },
+  "last_updated_relative_text_top20": {
+    "1 tháng trước": 59643,
+    "2 tháng trước": 28640,
+    "1 tuần trước": 13304,
+    "3 tháng trước": 12713,
+    "5 tháng trước": 12154,
+    "4 tháng trước": 11586,
+    "1 ngày trước": 8782,
+    "3 tuần trước": 7853,
+    "12 giờ trước": 7025,
+    "2 tuần trước": 6448,
+    "5 ngày trước": 5837,
+    "4 ngày trước": 5170,
+    "6 ngày trước": 5037,
+    "17 giờ trước": 4376,
+    "2 ngày trước": 3973,
+    "3 ngày trước": 3295,
+    "4 tuần trước": 3280,
+    "13 giờ trước": 3196,
+    "15 giờ trước": 2882,
+    "6 giờ trước": 2642
+  },
+  "coverage": {
+    "original_province_labels": 63,
+    "current_units_with_rows": 34,
+    "unknown_province_rows": 0,
+    "location_unknown_rows": 3048,
+    "province_location_disagreement_rows": 60,
+    "original_counts": [
+      {
+        "province_original": "tp-ho-chi-minh",
+        "row_count": 72442,
+        "percentage": 30.666395739673025,
+        "province_current_for_coverage": "Hồ Chí Minh"
+      },
+      {
+        "province_original": "ha-noi",
+        "row_count": 45762,
+        "percentage": 19.3721266922354,
+        "province_current_for_coverage": "Hà Nội"
+      },
+      {
+        "province_original": "binh-duong",
+        "row_count": 19566,
+        "percentage": 8.2827461837393,
+        "province_current_for_coverage": "Hồ Chí Minh"
+      },
+      {
+        "province_original": "dong-nai",
+        "row_count": 11443,
+        "percentage": 4.844089981627763,
+        "province_current_for_coverage": "Đồng Nai"
+      },
+      {
+        "province_original": "da-nang",
+        "row_count": 9898,
+        "percentage": 4.19005528603964,
+        "province_current_for_coverage": "Đà Nẵng"
+      },
+      {
+        "province_original": "khanh-hoa",
+        "row_count": 7620,
+        "percentage": 3.225724518046278,
+        "province_current_for_coverage": "Khánh Hòa"
+      },
+      {
+        "province_original": "long-an",
+        "row_count": 6991,
+        "percentage": 2.959454082107812,
+        "province_current_for_coverage": "Tây Ninh"
+      },
+      {
+        "province_original": "dak-lak",
+        "row_count": 6101,
+        "percentage": 2.5826962315748476,
+        "province_current_for_coverage": "Đắk Lắk"
+      },
+      {
+        "province_original": "lam-dong",
+        "row_count": 6064,
+        "percentage": 2.567033264754938,
+        "province_current_for_coverage": "Lâm Đồng"
+      },
+      {
+        "province_original": "ba-ria-vung-tau",
+        "row_count": 5800,
+        "percentage": 2.4552758798777443,
+        "province_current_for_coverage": "Hồ Chí Minh"
+      },
+      {
+        "province_original": "binh-phuoc",
+        "row_count": 4494,
+        "percentage": 1.9024154834776865,
+        "province_current_for_coverage": "Đồng Nai"
+      },
+      {
+        "province_original": "hai-phong",
+        "row_count": 4196,
+        "percentage": 1.7762651020632785,
+        "province_current_for_coverage": "Hải Phòng"
+      },
+      {
+        "province_original": "tay-ninh",
+        "row_count": 3325,
+        "percentage": 1.4075503966540517,
+        "province_current_for_coverage": "Tây Ninh"
+      },
+      {
+        "province_original": "quang-ninh",
+        "row_count": 2779,
+        "percentage": 1.1764158052034916,
+        "province_current_for_coverage": "Quảng Ninh"
+      },
+      {
+        "province_original": "binh-thuan",
+        "row_count": 2778,
+        "percentage": 1.1759924817759264,
+        "province_current_for_coverage": "Lâm Đồng"
+      },
+      {
+        "province_original": "hung-yen",
+        "row_count": 2051,
+        "percentage": 0.8682363499360781,
+        "province_current_for_coverage": "Hưng Yên"
+      },
+      {
+        "province_original": "dien-bien",
+        "row_count": 1673,
+        "percentage": 0.7082200943164597,
+        "province_current_for_coverage": "Điện Biên"
+      },
+      {
+        "province_original": "bac-ninh",
+        "row_count": 1570,
+        "percentage": 0.6646177812772515,
+        "province_current_for_coverage": "Bắc Ninh"
+      },
+      {
+        "province_original": "can-tho",
+        "row_count": 1494,
+        "percentage": 0.6324452007823017,
+        "province_current_for_coverage": "Cần Thơ"
+      },
+      {
+        "province_original": "kien-giang",
+        "row_count": 1392,
+        "percentage": 0.5892662111706586,
+        "province_current_for_coverage": "An Giang"
+      },
+      {
+        "province_original": "quang-nam",
+        "row_count": 1344,
+        "percentage": 0.5689466866475325,
+        "province_current_for_coverage": "Đà Nẵng"
+      },
+      {
+        "province_original": "thua-thien-hue",
+        "row_count": 1220,
+        "percentage": 0.5164545816294566,
+        "province_current_for_coverage": "Huế"
+      },
+      {
+        "province_original": "vinh-long",
+        "row_count": 1174,
+        "percentage": 0.49698170396146063,
+        "province_current_for_coverage": "Vĩnh Long"
+      },
+      {
+        "province_original": "hoa-binh",
+        "row_count": 1089,
+        "percentage": 0.46099921261842475,
+        "province_current_for_coverage": "Phú Thọ"
+      },
+      {
+        "province_original": "an-giang",
+        "row_count": 1075,
+        "percentage": 0.45507268463251294,
+        "province_current_for_coverage": "An Giang"
+      },
+      {
+        "province_original": "tien-giang",
+        "row_count": 981,
+        "percentage": 0.41528028244139087,
+        "province_current_for_coverage": "Đồng Tháp"
+      },
+      {
+        "province_original": "phu-tho",
+        "row_count": 871,
+        "percentage": 0.36871470540922674,
+        "province_current_for_coverage": "Phú Thọ"
+      },
+      {
+        "province_original": "thanh-hoa",
+        "row_count": 818,
+        "percentage": 0.346278563748275,
+        "province_current_for_coverage": "Thanh Hóa"
+      },
+      {
+        "province_original": "bac-giang",
+        "row_count": 722,
+        "percentage": 0.30563951470202266,
+        "province_current_for_coverage": "Bắc Ninh"
+      },
+      {
+        "province_original": "soc-trang",
+        "row_count": 697,
+        "percentage": 0.2950564290128944,
+        "province_current_for_coverage": "Cần Thơ"
+      },
+      {
+        "province_original": "ha-nam",
+        "row_count": 685,
+        "percentage": 0.2899765478821129,
+        "province_current_for_coverage": "Ninh Bình"
+      },
+      {
+        "province_original": "ninh-thuan",
+        "row_count": 670,
+        "percentage": 0.283626696468636,
+        "province_current_for_coverage": "Khánh Hòa"
+      },
+      {
+        "province_original": "vinh-phuc",
+        "row_count": 609,
+        "percentage": 0.25780396738716316,
+        "province_current_for_coverage": "Phú Thọ"
+      },
+      {
+        "province_original": "nam-dinh",
+        "row_count": 608,
+        "percentage": 0.25738064395959803,
+        "province_current_for_coverage": "Ninh Bình"
+      },
+      {
+        "province_original": "dong-thap",
+        "row_count": 592,
+        "percentage": 0.25060746911855597,
+        "province_current_for_coverage": "Đồng Tháp"
+      },
+      {
+        "province_original": "gia-lai",
+        "row_count": 558,
+        "percentage": 0.2362144725813416,
+        "province_current_for_coverage": "Gia Lai"
+      },
+      {
+        "province_original": "ben-tre",
+        "row_count": 493,
+        "percentage": 0.20869844978960825,
+        "province_current_for_coverage": "Vĩnh Long"
+      },
+      {
+        "province_original": "thai-nguyen",
+        "row_count": 421,
+        "percentage": 0.17821916300491902,
+        "province_current_for_coverage": "Thái Nguyên"
+      },
+      {
+        "province_original": "quang-ngai",
+        "row_count": 418,
+        "percentage": 0.17694919272222365,
+        "province_current_for_coverage": "Quảng Ngãi"
+      },
+      {
+        "province_original": "dak-nong",
+        "row_count": 381,
+        "percentage": 0.1612862259023139,
+        "province_current_for_coverage": "Lâm Đồng"
+      },
+      {
+        "province_original": "phu-yen",
+        "row_count": 357,
+        "percentage": 0.1511264636407508,
+        "province_current_for_coverage": "Đắk Lắk"
+      },
+      {
+        "province_original": "ninh-binh",
+        "row_count": 348,
+        "percentage": 0.14731655279266465,
+        "province_current_for_coverage": "Ninh Bình"
+      },
+      {
+        "province_original": "binh-dinh",
+        "row_count": 336,
+        "percentage": 0.1422366716618831,
+        "province_current_for_coverage": "Gia Lai"
+      },
+      {
+        "province_original": "hai-duong",
+        "row_count": 284,
+        "percentage": 0.12022385342849644,
+        "province_current_for_coverage": "Hải Phòng"
+      },
+      {
+        "province_original": "nghe-an",
+        "row_count": 280,
+        "percentage": 0.11853055971823592,
+        "province_current_for_coverage": "Nghệ An"
+      },
+      {
+        "province_original": "thai-binh",
+        "row_count": 249,
+        "percentage": 0.10540753346371695,
+        "province_current_for_coverage": "Hưng Yên"
+      },
+      {
+        "province_original": "quang-binh",
+        "row_count": 218,
+        "percentage": 0.09228450720919797,
+        "province_current_for_coverage": "Quảng Trị"
+      },
+      {
+        "province_original": "lao-cai",
+        "row_count": 216,
+        "percentage": 0.09143786035406772,
+        "province_current_for_coverage": "Lào Cai"
+      },
+      {
+        "province_original": "quang-tri",
+        "row_count": 205,
+        "percentage": 0.08678130265085131,
+        "province_current_for_coverage": "Quảng Trị"
+      },
+      {
+        "province_original": "ca-mau",
+        "row_count": 149,
+        "percentage": 0.06307519070720412,
+        "province_current_for_coverage": "Cà Mau"
+      },
+      {
+        "province_original": "yen-bai",
+        "row_count": 137,
+        "percentage": 0.05799530957642258,
+        "province_current_for_coverage": "Lào Cai"
+      },
+      {
+        "province_original": "ha-tinh",
+        "row_count": 106,
+        "percentage": 0.0448722833219036,
+        "province_current_for_coverage": "Hà Tĩnh"
+      },
+      {
+        "province_original": "tra-vinh",
+        "row_count": 99,
+        "percentage": 0.0419090193289477,
+        "province_current_for_coverage": "Vĩnh Long"
+      },
+      {
+        "province_original": "hau-giang",
+        "row_count": 92,
+        "percentage": 0.0389457553359918,
+        "province_current_for_coverage": "Cần Thơ"
+      },
+      {
+        "province_original": "son-la",
+        "row_count": 78,
+        "percentage": 0.033019227350080005,
+        "province_current_for_coverage": "Sơn La"
+      },
+      {
+        "province_original": "bac-lieu",
+        "row_count": 73,
+        "percentage": 0.030902610212254367,
+        "province_current_for_coverage": "Cà Mau"
+      },
+      {
+        "province_original": "kon-tum",
+        "row_count": 45,
+        "percentage": 0.019049554240430772,
+        "province_current_for_coverage": "Quảng Ngãi"
+      },
+      {
+        "province_original": "tuyen-quang",
+        "row_count": 43,
+        "percentage": 0.018202907385300518,
+        "province_current_for_coverage": "Tuyên Quang"
+      },
+      {
+        "province_original": "ha-giang",
+        "row_count": 19,
+        "percentage": 0.008043145123737439,
+        "province_current_for_coverage": "Tuyên Quang"
+      },
+      {
+        "province_original": "lang-son",
+        "row_count": 13,
+        "percentage": 0.005503204558346668,
+        "province_current_for_coverage": "Lạng Sơn"
+      },
+      {
+        "province_original": "lai-chau",
+        "row_count": 10,
+        "percentage": 0.004233234275651283,
+        "province_current_for_coverage": "Lai Châu"
+      },
+      {
+        "province_original": "bac-kan",
+        "row_count": 3,
+        "percentage": 0.001269970282695385,
+        "province_current_for_coverage": "Thái Nguyên"
+      },
+      {
+        "province_original": "cao-bang",
+        "row_count": 1,
+        "percentage": 0.0004233234275651283,
+        "province_current_for_coverage": "Cao Bằng"
+      }
+    ],
+    "current_counts": [
+      {
+        "province": "Hà Nội",
+        "row_count": 45762,
+        "percentage": 19.3721266922354,
+        "coverage_assessment": "Nhiều mẫu thô; chưa chứng minh model hỗ trợ",
+        "original_labels": "ha-noi"
+      },
+      {
+        "province": "Cao Bằng",
+        "row_count": 1,
+        "percentage": 0.0004233234275651283,
+        "coverage_assessment": "Chưa đủ mẫu",
+        "original_labels": "cao-bang"
+      },
+      {
+        "province": "Tuyên Quang",
+        "row_count": 62,
+        "percentage": 0.026246052509037957,
+        "coverage_assessment": "Chưa đủ mẫu",
+        "original_labels": "ha-giang | tuyen-quang"
+      },
+      {
+        "province": "Điện Biên",
+        "row_count": 1673,
+        "percentage": 0.7082200943164597,
+        "coverage_assessment": "Có mẫu; cần kiểm định theo loại và phường",
+        "original_labels": "dien-bien"
+      },
+      {
+        "province": "Lai Châu",
+        "row_count": 10,
+        "percentage": 0.004233234275651283,
+        "coverage_assessment": "Chưa đủ mẫu",
+        "original_labels": "lai-chau"
+      },
+      {
+        "province": "Sơn La",
+        "row_count": 78,
+        "percentage": 0.033019227350080005,
+        "coverage_assessment": "Chưa đủ mẫu",
+        "original_labels": "son-la"
+      },
+      {
+        "province": "Lào Cai",
+        "row_count": 353,
+        "percentage": 0.1494331699304903,
+        "coverage_assessment": "Rất hạn chế",
+        "original_labels": "lao-cai | yen-bai"
+      },
+      {
+        "province": "Thái Nguyên",
+        "row_count": 424,
+        "percentage": 0.1794891332876144,
+        "coverage_assessment": "Rất hạn chế",
+        "original_labels": "thai-nguyen | bac-kan"
+      },
+      {
+        "province": "Lạng Sơn",
+        "row_count": 13,
+        "percentage": 0.005503204558346668,
+        "coverage_assessment": "Chưa đủ mẫu",
+        "original_labels": "lang-son"
+      },
+      {
+        "province": "Quảng Ninh",
+        "row_count": 2779,
+        "percentage": 1.1764158052034916,
+        "coverage_assessment": "Nhiều mẫu thô; chưa chứng minh model hỗ trợ",
+        "original_labels": "quang-ninh"
+      },
+      {
+        "province": "Bắc Ninh",
+        "row_count": 2292,
+        "percentage": 0.9702572959792741,
+        "coverage_assessment": "Nhiều mẫu thô; chưa chứng minh model hỗ trợ",
+        "original_labels": "bac-ninh | bac-giang"
+      },
+      {
+        "province": "Phú Thọ",
+        "row_count": 2569,
+        "percentage": 1.0875178854148146,
+        "coverage_assessment": "Nhiều mẫu thô; chưa chứng minh model hỗ trợ",
+        "original_labels": "phu-tho | vinh-phuc | hoa-binh"
+      },
+      {
+        "province": "Hải Phòng",
+        "row_count": 4480,
+        "percentage": 1.8964889554917748,
+        "coverage_assessment": "Nhiều mẫu thô; chưa chứng minh model hỗ trợ",
+        "original_labels": "hai-phong | hai-duong"
+      },
+      {
+        "province": "Hưng Yên",
+        "row_count": 2300,
+        "percentage": 0.9736438833997951,
+        "coverage_assessment": "Nhiều mẫu thô; chưa chứng minh model hỗ trợ",
+        "original_labels": "hung-yen | thai-binh"
+      },
+      {
+        "province": "Ninh Bình",
+        "row_count": 1641,
+        "percentage": 0.6946737446343756,
+        "coverage_assessment": "Có mẫu; cần kiểm định theo loại và phường",
+        "original_labels": "ninh-binh | ha-nam | nam-dinh"
+      },
+      {
+        "province": "Thanh Hóa",
+        "row_count": 818,
+        "percentage": 0.346278563748275,
+        "coverage_assessment": "Có mẫu; cần kiểm định theo loại và phường",
+        "original_labels": "thanh-hoa"
+      },
+      {
+        "province": "Nghệ An",
+        "row_count": 280,
+        "percentage": 0.11853055971823592,
+        "coverage_assessment": "Rất hạn chế",
+        "original_labels": "nghe-an"
+      },
+      {
+        "province": "Hà Tĩnh",
+        "row_count": 106,
+        "percentage": 0.0448722833219036,
+        "coverage_assessment": "Rất hạn chế",
+        "original_labels": "ha-tinh"
+      },
+      {
+        "province": "Quảng Trị",
+        "row_count": 423,
+        "percentage": 0.17906580986004927,
+        "coverage_assessment": "Rất hạn chế",
+        "original_labels": "quang-tri | quang-binh"
+      },
+      {
+        "province": "Huế",
+        "row_count": 1220,
+        "percentage": 0.5164545816294566,
+        "coverage_assessment": "Có mẫu; cần kiểm định theo loại và phường",
+        "original_labels": "thua-thien-hue"
+      },
+      {
+        "province": "Đà Nẵng",
+        "row_count": 11242,
+        "percentage": 4.759001972687172,
+        "coverage_assessment": "Nhiều mẫu thô; chưa chứng minh model hỗ trợ",
+        "original_labels": "da-nang | quang-nam"
+      },
+      {
+        "province": "Quảng Ngãi",
+        "row_count": 463,
+        "percentage": 0.1959987469626544,
+        "coverage_assessment": "Rất hạn chế",
+        "original_labels": "quang-ngai | kon-tum"
+      },
+      {
+        "province": "Gia Lai",
+        "row_count": 894,
+        "percentage": 0.37845114424322474,
+        "coverage_assessment": "Có mẫu; cần kiểm định theo loại và phường",
+        "original_labels": "gia-lai | binh-dinh"
+      },
+      {
+        "province": "Khánh Hòa",
+        "row_count": 8290,
+        "percentage": 3.5093512145149135,
+        "coverage_assessment": "Nhiều mẫu thô; chưa chứng minh model hỗ trợ",
+        "original_labels": "khanh-hoa | ninh-thuan"
+      },
+      {
+        "province": "Đắk Lắk",
+        "row_count": 6458,
+        "percentage": 2.733822695215599,
+        "coverage_assessment": "Nhiều mẫu thô; chưa chứng minh model hỗ trợ",
+        "original_labels": "dak-lak | phu-yen"
+      },
+      {
+        "province": "Lâm Đồng",
+        "row_count": 9223,
+        "percentage": 3.9043119724331783,
+        "coverage_assessment": "Nhiều mẫu thô; chưa chứng minh model hỗ trợ",
+        "original_labels": "lam-dong | dak-nong | binh-thuan"
+      },
+      {
+        "province": "Đồng Nai",
+        "row_count": 15937,
+        "percentage": 6.74650546510545,
+        "coverage_assessment": "Nhiều mẫu thô; chưa chứng minh model hỗ trợ",
+        "original_labels": "dong-nai | binh-phuoc"
+      },
+      {
+        "province": "Hồ Chí Minh",
+        "row_count": 97808,
+        "percentage": 41.40441780329007,
+        "coverage_assessment": "Nhiều mẫu thô; chưa chứng minh model hỗ trợ",
+        "original_labels": "tp-ho-chi-minh | binh-duong | ba-ria-vung-tau"
+      },
+      {
+        "province": "Tây Ninh",
+        "row_count": 10316,
+        "percentage": 4.367004478761864,
+        "coverage_assessment": "Nhiều mẫu thô; chưa chứng minh model hỗ trợ",
+        "original_labels": "tay-ninh | long-an"
+      },
+      {
+        "province": "Đồng Tháp",
+        "row_count": 1573,
+        "percentage": 0.6658877515599468,
+        "coverage_assessment": "Có mẫu; cần kiểm định theo loại và phường",
+        "original_labels": "dong-thap | tien-giang"
+      },
+      {
+        "province": "Vĩnh Long",
+        "row_count": 1766,
+        "percentage": 0.7475891730800166,
+        "coverage_assessment": "Có mẫu; cần kiểm định theo loại và phường",
+        "original_labels": "vinh-long | ben-tre | tra-vinh"
+      },
+      {
+        "province": "An Giang",
+        "row_count": 2467,
+        "percentage": 1.0443388958031716,
+        "coverage_assessment": "Nhiều mẫu thô; chưa chứng minh model hỗ trợ",
+        "original_labels": "an-giang | kien-giang"
+      },
+      {
+        "province": "Cần Thơ",
+        "row_count": 2283,
+        "percentage": 0.9664473851311879,
+        "coverage_assessment": "Nhiều mẫu thô; chưa chứng minh model hỗ trợ",
+        "original_labels": "can-tho | hau-giang | soc-trang"
+      },
+      {
+        "province": "Cà Mau",
+        "row_count": 222,
+        "percentage": 0.09397780091945848,
+        "coverage_assessment": "Rất hạn chế",
+        "original_labels": "ca-mau | bac-lieu"
+      }
+    ]
+  },
+  "distributions_raw": {
+    "Price": {
+      "finite_count": 236226,
+      "undefined_or_nonfinite_count": 0,
+      "min": 0.0,
+      "p1": 180.0,
+      "p5": 490.0,
+      "p25": 2250.0,
+      "p50": 6000.0,
+      "p75": 18000.0,
+      "p95": 179000.0,
+      "p99": 698000.0,
+      "max": 9223372036850.0
+    },
+    "Area": {
+      "finite_count": 235930,
+      "undefined_or_nonfinite_count": 296,
+      "min": -6.0,
+      "p1": 30.0,
+      "p5": 41.0,
+      "p25": 73.0,
+      "p50": 115.0,
+      "p75": 300.0,
+      "p95": 4100.0,
+      "p99": 21097.128999999757,
+      "max": 1e+18
+    },
+    "Price_div_Area_raw": {
+      "finite_count": 235926,
+      "undefined_or_nonfinite_count": 300,
+      "min": 0.0,
+      "p1": 0.1111111111111111,
+      "p5": 0.8154990118522312,
+      "p25": 10.0,
+      "p50": 44.44444444444444,
+      "p75": 144.44444444444446,
+      "p95": 1401.7792302106027,
+      "p99": 7510.78431372549,
+      "max": 105772615101.49083
+    }
+  },
+  "property_types": [
+    {
+      "property_type": "Căn hộ chung cư",
+      "row_count": 28387,
+      "median_price_raw": 6300.0,
+      "median_area_m2": 72.0,
+      "price_missing": 0,
+      "price_nonpositive": 185,
+      "area_missing": 147,
+      "area_nonpositive": 4,
+      "property_type_slugs": "can-ho-chung-cu"
+    },
+    {
+      "property_type": "Kho, nhà xưởng",
+      "row_count": 4884,
+      "median_price_raw": 24000.0,
+      "median_area_m2": 2000.0,
+      "price_missing": 0,
+      "price_nonpositive": 128,
+      "area_missing": 31,
+      "area_nonpositive": 0,
+      "property_type_slugs": "kho-nha-xuong"
+    },
+    {
+      "property_type": "Khách sạn",
+      "row_count": 717,
+      "median_price_raw": 20800.0,
+      "median_area_m2": 172.0,
+      "price_missing": 0,
+      "price_nonpositive": 0,
+      "area_missing": 0,
+      "area_nonpositive": 0,
+      "property_type_slugs": "khach-san"
+    },
+    {
+      "property_type": "Nhà riêng",
+      "row_count": 72821,
+      "median_price_raw": 9980.0,
+      "median_area_m2": 81.0,
+      "price_missing": 0,
+      "price_nonpositive": 55,
+      "area_missing": 85,
+      "area_nonpositive": 0,
+      "property_type_slugs": "nha-mat-pho-mat-tien"
+    },
+    {
+      "property_type": "Nhà trọ",
+      "row_count": 1719,
+      "median_price_raw": 5450.0,
+      "median_area_m2": 82.0,
+      "price_missing": 0,
+      "price_nonpositive": 0,
+      "area_missing": 0,
+      "area_nonpositive": 0,
+      "property_type_slugs": "phong-tro"
+    },
+    {
+      "property_type": "Văn phòng",
+      "row_count": 400,
+      "median_price_raw": 48500.0,
+      "median_area_m2": 144.0,
+      "price_missing": 0,
+      "price_nonpositive": 0,
+      "area_missing": 0,
+      "area_nonpositive": 0,
+      "property_type_slugs": "van-phong"
+    },
+    {
+      "property_type": "Đất",
+      "row_count": 127298,
+      "median_price_raw": 3400.0,
+      "median_area_m2": 186.0,
+      "price_missing": 0,
+      "price_nonpositive": 243,
+      "area_missing": 33,
+      "area_nonpositive": 0,
+      "property_type_slugs": "dat-tho-cu"
+    }
+  ],
+  "transaction_labels": [
+    {
+      "label": "SALE_HIGH_CONFIDENCE",
+      "row_count": 144918,
+      "percentage": 61.34718447588327
+    },
+    {
+      "label": "AMBIGUOUS",
+      "row_count": 91179,
+      "percentage": 38.598206801960835
+    },
+    {
+      "label": "RENT_HIGH_CONFIDENCE",
+      "row_count": 129,
+      "percentage": 0.054608722155901554
+    }
+  ],
+  "transaction_reasons": {
+    "explicit_sale_title": 143042,
+    "sale_title_rental_offer_conflict": 836,
+    "insufficient_primary_title_intent": 88788,
+    "dual_offer": 270,
+    "explicit_sale_with_cashflow": 1876,
+    "rental_context_without_primary_rental_offer": 1035,
+    "wanted_or_negated_title": 22,
+    "rent_title_sale_opening_conflict": 228,
+    "explicit_rental_title": 129
+  },
+  "target_labels_under_million_hypothesis": [
+    {
+      "label": "TOTAL_PRICE",
+      "row_count": 134830,
+      "percentage": 57.07669773860625
+    },
+    {
+      "label": "AMBIGUOUS",
+      "row_count": 101230,
+      "percentage": 42.853030572417936
+    },
+    {
+      "label": "PRICE_PER_M2",
+      "row_count": 166,
+      "percentage": 0.0702716889758113
+    }
+  ],
+  "text_reference_counts": {
+    "title_reference": 116791,
+    "no_supported_reference": 56576,
+    "description_reference": 51693,
+    "unsupported_area_rate_basis": 2426,
+    "multiple_reference_amounts": 8522,
+    "conflicting_total_and_rate_basis": 218
+  },
+  "transaction_sample_counts": {
+    "SALE_HIGH_CONFIDENCE": 100,
+    "RENT_HIGH_CONFIDENCE": 100,
+    "AMBIGUOUS": 100
+  },
+  "transaction_review_sample_note": "SALE and AMBIGUOUS samples retained from seeded v2 diagnostic strata when still in same v3 label; RENT freshly sampled from v3 primary rental-offer stratum. AMBIGUOUS review is diagnostic, not an unbiased estimate of the expanded v3 stratum.",
+  "price_comparisons": {
+    "parse_eligible_1500": {
+      "sample_rows": 1500,
+      "comparable_rows": 1500,
+      "interpretations": {
+        "million_vnd_total": {
+          "0.01": {
+            "matched": 1190,
+            "denominator": 1500,
+            "match_rate": 0.7933333333333333
+          },
+          "0.02": {
+            "matched": 1210,
+            "denominator": 1500,
+            "match_rate": 0.8066666666666666
+          },
+          "0.05": {
+            "matched": 1244,
+            "denominator": 1500,
+            "match_rate": 0.8293333333333334
+          }
+        },
+        "billion_vnd_total": {
+          "0.01": {
+            "matched": 1,
+            "denominator": 1500,
+            "match_rate": 0.0006666666666666666
+          },
+          "0.02": {
+            "matched": 1,
+            "denominator": 1500,
+            "match_rate": 0.0006666666666666666
+          },
+          "0.05": {
+            "matched": 1,
+            "denominator": 1500,
+            "match_rate": 0.0006666666666666666
+          }
+        },
+        "vnd_total": {
+          "0.01": {
+            "matched": 0,
+            "denominator": 1500,
+            "match_rate": 0.0
+          },
+          "0.02": {
+            "matched": 0,
+            "denominator": 1500,
+            "match_rate": 0.0
+          },
+          "0.05": {
+            "matched": 0,
+            "denominator": 1500,
+            "match_rate": 0.0
+          }
+        },
+        "hundred_thousand_vnd_total": {
+          "0.01": {
+            "matched": 87,
+            "denominator": 1500,
+            "match_rate": 0.058
+          },
+          "0.02": {
+            "matched": 88,
+            "denominator": 1500,
+            "match_rate": 0.058666666666666666
+          },
+          "0.05": {
+            "matched": 90,
+            "denominator": 1500,
+            "match_rate": 0.06
+          }
+        },
+        "ten_thousand_vnd_total": {
+          "0.01": {
+            "matched": 49,
+            "denominator": 1500,
+            "match_rate": 0.03266666666666666
+          },
+          "0.02": {
+            "matched": 50,
+            "denominator": 1500,
+            "match_rate": 0.03333333333333333
+          },
+          "0.05": {
+            "matched": 54,
+            "denominator": 1500,
+            "match_rate": 0.036
+          }
+        }
+      }
+    },
+    "unconditional_2000": {
+      "sample_rows": 2000,
+      "comparable_rows": 1457,
+      "interpretations": {
+        "million_vnd_total": {
+          "0.01": {
+            "matched": 1151,
+            "denominator": 1457,
+            "match_rate": 0.7899794097460535
+          },
+          "0.02": {
+            "matched": 1164,
+            "denominator": 1457,
+            "match_rate": 0.7989018531228552
+          },
+          "0.05": {
+            "matched": 1182,
+            "denominator": 1457,
+            "match_rate": 0.8112560054907344
+          }
+        },
+        "billion_vnd_total": {
+          "0.01": {
+            "matched": 0,
+            "denominator": 1457,
+            "match_rate": 0.0
+          },
+          "0.02": {
+            "matched": 0,
+            "denominator": 1457,
+            "match_rate": 0.0
+          },
+          "0.05": {
+            "matched": 0,
+            "denominator": 1457,
+            "match_rate": 0.0
+          }
+        },
+        "vnd_total": {
+          "0.01": {
+            "matched": 0,
+            "denominator": 1457,
+            "match_rate": 0.0
+          },
+          "0.02": {
+            "matched": 0,
+            "denominator": 1457,
+            "match_rate": 0.0
+          },
+          "0.05": {
+            "matched": 0,
+            "denominator": 1457,
+            "match_rate": 0.0
+          }
+        },
+        "hundred_thousand_vnd_total": {
+          "0.01": {
+            "matched": 93,
+            "denominator": 1457,
+            "match_rate": 0.06382978723404255
+          },
+          "0.02": {
+            "matched": 93,
+            "denominator": 1457,
+            "match_rate": 0.06382978723404255
+          },
+          "0.05": {
+            "matched": 96,
+            "denominator": 1457,
+            "match_rate": 0.06588881262868909
+          }
+        },
+        "ten_thousand_vnd_total": {
+          "0.01": {
+            "matched": 48,
+            "denominator": 1457,
+            "match_rate": 0.032944406314344546
+          },
+          "0.02": {
+            "matched": 50,
+            "denominator": 1457,
+            "match_rate": 0.03431708991077557
+          },
+          "0.05": {
+            "matched": 51,
+            "denominator": 1457,
+            "match_rate": 0.035003431708991076
+          }
+        }
+      }
+    },
+    "all_parse_eligible": {
+      "sample_rows": 168230,
+      "comparable_rows": 168230,
+      "interpretations": {
+        "million_vnd_total": {
+          "0.01": {
+            "matched": 133358,
+            "denominator": 168230,
+            "match_rate": 0.7927123580811983
+          },
+          "0.02": {
+            "matched": 134830,
+            "denominator": 168230,
+            "match_rate": 0.8014622837781609
+          },
+          "0.05": {
+            "matched": 138030,
+            "denominator": 168230,
+            "match_rate": 0.8204838613802532
+          }
+        },
+        "billion_vnd_total": {
+          "0.01": {
+            "matched": 55,
+            "denominator": 168230,
+            "match_rate": 0.0003269333650359627
+          },
+          "0.02": {
+            "matched": 55,
+            "denominator": 168230,
+            "match_rate": 0.0003269333650359627
+          },
+          "0.05": {
+            "matched": 56,
+            "denominator": 168230,
+            "match_rate": 0.00033287760803661653
+          }
+        },
+        "vnd_total": {
+          "0.01": {
+            "matched": 0,
+            "denominator": 168230,
+            "match_rate": 0.0
+          },
+          "0.02": {
+            "matched": 0,
+            "denominator": 168230,
+            "match_rate": 0.0
+          },
+          "0.05": {
+            "matched": 0,
+            "denominator": 168230,
+            "match_rate": 0.0
+          }
+        },
+        "hundred_thousand_vnd_total": {
+          "0.01": {
+            "matched": 9777,
+            "denominator": 168230,
+            "match_rate": 0.05811686381739285
+          },
+          "0.02": {
+            "matched": 9908,
+            "denominator": 168230,
+            "match_rate": 0.05889555965047851
+          },
+          "0.05": {
+            "matched": 10298,
+            "denominator": 168230,
+            "match_rate": 0.06121381442073352
+          }
+        },
+        "ten_thousand_vnd_total": {
+          "0.01": {
+            "matched": 5370,
+            "denominator": 168230,
+            "match_rate": 0.03192058491351126
+          },
+          "0.02": {
+            "matched": 5514,
+            "denominator": 168230,
+            "match_rate": 0.03277655590560542
+          },
+          "0.05": {
+            "matched": 5712,
+            "denominator": 168230,
+            "match_rate": 0.03395351601973488
+          }
+        }
+      }
+    }
+  },
+  "stored_million_div_text_total_factors_2pct": {
+    "1": 134729,
+    "other": 17666,
+    "0.001": 55,
+    "100": 5514,
+    "10": 9908,
+    "0.1": 243,
+    "1000": 67,
+    "0.01": 48
+  },
+  "exact_reference_million_matches": {
+    "0.01": {
+      "matched": 130675,
+      "denominator": 157699
+    },
+    "0.02": {
+      "matched": 131817,
+      "denominator": 157699
+    },
+    "0.05": {
+      "matched": 133604,
+      "denominator": 157699
+    }
+  },
+  "million_vnd_per_m2_interpretation_all_comparable": {
+    "0.01": {
+      "matched": 184,
+      "denominator": 168134
+    },
+    "0.02": {
+      "matched": 192,
+      "denominator": 168134
+    },
+    "0.05": {
+      "matched": 208,
+      "denominator": 168134
+    }
+  },
+  "property_type_audit": [
+    {
+      "property_type": "Căn hộ chung cư",
+      "row_count": 28387,
+      "sale_high_confidence": 13416,
+      "rent_high_confidence": 6,
+      "transaction_ambiguous": 14965,
+      "total_price_evidence": 10359,
+      "price_per_m2_evidence": 50,
+      "target_ambiguous": 17978
+    },
+    {
+      "property_type": "Kho, nhà xưởng",
+      "row_count": 4884,
+      "sale_high_confidence": 3216,
+      "rent_high_confidence": 85,
+      "transaction_ambiguous": 1583,
+      "total_price_evidence": 2677,
+      "price_per_m2_evidence": 16,
+      "target_ambiguous": 2191
+    },
+    {
+      "property_type": "Khách sạn",
+      "row_count": 717,
+      "sale_high_confidence": 291,
+      "rent_high_confidence": 0,
+      "transaction_ambiguous": 426,
+      "total_price_evidence": 444,
+      "price_per_m2_evidence": 0,
+      "target_ambiguous": 273
+    },
+    {
+      "property_type": "Nhà riêng",
+      "row_count": 72821,
+      "sale_high_confidence": 41163,
+      "rent_high_confidence": 34,
+      "transaction_ambiguous": 31624,
+      "total_price_evidence": 44801,
+      "price_per_m2_evidence": 12,
+      "target_ambiguous": 28008
+    },
+    {
+      "property_type": "Nhà trọ",
+      "row_count": 1719,
+      "sale_high_confidence": 677,
+      "rent_high_confidence": 0,
+      "transaction_ambiguous": 1042,
+      "total_price_evidence": 1003,
+      "price_per_m2_evidence": 0,
+      "target_ambiguous": 716
+    },
+    {
+      "property_type": "Văn phòng",
+      "row_count": 400,
+      "sale_high_confidence": 71,
+      "rent_high_confidence": 1,
+      "transaction_ambiguous": 328,
+      "total_price_evidence": 247,
+      "price_per_m2_evidence": 0,
+      "target_ambiguous": 153
+    },
+    {
+      "property_type": "Đất",
+      "row_count": 127298,
+      "sale_high_confidence": 86084,
+      "rent_high_confidence": 3,
+      "transaction_ambiguous": 41211,
+      "total_price_evidence": 75299,
+      "price_per_m2_evidence": 88,
+      "target_ambiguous": 51911
+    }
+  ],
+  "source_hash_after_audit": "5ad0a02a28eafdfe169307816bff908c2007e75860a595506d630569e7a812c1",
+  "elapsed_seconds": 98.09
+}

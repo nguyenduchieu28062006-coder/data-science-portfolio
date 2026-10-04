@@ -1,0 +1,242 @@
+{
+  "review_date_local": "2026-10-04",
+  "timezone": "Asia/Saigon",
+  "stage": "source_review_only",
+  "dataset": "tinixai/vietnam-real-estates",
+  "revision": "ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f",
+  "repository_last_modified": "2026-04-14T10:37:15.000Z",
+  "license_declared_by_publisher": "cc-by-nc-4.0",
+  "data_start_date_declared_by_publisher": "2025-06-01",
+  "data_end_date_declared_by_publisher": "2026-03-31",
+  "dates_independently_scanned_from_all_listings": false,
+  "raw_rows_reported_by_dataset_server": 3500744,
+  "download_size_bytes": 1669244898,
+  "fields": [
+    "name",
+    "description",
+    "property_type_name",
+    "province_name",
+    "district_name",
+    "ward_name",
+    "street_name",
+    "project_name",
+    "price",
+    "area",
+    "floor_count",
+    "frontage_width",
+    "house_depth",
+    "road_width",
+    "bedroom_count",
+    "bathroom_count",
+    "house_direction",
+    "balcony_direction",
+    "published_at"
+  ],
+  "column_statistics": {
+    "area": {
+      "nan_count": 4,
+      "nan_proportion": 0.0,
+      "min": 1.0,
+      "max": 82000000.0
+    },
+    "balcony_direction": {
+      "nan_count": 2933342,
+      "nan_proportion": 0.83792,
+      "n_unique": 16
+    },
+    "bathroom_count": {
+      "nan_count": 1720974,
+      "nan_proportion": 0.4916,
+      "min": 1.0,
+      "max": 255.0
+    },
+    "bedroom_count": {
+      "nan_count": 1600361,
+      "nan_proportion": 0.45715,
+      "min": 1.0,
+      "max": 200.0
+    },
+    "description": {
+      "nan_count": 0,
+      "nan_proportion": 0.0,
+      "min": 0,
+      "max": 4865
+    },
+    "district_name": {
+      "nan_count": 101933,
+      "nan_proportion": 0.02912,
+      "n_unique": 626
+    },
+    "floor_count": {
+      "nan_count": 2691982,
+      "nan_proportion": 0.76897,
+      "min": 1.0,
+      "max": 255.0
+    },
+    "frontage_width": {
+      "nan_count": 1726424,
+      "nan_proportion": 0.49316,
+      "min": 0.38,
+      "max": 9080000.0
+    },
+    "house_depth": {
+      "nan_count": 3432288,
+      "nan_proportion": 0.98045,
+      "min": 1.0,
+      "max": 15380.0
+    },
+    "house_direction": {
+      "nan_count": 2414214,
+      "nan_proportion": 0.68963,
+      "n_unique": 31
+    },
+    "name": {
+      "nan_count": 0,
+      "nan_proportion": 0.0,
+      "min": 0,
+      "max": 120
+    },
+    "price": {
+      "nan_count": 218494,
+      "nan_proportion": 0.06241,
+      "min": 0.0,
+      "max": 2.6597191e+16
+    },
+    "project_name": {
+      "nan_count": 2499891,
+      "nan_proportion": 0.7141,
+      "min": 4,
+      "max": 84
+    },
+    "property_type_name": {
+      "nan_count": 0,
+      "nan_proportion": 0.0,
+      "n_unique": 5,
+      "frequencies": {
+        "Căn hộ chung cư": 762800,
+        "Biệt thự/Nhà liền kề": 269782,
+        "Shophouse": 59860,
+        "Nhà": 1575536,
+        "Đất": 832766
+      }
+    },
+    "province_name": {
+      "nan_count": 0,
+      "nan_proportion": 0.0,
+      "n_unique": 63,
+      "frequencies": {
+        "Kon Tum": 547,
+        "Hải Phòng": 72788,
+        "Hồ Chí Minh": 1357526,
+        "Hà Tĩnh": 1080,
+        "Lâm Đồng": 26007,
+        "Yên Bái": 529,
+        "Bắc Giang": 6566,
+        "Quảng Trị": 1441,
+        "Lạng Sơn": 490,
+        "Bắc Kạn": 44,
+        "An Giang": 1684,
+        "Vĩnh Phúc": 10803,
+        "Lào Cai": 1924,
+        "Ninh Thuận": 3183,
+        "Đắk Lắk": 7413,
+        "Tây Ninh": 9292,
+        "Kiên Giang": 6671,
+        "Quảng Ngãi": 1886,
+        "Tiền Giang": 5286,
+        "Phú Thọ": 5269,
+        "Bà Rịa - Vũng Tàu": 45885,
+        "Thanh Hóa": 11186,
+        "Long An": 47125,
+        "Quảng Nam": 19997,
+        "Đồng Nai": 59543,
+        "Hải Dương": 2788,
+        "Phú Yên": 4252,
+        "Bạc Liêu": 286,
+        "Bình Thuận": 9268,
+        "Vĩnh Long": 1543,
+        "Bắc Ninh": 20434,
+        "Tuyên Quang": 352,
+        "Quảng Bình": 1564,
+        "Bình Phước": 8646,
+        "Đà Nẵng": 185973,
+        "Hà Giang": 128,
+        "Nghệ An": 5407,
+        "Cần Thơ": 8654,
+        "Bình Dương": 150377,
+        "Thái Nguyên": 8277,
+        "Hưng Yên": 65223,
+        "Bến Tre": 4510,
+        "Khánh Hòa": 98377,
+        "Lai Châu": 94,
+        "Nam Định": 5367,
+        "Hòa Bình": 13373,
+        "Huế": 10118,
+        "Sóc Trăng": 654,
+        "Sơn La": 475,
+        "Điện Biên": 131,
+        "Đắk Nông": 963,
+        "Hà Nam": 11111,
+        "Thái Bình": 3792,
+        "Ninh Bình": 1252,
+        "Gia Lai": 1065,
+        "Quảng Ninh": 20532,
+        "Hà Nội": 1140542,
+        "Cao Bằng": 193,
+        "Bình Định": 7038,
+        "Hậu Giang": 922,
+        "Đồng Tháp": 1536,
+        "Trà Vinh": 590,
+        "Cà Mau": 772
+      }
+    },
+    "published_at": {
+      "nan_count": 0,
+      "nan_proportion": 0.0,
+      "min": 19,
+      "max": 26
+    },
+    "road_width": {
+      "nan_count": 2830873,
+      "nan_proportion": 0.80865,
+      "min": 0.5,
+      "max": 103000.0
+    },
+    "street_name": {
+      "nan_count": 1376860,
+      "nan_proportion": 0.3933,
+      "min": 1,
+      "max": 39
+    },
+    "ward_name": {
+      "nan_count": 496716,
+      "nan_proportion": 0.14189,
+      "min": 1,
+      "max": 23
+    }
+  },
+  "missing_required_structured_fields": [
+    "listing_type",
+    "sale_or_rent",
+    "currency",
+    "price_period",
+    "legal_status",
+    "listing_id",
+    "source_url",
+    "latitude",
+    "longitude"
+  ],
+  "sources": {
+    "metadata": "https://huggingface.co/api/datasets/tinixai/vietnam-real-estates",
+    "info": "https://datasets-server.huggingface.co/info?dataset=tinixai%2Fvietnam-real-estates",
+    "statistics": "https://datasets-server.huggingface.co/statistics?dataset=tinixai%2Fvietnam-real-estates&config=default&split=train",
+    "versioned_readme": "https://huggingface.co/datasets/tinixai/vietnam-real-estates/raw/ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f/README.md"
+  },
+  "response_sha256": {
+    "metadata": "d121975134af7396c4ce5add8ef90c7215688f74ceaa32f66cd6a2b90269640a",
+    "info": "dceb8b07810dd17ec3c966a3eb570d2690ad4ec19da2c3049019b6f348ee98e6",
+    "statistics": "8decb516eb0c4a5168b08680279d5867b0de9eaef973d1d56d904974dad4d962",
+    "readme": "da447661193ef056a41aecb1a10a03aa777c7d9141e592c8667e91fb0cfd1e60"
+  },
+  "training_performed": false
+}

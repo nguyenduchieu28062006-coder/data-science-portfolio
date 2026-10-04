@@ -1,0 +1,12 @@
+{
+  "source": "Vietnamese Provinces Database / Vietnam Administrative Units Reference Map",
+  "source_url": "https://github.com/thanglequoc/vietnamese-provinces-database/blob/8b78ba5118715e1fa81769286724db79346abf52/docs/gis/README.md",
+  "revision": "8b78ba5118715e1fa81769286724db79346abf52",
+  "retrieved_at": "2026-10-04T08:47:56.267169+00:00",
+  "license": "MIT (repository), original geometry source attributed in upstream README",
+  "simplification_degrees": 0.008,
+  "coordinate_system": "WGS84",
+  "purpose": "Illustrative province selection; not legal/survey boundary",
+  "features": 34,
+  "bytes": 155993
+}

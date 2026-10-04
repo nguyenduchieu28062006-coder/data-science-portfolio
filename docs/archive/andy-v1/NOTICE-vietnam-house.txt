@@ -1,0 +1,13 @@
+Dataset: Real Estate in Vietnam, publisher andyvo1009, version 1.
+Source: https://www.kaggle.com/datasets/andyvo1009/real-estate-in-vietnam
+Input: sale_real_estate.csv (42,257 records), Apache-2.0 declared by publisher.
+Published period: February 2025, according to publisher description.
+No trustworthy per-listing timestamps; no independent upstream-rights verification.
+Original raw CSV retained outside the public site; its SHA-256 is in model metadata.
+
+Modifications by this portfolio project: invalid/ambiguous records and duplicates
+excluded, province aliases normalized, unknown room counts imputed from training
+only, fitted regression exported as JSON, and three real source examples included.
+Original location names and source IDs are retained for those examples.
+This is an asking-price portfolio model, not verified completed transactions.
+Apache 2.0 license text: LICENSE-Apache-2.0.txt.

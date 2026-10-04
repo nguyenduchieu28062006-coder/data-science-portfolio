@@ -3,8 +3,8 @@
     const columns = 'id,created_at,model_score,predicted_class,threshold,model_version,input_data';
     // Future modules supply their own loader and renderer; no placeholder records.
     const historyModules = [
-        { id: 'health', title: '❤️ Health Prediction', enabled: true, load: loadHealth, render: renderHealth },
-        { id: 'house-price', title: '🏠 House Price Prediction', enabled: false },
+        { id: 'health', title: '❤️ Health Prediction', enabled: true, table: 'health_prediction_history', note: 'Đây là kết quả phân loại của mô hình, không phải chẩn đoán y khoa.', clearLabel: 'Health Prediction', load: loadHealth, render: renderHealth },
+        { id: 'house-price', title: '🇻🇳 Ước tính giá bất động sản Việt Nam', enabled: true, table: 'house_price_history', note: 'Median giá rao thống kê BETA; chi tiết ghi cấp dữ liệu thực sự sử dụng.', clearLabel: 'Ước tính giá bất động sản', load: loadHouse, render: renderHouse },
         { id: 'churn', title: '👥 Customer Churn Prediction', enabled: false },
         { id: 'sales', title: '📈 Sales Forecasting', enabled: false }
     ];
@@ -41,6 +41,52 @@
     async function loadHealth(client, user, offset) {
         return client.from('health_prediction_history').select(columns).eq('user_id', user.id)
             .order('created_at', { ascending: false }).order('id', { ascending: false }).range(offset, offset + 49);
+    }
+    async function loadHouse(client, user, offset) {
+        const response = await client.from('house_price_history').select('id,created_at,predicted_price_vnd,predicted_price_per_m2,province,area_name,property_type,model_version,input_data').eq('user_id', user.id)
+            .order('created_at', { ascending: false }).order('id', { ascending: false }).range(offset, offset + 49);
+        if (response.error) return response;
+        if (!Array.isArray(response.data) || response.data.some(record => !Number.isFinite(record.predicted_price_vnd) || record.predicted_price_vnd <= 0)) {
+            // Reject malformed/unrelated rows rather than display manufactured prices.
+            return { data: [], error: null };
+        }
+        return response;
+    }
+    function houseMoney(value) {
+        if (!Number.isFinite(value)) return 'Không có dữ liệu';
+        const unit = Math.abs(value) >= 1e9 ? 1e9 : 1e6;
+        return (value / unit).toLocaleString('vi-VN', { maximumFractionDigits: 2 }) + (unit === 1e9 ? ' tỷ VNĐ' : ' triệu VNĐ');
+    }
+    function renderHouse(record, remove) {
+        const card = node('article', undefined, 'history-record');
+        const date = new Date(record.created_at);
+        const dateText = Number.isNaN(date.getTime()) ? 'Không có ngày giờ' : date.toLocaleString('vi-VN');
+        card.append(node('h3', dateText), node('p', houseMoney(record.predicted_price_vnd), 'history-score'),
+            node('p', `Giá/m²: ${houseMoney(record.predicted_price_per_m2)}/m²`), node('p', `${record.area_name || 'Ước lượng cấp tỉnh'}, ${record.province}`), node('p', `Phiên bản ước tính: ${record.model_version || 'Không có dữ liệu'}`));
+        card.append(node('p', `Loại BĐS: ${record.property_type || 'Không có dữ liệu'}`));
+        const details = node('details'); details.append(node('summary', 'Xem chi tiết'));
+        const metadata = record.input_data?.metadata;
+        if (metadata && typeof metadata === 'object') {
+            const location = value => [value?.sub_area, value?.ward, value?.province, value?.region].filter(Boolean).join(', ') || 'Không có dữ liệu';
+            for (const [label, value] of [['Vị trí đã chọn', location(metadata.selected_location)], ['Vị trí thực sự sử dụng', location(metadata.used_location)],
+                ['Resolution', metadata.resolution_level], ['Số mẫu', metadata.sample_count], ['Coverage', metadata.coverage], ['Phương pháp', metadata.estimate_method],
+                ['Diện tích (m²)', metadata.area_m2 ?? record.input_data?.inputs?.area_m2], ['Ngày dữ liệu', metadata.latest_data_date || metadata.data_latest_date], ['Lý do fallback', metadata.fallback_reason || 'Không fallback'],
+                ['P25–P75 giá rao', houseMoney(metadata.p25_price_vnd)+' – '+houseMoney(metadata.p75_price_vnd)]]) {
+                details.append(node('p', label + ': ' + String(value ?? 'Không có dữ liệu')));
+            }
+        }
+        if (metadata?.fallback_reason) card.append(node('p', metadata.resolution_level === 'REGIONAL_ESTIMATE' ? '⚠ Ước lượng từ tỉnh lân cận; dữ liệu trực tiếp tại khu vực còn ít.' : '⚠ Chưa có dữ liệu giá chính xác tại khu vực này. Đây là giá ước lượng.', 'history-disclaimer'));
+        const inputs = metadata ? record.input_data.inputs : record.input_data;
+        if (!inputs || typeof inputs !== 'object') details.append(node('p', 'Dữ liệu đầu vào không được lưu cho lần dự đoán này.'));
+        else {
+            const list = node('dl', undefined, 'history-inputs');
+            for (const [key, label] of Object.entries({ province: 'Tỉnh / Thành phố', area_name: 'Khu vực lịch sử', property_type: 'Loại BĐS', area_m2: 'Diện tích (m²)', bedrooms: 'Phòng ngủ', bathrooms: 'Phòng tắm' })) {
+                const row = node('div'); row.append(node('dt', label), node('dd', inputs[key] == null || inputs[key] === '' ? 'Không có dữ liệu' : String(inputs[key]))); list.append(row);
+            }
+            details.append(list);
+        }
+        const button = node('button', 'Xóa', 'history-danger'); button.type = 'button'; button.addEventListener('click', () => remove(record, card, button));
+        card.append(details, button); return card;
     }
     function renderHealth(record, remove) {
         const card = node('article', undefined, 'history-record');
@@ -89,8 +135,8 @@
             const notice = node('p', 'Đang tải lịch sử…'); notice.setAttribute('role', 'status');
             const cards = node('div', undefined, 'history-records');
             const more = node('button', 'Tải thêm'); more.type = 'button'; more.hidden = true;
-            const clear = node('button', 'Xóa toàn bộ lịch sử Health Prediction', 'history-danger'); clear.type = 'button'; clear.hidden = true;
-            content.append(node('p', 'Đây là kết quả phân loại của mô hình, không phải chẩn đoán y khoa.', 'health-muted'), clear, notice, cards, more);
+            const clear = node('button', `Xóa toàn bộ lịch sử ${module.clearLabel}`, 'history-danger'); clear.type = 'button'; clear.hidden = true;
+            content.append(node('p', module.note, 'health-muted'), clear, notice, cards, more);
             let offset = 0, busy = false, deleting = false;
             const current = () => token === generation && auth.getUser()?.id === user.id;
             function fail(error, text) {
@@ -99,12 +145,12 @@
                 else notice.textContent = text;
             }
             async function remove(record, card, button) {
-                if (busy || deleting || !current() || !window.confirm(record ? 'Bạn có chắc muốn xóa bản ghi này? Hành động này không thể hoàn tác.' : 'Bạn có chắc muốn xóa toàn bộ lịch sử Health Prediction? Hành động này không thể hoàn tác.')) return;
+                if (busy || deleting || !current() || !window.confirm(record ? 'Bạn có chắc muốn xóa bản ghi này? Hành động này không thể hoàn tác.' : `Bạn có chắc muốn xóa toàn bộ lịch sử ${module.clearLabel}? Hành động này không thể hoàn tác.`)) return;
                 deleting = true; button.disabled = true;
                 try {
                     const client = await verifiedClient(user);
                     if (!current()) return;
-                    let query = client.from('health_prediction_history').delete().eq('user_id', user.id);
+                    let query = client.from(module.table).delete().eq('user_id', user.id);
                     if (record) query = query.eq('id', record.id);
                     const { data, error } = await query.select('id');
                     if (error) throw error;

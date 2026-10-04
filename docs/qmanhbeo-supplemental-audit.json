@@ -1,0 +1,49 @@
+{
+  "id_all_numeric_integer": true,
+  "id_format_decimal_dot_zero": 236226,
+  "repeated_id_group_size_distribution": {
+    "2": 19512
+  },
+  "repeated_id_groups_with_conflicts": {
+    "Title": 4,
+    "Price": 3,
+    "Area": 2,
+    "Location": 1,
+    "Listing ID": 0,
+    "Last Updated": 10934,
+    "Property Type": 1,
+    "Width": 0,
+    "Length": 1,
+    "Bedrooms": 1,
+    "Bathrooms": 1,
+    "Floors": 1,
+    "Position": 1,
+    "Direction": 2,
+    "Alley Width": 0,
+    "Road Type": 0,
+    "Description": 3,
+    "Latitude": 0,
+    "Longitude": 0,
+    "VIP Account": 0,
+    "Avatar": 0,
+    "Agent Role": 0,
+    "Agent Name": 0,
+    "Agent Listing Count": 3029,
+    "Province": 19511,
+    "Property Type Slug": 1,
+    "Scraped At": 19512,
+    "Last Updated Date": 19442
+  },
+  "duplicate_extra_content_excluding_province_and_scrape_metadata": 19508,
+  "missing_definition": "blank, nan, null, none, n/a; whitespace stripped, case insensitive",
+  "source_urls_in_schema": [],
+  "extreme_price_equal_max_count": 4,
+  "raw_source_unchanged": true,
+  "relative_date_check": {
+    "hypothesis": "relative text subtracted from Scraped At, month=30 days, year=365 days; only regex-supported phrases",
+    "supported_rows": 236226,
+    "matching_within_60_seconds": 236226,
+    "relative_phrases_not_supported": {},
+    "median_absolute_seconds_difference": 30.0
+  }
+}

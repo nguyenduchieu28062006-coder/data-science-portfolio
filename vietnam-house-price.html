@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ước tính thống kê BETA từ giá rao bán theo khu vực và loại bất động sản. Dữ liệu lịch sử, không phải giá giao dịch.">
+    <title>Ước tính giá bất động sản Việt Nam | Data Science Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="vietnam-house-price.css">
+    <script src="supabase-config.js" defer></script>
+    <script src="auth.js" defer></script>
+    <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
+    <script src="assets/vendor/leaflet/leaflet.js" defer></script>
+    <script src="vietnam-estimate-core.js" defer></script>
+    <script src="vietnam-estimate-page.js" defer></script>
+    <script src="vietnam-house-history-save.js" defer></script>
+    <link rel="stylesheet" href="theme.css">
+</head>
+<body class="house-body">
+    <header><nav aria-label="Điều hướng chính"><a class="house-brand" href="index.html">DataScience<span>.</span></a><ul>
+        <li><a href="index.html">Trang chủ</a></li><li><a href="history.html">Lịch sử của tôi</a></li>
+        <li data-auth-guest><a href="login.html" data-auth-link="login.html">Đăng nhập</a></li>
+        <li data-auth-guest><a href="register.html" data-auth-link="register.html">Đăng ký</a></li>
+        <li data-auth-user hidden><span class="auth-nav-email" data-auth-email></span></li>
+        <li data-auth-user hidden><button type="button" class="auth-nav-logout" data-auth-logout>Đăng xuất</button></li>
+        <li data-auth-nav-message hidden role="status"></li>
+    </ul></nav></header>
+    <main class="house-page">
+        <section class="house-hero">
+            <div><p class="house-eyebrow">PORTFOLIO · BETA</p><h1>🇻🇳 Ước tính giá bất động sản Việt Nam</h1>
+                <p class="house-lead">Tham khảo giá rao bán theo khu vực và loại bất động sản từ dữ liệu đã được lọc.</p>
+                <div class="house-badges"><span>Vietnam Real Estate</span><span>Verified Market Data</span><span>Location-based Estimate</span><span>Beta</span></div>
+                <p class="house-muted">Giá/m² từ tập con listing vượt qua kiểm tra bán và giá tổng. Đây là ước tính thống kê BETA, không phải mô hình Machine Learning.</p>
+            </div>
+            <aside class="house-freshness"><span class="house-live-dot"></span><strong>Ước tính trên thiết bị của bạn</strong>
+                <p class="house-eyebrow">DATASET PERIOD</p><p id="houseDataPeriod">Đang tải thông tin dữ liệu…</p>
+                <p class="house-eyebrow">MARKET DATA</p><p>Dữ liệu thị trường cập nhật trực tiếp hiện chưa được kết nối.</p>
+                <p class="house-muted">Mô hình không phản ánh các biến động thị trường xảy ra sau thời điểm dữ liệu này.</p>
+            </aside>
+        </section>
+        <p id="houseStatus" class="house-notice" role="status">Đang tải thống kê BETA…</p>
+        <section aria-labelledby="houseSamplesTitle"><div class="house-section-heading"><h2 id="houseSamplesTitle">Bắt đầu từ một tin rao thật</h2><p>Mẫu từ dataset, không phải giá thị trường hiện tại.</p></div><div id="houseSamples" class="house-samples"></div></section>
+        <div class="house-workspace">
+            <section class="house-panel"><div class="house-panel-heading"><span class="house-step">01</span><div><h2>Thông tin bất động sản</h2><p>Chọn địa điểm, loại BĐS và diện tích.</p></div></div>
+                <form id="houseForm"><fieldset id="houseFields" disabled>
+                    <div class="house-form-grid">
+                        <label class="house-wide">Tìm địa điểm<input id="houseAreaSearch" type="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="houseSearchResults" aria-describedby="houseSearchHint" placeholder="Tìm trong danh sách địa điểm" autocomplete="off"></label>
+                        <div class="house-wide"><div id="houseSearchResults" role="listbox" aria-label="Địa điểm hợp lệ" hidden></div><p id="houseSearchHint" class="house-muted">Chọn kết quả từ danh sách.</p></div>
+                        <div class="house-combobox"><label for="houseProvinceSearch">Tỉnh / Thành phố</label><input id="houseProvinceSearch" type="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="houseProvinceSuggestions" autocomplete="off" placeholder="Gõ tên tỉnh/thành phố"><div id="houseProvinceSuggestions" class="house-suggestions" role="listbox" aria-label="Tỉnh/Thành phố" hidden></div><select name="province" id="houseProvince" hidden tabindex="-1" aria-hidden="true"><option value="">Chọn tỉnh / thành phố</option></select></div>
+                        <div class="house-combobox"><label for="houseWardSearch">Phường / Xã</label><input id="houseWardSearch" type="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="houseWardSuggestions" aria-describedby="houseWardError" autocomplete="off" placeholder="Gõ tên, ví dụ: yen hoa" disabled><div id="houseWardSuggestions" class="house-suggestions" role="listbox" aria-label="Phường/Xã thuộc tỉnh đã chọn" hidden></div><p id="houseWardError" class="house-error" role="alert" hidden>Vui lòng chọn Phường/Xã từ danh sách.</p><select name="ward" id="houseWard" hidden tabindex="-1" aria-hidden="true"><option value="">Toàn tỉnh / thành phố</option></select></div>
+                        <div id="houseSubAreaField" class="house-combobox house-wide"><label for="houseSubArea"><span id="houseSubAreaLabel">Khu vực chi tiết (không bắt buộc)</span></label><input name="sub_area" id="houseSubArea" type="text" maxlength="200" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="houseSubSuggestions" autocomplete="off" placeholder="Thôn / Xóm / Khu phố / Dự án / Chung cư"><div id="houseSubSuggestions" class="house-suggestions" role="listbox" aria-label="Khu vực chi tiết có dữ liệu" hidden></div><p class="house-muted">Có thể chọn gợi ý hoặc nhập tên riêng. Tên nhập tay không có statistic sẽ dùng dữ liệu cấp cao hơn.</p></div>
+                        <label>Loại bất động sản<select name="property_type" id="housePropertyType" required></select></label>
+                        <label>Diện tích (m²)<input name="area_m2" type="number" min="15" max="1500" step="any" placeholder="Ví dụ: 80" required></label>
+                    </div>
+                    <p id="houseCoverageHint" class="house-note">Chọn địa phương để xem độ phủ dữ liệu đã xác minh.</p>
+                    <p class="house-muted">Tỉnh và xã/phường từ danh mục Cục Thống kê. Listing lịch sử chưa mapping chắc chắn chỉ đóng góp ở cấp tỉnh; không đoán ranh giới hay địa chỉ. Công thức không điều chỉnh phòng, tầng hoặc pháp lý.</p>
+                    <div class="house-actions"><button id="houseEstimate" type="submit" class="house-primary" disabled>Ước tính giá <span aria-hidden="true">↗</span></button><button type="reset" class="house-secondary">Nhập lại</button></div>
+                </fieldset><p id="houseInputError" class="house-error" role="alert" hidden></p></form>
+            </section>
+            <section class="house-panel house-result-panel" aria-labelledby="houseResultTitle">
+                <div class="house-panel-heading"><span class="house-step">02</span><div><h2 id="houseResultTitle">Giá ước tính</h2><p id="houseModelInfo">Đang tải thống kê…</p></div></div>
+                <div id="houseEmptyResult" class="house-empty"><span aria-hidden="true">⌂</span><h3>Mỗi địa phương, một bức tranh giá</h3><p>Điền thông tin hoặc chọn mẫu để xem ước tính và các yếu tố ảnh hưởng.</p></div>
+                <div id="houseResult" hidden aria-live="polite">
+                    <p class="house-eyebrow">ƯỚC TÍNH GIÁ BẤT ĐỘNG SẢN</p><p id="housePrice" class="house-price"></p><strong id="houseEstimateBadge" class="house-estimate-badge"></strong><p id="houseEstimateWarning" class="house-estimate-warning" role="status" hidden></p><p id="housePredictionNote" class="house-note"></p><p id="housePerM2" class="house-per-m2"></p>
+                    <div class="house-result-facts"><div><small>RESOLUTION</small><strong id="houseResolution"></strong></div><div><small>ĐỘ PHỦ KHU VỰC</small><strong id="houseResultCoverage"></strong></div></div>
+                    <p id="houseSelectedLocation"></p><p id="houseUsedLocation"></p><p id="houseResultType"></p><p id="houseLatestDate"></p>
+                    <div class="house-range"><strong id="houseP25"></strong><strong id="houseMedian"></strong><strong id="houseP75"></strong></div>
+                    <p>Khoảng này được suy ra từ phân vị giá rao bán/m² trong dataset. Đây không phải khoảng tin cậy thống kê.</p>
+                    <div class="house-history-save"><label class="house-checkbox"><input id="houseSaveInputs" type="checkbox"> Lưu thêm bản sao form (tùy chọn)</label><p class="house-muted">Địa điểm, loại, diện tích và cơ sở kết quả được lưu khi bạn bấm nút. Không tự động lưu; kịch bản chưa áp dụng sẽ không được lưu.</p>
+                        <div class="house-actions"><button id="houseSave" type="button" class="house-secondary">Lưu vào lịch sử</button><a href="history.html">Xem lịch sử</a></div><p id="houseSaveMessage" role="status"></p><a id="houseSaveLogin" href="login.html?return=vietnam-house-price.html" hidden>Đăng nhập để lưu</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <section id="houseExploration" hidden>
+            <div class="house-two-columns">
+                <section class="house-panel"><p class="house-eyebrow">HIỂU KẾT QUẢ</p><h2>Cơ sở ước tính</h2><p class="house-muted">Nhóm so sánh, số mẫu và median thật. Không tạo feature contribution hoặc quan hệ nhân quả giả.</p><ol id="houseContributions" class="house-contributions"></ol><p id="houseReference" class="house-muted"></p></section>
+                <section class="house-panel"><p class="house-eyebrow">WHAT-IF SIMULATOR</p><h2>Thử một kịch bản khác</h2><div id="houseScenarioFields" class="house-form-grid">
+                    <label>Diện tích (m²)<input id="scenarioArea" type="number" min="15" max="1500" step="any"></label>
+                </div><p class="house-muted">BETA chỉ thay diện tích, giữ median giá/m² của nhóm; không mô phỏng phòng hay tầng.</p><div class="house-scenario-results"><div><small>GIÁ GỐC</small><strong id="scenarioOriginal"></strong></div><div><small>GIÁ KỊCH BẢN</small><strong id="scenarioPrice"></strong></div><div><small>CHÊNH LỆCH</small><strong id="scenarioDelta"></strong></div></div>
+                <p id="scenarioError" class="house-error" role="alert" hidden></p><button id="houseApplyScenario" type="button" class="house-secondary">Áp dụng kịch bản vào form</button><p class="house-muted">Đây là phản ứng của công thức thống kê, không phải lời khuyên đầu tư hoặc định giá chuyên nghiệp.</p></section>
+            </div>
+        </section>
+        <section class="house-panel house-map-panel"><h2>Bản đồ giá bất động sản Việt Nam</h2><div id="houseMap" aria-label="Bản đồ ranh giới 34 tỉnh/thành phố"></div><p id="houseMapStatus" class="house-muted" role="status"></p><p id="houseMapSelection" class="house-muted" role="status"></p><p class="house-muted">Chọn tỉnh trên bản đồ hoặc tìm bằng danh sách. Nền OpenStreetMap qua HTTPS; ranh giới tỉnh rút gọn được lưu tại thiết bị để dùng khi tile lỗi. Ranh giới minh họa từ bando.com.vn qua bản dẫn xuất MIT, không phải bản đồ địa chính; chưa có hình học xã/phường hoặc vị trí listing.</p><p class="house-map-legend">Giá/m² theo loại đang chọn: <span>&lt;30 triệu</span> · <span>30–50</span> · <span>50–80</span> · <span>80–120</span> · <span>≥120</span></p></section>
+        <section class="house-panel"><h2>Phạm vi dữ liệu hiện tại</h2><p id="housePublicCoverage"></p><p class="house-muted">Ngưỡng 20 khu vực chi tiết / 30 xã/phường / 80 tỉnh áp dụng riêng từng loại BĐS. Listing chưa mapping chắc chắn chỉ dùng cấp tỉnh. Địa danh hợp lệ không đồng nghĩa có dữ liệu giá trực tiếp.</p><ul id="houseTypeLimitations" class="house-muted"></ul></section>
+        <section class="house-panel house-market-panel"><div><p class="house-eyebrow">THAM KHẢO KHU VỰC</p><h2>Độ phủ & dữ liệu thị trường</h2><p id="houseTrainingContext">Chọn khu vực để xem thống kê đã xác minh.</p><p class="house-muted">Median chỉ mô tả dataset lịch sử, không phải giá thị trường hiện tại.</p></div><div class="house-market-state"><h3>THỊ TRƯỜNG KHU VỰC</h3><p id="houseStaticMarket">Chọn khu vực và loại tài sản để xem thống kê.</p><p class="house-muted">Đây là thống kê từ dữ liệu rao bán trong dataset, không phải giá giao dịch hoàn tất.</p><span>MARKET CONNECTION</span><p id="houseMarketStatus" role="status">Dữ liệu thị trường cập nhật tự động chưa được kết nối.</p></div></section>
+        <section class="house-panel"><h2>Khám phá giá theo khu vực</h2><div class="house-form-grid"><label>Tỉnh/Thành phố<select id="houseBrowseProvince"></select></label><label>Loại BĐS<select id="houseBrowseType"></select></label><label>Lọc xã/phường<input id="houseBrowseFilter" type="search" placeholder="Gõ tên không dấu hoặc có dấu"></label><label>Sắp xếp<select id="houseBrowseSort"><option value="count">Số mẫu giảm dần</option><option value="price">Median giảm dần</option></select></label></div><p id="houseBrowseCount" class="house-muted"></p><div class="house-table-scroll"><table class="house-comparison"><thead><tr><th>Phường/Xã</th><th>Loại BĐS</th><th>Median/m²</th><th>Số mẫu</th><th>Coverage</th><th>Ngày tin mới nhất</th><th>Chọn</th></tr></thead><tbody id="houseBrowseRows"></tbody></table></div></section>
+        <section class="house-panel"><h2>Ước tính hoạt động thế nào?</h2><p>Địa điểm → Loại BĐS → Dữ liệu giá rao đã xác minh → Giá/m² theo cấp dữ liệu tốt nhất → Ước tính giá</p><p class="house-muted">Giá/m² trung vị × diện tích. Khi tỉnh ít mẫu, dùng phân vị có trọng số từ tối đa 3 tỉnh gần trong 500 km, cùng loại BĐS và đủ mẫu. Mỗi tỉnh cân bằng số tin và trọng số nghịch đảo khoảng cách; gần về địa lý không chứng minh tương đồng thị trường. Chỉ là tham khảo BETA, không phải Machine Learning.</p></section>
+        <section class="house-panel house-source"><p class="house-eyebrow">MINH BẠCH</p><h2>Nguồn dữ liệu & giới hạn</h2><dl id="houseSourceFacts"></dl><p>Chỉ tập con các listing vượt qua quy trình xác minh được sử dụng. Ước tính dựa trên dữ liệu rao bán trong dataset, không phải giá giao dịch hoàn tất hoặc realtime. TiniX AI là publisher dataset, không được xác nhận là website giao dịch gốc.</p><p>Tên khu vực lịch sử được giữ nguyên; không đoán phường/xã. Ước tính mang tính tham khảo, không phải tư vấn đầu tư hoặc định giá chuyên nghiệp.</p><ul id="houseLimitations"></ul><p><a href="https://huggingface.co/datasets/tinixai/vietnam-real-estates" target="_blank" rel="noopener noreferrer">TiniX AI dataset ↗</a> · <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0 · phi thương mại</a></p></section>
+        <noscript>Vui lòng bật JavaScript để sử dụng ước tính BETA.</noscript>
+    </main><footer><p>Data Science Portfolio · Vietnam Real Estate Market Estimate · BETA</p></footer>
+</body>
+</html>

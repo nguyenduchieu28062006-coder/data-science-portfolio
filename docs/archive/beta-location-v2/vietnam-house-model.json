@@ -1,0 +1,216 @@
+{
+  "schema_version": 4,
+  "mode": "VERIFIED MARKET ESTIMATE BETA",
+  "model_name": "Median giá/m² (thống kê BETA)",
+  "model_version": "beta-location-v2",
+  "trained_at": null,
+  "generated_at": "2026-10-04T08:14:31.990510+00:00",
+  "dataset_name": "TiniX verified apartment sale subset",
+  "dataset_source": "https://huggingface.co/datasets/tinixai/vietnam-real-estates",
+  "data_source": {
+    "dataset": "tinixai/vietnam-real-estates",
+    "revision": "ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f",
+    "publisher": "TiniX AI",
+    "license": "CC-BY-NC-4.0",
+    "file": "verified-vietnam-house-locations.parquet",
+    "canonical_file": "data/verified-vietnam-house-sales.parquet"
+  },
+  "model_review": {
+    "status": "APPROVE WITH LIMITATIONS — STATISTICAL BETA ONLY",
+    "public_status": "READY",
+    "ml_status": "NOT READY",
+    "report": "docs/vietnam-location-public-status.md"
+  },
+  "features": [
+    "province",
+    "ward",
+    "sub_area",
+    "property_type",
+    "area_m2"
+  ],
+  "target": "statistical_total_estimate_vnd",
+  "target_unit": "VND",
+  "regressor": {
+    "kind": "market_median"
+  },
+  "sample_count": 290282,
+  "verified_rows": 290282,
+  "train_rows": 0,
+  "test_rows": 0,
+  "metrics": null,
+  "model_comparison": [],
+  "scatter": [],
+  "data_start_date": "2025-06-01T01:08:56.810000",
+  "data_end_date": "2026-03-30T23:45:12.969000",
+  "data_date_info": {
+    "display": "2025-06-01 – 2026-03-30 (ngày tin theo publisher)",
+    "listing_dates_verified": false
+  },
+  "coverage": [],
+  "coverage_thresholds": {
+    "HIGH": 1000,
+    "MEDIUM": 200,
+    "LOW": 30,
+    "area_min": 30,
+    "province_min": 80
+  },
+  "property_types": [
+    "APARTMENT"
+  ],
+  "input_bounds": {
+    "area_m2": [
+      15,
+      1500
+    ]
+  },
+  "samples": [
+    {
+      "input": {
+        "province": "Hà Nội",
+        "ward": "w_52fa6d21d3b8ce35",
+        "sub_area": "s_b067c4d005a8554e",
+        "property_type": "APARTMENT",
+        "area_m2": 78.0
+      },
+      "listed_price_vnd": 5250000000.0
+    },
+    {
+      "input": {
+        "province": "TP. Hồ Chí Minh",
+        "ward": "w_4eff6923b9e14b94",
+        "sub_area": "s_fd7a4e605b82edfe",
+        "property_type": "APARTMENT",
+        "area_m2": 76.0
+      },
+      "listed_price_vnd": 4650000000.0
+    },
+    {
+      "input": {
+        "province": "Đà Nẵng",
+        "ward": "w_63755c98634f15cc",
+        "sub_area": "s_6183c4181a077533",
+        "property_type": "APARTMENT",
+        "area_m2": 85.0
+      },
+      "listed_price_vnd": 9000000000.0
+    }
+  ],
+  "quality_gate": {
+    "status": "FAIL",
+    "sample_count": 200,
+    "seed": 42,
+    "correct": 194,
+    "accuracy": 0.97,
+    "reason": "Primary intent false positives and truncated one-digit billion shorthand. No ML training performed."
+  },
+  "limitations": [
+    "Ước tính thống kê BETA, không phải Machine Learning Prediction; không có MAE/RMSE/R²/MAPE của model.",
+    "Gate ML 194/200 = 97%, dưới 98%; không train. BETA chỉ dùng căn hộ chung cư, không trộn nhà/đất/khách sạn/tòa CHDV.",
+    "Quan sát 72/72 căn hộ trong mẫu gốc không thấy lỗi intent/total-price; không chứng minh toàn dataset chính xác.",
+    "Giá là giá rao bán, không phải giá giao dịch hoàn tất. Dữ liệu không phải realtime.",
+    "TiniX AI khai báo CC BY-NC 4.0, chỉ portfolio phi thương mại; chưa xác minh độc lập nguồn upstream.",
+    "Ngày tin theo publisher, chưa xác minh độc lập và không suy đoán timezone. Ward/project labels are historical publisher claims; district context is retained without guessing current boundaries.",
+    "Median giá/m² không điều chỉnh tầng, pháp lý, đường, mặt tiền, phòng hay chất lượng nội thất; kịch bản diện tích phản ánh công thức thống kê.",
+    "Phường/xã và dự án là trường có cấu trúc do publisher khai báo; chưa kiểm chứng ranh giới hành chính hiện hành hoặc địa chỉ từng listing.",
+    "Dự án thiếu ward hoặc có bản trùng xung đột không được đưa vào thống kê dự án. Phân vị P25/P75 không phải khoảng tin cậy.",
+    "Dự án <20 mẫu dùng ward cùng loại; ward <30 mẫu dùng tỉnh; tỉnh <80 mẫu không ước tính. Location không tồn tại luôn trả no-result."
+  ],
+  "location_index": "data/vietnam-location-index.json",
+  "statistics": "data/vietnam-market-stats.json",
+  "location_thresholds": {
+    "SUB_AREA": 20,
+    "WARD": 30,
+    "PROVINCE": 80
+  },
+  "location_counts": {
+    "province_count": 27,
+    "ward_count": 730,
+    "sub_area_count": 2372
+  },
+  "property_type_gates": [
+    {
+      "code": "APARTMENT",
+      "label": "Căn hộ chung cư",
+      "status": "ENABLED",
+      "raw_rows": 762800,
+      "candidate_rows": 290282,
+      "verified_rows": 290282,
+      "sample_review_size": 72,
+      "verification_score": 1.0,
+      "province_count": 27,
+      "ward_count": 730,
+      "sub_area_count": 2372,
+      "limitation": "72 apartment observations from original sample, not population accuracy or an ML quality gate"
+    },
+    {
+      "code": "HOUSE",
+      "label": "Nhà (chưa phân biệt nhà riêng/mặt phố)",
+      "status": "DISABLED",
+      "raw_rows": 1575536,
+      "candidate_rows": 521217,
+      "verified_rows": 0,
+      "sample_review_size": 115,
+      "verification_score": 0.9478260869565217,
+      "province_count": 0,
+      "ward_count": 0,
+      "sub_area_count": 0,
+      "limitation": "No independently approved type subset; original mixed-type gate FAIL. Source categories may combine market segments; no guessed split."
+    },
+    {
+      "code": "STREET_HOUSE",
+      "label": "Nhà mặt phố",
+      "status": "DISABLED",
+      "raw_rows": null,
+      "candidate_rows": 0,
+      "verified_rows": 0,
+      "sample_review_size": 0,
+      "verification_score": null,
+      "province_count": 0,
+      "ward_count": 0,
+      "sub_area_count": 0,
+      "limitation": "No independently approved type subset; original mixed-type gate FAIL. Source categories may combine market segments; no guessed split."
+    },
+    {
+      "code": "VILLA",
+      "label": "Biệt thự / Nhà liền kề",
+      "status": "DISABLED",
+      "raw_rows": 269782,
+      "candidate_rows": 76163,
+      "verified_rows": 0,
+      "sample_review_size": 13,
+      "verification_score": 1.0,
+      "province_count": 0,
+      "ward_count": 0,
+      "sub_area_count": 0,
+      "limitation": "No independently approved type subset; original mixed-type gate FAIL. Source categories may combine market segments; no guessed split."
+    },
+    {
+      "code": "LAND",
+      "label": "Đất / Đất nền",
+      "status": "DISABLED",
+      "raw_rows": 832766,
+      "candidate_rows": 0,
+      "verified_rows": 0,
+      "sample_review_size": 0,
+      "verification_score": null,
+      "province_count": 0,
+      "ward_count": 0,
+      "sub_area_count": 0,
+      "limitation": "No independently approved type subset; original mixed-type gate FAIL. Source categories may combine market segments; no guessed split."
+    },
+    {
+      "code": "SHOPHOUSE",
+      "label": "Shophouse",
+      "status": "DISABLED",
+      "raw_rows": 59860,
+      "candidate_rows": 0,
+      "verified_rows": 0,
+      "sample_review_size": 0,
+      "verification_score": null,
+      "province_count": 0,
+      "ward_count": 0,
+      "sub_area_count": 0,
+      "limitation": "No independently approved type subset; original mixed-type gate FAIL. Source categories may combine market segments; no guessed split."
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "dataset": "tinixai/vietnam-real-estates",
+  "revision": "ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f",
+  "cache_only": true,
+  "files": [
+    {
+      "name": "shard_0000.parquet",
+      "bytes": 163719867,
+      "sha256": "e3fe7e7af9b4b4d01f6a93a3d9ba9dde49f7fc828eaa785a653d35d9d6a42e13",
+      "local_cache_path": "C:\\Users\\Hieu\\AppData\\Local\\Temp\\tinix-transaction-audit\\ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f\\shard_0000.parquet"
+    },
+    {
+      "name": "shard_0001.parquet",
+      "bytes": 163980651,
+      "sha256": "5c5600cde592f6d13d81898204d67c1bed54523c147e8a65666f436fdaf9c33e",
+      "local_cache_path": "C:\\Users\\Hieu\\AppData\\Local\\Temp\\tinix-transaction-audit\\ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f\\shard_0001.parquet"
+    },
+    {
+      "name": "shard_0002.parquet",
+      "bytes": 162710834,
+      "sha256": "d731d5785f9d46316c280e1353814f2477e35cef97092ae926e493c29447b2c9",
+      "local_cache_path": "C:\\Users\\Hieu\\AppData\\Local\\Temp\\tinix-transaction-audit\\ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f\\shard_0002.parquet"
+    },
+    {
+      "name": "shard_0003.parquet",
+      "bytes": 163953228,
+      "sha256": "3e1c5e7453b7e53c19c2f48740c5a23e2bb883f9ecfa813729402ece2d01831c",
+      "local_cache_path": "C:\\Users\\Hieu\\AppData\\Local\\Temp\\tinix-transaction-audit\\ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f\\shard_0003.parquet"
+    },
+    {
+      "name": "shard_0004.parquet",
+      "bytes": 165642122,
+      "sha256": "64d81f8f02844d95828e735f7a66a1ff0d47b7ea4eae64113f30aaefaba04d15",
+      "local_cache_path": "C:\\Users\\Hieu\\AppData\\Local\\Temp\\tinix-transaction-audit\\ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f\\shard_0004.parquet"
+    },
+    {
+      "name": "shard_0005.parquet",
+      "bytes": 169490615,
+      "sha256": "142164693dde331476333a7d8be97bd5d6b3bc6d38d0ce5830cfe369979e06c3",
+      "local_cache_path": "C:\\Users\\Hieu\\AppData\\Local\\Temp\\tinix-transaction-audit\\ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f\\shard_0005.parquet"
+    },
+    {
+      "name": "shard_0006.parquet",
+      "bytes": 169608483,
+      "sha256": "bbf6e44c16ea262f2710dd154d3c7b2a91b0d8cb89bc9a72d3aec52ec621b6a8",
+      "local_cache_path": "C:\\Users\\Hieu\\AppData\\Local\\Temp\\tinix-transaction-audit\\ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f\\shard_0006.parquet"
+    },
+    {
+      "name": "shard_0007.parquet",
+      "bytes": 169599455,
+      "sha256": "6623c388fdc78a430b8c8b3cc355c1e79c03153f420f6c787b678edf0989ccf5",
+      "local_cache_path": "C:\\Users\\Hieu\\AppData\\Local\\Temp\\tinix-transaction-audit\\ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f\\shard_0007.parquet"
+    },
+    {
+      "name": "shard_0008.parquet",
+      "bytes": 171549582,
+      "sha256": "2394d62e313a958361be08fbfd636e26c185805862c952e26689389417f74be5",
+      "local_cache_path": "C:\\Users\\Hieu\\AppData\\Local\\Temp\\tinix-transaction-audit\\ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f\\shard_0008.parquet"
+    },
+    {
+      "name": "shard_0009.parquet",
+      "bytes": 168990061,
+      "sha256": "6858abdac585cf85f33fc238592956c594fe7525d4c733ca31dd5e46dfe5efc0",
+      "local_cache_path": "C:\\Users\\Hieu\\AppData\\Local\\Temp\\tinix-transaction-audit\\ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f\\shard_0009.parquet"
+    }
+  ]
+}

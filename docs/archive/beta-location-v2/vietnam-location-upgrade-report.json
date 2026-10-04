@@ -1,0 +1,143 @@
+{
+  "verified_rows": 290282,
+  "province_count": 27,
+  "ward_count": 730,
+  "sub_area_count": 2372,
+  "project_count": 2372,
+  "thresholds": {
+    "SUB_AREA": 20,
+    "WARD": 30,
+    "PROVINCE": 80
+  },
+  "distribution": {
+    "PROVINCE": {
+      "groups": 27,
+      "supported": 19,
+      "count_quantiles": {
+        "0": 1.0,
+        "0.25": 26.5,
+        "0.5": 232.0,
+        "0.75": 1001.5,
+        "1": 132315.0
+      }
+    },
+    "WARD": {
+      "groups": 730,
+      "supported": 396,
+      "count_quantiles": {
+        "0": 1.0,
+        "0.25": 6.0,
+        "0.5": 41.0,
+        "0.75": 269.5,
+        "1": 10597.0
+      }
+    },
+    "SUB_AREA": {
+      "groups": 2372,
+      "supported": 1340,
+      "count_quantiles": {
+        "0": 1.0,
+        "0.25": 4.0,
+        "0.5": 29.0,
+        "0.75": 103.0,
+        "1": 1697.0
+      }
+    }
+  },
+  "property_types": [
+    {
+      "code": "APARTMENT",
+      "label": "Căn hộ chung cư",
+      "status": "ENABLED",
+      "raw_rows": 762800,
+      "candidate_rows": 290282,
+      "verified_rows": 290282,
+      "sample_review_size": 72,
+      "verification_score": 1.0,
+      "province_count": 27,
+      "ward_count": 730,
+      "sub_area_count": 2372,
+      "limitation": "72 apartment observations from original sample, not population accuracy or an ML quality gate"
+    },
+    {
+      "code": "HOUSE",
+      "label": "Nhà (chưa phân biệt nhà riêng/mặt phố)",
+      "status": "DISABLED",
+      "raw_rows": 1575536,
+      "candidate_rows": 521217,
+      "verified_rows": 0,
+      "sample_review_size": 115,
+      "verification_score": 0.9478260869565217,
+      "province_count": 0,
+      "ward_count": 0,
+      "sub_area_count": 0,
+      "limitation": "No independently approved type subset; original mixed-type gate FAIL. Source categories may combine market segments; no guessed split."
+    },
+    {
+      "code": "STREET_HOUSE",
+      "label": "Nhà mặt phố",
+      "status": "DISABLED",
+      "raw_rows": null,
+      "candidate_rows": 0,
+      "verified_rows": 0,
+      "sample_review_size": 0,
+      "verification_score": null,
+      "province_count": 0,
+      "ward_count": 0,
+      "sub_area_count": 0,
+      "limitation": "No independently approved type subset; original mixed-type gate FAIL. Source categories may combine market segments; no guessed split."
+    },
+    {
+      "code": "VILLA",
+      "label": "Biệt thự / Nhà liền kề",
+      "status": "DISABLED",
+      "raw_rows": 269782,
+      "candidate_rows": 76163,
+      "verified_rows": 0,
+      "sample_review_size": 13,
+      "verification_score": 1.0,
+      "province_count": 0,
+      "ward_count": 0,
+      "sub_area_count": 0,
+      "limitation": "No independently approved type subset; original mixed-type gate FAIL. Source categories may combine market segments; no guessed split."
+    },
+    {
+      "code": "LAND",
+      "label": "Đất / Đất nền",
+      "status": "DISABLED",
+      "raw_rows": 832766,
+      "candidate_rows": 0,
+      "verified_rows": 0,
+      "sample_review_size": 0,
+      "verification_score": null,
+      "province_count": 0,
+      "ward_count": 0,
+      "sub_area_count": 0,
+      "limitation": "No independently approved type subset; original mixed-type gate FAIL. Source categories may combine market segments; no guessed split."
+    },
+    {
+      "code": "SHOPHOUSE",
+      "label": "Shophouse",
+      "status": "DISABLED",
+      "raw_rows": 59860,
+      "candidate_rows": 0,
+      "verified_rows": 0,
+      "sample_review_size": 0,
+      "verification_score": null,
+      "province_count": 0,
+      "ward_count": 0,
+      "sub_area_count": 0,
+      "limitation": "No independently approved type subset; original mixed-type gate FAIL. Source categories may combine market segments; no guessed split."
+    }
+  ],
+  "threshold_reason": "Minimum 20 project / 30 ward / 80 province observations balances observed sparse group distribution; descriptive reliability limits only, not accuracy guarantees.",
+  "missing_ward_rows": 52044,
+  "project_without_ward_rows": 28924,
+  "data_start": "2025-06-01T01:08:56.810000",
+  "data_latest_date": "2026-03-30T23:45:12.969000",
+  "training_performed": false,
+  "payload_bytes": {
+    "data/vietnam-location-index.json": 479197,
+    "data/vietnam-market-stats.json": 1170398
+  }
+}

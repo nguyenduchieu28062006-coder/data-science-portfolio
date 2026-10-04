@@ -1,0 +1,6 @@
+.local-deps/
+__pycache__/
+*.pyc
+data/verified-vietnam-house-sales.parquet
+*.parquet
+docs/verified-vietnam-house-quality-sample.json

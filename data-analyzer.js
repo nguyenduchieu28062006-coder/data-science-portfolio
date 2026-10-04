@@ -94,8 +94,8 @@ const primaryColor = document.getElementById("primaryColor");
 const categoryColorMap = new Map();
 const autoCategoryColorMap = new Map();
 const categoryPalette = [
-    "#38bdf8", "#fb923c", "#a78bfa", "#34d399", "#f472b6",
-    "#facc15", "#22d3ee", "#f87171", "#a3e635", "#818cf8"
+    "#2563eb", "#f59e0b", "#8b5cf6", "#10b981", "#db2777",
+    "#eab308", "#06b6d4", "#ef4444", "#65a30d", "#6366f1"
 ];
 
 function generateCategoryColor(index) {
@@ -359,16 +359,16 @@ function buildColumnProfile(header) {
 function createProfileChart(canvasId, type, labels, values, label, xTitle) {
     return new Chart(document.getElementById(canvasId).getContext("2d"), {
         type,
-        data: { labels, datasets: [{ label, data: values, backgroundColor: "#38bdf8",
-            borderColor: "#38bdf8", borderWidth: 1, tension: 0.2 }] },
+        data: { labels, datasets: [{ label, data: values, backgroundColor: "#2563eb",
+            borderColor: "#2563eb", borderWidth: 1, tension: 0.2 }] },
         options: {
             responsive: true, maintainAspectRatio: false,
-            plugins: { legend: { labels: { color: "#e5e7eb" } } },
+            plugins: { legend: { labels: { color: "#475569" } } },
             scales: {
-                x: { title: { display: true, text: xTitle, color: "#cbd5e1" },
-                    ticks: { color: "#cbd5e1", maxRotation: 60 }, grid: { color: "#1e293b" } },
-                y: { beginAtZero: true, title: { display: true, text: "Số lượng", color: "#cbd5e1" },
-                    ticks: { color: "#cbd5e1", precision: 0 }, grid: { color: "#1e293b" } }
+                x: { title: { display: true, text: xTitle, color: "#64748b" },
+                    ticks: { color: "#64748b", maxRotation: 60 }, grid: { color: "#e2e8f0" } },
+                y: { beginAtZero: true, title: { display: true, text: "Số lượng", color: "#64748b" },
+                    ticks: { color: "#64748b", precision: 0 }, grid: { color: "#e2e8f0" } }
             }
         }
     });
@@ -1304,7 +1304,7 @@ function drawGroupedChart(
 
                         labels: {
                             color:
-                                "#e5e7eb"
+                                "#475569"
                         }
 
                     }
@@ -1319,7 +1319,7 @@ function drawGroupedChart(
                             x: {
                                 ticks: {
                                     color:
-                                        "#cbd5e1"
+                                        "#64748b"
                                 }
                             },
 
@@ -1329,7 +1329,7 @@ function drawGroupedChart(
 
                                 ticks: {
                                     color:
-                                        "#cbd5e1"
+                                        "#64748b"
                                 }
                             }
 
@@ -1470,7 +1470,7 @@ function drawScatterChart(
 
                         labels: {
                             color:
-                                "#e5e7eb"
+                                "#475569"
                         }
 
                     }
@@ -1489,12 +1489,12 @@ function drawScatterChart(
                                 xColumn,
 
                             color:
-                                "#e5e7eb"
+                                "#475569"
                         },
 
                         ticks: {
                             color:
-                                "#cbd5e1"
+                                "#64748b"
                         }
 
                     },
@@ -1509,12 +1509,12 @@ function drawScatterChart(
                                 yColumn,
 
                             color:
-                                "#e5e7eb"
+                                "#475569"
                         },
 
                         ticks: {
                             color:
-                                "#cbd5e1"
+                                "#64748b"
                         }
 
                     }

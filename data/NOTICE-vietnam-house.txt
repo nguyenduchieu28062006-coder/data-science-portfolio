@@ -1,0 +1,26 @@
+Dataset: tinixai/vietnam-real-estates, publisher TiniX AI.
+Source: https://huggingface.co/datasets/tinixai/vietnam-real-estates
+Revision: ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f.
+License: CC BY-NC 4.0 declared by publisher; noncommercial portfolio.
+License: https://creativecommons.org/licenses/by-nc/4.0/
+Public mode: VERIFIED MARKET ESTIMATE BETA, beta-public-v3; no ML trained.
+693,183 retained asking-price records: APARTMENT 290,282; HOUSE 151,472;
+VILLA (including linked houses) 40,246; LAND 211,183. Other types withheld.
+One cached sale pass for additional types; original apartment output reused.
+Sale intent/type/price consistency filters, dedup, local aggregates and weighted
+regional quantiles. Derived listing hashes are not original source identifiers.
+Finite manual spot-checks do not prove population accuracy. Original ML gate
+FAIL 194/200 (97%) unchanged; no MAE/RMSE/R2/MAPE published.
+Publisher listing period 2025-06-01 through 2026-03-30, not independently verified.
+No independent verification of upstream rights, addresses, areas or transactions.
+No realtime feed; prices are asking prices, not completed transactions.
+Canonical admin reference: official NSO SOAP, snapshot queried 2026-10-04.
+Whole-unit Hanoi merger mappings have documentary evidence; partial/split or
+unresolved historical wards remain province-only, no guessed current location.
+Geographic regional donor proximity does not prove comparable markets.
+P25/P75 are descriptive asking-price quantiles, not confidence intervals.
+Raw and retained Parquet preserved locally, excluded from public bundle.
+Geometry source/revision and MIT license: vietnam-map-source.json and
+assets/vendor/vietnam-boundaries-LICENSE; illustrative not cadastral.
+Historical outputs preserved under docs/archive/; current report
+docs/vietnam-public-status.md.

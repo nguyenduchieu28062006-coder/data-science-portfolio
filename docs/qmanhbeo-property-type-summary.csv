@@ -1,0 +1,8 @@
+﻿property_type,row_count,median_price_raw,median_area_m2,price_missing,price_nonpositive,area_missing,area_nonpositive,property_type_slugs
+Căn hộ chung cư,28387,6300.0,72.0,0,185,147,4,can-ho-chung-cu
+"Kho, nhà xưởng",4884,24000.0,2000.0,0,128,31,0,kho-nha-xuong
+Khách sạn,717,20800.0,172.0,0,0,0,0,khach-san
+Nhà riêng,72821,9980.0,81.0,0,55,85,0,nha-mat-pho-mat-tien
+Nhà trọ,1719,5450.0,82.0,0,0,0,0,phong-tro
+Văn phòng,400,48500.0,144.0,0,0,0,0,van-phong
+Đất,127298,3400.0,186.0,0,243,33,0,dat-tho-cu

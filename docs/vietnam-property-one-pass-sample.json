@@ -1,0 +1,775 @@
+{
+  "STREET_HOUSE": [
+    {
+      "listing_id": "df6e8d16ffc068622bc15c92539602e4f5f88145dc32bf998b24a88945b363df",
+      "property_type": "STREET_HOUSE",
+      "title": "Bán nhà mặt tiền đường An Thượng 21 - Khu phố Tây - Nhà 3 tầng kiên cố - Vị trí đẹp, sầm uất",
+      "description_excerpt": "BÁN NHÀ 3 TẦNG MẶT TIỀN AN THƯỢNG 21 MỸ AN, NGŨ HÀNH SƠN, ĐÀ NẴNG - Diện tích: 78.8 m² (4,5 x 17,5m) - Nhà 2 tầng 1 tum trên đỗ mê, nhà kiên cố - Đường 5,5m lề 3m - Nằm ngay trung tâm khu phố du lịch An Thượng sầm uất, tiện ích xung quanh đầy đủ: khách sạn, nhà hàng, cafe, ĐH Kinh Tế, cách biển chỉ vài phút đi bộ - Sổ hồng chính chủ - Giá 12tỷ (TL) - Cam kết làm việc chính chủ",
+      "price_vnd": 12000000000.0,
+      "text_prices_vnd": [
+        12000000000.0
+      ],
+      "province": "Đà Nẵng",
+      "ward": "Mỹ An"
+    },
+    {
+      "listing_id": "e624e20ae0be89cbd0fc18e02146806d4699445990db25a58ea7486364a9420b",
+      "property_type": "STREET_HOUSE",
+      "title": "Bán nhà mặt phố Quang Lai kinh doanh sầm uất, vị trí đẹp DT 30m2 x 6 tầng giá chỉ hơn 12 tỷ",
+      "description_excerpt": "Bán nhà mặt phố Quang Lai kinh doanh sầm uất, vị trí đẹp. DT 30m2 x 6 tang giá chỉ hơn 12 tỷ. Nhà mặt phố, ngay cạnh ủy ban, gần KĐT, vừa ở vừa kinh doanh, mua giữ tiền. Thiết kế 6 tầng thang máy, xây mới cực kỳ tâm huyết, nhà 2 mặt thoáng trước sau, view đẹp. Sổ phân lô, vuông đẹp. Liên hệ [phone_number] em Linh để đi xem nhà sớm nhất.",
+      "price_vnd": 12500000000.0,
+      "text_prices_vnd": [
+        12000000000.0,
+        12000000000.0
+      ],
+      "province": "Hà Nội",
+      "ward": "Tứ Hiệp"
+    },
+    {
+      "listing_id": "661ffb26d695002434ebdba8c5cda9e2b7d259adbd0858214e0ed0e8d2cd5a6e",
+      "property_type": "STREET_HOUSE",
+      "title": "Bán nhà mặt tiền bình giã vị trí kinh doanh đắc địa giá tốt nhất khu vực",
+      "description_excerpt": "Địa chỉ: 155 Bình Giã, Phường Tam Thắng, Thành Phố Hồ Chí Minh. Giá bán: 12 TỶ Mức giá tốt nhất so với các căn cùng phân khúc trên trục Bình Giã THÔNG TIN CHI TIẾT Diện tích: 86m² Kích thước: Ngang 4,5m x Dài 14,5m mặt tiền đẹp, không lỗi phong thủy Kết cấu: 1 trệt 2 lầu, 4 phòng ngủ, không gian linh hoạt Hướng: Đông Nam mát mẻ, phong thủy tốt Đường trước nhà: 20m, lề đường rộng, đậu xe thoải mái Pháp lý: Sổ hồng hoàn công đầy đủ mua bán an toàn, sang tên nhanh LỢI THẾ KINH DOANH VƯỢT TRỘI Mặt tiền trục Bình Giã tuyến đường huyết mạch, mật độ lưu thông cao Phù hợp mở showroom, văn phòng, spa, phòng khám, cửa hàng, kinh doanh đa ngành Khu vực dân cư đông đúc, kinh doanh sầm uất, dòng tiền ổn định Có thể ở kết hợp kinh doanh hoặc cho thuê sinh lời ngay GIÁ TRỊ ĐẦU TƯ HIẾM CÓ So với các căn mặt tiền cùng khu vực, mức giá 12 tỷ đang thấp hơn thị trường Nhà có sẵn kết cấu đẹp, không tốn chi phí xây dựng Tiềm năng tăng giá cao theo hạ tầng và nhu cầu kinh doanh trung tâm Liên hệ ngay để xem nhà & thương lượng trực tiếp chính chủ Cơ hội sở hữu nhà mặt tiền kinh doanh tốt giá thật pháp lý chuẩn, không chờ đợi!",
+      "price_vnd": 11900000000.0,
+      "text_prices_vnd": [
+        12000000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "8"
+    },
+    {
+      "listing_id": "fe658ef64b4cc49e2f4eadb685b863cbf0f95c6e1d2f4c6889953a06e31b617c",
+      "property_type": "STREET_HOUSE",
+      "title": "Bán nhà mặt phố ngay khu Đông Thủ Thiêm, Bình Trưng Đông, Quận 2",
+      "description_excerpt": "- Vị trí Đường 33, Khu phố 3, Phường Bình Trưng Đông, Quận 2, TP. HCM. - Thông tin chi tiết: Diện tích đất: 200m² (8m x 25m). Diện tích xây dựng: 90m². Tổng diện tích sàn xây dựng: 381m². Kết cấu: 1 trệt, 3 lầu, sân thượng. Gồm: 6 phòng ngủ, 5 toilet. Hướng nhà: Đông Bắc. - Đường trước nhà: 16m (rộng rãi, xe hơi quay đầu thoải mái). - Pháp lý: Sổ hồng riêng, hoàn công đầy đủ. - Công năng: Nhà ở kết hợp văn phòng/khu sinh hoạt gia đình. - Phân tích vị trí: Biệt thự nằm kế bên Lake View và đại dự án Global City Ville, một trong những khu vực có tốc độ phát triển nhanh nhất Quận 2. Giao thông kết nối thuận tiện qua Mai Chí Thọ, Nguyễn Duy Trinh và cao tốc Long Thành Dầu Giây. Khu dân cư hiện hữu, an ninh, xung quanh là nhiều villa, trường học quốc tế, siêu thị, tiện ích nội khu hoàn chỉnh. Tiềm năng gia tăng giá trị cao trong tương lai gần, phù hợp mua ở hoặc đầu tư. - Giá: 26 tỷ bớt lộc. - Liên hệ xem nhà [phone_number]",
+      "price_vnd": 26000000000.0,
+      "text_prices_vnd": [
+        26000000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "Bình Trưng Đông"
+    },
+    {
+      "listing_id": "56d8641617b4bdb9f27fe70f3bb800f8f2981f67decbe6163614fca5aa6e05bb",
+      "property_type": "STREET_HOUSE",
+      "title": "Bán nhà mặt phố Điện Biên Phủ, 22 tỷ, 62m2, 7 tầng, pháp lý đầy đủ, chỉ với",
+      "description_excerpt": "Nhà mặt phố nằm tại Đường Điện Biên Phủ, Phường 11, Quận 10, Hồ Chí Minh, là một lựa chọn lý tưởng cho những ai đang tìm kiếm không gian kinh doanh hoặc đầu tư. - Khu vực sầm uất, thuận tiện cho việc kinh doanh. - Thiết kế 7 tầng, diện tích 62m2 mang đến không gian rộng rãi cho nhiều mục đích sử dụng. - Pháp lý đầy đủ, sổ đỏ sẵn sàng giúp khách hàng yên tâm khi giao dịch. - Phong thủy tốt, phù hợp cho việc làm ăn phát đạt. + Gần trường mầm non Sóc Nâu - Quận 10. + Gần siêu thị Mẹ Bầu & Em Bé Con Cưng. + Gần bệnh viện Da Liễu TP.HCM và Bệnh viện Nhi Đồng 1. + Có công viên Âu Lạc gần kề, mang lại không gian xanh cho khu vực. Liên hệ ngay để được tư vấn miễn phí qua số điện thoại [phone_number] hoặc gặp Kiều Thị Thanh. #96561",
+      "price_vnd": 22000000000.0,
+      "text_prices_vnd": [
+        22000000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": ""
+    },
+    {
+      "listing_id": "261aad416b29ed62d3460877429defd9ea347ca5949d9bf6c2f019260d61ca95",
+      "property_type": "STREET_HOUSE",
+      "title": "Bán nhà mặt tiền bạch đằng 151m2 3 tầng - 27 tỷ - khu 2 chiều đỉnh cao kinh doanh",
+      "description_excerpt": "BÁN NHÀ MẶT TIỀN BẠCH ĐẰNG 151M2 3 TẦNG - 27 TỶ - KHU 2 CHIỀU ĐỈNH CAO KINH DOANH - Diện tích: 151 m2 - Kết cấu: 3 tầng, 5 phòng ngủ, 1 phòng thờ. - Tiện ích: Vị trí mặt tiền vàng khu Hàng Xanh 2 chiều đông đúc. - Thiết kế siêu dài, phù hợp vừa ở vừa kinh doanh hoặc CHDV. - Pháp lý chuẩn, sổ đẹp, chính chủ lâu đời. - Địa chỉ: Mặt tiền Bạch Đằng, Phường 15, Bình Thạnh. - Giá bán: 27 tỷ - Mã sản phẩm: #68937",
+      "price_vnd": 27000000000.0,
+      "text_prices_vnd": [
+        27000000000.0,
+        27000000000.0,
+        27000000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": ""
+    },
+    {
+      "listing_id": "04422eec814c5086169f7d178b31edb2bf2a3c19a8ae4aeeca0270242b3d7b0a",
+      "property_type": "STREET_HOUSE",
+      "title": "Bán Nhà Mặt Tiền Tây Thạnh - Tân Phú - ( 7.7x26)- 5 Tầng - HDT 120TR/TH- Bán 47 Tỷ",
+      "description_excerpt": "Bán Nhà Siêu Vị Trí Mặt Tiền Tây Thạnh . Quận Tân Phú - Diện tích : 7.7x26 - Kết cấu : 5 Tầng - Hợp đồng thuê : 120 triệu/tháng - Vị trí đẹp, khu vực sầm uất - Tuyến đường tập trung kinh doanh nhiều ngành nghề - Giao thông thuận tiện di chuyển - Sản phẩm phù hợp khách mua kinh doanh hoặc khai thác cho thuê mang lại dòng tiền ổn định hàng tháng - Giá bán :47 Tỷ. Thương Lượng Liên hệ : [phone_number] Duy Anh Chuyên viên tư vấn pháp lý và đầu tư BĐS Hàng Hiệu tại trung tâm TP. Hồ Chí Minh",
+      "price_vnd": 47000000000.0,
+      "text_prices_vnd": [
+        47000000000.0,
+        47000000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "Phú Thạnh"
+    },
+    {
+      "listing_id": "a20345f7e6f497fa713a06e9ed410a9673c4bb253997a0edcb033297e8127eee",
+      "property_type": "STREET_HOUSE",
+      "title": "Bán nhà mặt tiền Nguyễn Văn Thương, P 25, Bình Thạnh - 7x19m - 6 tầng - HĐT: 100tr/th - Giá 30 tỷ",
+      "description_excerpt": "Bán nhà siêu phẩm mặt tiền D1 (Nguyễn Văn Thương) P25, Bình Thạnh. - Vị trí cực đẹp và đắc địa, ngay tòa nhà Pearl Plaza - view Landmark 81, tuyến đường cực kì sầm uất và đắc địa, nơi toạ lạc nhiều toà nhà văn phòng, ngân hàng, các chuỗi thương hiệu lớn,... - Diện tích: 7x19m - DTCN: 130m2 - Kết cấu: 6 tầng. - Hợp đồng thuê 100 triệu mỗi tháng. - Giá: 30 tỷ. ------------ - Hotline/Zalo: [phone_number] Em Hoàng - Luôn sẵn sàng hỗ trợ tư vấn 24/7. - MIỄN TIẾP MÔI GIỚI, QUẢNG CÁO. - Trân trọng cảm ơn Quý cô chú, anh/chị đã quan tâm và theo dõi tin!",
+      "price_vnd": 29000000000.0,
+      "text_prices_vnd": [
+        30000000000.0,
+        30000000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "25"
+    },
+    {
+      "listing_id": "c2edf80948ce18a830f133ce8df3f6c4b94893fed4dc3b57bd5b4ccebd2e2185",
+      "property_type": "STREET_HOUSE",
+      "title": "Xuất cảnh bán gấp - Bán nhà mặt tiền Lý Văn Phức 80m² 4 tầng - 27 tỷ",
+      "description_excerpt": "- Địa chỉ: Mặt tiền Lý Văn Phức, Phường Tân Định, Quận 1. - Diện tích: 80m². - Kết cấu: 1 trệt, 3 lầu. Tổng 4 tầng. - Tiện ích: Khu an ninh, thích hợp kinh doanh. - Vị trí: Giao các trục: Đinh Tiên Hoàng, Hai Bà Trưng, Hoàng Sa. - Giá bán: 27 tỷ. Liên hệ: Địa ốc Toàn Cầu - 32 Pasteur, Phường Bến Nghé, Quận 1.",
+      "price_vnd": 27000000000.0,
+      "text_prices_vnd": [
+        27000000000.0,
+        27000000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "Tân Định"
+    },
+    {
+      "listing_id": "2836ae0fe9999fdca4790523ce8210f95f8f7d8f478968b5ed4a8583b0ea1e68",
+      "property_type": "STREET_HOUSE",
+      "title": "Bán nhà mặt tiền Tô Hiến Thành trung tâm khu phố Hàn Quốc giá chỉ 23 tỷ",
+      "description_excerpt": "Bán nhà mặt tiền Tô Hiến Thành khu phố Hàn Trung Tâm Nha Trang. - Diện tích: 109m2 ngang 4m. - Hiện trạng nhà cấp 4 tiện xây mới. Nằm ngay khu trung tâm phố Hàn Quốc, sầm uất bậc nhất thành phố. - Thích hợp đầu tư cho thuê hoặc an cư lâu dài. Cách biển chỉ 600m. Giá: 23 tỷ. Phone/ zalo: [phone_number]",
+      "price_vnd": 23000000000.0,
+      "text_prices_vnd": [
+        23000000000.0,
+        23000000000.0
+      ],
+      "province": "Khánh Hòa",
+      "ward": "Lộc Thọ"
+    },
+    {
+      "listing_id": "6d0e307f67ef0406d0daa2154e7839c52457705b17a1f1a4022d42b463b6695f",
+      "property_type": "STREET_HOUSE",
+      "title": "Bán Nhà Mặt Phố Phước Điền Midtown, 4,9 tỷ, 60m2, Giá Tốt!",
+      "description_excerpt": "Nhà mặt phố tại Phước Điền Midtown, Đường Bình Chuẩn 34, Phường Bình Chuẩn, TP. Thuận An, Bình Dương, là một cơ hội tuyệt vời cho những ai đang tìm kiếm một không gian sống lý tưởng. Đây là một căn nhà phố đẹp, với thiết kế hiện đại, nằm trong một khu vực phát triển năng động. - Diện tích: 60m2 - Số phòng ngủ: 4PN - Số phòng tắm: 5WC - Số tầng: 3 tầng - Chiều ngang mặt tiền: 5.5m - Chiều rộng ngõ trước: 13m - Giá: 4,9 tỷ VND Ưu điểm: - Phong thủy tốt, mang lại tài lộc cho gia chủ. - Đường vào rộng rãi, thuận tiện cho xe ô tô ra vào. - Mặt tiền lý tưởng cho việc kinh doanh hoặc cho thuê. - Pháp lý đầy đủ, đảm bảo an toàn cho giao dịch. Các tiện ích xung quanh: - Gần chợ Bình Phước B, bệnh viện đa khoa Vạn Phúc 2, UBND phường Bình Chuẩn. - Gần trường học, siêu thị, nhà hàng, ngân hàng. Thông tin dự án: - Tên dự án: Phước Điền Midtown - Vị trí: Đối diện chợ Phước Bình, Đường Bình Chuẩn 34, Phường Bình Chuẩn, TP. Thuận An, Bình Dương. - Thiết kế: 60 căn nhà phố liền kề, diện tích đất từ 60-90m2, xây 1 trệt 2 lầu, phong cách kiến trúc châu Âu hiện đại. - Tổng diện tích: hơn 8000m2, với diện tích đất ở 3895m2. - Tiện ích nội khu: công viên, cây xanh, an ninh. - Tiện ích ngoại khu: gần các KCN VSIP 1, VSIP 2, Vincom Bình Dương. Để biết thêm thông tin chi tiết và được tư vấn miễn phí, vui lòng liên hệ Đoàn Quang Trung qua số điện thoại [phone_number]",
+      "price_vnd": 4900000000.0,
+      "text_prices_vnd": [
+        4900000000.0,
+        4900000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "Bình Chuẩn"
+    },
+    {
+      "listing_id": "caf2703cf5ca0402c869e785d26566df37566873e0c7a11464a6aa2b9befbee8",
+      "property_type": "STREET_HOUSE",
+      "title": "Bán nhà mặt tiền Bacu Vị trí vàng kinh doanh, full thổ cư, dòng tiền sẵn, giá tốt chỉ 23 tỷ TL",
+      "description_excerpt": "Bán nhà Mặt Tiền đường Bacu, Phường 1 - Vũng Tàu. Vị trí cực đẹp. - Diện tích: 112m2 Ngang 4m20, full thổ cư. - Hiện trạng: 1 trệt, 1 lầu đang cho thuê kinh doanh. * Giá bán: 23 tỷ thương lượng. * Liên hệ ngay: Mr Tiến Thành [phone_number] xem nhà và làm việc chính chủ . Làm việc Chính chủ.",
+      "price_vnd": 23000000000.0,
+      "text_prices_vnd": [
+        23000000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "1"
+    }
+  ],
+  "VILLA": [
+    {
+      "listing_id": "ba242a9578686fe34f014268cccf9facf60eb208fc080743f7932bf2c8135f43",
+      "property_type": "VILLA",
+      "title": "Bán biệt thự song lập mimosa ecopark 210m full nội thất lõi công viên 44 tỷ bao phí",
+      "description_excerpt": "Chính chủ gửi bán căn biệt thự song lập vị trí đẹp lõi công viên tại phân khu Mimosa Ecopark. Sản phẩm hiếm, không gian sống xanh, đẳng cấp. Thông tin chi tiết: Loại hình: Biệt thự song lập Diện tích: 210m Hướng: Tây Bắc Tình trạng: Full nội thất cao cấp, vào ở ngay Ưu điểm nổi bật: Vị trí lõi công viên view xanh, thoáng, giá trị cao Không gian sống yên tĩnh, riêng tư Cộng đồng cư dân cao cấp, ổn định Phù hợp ở lâu dài hoặc đầu tư giữ tài sản Giá bán: 44 tỷ (BAO PHÍ giá thực nhận cho chủ) Sản phẩm thật làm việc trực tiếp. Liên hệ để xem nhà và nhận thông tin chi tiết.",
+      "price_vnd": 44000000000.0,
+      "text_prices_vnd": [
+        44000000000.0,
+        44000000000.0
+      ],
+      "province": "Hưng Yên",
+      "ward": "Xuân Quan"
+    },
+    {
+      "listing_id": "18f9ad4480b24689feda642fabb3648a1f83ae61f0409924180a5cc7ad377743",
+      "property_type": "VILLA",
+      "title": "Bán biệt thự Văn Quán Hà Đông, Hà Nội, vị trí đẹp nhất khu 280m2, giá đầu tư 49,9 tỷ",
+      "description_excerpt": "Bán biệt thự Văn Quán Hà Đông, Hà Nội | vị trí đẹp nhất khu. Cần bán căn biệt thự Văn Quán nằm ngay phố. Văn Quán, trung tâm quận Hà Đông khu vực dân trí cao, an ninh đảm bảo, hạ tầng đồng bộ, môi trường sống xanh sạch văn minh. Thông tin chi tiết. Diện tích: 280m2. Kết cấu: Biệt thự xây dựng hiện đại, 3 mặt thoáng. Đường trước nhà: 12m, ô tô tránh thoải mái. Công năng: Gara ô tô, sân vườn rộng, không gian sống đẳng cấp. Vị trí & tiện ích. Cách Hồ Văn Quán vài bước chân. Gần Aeon Mall Hà Đông, Metro, ga tàu điện trên cao. Xung quanh là các trường học quốc tế, đại học lớn. Kết nối nhanh các trục đường lớn, giao thông thuận tiện. Giá trị sử dụng & đầu tư. Phù hợp ở lâu dài, làm văn phòng, hoặc giữ tài sản tăng giá. Khu biệt thự Văn Quán một trong những khu đáng sống bậc nhất Hà Đông. Giá bán: 49,9 tỷ (thương lượng trực tiếp giá đầu tư tốt nhất thị trường). Liên hệ: Xem nhà thực tế tư vấn chuẩn chốt căn đẹp nhất khu Văn Quán.",
+      "price_vnd": 49900000000.0,
+      "text_prices_vnd": [
+        49900000000.0,
+        49900000000.0
+      ],
+      "province": "Hà Nội",
+      "ward": "Phúc La"
+    },
+    {
+      "listing_id": "af7915e27b828855176a2bbcdea4477696497b9d5f3172cdd1a336eb9388cc54",
+      "property_type": "VILLA",
+      "title": "Bán nhà biệt thự vườn mới 100% tại Vĩnh Điềm Thượng Vĩnh Hiệp Nha Trang",
+      "description_excerpt": "Bán biệt thự vườn mới 100%, diện tích 512m2 có 134m2 đất ở, nhà 2 tầng 1 tum, thiết kế không gian mở, nội thất cao cấp. Nhà 3 phòng ngủ, 1 phòng thờ, 1 phòng khách rộng, 4 toilet. Vị trí tại xã Vĩnh hiệp củ, gần bệnh viện đường sắt, cách đường 23/10 khoảng 200m, đường trước nhà 8m, sân rộng, có vườn cây ăn quả. Hướng Nam. Giá bán 6,8 tỷ (còn bớt). Thuế phí chủ lo.",
+      "price_vnd": 6800000000.0,
+      "text_prices_vnd": [
+        6800000000.0
+      ],
+      "province": "Khánh Hòa",
+      "ward": "Vĩnh Hiệp"
+    },
+    {
+      "listing_id": "94cdd73c41f836cf2454c1d831143b80e43e6b434ed4ae45bcb05bda90febd1a",
+      "property_type": "VILLA",
+      "title": "Bán biệt thự liền kề 98m2 tại Vinhomes Ocean Park 3, giá cực rẻ 12,3 tỷ",
+      "description_excerpt": "Biệt thự tại Vinhomes Ocean Park 3, Xã Nghĩa Trụ, Văn Giang, Hưng Yên, mang đến không gian sống hoàn hảo cho gia đình. Với thiết kế hiện đại và tiện nghi, ngôi nhà này hứa hẹn sẽ là lựa chọn lý tưởng cho những ai tìm kiếm sự sang trọng và đẳng cấp. - Diện tích đất: 98m2 - Diện tích xây dựng: 268m2 - Số phòng ngủ: 5PN - Số toilet: 5WC - Số tầng: 5 - Hướng cửa chính: Tây Bắc - Hướng ban công: Tây Bắc - Chiều ngang mặt tiền: 7m - Chiều rộng ngõ trước: 13m - Giá: 12,3 tỷ VND Ngôi nhà có ngõ vào rộng rãi, thuận tiện cho việc di chuyển, và mặt tiền rộng, phù hợp cho mục đích kinh doanh. Đặc biệt, vị trí của biệt thự giúp tận hưởng không gian sống thoải mái và gần gũi với thiên nhiên. Tiện ích xung quanh: - Gần công viên Vịnh Bốn Mùa - Gần công viên Vịnh Tây - Gần cụm 10 tòa chung cư cao cấp Masterise Liên hệ ngay để được tư vấn miễn phí và xem nhà! Mr Hiền",
+      "price_vnd": 12300000000.0,
+      "text_prices_vnd": [
+        12300000000.0,
+        12300000000.0
+      ],
+      "province": "Hưng Yên",
+      "ward": "Nghĩa Trụ"
+    },
+    {
+      "listing_id": "5a9a08f677ab90f9ff4fd5f219278d044be1839f546114a4e3ae946d8f3c0933",
+      "property_type": "VILLA",
+      "title": "Bán gấp căn BT liền kề lô góc - khu đô thị Thiên Mã, Cổ Đông, Sơn Tây - view vườn hoa chỉ 7.9 tỷ",
+      "description_excerpt": "Bán biệt thự Thiên Mã Sơn Tây đón sóng Khu Công nghệ cao Hòa Lạc. Giá 7,9 tỷ | Lô góc 2 mặt tiền | Sổ hồng riêng | Gần Hòa Lạc. Tổng quan bất động sản. Vị trí: Khu đô thị Thiên Mã. Loại hình: Biệt thự liền kề lô góc, 2 mặt tiền, view vườn hoa. Quy mô: Xây thô 5 tầng tổng diện tích sàn ~435 m². Pháp lý: Sổ đỏ riêng, giao dịch nhanh. Giá bán: 7,9 tỷ (mức hiếm trong khu đã có sổ). Vị trí & kết nối. Cách QL21 ~200m, kết nối nhanh Sơn Tây Hòa Lạc Đại lộ Thăng Long Hồ Tây. Gần Khu Công nghệ cao Hòa Lạc trung tâm công nghệ, đổi mới sáng tạo. Hưởng lợi từ Tuyến Metro số 5 Văn Cao Hòa Lạc. Tiềm năng đầu tư Hòa Lạc. Hòa Lạc định hướng trở thành thung lũng công nghệ của Việt Nam. Thu hút doanh nghiệp công nghệ, viện nghiên cứu, đại học nhu cầu ở thực của chuyên gia tăng mạnh. BĐS gần khu CNC + trục Metro có biên độ tăng giá tốt trung dài hạn. Tiện ích & môi trường sống. Sát Sân golf Đồng Mô. Gần Hồ Đồng Mô không gian xanh, khí hậu trong lành. Phù hợp ở lâu dài, second home, cho thuê chuyên gia. Lợi thế pháp lý. Nhiều căn tại Thiên Mã chưa ra sổ. Căn này đã có sổ đỏ riêng an toàn cho đầu tư, dễ thanh khoản. Phù hợp với ai? Nhà đầu tư đón sóng Hòa Lạc Metro đô thị vệ tinh. Gia đình cần biệt thự rộng, môi trường xanh, kết nối thuận tiện. Liên hệ xem nhà: Em Hiền [phone_number] để xem nhà miễn phí.",
+      "price_vnd": 7900000000.0,
+      "text_prices_vnd": [
+        7900000000.0,
+        7900000000.0,
+        7900000000.0
+      ],
+      "province": "Hà Nội",
+      "ward": "Sơn Đông"
+    },
+    {
+      "listing_id": "7a94944bbf273127c7860827d80fed5606c89635f5abcf5085a405bcba830a3f",
+      "property_type": "VILLA",
+      "title": "Bán nhanh biệt thự biển 3 tầng view biển Bãi Dâu Trần Phú cách biển 20m giá siêu tốt chỉ 15.5 tỷ",
+      "description_excerpt": "BÁN BIỆT THỰ BIỂN TẠI TRẦN PHÚ, BÃI DÂU, TP. VŨNG TÀU. - Vị trí đẹp ngay bãi tắm trung tâm bãi dâu. - Diện tích đất rộng 172m2 full thổ cư. - Xây dựng 3 lầu sân thượng ngắm biển. - Đường rộng 5 mét sát mặt tiền cách biển 20 mét. - Nhà có sân rộng đậu xe hơi + 6 phòng ngủ. Có phòng ngủ tầng trệt cho người lớn tuổi. - Giá bán siêu tốt 15,5 tỷ (chỉ bằng giá đất). Dv giữ chìa khoá. - Liên hệ ngay: Mr Tiến Thành [phone_number] xem nhà và làm việc chính chủ.",
+      "price_vnd": 15500000000.0,
+      "text_prices_vnd": [
+        15500000000.0,
+        15500000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "5"
+    },
+    {
+      "listing_id": "f90e41d722bfc49aec626044c416161ab055173c332fd4bd596543fe7092987f",
+      "property_type": "VILLA",
+      "title": "Chính chủ cần bán siêu biệt thự khu cao cấp him lam quận 7..4 tầng 199m2 giá 26 tỷ 990 triệu",
+      "description_excerpt": "SIÊU BIỆT THỰ SIÊU ĐẸP KHU KIỀU ĐÀM - QUẬN 7.. SÂN VƯỜN SUỐI NHỎ GARA Ô TÔ NGANG KHỦNG 7,4M... Chỉ 26.99 TỶ GẦN 200M2 SỬ DỤNG.. DT: 7.4 x 24m CN 178m SD: 199m Sổ hồng riêng Pháp lý chuẩn Sang tên ngay Kết cấu chuẩn biệt thự: 1 trệt, 2 lầu, sân thượng 6PN 5WC Gara ô tô Sân vườn trước & sau.. Tầng trệt: phòng khách + bếp + phòng ngủ cho người lớn tuổi Tầng 2: 3 phòng Master + góc đọc sách thư giãn Tầng 3: Phòng gym + sân vườn cực chill Sân thượng: Trồng cây ăn trái, cây cảnh, không gian thiền Không gian sống như resort: Suối nước chảy róc rách, chim hót líu lo Khu dân trí cao, an ninh tuyệt đối, yên tĩnh Vị trí VIP: Ngay Lotte Mart Him Lam Giáp Phú Mỹ Hưng Di chuyển Q1, Q3 chỉ 3-5 phút Liên hệ xem nhà: [phone_number]gặp chính chủ)",
+      "price_vnd": 26990000000.0,
+      "text_prices_vnd": [
+        26990000000.0,
+        26990000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "Tân Hưng"
+    },
+    {
+      "listing_id": "45f66e041acdd0062713d1a1f4f33559e2c97cdb77893c01ea34a129492e6b8c",
+      "property_type": "VILLA",
+      "title": "Bán biệt thự vip góc 2 mặt tiền đường lớn khu đô thị Bắc Vĩnh Hải. 343m2, ngang 17m, giá chỉ 26tỷ",
+      "description_excerpt": "Hàng vip hiếm mua nhanh kẻo hết. Chính chủ nhờ bán biệt thự vip góc 2 mặt tiền đường lớn khu đô thị Bắc Vĩnh Hải Vĩnh Hòa. Đối diện trường học, 343m2 ngang 17m, giá chỉ 26tỷ. - Vị trí biệt thự: Nằm trên đường Trần Quang Diệu, đối diện trường Lý Thái Tổ. + Ở tại khu đô thị sầm uất, văn minh bậc nhất phía bắc Nha Trang. + Cách 2/4 chỉ hơn 100m. + Cách bãi tắm biển khoảng 800m. + Tiện ích trong bán kính 1km: Bến xe, chợ, siêu thị,. Đầy đủ. - Diện tích: 343m2 (ngang 17m) ôm góc 2 mặt tiền vỉa hè rộng. - Biệt thự kết cấu 2 tầng. + Tầng 1: Đang kinh doanh Cafe, bi da. + Tầng 2: 5 phòng ngủ với WC khép kín. - Pháp lý: Sổ hồng hoàn công. - Giá bán bất ngờ chỉ: 26tỷ thương lượng CC. Liên hệ ngay Hiền Hương Land[phone_number]",
+      "price_vnd": 26000000000.0,
+      "text_prices_vnd": [
+        26000000000.0,
+        26000000000.0,
+        26000000000.0
+      ],
+      "province": "Khánh Hòa",
+      "ward": ""
+    },
+    {
+      "listing_id": "ae5b52badf3447b40975fd64782f35063cc806917cb3fe51f84a01adb3dcaf19",
+      "property_type": "VILLA",
+      "title": "Bán Biệt thự vườn 1170m2. (30mx40m) view sông đẹp gần chợ Hóc Môn, Hóc Môn. LH [phone_number]",
+      "description_excerpt": "Bán biệt thự sân vườn hơn 1065m2 ngay trung tâm Hóc Môn - TP. HCM. + Khuôn viên rộng với quy mô hơn 1.065m2 (ngang 30m, dài 40m)gồm 1 căn biệt thự 2 tầng và kho chứa hàng phía sau. + Biệt thự: 1 trệt, 1 lầu. Có 5 PN, 6 vệ sinh pK, bếp, thờ. + Nhà nằm mặt tiền xe tải tiện ở, nghỉ dưỡng, mở homestay hoặc đầu tư dài hạn. + Gần chợ Hóc Môn, Nguyễn Văn Bứa, QL22, BV Hóc Môn. + Sổ hồng riêng chính chủ công chứng ngay. + Không gian xanh yên tĩnh, vị trí đắc địa. + Cảm kết nhà thật, hình thật, đúng mô tả. Giá chỉ: 26,5 tỷ(còn thương lượng cho khách thiện chí) giá cũ 29,5 tỷ. Liên hệ: [phone_number]. Xem nhà. Bán biệt thự Hóc Môn.",
+      "price_vnd": 26500000000.0,
+      "text_prices_vnd": [
+        26500000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "Xuân Thới Sơn"
+    },
+    {
+      "listing_id": "a574e4418634410eaf1a30853d3f8b4716641da043f5ba5e988ba9393a40a212",
+      "property_type": "VILLA",
+      "title": "Bán biệt thự ngay cạnh Làng Việt Kiều Châu Âu cách Trung Hòa – Nhân Chính 3km",
+      "description_excerpt": "Hai căn biệt thự ngay cạnh nhau: Diện tích 196m2 mỗi căn ( tổng diện tích cả 2 căn là 392m2 ) Mặt tiền mỗi căn 11m. Thiết kế 4 tầng, bàn giao thô. Chủ mới về thiết kế theo nhu cầu. Quý khách có thể mua 1 hoặc cả 2 căn để đập thông. Phù hợp vừa ở vừa làm văn phòng, công ty, phòng kham, trung tâm đào tạo,.. Khu dân cư đông, xung quanh là các tòa chung cư, tiện ích đầy đủ : trường học, công viên, siêu thị, cửa hàng, xe bus,... Sổ đỏ chính chủ. Giá 56,2 tỷ/căn Liên hệ Năng Lâm: 093 270 8823",
+      "price_vnd": 56200000000.0,
+      "text_prices_vnd": [
+        56200000000.0
+      ],
+      "province": "Hà Nội",
+      "ward": "Đại Mỗ"
+    },
+    {
+      "listing_id": "be6abd015e138282cb5d3c210bcba5bc1b3deb8ae2a913998d9aff3f700d9ae9",
+      "property_type": "VILLA",
+      "title": "Bán biệt thự biển lô góc 2 mặt tiền khu biệt thự Phương Nam",
+      "description_excerpt": "- Diện tích: 228 m², thổ cư toàn bộ. - Kết cấu: 1 trệt 2 lầu gồm 4PN, 5WC, sân vườn rộng, có hồ cá koi, phòng xông hơi sauna, gara 2 xe. - Góc 2 mặt tiền đường 15m vỉa hè. - Cách biển bãi sau Thùy Vân 200m, đối diện công viên. Khu biệt thự cao cấp. - Sổ hồng hoàn công đầy đủ. Giá bán: 33 tỷ có TL.",
+      "price_vnd": 33000000000.0,
+      "text_prices_vnd": [
+        33000000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "8"
+    },
+    {
+      "listing_id": "dbb490b7d864e2901441ed1bd0b67127f778ace2329510a1603fe26cf5816b62",
+      "property_type": "VILLA",
+      "title": "Bán nhà Liền Kề Văn Khê, Hà Đông, 82.5m2, 5 Tầng, Thang Máy, Nhà Đẹp, Vỉa Hè, Kinh Doanh, 19.8 Tỷ",
+      "description_excerpt": "Trước nhà 3 Ô Tô tránh, Vỉa hè, Thang máy, kinh Doanh Đỉnh, tiện ích bạt ngàn + Vị trí: - Kết nối với nhiều tuyến đường: Nguyễn Thanh Bình, Lê Văn Lương, Nông Quốc Chấn... Giao thông thuận tiện - Gần trường học, bệnh viện, khu vui chơi. Gần CV thiên văn học, dương nội, ĐH Phenika . Rất nhiều tiện ích xung quanh. Sổ đỏ cất két, giao dịch ngay Liên hệ: [phone_number] E Thắng Thổ cư Hà Nội",
+      "price_vnd": 19800000000.0,
+      "text_prices_vnd": [
+        19800000000.0
+      ],
+      "province": "Hà Nội",
+      "ward": "La Khê"
+    }
+  ],
+  "SHOPHOUSE": [
+    {
+      "listing_id": "21ffd5c8898c856bb24bc0ffd3f0caed4ac7f0f5ddb5927b1a6b19103ba96199",
+      "property_type": "SHOPHOUSE",
+      "title": "GẤP. Chủ thiện chí gửi bán gấp Shophouse căn góc Cảnh Viên 2 đường C giá 14 tỷ",
+      "description_excerpt": "Chủ thiện chí gửi bán gấp Shophouse căn góc Cảnh Viên 2. Diện tích 70m2 gồm trệt và lừng. Hướng Đông Bắc. Vị trí căn góc chân đế chung cư Cảnh Viên 2, mặt đường C lộ giới 20m, chỗ đậu xe thoải mái. Hiện đang cho thuê dài hạn. Pháp lý sổ hồng lâu dài. Giá bán 14 tỷ. Liên hệ [phone_number] gặp Lợi. Trân trọng.",
+      "price_vnd": 14000000000.0,
+      "text_prices_vnd": [
+        14000000000.0,
+        14000000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "Tân Phú"
+    },
+    {
+      "listing_id": "ec828310ec7436cbe3b13509db87a3e25eb2d1ba8f0e79301fc50510916f244f",
+      "property_type": "SHOPHOUSE",
+      "title": "Mở bán shophouse khối đế dự án Sun Ponte, đầu cầu Rồng Đà Nẵng - 110m2 giá 12 tỷ",
+      "description_excerpt": "Shop Đế Ponte - trung tâm TP Đà Nẵng chính thức ra hàng. Cách cầu rồng chỉ vài bước chân. DT: 110m2 (2 tầng). Giá: 12 tỷ. Vay: Hỗ trợ lãi suất 0% lên đến 24 tháng chiết khấu 5%. Thanh toán theo tiến độ nhận chiết khấu 7%. Thanh toán sớm 95% trong tháng 5 chiết khấu lên đến 19.5%. Ngoài các chính sách nêu trên, khách hàng sẽ được hưởng thêm các chính sách sau đây, trừ trực tiếp trên giá bán chưa bao gồm VAT & KPBT: Tặng gói hỗ trợ hoàn thiện nội thất 10 triệu/m2 XD (chưa gồm VAT). Hỗ trợ thông tin dự án:",
+      "price_vnd": 12000000000.0,
+      "text_prices_vnd": [
+        12000000000.0,
+        12000000000.0
+      ],
+      "province": "Đà Nẵng",
+      "ward": "An Hải Nam"
+    },
+    {
+      "listing_id": "97170ffd33b96e2fa06359d9d64840021880a7d9553e176af63051c1c94e96b7",
+      "property_type": "SHOPHOUSE",
+      "title": "Cần bán shophouse CC The Eastern giảm giá 2.7 tỷ, 58m2 trần cao 6m, TH kinh doanh đa ngành nghề",
+      "description_excerpt": "Bán cực rẻ căn shophouse CC The Eastern cực đẹp như sau: Diện tích sàn 58m2 - ngang 6m, trần cao gần 6m - giá bao rẻ nhất Q9 chỉ 2.7 tỷ bớt lộc. Vị trí đẹp nhất chung cư, view nhìn ra đường Liên Phường. + Đường nội bộ thông, view hướng Nam mát mẻ, kế bên 2 siêu thị. Thuận tiện kinh doanh đa ngành nghề, đang cho cty nước ngoài thuê giá 11tr/ tháng. Chiều cao tầng gần 6m, có thể làm thêm gác tăng diện tích sử dụng lên gần 100m2. Sổ hồng riêng, sở hữu lâu dài, vay 70 - 80% giá trị. Vị trí: https://goo.gl/maps/c88zFDP2nbqdk9yK7 ------------------------------------ Liên hệ em tư vấn xem nhà ạ. Em Tùng",
+      "price_vnd": 2700000000.0,
+      "text_prices_vnd": [
+        2700000000.0,
+        2700000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": ""
+    },
+    {
+      "listing_id": "7bbd1d2e096de05d77d527e2cc29199930f7fe2ca2943d4437373d1f4f96c0f5",
+      "property_type": "SHOPHOUSE",
+      "title": "Bán shophouse Tuần Châu Marina, 7,5 tỷ, 108m2, hàng hiếm tại Hạ Long, Quảng Ninh",
+      "description_excerpt": "Shophouse tại Tuần Châu Marina Hạ Long, loại hình nhà phố thương mại, nằm trong khu vực phát triển sôi động. Với diện tích 108m2, đây là cơ hội lý tưởng cho những ai tìm kiếm không gian kinh doanh hoặc đầu tư sinh lời. + Diện tích rộng rãi 108m2, phù hợp cho nhiều loại hình kinh doanh. + Mặt tiền 5m, thuận lợi cho việc trưng bày sản phẩm và thu hút khách hàng. + Giá bán hợp lý 7,5 tỷ VND, mang lại giá trị đầu tư cao. + Không nội thất, tạo điều kiện cho khách hàng tự do thiết kế theo ý muốn. Điểm đặc sắc: + Mặt tiền rộng, rất thích hợp cho các hoạt động kinh doanh, thu hút lượng khách hàng lớn. Liên hệ ngay để biết thêm chi tiết và đặt lịch xem nhà. Sondx",
+      "price_vnd": 7500000000.0,
+      "text_prices_vnd": [
+        7500000000.0,
+        7500000000.0
+      ],
+      "province": "Quảng Ninh",
+      "ward": "Tuần Châu"
+    },
+    {
+      "listing_id": "489ea4994d50e542670cc1cadb7bbe99345f7d0e00286fb78f0c392b23db090d",
+      "property_type": "SHOPHOUSE",
+      "title": "Bán Shophouse SH2 Centa Riverside VSIP Từ Sơn - 100m², 3 tầng, gần công viên, đã có sổ, giá 7,35 tỷ",
+      "description_excerpt": "Cơ hội sở hữu căn shophouse vị trí đẹp tại Centa Riverside - khu đô thị đang thu hút dòng tiền đầu tư mạnh ngay cửa ngõ Hà Nội. Thông tin chi tiết căn nhà: - Diện tích đất: 100m² - Mặt tiền: 5m, xây dựng 3 tầng hoàn thiện mặt ngoài - Đường trước nhà: 15,2m, đường sau nhà: 6m, hai mặt tiền, làm gì cũng tiện - Vị trí gần công viên, không gian thoáng, dễ kinh doanh và cho thuê - Sổ đỏ lâu dài sang tên ngay Ưu điểm nổi bật: - Nằm trong đại đô thị VSIP Bắc Ninh khu vực có hàng chục nghìn chuyên gia và lao động làm việc - Tiếp giáp Hà Nội, kết nối nhanh qua Quốc lộ 1A - Tiềm năng tăng giá mạnh nhờ quy hoạch tuyến Đường cao tốc kết nối sân bay Gia Bình - Hà Nội, tuyến đường sắt Lào Cai - Hà Nội - Hải Phòng và ga Trung Mầu trong tương lai - Phù hợp ở - kinh doanh - cho thuê đầu tư dài hạn Giá bán: 7 tỷ 350 triệu (đã bao toàn bộ thuế phí sang tên) Một trong những căn shophouse giá tốt hiếm còn lại tại Centa Riverside, đặc biệt phù hợp khách Hà Nội đầu tư đón sóng hạ tầng. Liên hệ xem nhà và làm việc trực tiếp: Hotline/Zalo: Cam kết thông tin thật - giá thật - hỗ trợ giao dịch nhanh gọn.",
+      "price_vnd": 7350000000.0,
+      "text_prices_vnd": [
+        7350000000.0,
+        7350000000.0
+      ],
+      "province": "Bắc Ninh",
+      "ward": "Phù Chẩn"
+    },
+    {
+      "listing_id": "a1dd0280d8b945c8f8c0bdd5afb5ca902780e4baa1b7850a009cd8b93faaf2d5",
+      "property_type": "SHOPHOUSE",
+      "title": "Bán gấp Shophouse Kinh Đô Ánh Sáng KĐ5-133, 84m² giá 15.883 tỷ Gần Quảng Trường & Vincom",
+      "description_excerpt": "Căn shophouse KĐ5-133 nằm tại tiểu khu Kinh Đô Ánh Sáng - Vinhomes Ocean Park 2, ngay tâm điểm thương mại lễ hội của dự án, nơi tập trung quảng trường ánh sáng, trục phố check-in và dòng cư dân đông đúc. Căn thô dễ hoàn thiện, mặt bằng vuông vắn, phù hợp đa dạng mô hình kinh doanh từ F&B, showroom, dịch vụ đến đầu tư dài hạn. Thông tin chi tiết căn KĐ5-133: - Vị trí: Phân khu Kinh Đô Ánh Sáng trung tâm Vin 2, Văn Giang, Hưng Yên - Loại hình: Shophouse xẻ khe, căn thô linh hoạt hoàn thiện - Diện tích: 84m² - Giá bán: 15.883 tỷ - Pháp lý: Sổ đỏ lâu dài - sang tên ngay - Vị trí nổi bật: Gần quảng trường Kinh Đô, gần Vincom, tuyến thương mại đông khách - Tiện ích xung quanh: Quảng trường ánh sáng, Vincom Mega Mall, công viên San Hô, trường học nhà để xe hồ trung tâm Lý do nên mua: - Vị trí trung tâm điểm đến lễ hội giá trị thương mại vượt trội - Lô xẻ khe thoáng sáng dễ tối ưu mô hình kinh doanh - Giá tốt trong phân khu Kinh Đô Ánh Sáng biên lợi nhuận đầu tư cao Liên hệ tư vấn & xem nhà: - Đào Kiên - Chuyên viên Vinhomes: hỗ trợ pháp lý - tài chính - thiết kế - hoàn thiện - Văn phòng giao dịch: Biệt thự số 5 San Hô 01, đối diện K-Town, Vinhomes Ocean Park 2 - Đơn vị phân phối: CÔNG TY TNHH ĐẦU TƯ THÁI AN KHANG",
+      "price_vnd": 15883000000.0,
+      "text_prices_vnd": [
+        15883000000.0,
+        15883000000.0
+      ],
+      "province": "Hưng Yên",
+      "ward": "Long Hưng"
+    },
+    {
+      "listing_id": "fbe990a82ceb2865d24f28401b2c010a7d207f012b2e34b63516b39107c45475",
+      "property_type": "SHOPHOUSE",
+      "title": "Cần bán gấp shophouse chung cư B5 đường 48 Phường 3 Q4 DT 113,6m2, 4 phòng, 1 trệt 1 lầu",
+      "description_excerpt": "Cần bán gấp shophouse chung cư B5 đường 48 Phường 3 Q4. DT 113,6m2, 4 phòng, 1 trệt 1 lầu. Giao thông thuận tiện di chuyển các quận. Sổ hồng. Nhiều tiện ích xung quanh. Giá bán 5.4 tỷ. Xem nhà liên hệ [phone_number]",
+      "price_vnd": 5400000000.0,
+      "text_prices_vnd": [
+        5400000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "3"
+    },
+    {
+      "listing_id": "abfcad257763101a95aec980481ffcdf07bef6026e2ceda68e9ab8e6f1c25068",
+      "property_type": "SHOPHOUSE",
+      "title": "Bán căn hộ shophouse Bàu Cát 2, có sổ, 1 trệt + lửng, 72m2 1PN - 2WC, vừa ở vừa kinh doanh, giá tốt",
+      "description_excerpt": "Bán shophouse Bàu Cát 2 vừa ở vừa kinh doanh. Vị trí Bàu Cát 2 khu dân cư đông đúc, kinh doanh sầm uất. Diện tích: 72m². Kết cấu: 1 trệt + 1 lửng 1PN 2WC, có thể cải tạo thành 2PN. Pháp lý: Sổ cầm tay hỗ trợ vay. Giá bán: 5,35 tỷ thương lượng. Giá cực tốt, chỉ bằng giá căn 3PN nhưng: Vừa ở vừa kinh doanh. Giá trị khai thác cao. Hiện trạng: Đang cho thuê làm quán nhậu, gần hết HĐ. Phù hợp kinh doanh đa ngành nghề: Cafe ăn uống spa văn phòng... Liên hệ: [phone_number]",
+      "price_vnd": 5350000000.0,
+      "text_prices_vnd": [
+        5350000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": ""
+    },
+    {
+      "listing_id": "fce9003b6734a668b43e5b3e450baff44a4ed43423d5ed48724b579e83ade090",
+      "property_type": "SHOPHOUSE",
+      "title": "Bán Shophouse Central Riverside Thanh Hóa, 5,3 tỷ, 80m2, mặt tiền 5m",
+      "description_excerpt": "+ Địa chỉ: Central Riverside Thanh Hóa, p Đông Hải, Thanh Hóa + Loại hình: Shophouse, nhà phố thương mại + Diện tích: 80m2, mặt tiền 5m, ngõ rộng 13m, dễ dàng cho xe vào + Giá: 5,3 tỷ VND + Hướng cửa: Đông Bắc, phong thủy cực tốt + Mặt tiền đẹp, rất phù hợp cho kinh doanh, buôn bán + Thiết kế hiện đại, nằm trong khu dân cư sầm uất + Khuôn viên rộng rãi với nhiều tiện ích nội khu + Chi tiết dự án: - Vị trí: Đại lộ Nam Sông Mã, TP. Thanh Hóa, cách biển Sầm Sơn 3,5km - Chủ đầu tư: Công ty Cổ phần Đầu tư Bất động sản TASECO, Công ty Cổ phần Dịch vụ hàng không Thăng Long, Công ty Cổ phần Đầu tư Bất động sản Phú Mỹ - Tiện ích: Công viên cây xanh, đường dạo bộ, sân chơi cho trẻ em, khu tập gym ngoài trời, trung tâm thương mại, quảng trường, bãi đỗ xe ngoài trời - Thiết kế: Tổng diện tích 15,6 ha, gồm 493 lô liền kề và biệt thự, khu nhà văn hóa 3 tầng, khu nhà dịch vụ thương mại 3 tầng Liên hệ ngay Quách Văn Hùng qua số để biết thêm chi tiết!",
+      "price_vnd": 5300000000.0,
+      "text_prices_vnd": [
+        5300000000.0,
+        5300000000.0
+      ],
+      "province": "Thanh Hóa",
+      "ward": "Đông Hải"
+    },
+    {
+      "listing_id": "0e17eb3b42e1df9d1f566918826ba77c90e3853552601245b1615bf72e9f3f46",
+      "property_type": "SHOPHOUSE",
+      "title": "Bán nhanh căn shophouse 1 trệt 2 lầu - phân khu The Suite, Aqua City",
+      "description_excerpt": "Cơ hội vàng sở hữu shophouse vị trí đắc địa tại Aqua City. Căn shophouse nằm trên mặt tiền đường 22m tại phân khu The Suite - Aqua City, khu đô thị sinh thái cao cấp do Novaland phát triển. Vị trí trung tâm, giao thông thuận tiện, phù hợp để kinh doanh đa ngành nghề như quán cà phê, nhà hàng, văn phòng, cửa hàng thời trang, spa, hoặc cho thuê sinh lời cao. Thông tin chi tiết về căn shophouse: Diện tích đất: 6m x 20m = 120m². Diện tích sàn xây dựng: 236,8m². Kết cấu: 1 trệt + 2 lầu. Tầng trệt: Không gian rộng rãi, mặt tiền thoáng, lý tưởng để kinh doanh hoặc cho thuê. Tầng trên: Thiết kế hiện đại với 3 phòng ngủ và 4 nhà vệ sinh, phù hợp để ở hoặc làm văn phòng. Thiết kế: Sang trọng, tối ưu công năng, phù hợp cả kinh doanh và an cư. Ưu điểm nổi bật: Vị trí đắc địa: Mặt tiền đường 22m sầm uất, lưu lượng giao thông cao, dễ dàng thu hút khách hàng. Tiềm năng khai thác ngay: Nhà đã hoàn thiện, sẵn sàng đưa vào sử dụng hoặc kinh doanh. Tiện ích đẳng cấp của Aqua City: Gần trung tâm thương mại, trường học quốc tế, bệnh viện, công viên, sông nước thoáng mát, mang lại môi trường sống và kinh doanh lý tưởng. Pháp lý rõ ràng: Sổ hồng riêng, sang tên nhanh chóng. Giá bán cực tốt: Giá chỉ: 9 tỷ 200 triệu (đã bao gồm VAT, hợp đồng mua bán). Ưu đãi đặc biệt: Giá tốt nhất cho khách hàng chốt giao dịch trong tuần này. Liên hệ ngay để sở hữu: Hotline: Ms. Thúy Nga - Phòng Kinh Doanh). Địa chỉ: P",
+      "price_vnd": 9200000000.0,
+      "text_prices_vnd": [
+        9200000000.0
+      ],
+      "province": "Đồng Nai",
+      "ward": "Long Hưng"
+    },
+    {
+      "listing_id": "365a88e8439a4f2b0bdce0a340e928dd29d8034d2ec09d19085290ec5e73ae1c",
+      "property_type": "SHOPHOUSE",
+      "title": "Bán shophouse giá rẻ nhất thị trường Midtown PHú Mỹ Hưng chỉ 5.25 tỷ - đang kinh doanh",
+      "description_excerpt": "BÁN SHOPHOUSE MIDTOWN GIÁ RẺ NHẤT KHU Diện tích: 40m² Kết cấu: Trần cao ~5m Hiện trạng: Nhà thô, thuận tiện thiết kế theo nhu cầu Đang có khách thuê và tự decor lại Giá bán: 5,25 tỷ rẻ nhất khu Xem nhà liên hệ: [phone_number] Phù hợp: Kinh doanh, mở văn phòng, showroom Đầu tư giữ tài sản, thanh khoản tốt",
+      "price_vnd": 5300000000.0,
+      "text_prices_vnd": [
+        5250000000.0,
+        5250000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "Tân Phú"
+    },
+    {
+      "listing_id": "2bf5d34942f24f260e9f4b42f03c435b295bb8e8377fee389370631e0287ca0e",
+      "property_type": "SHOPHOUSE",
+      "title": "Cần bán shophouse mặt tiền Song Hành Lakeview City DT 5x20m giá 27 tỷ vị trí đẹp",
+      "description_excerpt": "Bán shophouse mặt tiền Lakeview City, Quận 2. Vị trí siêu đẹp ngay trục đường xe qua lại đông đúc. Phù hợp mở văn phòng công ty, showroom, spa, cửa hàng, hoặc vừa ở vừa kinh doanh! Diện tích: 5x20m, kết cấu 1 trệt 1 lửng 3 lầu. Mặt tiền đường lớn, dễ đậu xe, đông người qua lại. Giá thuê: 27 tỷ (TL nhẹ cho khách thiện chí). Pháp lý hợp đồng mua bán. Đối diện dự án The Global City giá Lakeview City chỉ bằng 1/3 giá Global. Liên hệ/Zalo: để xem nhà thực tế và chốt sớm!",
+      "price_vnd": 27000000000.0,
+      "text_prices_vnd": [
+        27000000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": ""
+    }
+  ],
+  "LAND": [
+    {
+      "listing_id": "07aae6254a244bf1a746f6a1045dc1cc56bf9b56614d6646ccc5f1bc838fd9c9",
+      "property_type": "LAND",
+      "title": "Bán nhanh đất 500tr Phạm Ngọc Thạch, Mỹ Phước, Long Xuyên, gần trường ĐH An Giang. DT 120m2. SHR.",
+      "description_excerpt": "Bán nhanh lô đất đẹp ngay đường Phạm Ngọc Thạch, Mỹ Phước, Long Xuyên, An Giang. Giá: 500 triệu, ngân hàng hỗ trợ vay vốn lên đến 70%. Diện tích: 120m2 (6x20), 100% đất thổ cư. Gần bệnh viện đa khoa trung tâm An Giang, trường ĐH An Giang, bệnh viện đa khoa Bình Dân, MM Mega Market Long Xuyên,.. - SỔ HỒNG RIÊNG - + Đất sạch bao check. + Có thể xây dựng được ngay. + Liên hệ: [phone_number] - gặp Giang để được giao dịch trực tiếp.",
+      "price_vnd": 500000000.0,
+      "text_prices_vnd": [
+        500000000.0
+      ],
+      "province": "An Giang",
+      "ward": "Mỹ Phước"
+    },
+    {
+      "listing_id": "c79c745a966b175afa3a5046fa5243c416e8d060d904bb86953799598e49e0d4",
+      "property_type": "LAND",
+      "title": "Bán đất tại Trần Phú, Vũng Tàu, 6 tỷ, 112 m2",
+      "description_excerpt": "Đất nền tại Phường Thắng Nhì, Vũng Tàu với diện tích 112 m2, pháp lý đầy đủ, hướng Đông Nam. Đây là cơ hội lý tưởng cho những ai đang tìm kiếm một vị trí thuận lợi để đầu tư hoặc xây dựng tổ ấm. - Diện tích rộng rãi 112 m2, TC 60m2, phù hợp cho nhiều loại hình xây dựng. - Giá bán hấp dẫn chỉ 6 tỷ VND, dễ dàng tiếp cận cho người mua. - Mặt tiền rộng 5m, thuận lợi cho việc kinh doanh hoặc cho thuê. - Ngõ vào rộng 5m, thích hợp cho ô tô ra vào dễ dàng. - Pháp lý đầy đủ, đảm bảo an tâm cho giao dịch. Điểm đặc sắc: - Khu vực yên tĩnh, không khí trong lành, lý tưởng cho cuộc sống gia đình. - Đường vào rộng rãi, thuận tiện cho các phương tiện giao thông, dễ dàng di chuyển. - Đón đầu các dự án lớn chuẩn bị khởi công, mang lại cơ hội đầu tư tốt. Địa điểm tiện ích xung quanh: - Gần khu đô thị Cù lao Bến Đình. - Gần cầu vượt biển. Liên hệ ngay để biết thêm chi tiết và không bỏ lỡ cơ hội này. [phone_number] - Long Nguyễn Ngọc.",
+      "price_vnd": 6000000000.0,
+      "text_prices_vnd": [
+        6000000000.0,
+        6000000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "Thắng Nhì"
+    },
+    {
+      "listing_id": "fc90b99cda33fc8c6ce611bb841651dc07fe7d13f2ec8ed4e5b70390eed47794",
+      "property_type": "LAND",
+      "title": "Bán đất 75m2 ngõ 165 Thái Hà, Đống Đa 2 mặt đường ô tô tránh Phân lô VIP, gần mặt phố chỉ 28.5 tỷ",
+      "description_excerpt": "Bán đất khu phân lô VIP ngõ 165 Thái Hà Đống Đa. Lô đất 75m², thuộc khu ô bàn cờ đường rộng ô tô tránh thoải mái, dân trí cao, an ninh tốt. Thế đất 2 mặt tiền, 2 mặt đường ô tô tránh thoái mái. Khu vực trung tâm hiếm nhà bán phù hợp xây tòa văn phòng, căn hộ cho thuê hoặc nhà ở đẳng cấp. Sổ đỏ vuông đẹp, sẵn sang tên luôn. Giá: 28,5 tỷ (có thương lượng). Liên hệ Hải Chiến: Chuyên nhà đẹp Đống Đa - Gặp và thương lượng trực tiếp với chủ nhà.",
+      "price_vnd": 28500000000.0,
+      "text_prices_vnd": [
+        28500000000.0,
+        28500000000.0
+      ],
+      "province": "Hà Nội",
+      "ward": ""
+    },
+    {
+      "listing_id": "972b0bd7e1ec29f34efcb6a1c001dc486ae72ceb01f2ea6c720eacae50530a4a",
+      "property_type": "LAND",
+      "title": "Kẹt tiền bán nhanh miếng đất thổ vườn 500m2. Giá 1 tỷ 450 đường Trương Thị Kện xã Thái Mỹ, Củ Chi",
+      "description_excerpt": "Chủ kẹt tiền bán nhanh miếng đất thổ vườn đường Trương Thị Kện xã Thái Mỹ huyện Củ Chi - Vị trí đẹp, xung quanh dân cư hiện hứu, thích hợp xây dựng nhà vườn nghỉ dưỡng cuối tuần - Bán Kính 600m đầy đủ tiện ích như Chợ, trường học, bách hoá, UBND, cách Sân Golf 1km, cách cầu vượt Củ Chi 5km, cách ngã tư An Sương 27km. - Diện tích đất 13x39m ( 500m2 có 300m2 thổ cư ) - Giá chủ kêu 1 tỷ 450 còn thương lượng Liên hệ gặp Nghĩa để xem đất",
+      "price_vnd": 1450000000.0,
+      "text_prices_vnd": [
+        1450000000.0,
+        1450000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "Thái Mỹ"
+    },
+    {
+      "listing_id": "a74b6c1c34048b93bcf6743b541bc15b0654e089d6932665665a07dd2cc72382",
+      "property_type": "LAND",
+      "title": "Bán lô đất giá rẻ đường Mai Hắc Đế, Phường Long Tâm, Tp Bà Rịa",
+      "description_excerpt": "Bán lô đất đường Mai Hắc Đế, cách Võ Văn Kiệt 200m, phường Long Tâm, Tp Bà Rịa. - Diện tích: 5 x 18,5m tổng 92,5m2 thổ cư toàn bộ. - Thoát hiểm phía sau 4m. - Giá chốt 2 tỉ 400 triệu. Liên hệ: em Trang làm việc chủ.",
+      "price_vnd": 2400000000.0,
+      "text_prices_vnd": [
+        2400000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "Long Tâm"
+    },
+    {
+      "listing_id": "9aac8f05877ea4cd3fd77449088a67074a36777fbee4fee66061b4ba58b7f3be",
+      "property_type": "LAND",
+      "title": "Bán đất. Lô góc đường Trạm Điện, thôn Hòn Nghê 2, Vĩnh Ngọc, Nha Trang. DT: 266,4m2. Ngang 15,5m",
+      "description_excerpt": "Bán đất 2 mặt tiền. Đường Trạm Điện. Thôn Hòn Nghê 2 - Xã Vĩnh Ngọc - TP. Nha Trang. - Diện tích: 266,4m2. - Ngang rộng 15,5m. Nở hậu đẹp. - Sổ hồng có 90m2 thổ cư. Toàn bộ được quy hoạch thổ cư ONT 100%. - Hướng Bắc và hướng Đông. - Đường trước đất rộng 7 - 8m. Hẻm bên hông rộng 3m. - Khu dân cư ổ định, đông đúc, gần trường đại học Thái Bình Dương, cao Đẳng y tế Khánh Hoà. Cách chợ Vĩnh Hải 1,5km. Cách biển 2,5km. Thích hợp xây biệt thự hoặc chia làm 03 lô đầu tư sinh lời. - Giá bán: 18tr/m2. (~ 4,795 tỷ). Liên hệ: Long",
+      "price_vnd": 4795200000.0,
+      "text_prices_vnd": [
+        4795000000.0
+      ],
+      "province": "Khánh Hòa",
+      "ward": "Vĩnh Ngọc"
+    },
+    {
+      "listing_id": "29dee393336326021165dfe37e86b71ee5c0d1fb3e357235dd6f34eada1527ff",
+      "property_type": "LAND",
+      "title": "Định cư nước ngoài, cần bán gấp lô đất tại MTĐ Trần Hưng Đạo - Lạc Tánh - Tánh Linh - Bình Thuận",
+      "description_excerpt": "Không chịu các loại thuế TNCN, phí môi giới và khai đúng giá theo đúng quy định của Nhà nước và chuyển tiền ta nước ngoài. Cả gia đình đã có visa định cư nước ngoài; cần sang nhượng gấp toàn bộ diện tích lô đất tại mặt tiền đường Trần Hưng Đạo; gần điện máy, bách hóa Tánh Linh của Thế Giới Di Động. Sổ không thế chấp - đang để bên ngoài có thể công chứng ngay. Diện tích khuôn viên 50x10m = 500 m2 có 100m2 đất thổ cư và 400m2 nông nghiệp. Sổ hồng 2020; đang nằm ngoài không thế chấp ngân hàng có thể thực hiện công chứng ngay và hỗ trợ thanh toán ba bên qua ngân hàng. Giá bán trao tay 25 tỷ đồng (Hai mươi lăm tỷ đồng). Liên hệ: Anh Toàn.",
+      "price_vnd": 25000000000.0,
+      "text_prices_vnd": [
+        25000000000.0
+      ],
+      "province": "Lâm Đồng",
+      "ward": "Lạc Tánh"
+    },
+    {
+      "listing_id": "e63f8c71d6e433c74508ea88afee44aa3b0a8a24871206815a4fa84a0adb2307",
+      "property_type": "LAND",
+      "title": "Bán đất tại chợ cây điệp, 5,7 tỷ, 475,9 m2, giá ưu đãi",
+      "description_excerpt": "Đất nền chợ cây điệp, trục chính bách hoá xanh, Đường Tỉnh lộ 328, Xã Hồ Tràm, Hồ Chí Minh, trước đây Huyện Xuyên Mộc, Bà Rịa Vũng Tàu với diện tích rộng 475,9 m2, là cơ hội lý tưởng cho các nhà đầu tư và khách hàng đang tìm kiếm một vị trí đắc địa. - Diện tích: 475,9 m2( 19*23) - Giá bán: 5,7 tỷ VND - Pháp lý đầy đủ - Chiều ngang mặt tiền: 19m - Chiều rộng ngõ trước: 6m Nổi bật với mặt tiền rộng rãi, phù hợp cho việc kinh doanh hoặc xây dựng nhà ở, gần đối diện chợ Ngõ vào thuận tiện cho xe ô tô di chuyển, tạo điều kiện thuận lợi cho việc ra vào. Khu vực này hứa hẹn mang lại nhiều tiềm năng phát triển trong tương lai. Liên hệ để biết thêm chi tiết: Thị Thanh Thảo Ngô, [phone_number]",
+      "price_vnd": 5700000000.0,
+      "text_prices_vnd": [
+        5700000000.0,
+        5700000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "Phước Tân"
+    },
+    {
+      "listing_id": "ea8afefcb4625655924146237433960050c06e6c96037cc6f61de94502574eca",
+      "property_type": "LAND",
+      "title": "Bán Đất 86m2, 7,3 tỷ, Đường 2, Trường Thọ, Thủ Đức, HCM, Giá tốt!",
+      "description_excerpt": "Nhanh tay sở hữu lô đất nằm tại Đường 2, Phường Trường Thọ, Thủ Đức, Hồ Chí Minh với diện tích 86m2. Giá bán 7,3 tỷ VND. ( có thương lượng ). Ưu điểm nổi bật bao gồm: - Mặt tiền 4,2m, chiều dài : 20,4m - Đường vào rộng 5m, thuận tiện cho xe hơi ra vào. - Pháp lý đầy đủ, đảm bảo an toàn cho giao dịch. - Phong thủy tốt, hướng Đông Nam, mang lại tài lộc cho gia chủ. Liên hệ ngay để biết thêm thông tin chi tiết qua số điện thoại",
+      "price_vnd": 7300000000.0,
+      "text_prices_vnd": [
+        7300000000.0,
+        7300000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "Trường Thọ"
+    },
+    {
+      "listing_id": "79e1bf3e94692dd4c9fb29c5ebabd49a1bc68d6eb6be602d46e88d4e9aeecfea",
+      "property_type": "LAND",
+      "title": "Chính chủ gửi bán đất phân lô Nguyễn An Ninh, Tương Mai, ô tô vào nhà, giá 13 tỷ có thương lượng",
+      "description_excerpt": "Nguyễn An Ninh - Hai Bà Trưng - phân lô cực hiếm nhà bán. Vị trí cực đẹp, trước nhà ô tô 7 chỗ ra vào thoải mái, khu vực phân lô cán bộ, thông tứ tung. Diện tích trên sổ là 45.5m2, thực tế sử dụng từ tầng 1 là 55m2, phía sau có khe thoáng 70 phân. Giá bán: 13 tỷ (chủ thiện chí, có thương lượng). Zalo: Nhà cũ xác định bán đất, cách phố Nguyễn An Ninh mấy bước chân. Sổ đỏ phân lô cất két sang tên trong ngày.",
+      "price_vnd": 13000000000.0,
+      "text_prices_vnd": [
+        13000000000.0,
+        13000000000.0
+      ],
+      "province": "Hà Nội",
+      "ward": "Tương Mai"
+    },
+    {
+      "listing_id": "566f55c7a65ef455cd3f92964579bbd02802536e6268aec802db11deb51e9288",
+      "property_type": "LAND",
+      "title": "Bán đất căn góc HXT đường Nguyễn Xí P. 26 BT (8m x 20m) giá bán: 21,5tỷ TL",
+      "description_excerpt": "Bán đất HXT đường Nguyễn Xí P. 26 BT, khu an ninh, yên tĩnh, dân trí cao xung quanh nhà lầu biệt thự thích hợp mua xây ở lâu dài và làm văn phòng, công ty tiện đi lại các nơi. DT: 8m x 20m = căn góc, công nhận 160m2. Giá bán: 21,5ỷ TL. Liên hệ:",
+      "price_vnd": 21500000000.0,
+      "text_prices_vnd": [
+        21500000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "25"
+    },
+    {
+      "listing_id": "599dc9432bfb24f1e6a2b5851d1b8b3ea5ff7a3213fc2241456e330016ab7d7e",
+      "property_type": "LAND",
+      "title": "Bán lô góc 150m2 ( ngang 8m ) Đường Mẹ Thứ và Trần Tử Bình, Hoà Xuân - Giá 10 Tỷ TL",
+      "description_excerpt": "Bán Lô góc 2 mặt tiền Trần Tử Bình và Mẹ Thứ, Hoà Xuân, Đà Nẵng. - Diện tích : 150m² (ngang 8m) - Hướng Tây Bắc - Vị trí đẹp, khu kinh doanh sầm uất - Phù hợp mở toà căn hộ, văn phòng, quán ăn, spa Giá: 10 tỷ thương lượng thiện chí giá tốt Liên hệ / Zalo : [phone_number] - gặp Tú đàm phán giá tốt",
+      "price_vnd": 10000000000.0,
+      "text_prices_vnd": [
+        10000000000.0,
+        10000000000.0
+      ],
+      "province": "Đà Nẵng",
+      "ward": "Hòa Xuân"
+    }
+  ],
+  "HOUSE": [
+    {
+      "listing_id": "6dcd47ac0a06f8b9403410324a69e9f4ad1fa6b877e1fa9bba1ff68492c6ba0e",
+      "property_type": "HOUSE",
+      "title": "BÁN NHÀ PHỐ 8/3 NGÕ Ô TÔ TRÁNH DT 43M2 5 TẦNG - 15 TỶ",
+      "description_excerpt": "VIP HAI BÀ TRƯNG - Ô TÔ TRÁNH - VỈA HÈ - 10M RA MẶT PHỐ KINH DOANH SẦM UẤT - NHÀ DÂN XÂY CHẮC CHẮN - 2 MẶT THOÁNG TRƯỚC SAU Vị trí cực đắc địa, nằm trên mặt ngõ ô tô tránh, chỉ 10m ra mặt phố kinh doanh sầm uất ngày đêm. Vài bước chân ra phố lớn Minh Khai, giao cắt với các phố Kim Ngưu, Quỳnh Mai, Chùa Quỳnh, Thanh Nhàn...Gần BV Thanh Nhàn, BV Phổi, CV Tuổi trẻ...hệ thống trường học các cấp....tiện ích vô vàn, dân trí cực cao. Nhà dân xây chắc chắn: 2 mặt ngõ đều mở cửa. Thoáng sáng vô cùng: - Tầng 1: Khách bếp, vs. - Tầng 2, 3: mỗi tầng 2 phòng, vs giữa. - Tầng 4: phòng thờ, sân phơi đã xây tường lửng có cốt chờ lên thêm tầng thoải mái. có thể thiết thế thành phòng rộng. tổng sẽ có 6 phòng. - Tầng 5: tum. Sổ đỏ đẹp sẵn sàng giao dịch Kính mời ACE có nhu cầu liên hệ ngay sđt trong bài nhé",
+      "price_vnd": 15000000000.0,
+      "text_prices_vnd": [
+        15000000000.0
+      ],
+      "province": "Hà Nội",
+      "ward": ""
+    },
+    {
+      "listing_id": "a55a1cefa0a4727b72cb502a53ad5de686fb245b073c926219e4a603442e4d53",
+      "property_type": "HOUSE",
+      "title": "Bán nhà mới 2lầu, hẻm 6m, giá chỉ 4,94tỷ đường Lê Văn Quới, phường BTĐ A, quận Bình Tân, TP HCM",
+      "description_excerpt": "Bán nhà mới 2lầu, hẻm 6m, giá chỉ 4,94tỷ đường Lê Văn Quới, phường BTĐ A, quận Bình Tân, TP HCM - DT: (4 X 12), thiết kế 2lầu, NTCC - Hẻm rộng xe tải tới cửa - Gần chợ, trường học, ngã tư Bốn xã - Khu vực an sinh tốt, giao thông thuận lợi - Giá chỉ: 4,94tỷ (còn TL cho khách thiện chí) - Liên hệ Dương Nguyễn: [phone_number] xem nhà 24/7 (121995)",
+      "price_vnd": 4940000000.0,
+      "text_prices_vnd": [
+        4940000000.0,
+        4940000000.0,
+        4940000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "Bình Trị Đông A"
+    },
+    {
+      "listing_id": "ca5ac7d272ca410e4cc6dd859dc2d4d54fc127cbc187c5b30cd7f79efa33b26e",
+      "property_type": "HOUSE",
+      "title": "Bán nhà chính chủ Chu Văn An, Bình Thạnh, DT 48m² giá 1 Tỷ 890 Triệu, hẻm xe hơi 6m, sổ hồng riêng",
+      "description_excerpt": "Vị trí: Hẻm xe hơi Chu Văn An, cách mặt tiền chỉ vài bước chân Giá chỉ: 1 Tỷ 890 Triệu (thương lượng chính chủ). Diện tích 48m² (ngang 4m x dài 12m) Kết cấu: 1 trệt 2 lầu, sân thượng gồm 4 phòng ngủ, 5 WC, bếp, phòng khách, sân để xe. Đang cho thuê 14 triệu/ tháng Pháp lý: Sổ hồng riêng, hoàn công đầy đủ, mua bán công chứng ngay. Liên hệ [phone_number] em Đan",
+      "price_vnd": 1890000000.0,
+      "text_prices_vnd": [
+        1890000000.0,
+        1890000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "26"
+    },
+    {
+      "listing_id": "90fa2c192d4b4b84113f66fb243df11f09d7913e7c34bcc2a0e8985bc3bdb47c",
+      "property_type": "HOUSE",
+      "title": "Bán Nhà Riêng 70m2, Giá 10 tỷ, 6PN, 5WC tại Chánh Hưng, Q8, TP.HCM, giá cực chất, tốt.",
+      "description_excerpt": "Kết cấu : 5 tầng Btct 6 Phòng ngủ rộng, toilet riêng, nhà còn rất mới vào ở ngay. Diện tích : 70m2 công nhận đủ , ngang 4,1m dài 17m nở hậu tài lộc. Vị trí : Ngay nhà thờ Nam Hải, gần cầu Chánh Hưng, PAR Mall Tạ Quảng Bửu, cách MT Phạm Hùng chỉ 50m. Hẻm Xe hơi 6m thẳng 1 trục, thông khu phân lô Cao Lỗ. Chính chủ 1 đời, sổ Hồng sẵn công chứng ngay. Giá 10 tỷ.Thương lượng chính chủ Quí khách Vui lòng liên hệ Trần Kim Thoang qua số điện thoại [phone_number] . Để xem nhà.",
+      "price_vnd": 10000000000.0,
+      "text_prices_vnd": [
+        10000000000.0,
+        10000000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "4"
+    },
+    {
+      "listing_id": "ead7846ee04bfe257a5a6213de86a00c62e11e917fe4fbab46b1a202194bb52c",
+      "property_type": "HOUSE",
+      "title": "Hàng hiếm tại bán nhà riêng 24 tỷ, 50 m2 ở Nguyễn Văn Cừ, Bồ Đề, Long Biên, Hà Nội",
+      "description_excerpt": "Ngõ phố Nguyễn Văn Cừ - 7 tầng thang máy. Diện tích 50m2. MT 5m. Gara ôtô 2 xe máy - full mội thất sịn sò - điều hoà âm trần - đẳng cấp thượng lưu. Ngõ thông tứ tung. Giao thông thuận lợi - dân trí cao - tiện ích ngập tràn. Mô Tả. Nhà tầm 15 ngày nữa là xong hoàn tất. Long lanh full nội thất. + Vị trí đẹp trung tâm sầm uất nhất phường Bồ đề (Gia Thuỵ cũ) ngõ thông ô tô tránh. + Mặt phố Nguyễn Văn Cừ phát triển mạnh tiện ích xung quanh thay đổi từng ngày đang dần đón cầu Trần Hưng Đạo đã thi công. Qua phố trong nốt nhạc. + Gần trường cấp 1 - 2 Gia Thuỵ. Công an phường vv.. + Chủ xây 7 tầng thang may gara oto 7 chỗ, full nội thất khách chốt xách va ly vào ở. Tầng 1: Để 2 xe ô tô. Thiết kế: Tầng 1: Ga ra để 2 ô tô + xe máy. Tầng 2: Phòng SHC Hoặc P Ngủ + WC Khép kín. Tầng 3: 1p ngủ + WC khép kín. Tầng 4: 1p ngủ + WC khép kín Tầng 5: 1p ngủ + WC khép kín. Tầng 6: Phòng bếp + khách. Tầng 7: Phòng thờ, sân phơi, caffe, BBQ. Full nội thất cao cấp. + Sổ đỏ chính chủ, pháp lý chuẩn, giao dịch ngay. Liên hệ ngay để biết thêm thông tin chi tiết: Hà Thị Xuân.",
+      "price_vnd": 24000000000.0,
+      "text_prices_vnd": [
+        24000000000.0
+      ],
+      "province": "Hà Nội",
+      "ward": "Bồ Đề"
+    },
+    {
+      "listing_id": "ac496113d071c6e1e45020740d9f20218b529415f4a0494c9de1e41fd212b544",
+      "property_type": "HOUSE",
+      "title": "Bán nhà riêng tại Nguyễn Văn Cừ, Bồ Đề, Long Biên, Hà Nội, 27,8 tỷ, 80m2",
+      "description_excerpt": "Nhà riêng đỉnh ở Nguyễn Văn Cừ, Bồ Đề, Long Biên, Hà Nội đang chờ chủ mới. - Diện tích 80m2, 6 tầng, thiết kế cực xịn và hiện đại. - Nội thất đầy đủ, có giường, tủ, bàn ghế, bếp xịn. - Pháp lý đầy đủ, sổ đỏ, sổ hồng rõ ràng. - Giá cực sốc 27,8 tỷ VND. Địa điểm xung quanh: + Gần bệnh viện đa khoa tâm anh, bệnh viện đa khoa quốc tế bắc hà. + Công viên ngọc thụy gần kề cho những buổi chiều thư giãn. + Trường tiểu học ngọc thụy, trường mầm non bắc biên ngay gần. + Siêu thị winmart nguyễn văn cừ ii, siêu thị intimex nguyễn văn cừ đều có sẵn. Đừng chần chừ, gọi ngay [phone_number] để được tư vấn miễn phí từ Đức Trọng!",
+      "price_vnd": 27800000000.0,
+      "text_prices_vnd": [
+        27800000000.0,
+        27800000000.0
+      ],
+      "province": "Hà Nội",
+      "ward": "Bồ Đề"
+    },
+    {
+      "listing_id": "e434ca56b7ccdceb38319063b5839ac140f9932ccdbf24cf1ca598e7ad5b803a",
+      "property_type": "HOUSE",
+      "title": "Bán nhà riêng 121m2, 4 tỷ tại Lái Thiêu, Thuận An, Bình Dương",
+      "description_excerpt": "Nhà riêng nằm ở Lái Thiêu, Thuận An, Bình Dương, với diện tích 121m2 cực rộng rãi. - 2PN, 2WC, full tiện nghi, sẵn sàng vào ở ngay. - Pháp lý đầy đủ, không lo lắng về giấy tờ. - Phong thủy tốt, thích hợp cho gia đình. Tiện ích xung quanh: - Công viên Châu Văn Tiếp 1 - Lái Thiêu, Công viên Tiêu Thanh Việt, Công viên Ngô Quyền - Lái Thiêu. - Phòng khám Thạc sĩ - BS Chuyên Khoa 2 Mộng Thơ - Bệnh viện Từ Dũ, Bệnh viện Đa Khoa Thành Phố Thuận An, Bệnh viện Quốc Tế Becamex. - Trường Mầm Non Phương Mai. - Siêu Thị Bách Hóa Xanh 523A Nguyễn Trãi, Siêu Thị Mẹ Bầu & Em Bé Con Cưng. Liên hệ ngay để biết thêm chi tiết! Gọi [phone_number] - Đạt nguyễn.",
+      "price_vnd": 4000000000.0,
+      "text_prices_vnd": [
+        4000000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "Lái Thiêu"
+    },
+    {
+      "listing_id": "4ceb86fd10f7710b76df4414ed8d7afb80cab92e3b6855252a9d04e22f95f7bd",
+      "property_type": "HOUSE",
+      "title": "Chính chủ cần bán gấp! Nhà phố Thái Thịnh,vf3 đỗ cổng, ngõ thông kinh doanh, gần mặt phố,43m2 * 5T",
+      "description_excerpt": "Lõi Đống Đa - ô tô đỗ cổng - gần phố - kinh doanh văn phòng - tiện ích bạt ngàn- ở sường Nhà bán có vị trí đẹp ngõ thông, có thể ở hoặc kinh doanh cho thuê, ô tô đỗ cổng., thông tứ tung các ngả. Tiếp giáp với các tuyến phố lớn: Đường Láng, Thái Hà, Tây Sơn, Yên Lãng, Láng Hạ, Hoàng Cầu. Nhà gần nhiều trường đại học danh tiếng , Đại Học Thuỷ Lợi, Học viện Ngân Hàng , Công Đoàn gần chợ , trung tâm mua sắm, tiện ích bạt ngàn Nhà 5 tầng 3 ngủ, phòng ngủ có ánh sáng đầy đủ công năng sử dụng. Chủ tặng lại toàn bộ nội thất. Sổ đỏ sẵn giao dịch ngay. Giá chào 8.3 tỷ có thương lượng. Liên hệ mrs Thanh để được gặp chủ xem nhà",
+      "price_vnd": 8300000000.0,
+      "text_prices_vnd": [
+        8300000000.000001
+      ],
+      "province": "Hà Nội",
+      "ward": ""
+    },
+    {
+      "listing_id": "e4e4f492ac7b34e9321cda40986f090459d1b4e6ca1419a3ccbf512b0274dc9c",
+      "property_type": "HOUSE",
+      "title": "Bán Nhà Hẻm Ô Tô 4m, An Nhơn - P.17, Gò Vấp, 10.3Tỷ, 75m2(4x19), 4Tầng",
+      "description_excerpt": "- NHÀ ĐẸP - HẺM Ô TÔ 4M - GẦN KHU CITYLAND - SÁT MẶT TIỀN AN NHƠN - P.17 - Diện tích 75m2 - (4x19) - 4 tầng sân thượng, thiết kế đẹp, 4PN, nhà còn mới vào ở ngay - Vị trí V.I.P, khu toàn nhà cao tầng, an ninh, dân trí cao, ngay trung tâm Quận, thông các đường lớn Nguyễn Oanh, Phan Văn Trị, Nguyễn Văn Lượng - Giá 10,3 tỷ thương lượng - Nhà thật-Giá chính chủ-Pháp lý chuẩn - ĐT/zalo : Bạch Thư [phone_number] xem nhà",
+      "price_vnd": 10300000000.0,
+      "text_prices_vnd": [
+        10300000000.0,
+        10300000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "17"
+    },
+    {
+      "listing_id": "b07ffd59f03f601829aaf11f5fd8e3e66cf7eb97675e484cab84204f3569110b",
+      "property_type": "HOUSE",
+      "title": "CẦN BÁN GẤP NHÀ ĐẸP HẺM XE HƠI FULL NỘI THẤT CHỈ 7.45 TỶ",
+      "description_excerpt": "CẦN BÁN GẤP NHÀ ĐẸP HẺM XE HƠI FULL NỘI THẤT CHỈ 7.45 TỶ Địa chỉ: Hẻm 41 Chuyên Dùng Q7 xe hơi đậu cách chỉ 2 căn Diện tích: 4m x 16m Kết cấu: 1 trệt, 3 lầu, sân thượng trước sau 5 phòng ngủ, 5 toilet Có giếng trời thoáng mát, 2 sân thượng rộng rãi Phòng giăt riêng biệt Nội thất: Nhà mới đẹp, trang bị nội thất cao cấp đầy đủ Chỉ việc xách vali vào ở ngay Giá bán: 7.45 tỷ (thương lượng nhẹ cho khách thiện chí) Liên hệ : PHỐ GIA ( ngay chủ ) hoặc truy cập nhadatphogia.com để xem nhiều . #Nhadatphogia.Com #batdongsanq7 #nhaphogiatot #nhaphoq7 #phochuyennhapho",
+      "price_vnd": 7450000000.0,
+      "text_prices_vnd": [
+        7450000000.0,
+        7450000000.0,
+        7450000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "Phú Mỹ"
+    },
+    {
+      "listing_id": "38cda36a689cefbd125abd17a7a253660c8dadca8564b790dc36a49998ec353e",
+      "property_type": "HOUSE",
+      "title": "Bán nhà đẹp hẻm xe tải 6m Lê Trọng Tấn, Tây Thạnh, Tân Phú gần Aeon, BV Hoàn Mỹ, giá 7.8 tỷ",
+      "description_excerpt": "Bán nhà đẹp hẻm xe tải 6m Lê Trọng Tấn, Tây Thạnh, Tân Phú gần Aeon, BV Hoàn Mỹ 235m2 Sàn, giá 7,75 tỷ. Vị trí cực đẹp: Hẻm xe tải 6m thông thoáng, cách mặt tiền đường Lê Trọng Tấn chỉ vài bước. Gần chợ, trường học, công an phường, siêu thị Aeon Mall Tân Phú, kế bên bệnh viện Hoàn Mỹ đang xây. Khu dân cư sầm uất, an ninh, không ngập, sát KCN Tân Bình đang chuyển đổi thành đô thị dịch vụ. Cách sân bay Tân Sơn Nhất (ga T3) chỉ 7km 15 phút di chuyển. Thông tin nhà: Diện tích đất: 4 x 17,2m (68,8m). Diện tích xây dựng: 235,6m. Kết cấu: 1 trệt 2 lầu sân thượng, xây kiên cố, đẹp. Gồm: Sân để xe, phòng khách, bếp, 4 phòng ngủ, sân thượng trồng cây xanh thoáng mát. Pháp lý đầy đủ, sổ hồng riêng. Giá bán: 7,75 tỷ (còn thương lượng cho khách thiện chí). Phù hợp ở gia đình, cho thuê, đầu tư giữ tài sản lâu dài khu vực tăng trưởng mạnh! Liên hệ: [SĐT của bạn] để xem nhà trực tiếp.",
+      "price_vnd": 7750000000.0,
+      "text_prices_vnd": [
+        7800000000.0,
+        7750000000.0,
+        7750000000.0
+      ],
+      "province": "TP. Hồ Chí Minh",
+      "ward": "Tây Thạnh"
+    },
+    {
+      "listing_id": "45781b8b116aee4412c77ddd96850cb85c4f54b883e3f70821b0b08ba4b7618d",
+      "property_type": "HOUSE",
+      "title": "Bán nhà riêng 37m2, 7,3 tỷ, 5PN, 5WC tại Thanh Am, Việt Hưng, Long Biên, Hà Nội",
+      "description_excerpt": "Nhà riêng hot ở Đường Thanh Am, Phường Việt Hưng, Hà Nội, trước đây Quận Long Biên, Hà Nội với diện tích 37m2, 5PN, 5WC, và đầy đủ nội thất. Mặt tiền 3.5m siêu đẹp, ngõ rộng 3m thoải mái cho xe cộ ra vào. Pháp lý đầy đủ, mua là yên tâm luôn. Giá bán chỉ 7,3 tỷ VND. Tiện ích xung quanh: + Bệnh viện đa khoa Đức Giang + Công viên Long Biên, Việt Hưng + Trường mầm non Montessori Kinder Paradise, Lá Phong Xanh Ban Mai + Winmart+, Winmart Liên hệ ngay truongnhubinh qua số [phone_number] để biết thêm chi tiết!",
+      "price_vnd": 7300000000.0,
+      "text_prices_vnd": [
+        7300000000.0,
+        7300000000.0
+      ],
+      "province": "Hà Nội",
+      "ward": "Việt Hưng"
+    }
+  ]
+}

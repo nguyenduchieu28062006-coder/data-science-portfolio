@@ -1,0 +1,119 @@
+{
+  "date": "2026-10-04",
+  "model_version": "beta-public-v3",
+  "house_browser": {
+    "viewports": [
+      320,
+      390,
+      768,
+      1440
+    ],
+    "checks_per_viewport": 73,
+    "status": "PASS",
+    "fixture_count": 250,
+    "maximum_absolute_error_vnd": 0
+  },
+  "auth": {
+    "checks_per_viewport": 168,
+    "status": "PASS"
+  },
+  "history_regression": {
+    "checks_per_viewport": 15,
+    "status": "PASS"
+  },
+  "health_samples": [
+    "34.2%",
+    "99.6%"
+  ],
+  "health_samples_status": "PASS via Auth regression real browser; health files protected by SHA256",
+  "supabase_backend": "SDK mock; SQL successfully run by user, real DB not exercised by agent",
+  "sql_migration_required": false,
+  "pipeline": {
+    "status": "PASS",
+    "tests": 8,
+    "known_mixed_gate_failures_excluded_by_additional_type_filter": 6
+  },
+  "public_paths": {
+    "public_paths": {
+      "/": "PASS",
+      "/data-analyzer.html": "PASS",
+      "/health-prediction.html": "PASS",
+      "/vietnam-house-price.html": "PASS",
+      "/history.html": "PASS",
+      "/login.html": "PASS",
+      "/register.html": "PASS"
+    },
+    "local_references_checked": 70,
+    "production_localhost": false,
+    "parquet_in_browser": false,
+    "frontend_service_role": false,
+    "api_runtime": "Vercel CommonJS handler; actual code evaluated in browser tests, no deployment"
+  },
+  "release_review": {
+    "public_status": "READY WITH MAP FALLBACK",
+    "blocker": null,
+    "limitation": "OpenStreetMap online tiles could not be verified in the current local environment because tile.openstreetmap.org did not resolve. The application automatically falls back to a local Vietnam GeoJSON map, so location selection and estimation remain usable.",
+    "readiness_policy": "Online map tiles are optional when the verified local GeoJSON map, independent location selection and estimation remain usable.",
+    "evidence": "docs/vietnam-map-online-test.json",
+    "fallback_evidence": "docs/vietnam-map-geometry-test.json",
+    "scope": "Product publication validation; descriptive statistics gate remains approved with limitations."
+  },
+  "map_online": {
+    "state": {
+      "tiles": {
+        "loaded": 0,
+        "errors": 15
+      },
+      "geometry": 34,
+      "model": true
+    },
+    "osm_responses": [],
+    "network_failures": [
+      "net::ERR_NAME_NOT_RESOLVED",
+      "net::ERR_NAME_NOT_RESOLVED",
+      "net::ERR_NAME_NOT_RESOLVED",
+      "net::ERR_NAME_NOT_RESOLVED",
+      "net::ERR_NAME_NOT_RESOLVED",
+      "net::ERR_NAME_NOT_RESOLVED",
+      "net::ERR_NAME_NOT_RESOLVED",
+      "net::ERR_NAME_NOT_RESOLVED",
+      "net::ERR_NAME_NOT_RESOLVED",
+      "net::ERR_NAME_NOT_RESOLVED"
+    ],
+    "online_pass": false,
+    "synthetic_tiles": false,
+    "page": {
+      "url": "http://127.0.0.1:57321/vietnam-house-price.html",
+      "state": "complete",
+      "title": "Ước tính giá bất động sản Việt Nam | Data Science Portfolio",
+      "status": "VERIFIED MARKET ESTIMATE BETA · thống kê giá rao bán · không phải Machine Learning."
+    }
+  },
+  "map_fallback": {
+    "status": "PASS",
+    "province_geometries": 34,
+    "simulated_tile_error": true,
+    "form_usable": true
+  },
+  "required_cases": {
+    "1": "PASS",
+    "2": "PASS",
+    "3": "PASS",
+    "4": "PASS",
+    "5": "PASS",
+    "6": "PASS",
+    "7": "PASS",
+    "8": "PASS",
+    "9": "PASS",
+    "11": "PASS",
+    "12": "PASS",
+    "13": "PASS",
+    "14": "PASS",
+    "15": "PASS",
+    "10": "UNVERIFIED — local DNS ERR_NAME_NOT_RESOLVED; non-blocking with verified usable 34-province GeoJSON fallback, not a product defect"
+  },
+  "house_training_performed": false,
+  "raw_parquet_scans": 0,
+  "cached_property_passes": 1,
+  "commit_push_deploy": false
+}

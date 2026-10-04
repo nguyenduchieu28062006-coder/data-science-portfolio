@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-04",
+  "mode": "VERIFIED MARKET ESTIMATE BETA",
+  "house_browser": {
+    "viewports": [
+      320,
+      390,
+      768,
+      1440
+    ],
+    "checks_per_viewport": 57,
+    "fixture_count": 250,
+    "maximum_absolute_error_vnd": 0,
+    "maximum_relative_error": 0
+  },
+  "pipeline": {
+    "tests": 7,
+    "status": "PASS"
+  },
+  "auth": {
+    "checks_per_viewport": 168,
+    "status": "PASS"
+  },
+  "history_regression": {
+    "checks_per_viewport": 15,
+    "status": "PASS"
+  },
+  "health_regression": {
+    "checks": {
+      "320": 59,
+      "390": 59,
+      "768": 57,
+      "1440": 57
+    },
+    "status": "PASS",
+    "parameters_and_samples_unchanged": true
+  },
+  "public_paths": {
+    "pages": 7,
+    "relative_refs": 68,
+    "status": "PASS"
+  },
+  "supabase_backend": "NOT EXERCISED; browser SDK mock only",
+  "house_training_performed": false,
+  "raw_passes": 1,
+  "resume_did_not_scan_or_train": true,
+  "commit_push_deploy": false
+}

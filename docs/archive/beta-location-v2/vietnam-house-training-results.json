@@ -1,0 +1,43 @@
+{
+  "mode": "VERIFIED MARKET ESTIMATE BETA",
+  "training_performed": false,
+  "reason": "ML quality gate failed; statistical BETA only",
+  "quality_gate": {
+    "status": "FAIL",
+    "sample_count": 200,
+    "seed": 42,
+    "correct": 194,
+    "accuracy": 0.97,
+    "reason": "Primary intent false positives and truncated one-digit billion shorthand. No ML training performed."
+  },
+  "metrics": null,
+  "train_rows": 0,
+  "test_rows": 0,
+  "data_source": {
+    "dataset": "tinixai/vietnam-real-estates",
+    "revision": "ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f",
+    "publisher": "TiniX AI",
+    "license": "CC-BY-NC-4.0",
+    "file": "verified-vietnam-house-locations.parquet",
+    "canonical_file": "data/verified-vietnam-house-sales.parquet"
+  },
+  "model_review": {
+    "status": "APPROVE WITH LIMITATIONS — STATISTICAL BETA ONLY",
+    "public_status": "READY",
+    "ml_status": "NOT READY",
+    "report": "docs/vietnam-location-public-status.md"
+  },
+  "model_version": "beta-location-v2",
+  "features": [
+    "province",
+    "ward",
+    "sub_area",
+    "property_type",
+    "area_m2"
+  ],
+  "location_thresholds": {
+    "SUB_AREA": 20,
+    "WARD": 30,
+    "PROVINCE": 80
+  }
+}

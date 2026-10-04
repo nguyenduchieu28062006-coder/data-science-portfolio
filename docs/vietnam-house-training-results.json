@@ -1,0 +1,64 @@
+{
+  "model_version": "beta-public-v3",
+  "mode": "VERIFIED MARKET ESTIMATE BETA",
+  "model_review": {
+    "status": "APPROVE WITH LIMITATIONS — STATISTICAL BETA ONLY",
+    "public_status": "READY",
+    "ml_status": "NOT READY",
+    "report": "docs/vietnam-public-status.md"
+  },
+  "features": [
+    "province",
+    "ward",
+    "sub_area",
+    "property_type",
+    "area_m2"
+  ],
+  "target_unit": "VND",
+  "metrics": null,
+  "train_rows": 0,
+  "test_rows": 0,
+  "training_performed": false,
+  "quality_gate": {
+    "status": "FAIL",
+    "sample_count": 200,
+    "seed": 42,
+    "correct": 194,
+    "accuracy": 0.97,
+    "reason": "Primary intent false positives and truncated one-digit billion shorthand. No ML training performed."
+  },
+  "quality_gate_scope": "Original mixed ML gate FAIL, unchanged; does not claim statistical BETA passes ML gate.",
+  "limitations": [
+    "Ước tính thống kê BETA; không train ML và không có MAE/RMSE/R²/MAPE.",
+    "Kiểm tra mẫu hữu hạn, không chứng minh độ chính xác toàn dataset. Gate ML gốc 194/200 vẫn FAIL; không đổi thành PASS.",
+    "Giá rao bán, không phải giá giao dịch hoàn tất; không realtime. Ngày tin do publisher khai báo, chưa xác minh độc lập.",
+    "TiniX AI · CC BY-NC 4.0: portfolio phi thương mại; nguồn upstream chưa được xác minh độc lập.",
+    "Chỉ mapping các đơn vị cũ nhập toàn bộ có bằng chứng tại Hà Nội; đơn vị bị chia hoặc chưa mapping dùng tỉnh, không đoán phường.",
+    "Ward/project và diện tích do publisher khai báo; chưa xác minh địa chỉ từng tin. Loại nhà/đất có thể khác diện tích đất, sử dụng hoặc sàn.",
+    "Median không điều chỉnh pháp lý, đất thổ cư/nông nghiệp, mặt tiền, đường, tầng, phòng hoặc nội thất; LAND gồm các loại đất khác nhau.",
+    "REGIONAL_ESTIMATE dùng phân vị có trọng số các tỉnh gần cùng loại; gần về địa lý không chứng minh tương đồng thị trường.",
+    "P25/P75 là phân vị rao bán, không phải khoảng tin cậy. Giá cho diện tích khác chỉ thay theo công thức tuyến tính."
+  ],
+  "data_source": {
+    "dataset": "tinixai/vietnam-real-estates",
+    "revision": "ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f",
+    "publisher": "TiniX AI",
+    "license": "CC-BY-NC-4.0",
+    "file": "retained files (see files)",
+    "canonical_file": "data/verified-vietnam-house-sales.parquet",
+    "files": [
+      "data/verified-vietnam-house-locations.parquet",
+      "data/verified-vietnam-extra-types.parquet"
+    ]
+  },
+  "verified_rows": 693183,
+  "release_review": {
+    "public_status": "READY WITH MAP FALLBACK",
+    "blocker": null,
+    "limitation": "OpenStreetMap online tiles could not be verified in the current local environment because tile.openstreetmap.org did not resolve. The application automatically falls back to a local Vietnam GeoJSON map, so location selection and estimation remain usable.",
+    "readiness_policy": "Online map tiles are optional when the verified local GeoJSON map, independent location selection and estimation remain usable.",
+    "evidence": "docs/vietnam-map-online-test.json",
+    "fallback_evidence": "docs/vietnam-map-geometry-test.json",
+    "scope": "Product publication validation; descriptive statistics gate remains approved with limitations."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "rows": 30,
+  "sampling": "30 largest automatic relative errors; selected, nonrepresentative",
+  "counts": {
+    "literal_text_disagreement": 3,
+    "unresolved_price_basis": 4,
+    "parser_false_mismatch_confirmed_match": 10,
+    "parser_false_candidate_total_unverified": 8,
+    "nonpositive_target": 5
+  },
+  "raw_prices_corrected": 0,
+  "population_error_rate_estimated": false,
+  "notes": "Literal text disagreement does not establish which value is the true asking price. Missing per-m2 units and approximate/from prices remain unresolved."
+}

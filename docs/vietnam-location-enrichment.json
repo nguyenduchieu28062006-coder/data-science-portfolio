@@ -1,0 +1,13 @@
+{
+  "method": "Exact original canonical SHA256 join; cached apartment columns only",
+  "canonical_rows": 290282,
+  "exact_matches": 290282,
+  "cached_apartment_rows_read": 762800,
+  "conflicting_project_ids": 1089,
+  "ward_rows": 238238,
+  "project_rows": 248971,
+  "raw_files_read": false,
+  "sale_rules_rerun": false,
+  "training_performed": false,
+  "limitation": "Ward and district labels are publisher historical locations, not verified current administrative boundaries. Projects are structured source fields; no NLP."
+}

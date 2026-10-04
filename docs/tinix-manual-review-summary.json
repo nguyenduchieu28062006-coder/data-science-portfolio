@@ -1,0 +1,38 @@
+{
+  "reviewer": "assistant_text_review",
+  "independent_human_ground_truth": false,
+  "review_scope": "titles_and_full_original_descriptions; observed_text_intent_only",
+  "rule_frozen_before_review": true,
+  "classifier_tuned_on_this_sample": false,
+  "sample_rows": 300,
+  "confusion_counts": {
+    "SALE_HIGH_CONFIDENCE": {
+      "SALE_HIGH_CONFIDENCE": 99,
+      "AMBIGUOUS": 1
+    },
+    "RENT_HIGH_CONFIDENCE": {
+      "SALE_HIGH_CONFIDENCE": 96,
+      "AMBIGUOUS": 4
+    },
+    "AMBIGUOUS": {
+      "SALE_HIGH_CONFIDENCE": 93,
+      "AMBIGUOUS": 7
+    }
+  },
+  "sale_true_positive": 99,
+  "sale_sample_size": 100,
+  "sale_precision_point_estimate": 0.99,
+  "sale_wilson_95pct_interval": [
+    0.9455138038212946,
+    0.9982325679358593
+  ],
+  "sale_point_estimate_meets_98pct": true,
+  "sale_95pct_lower_bound_meets_98pct": false,
+  "rent_confirmed_in_rent_sample": 0,
+  "limitations": [
+    "Not independent human review or verified transaction truth.",
+    "100 SALE rows do not establish a population precision of at least 98%.",
+    "Precision concerns intent only, not target price, legal status or individual-unit identity.",
+    "Equal-size stratified sample does not represent overall market proportions; recall not estimated."
+  ]
+}

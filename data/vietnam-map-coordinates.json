@@ -1,0 +1,9 @@
+{
+  "coordinate_kind": "City representative points, not ward/project locations or administrative centroids",
+  "source": "Wikidata P625, reviewed 2026-10-04; CC0",
+  "points": [
+    {"province":"Hà Nội","lat":21.0245,"lng":105.8411694444,"source_url":"https://www.wikidata.org/wiki/Q1858"},
+    {"province":"TP. Hồ Chí Minh","lat":10.7755555556,"lng":106.7019444444,"source_url":"https://www.wikidata.org/wiki/Q1854"},
+    {"province":"Đà Nẵng","lat":16.0694444444,"lng":108.2097222222,"source_url":"https://www.wikidata.org/wiki/Q25282"}
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "reviewer": "assistant, not independent human ground truth",
+  "reviewed_records": 300,
+  "counts_by_rule_group": {
+    "SALE_HIGH_CONFIDENCE": {
+      "SALE": 97,
+      "AMBIGUOUS": 3
+    },
+    "RENT_HIGH_CONFIDENCE": {
+      "RENT": 95,
+      "AMBIGUOUS": 5
+    },
+    "AMBIGUOUS": {
+      "SALE": 59,
+      "AMBIGUOUS": 41
+    }
+  },
+  "limitations": [
+    "Review uses displayed contexts, not a claim that every long description was read in full.",
+    "Unresolved counted as non-confirmed for conservative confirmation rate, not known false positives.",
+    "SALE sample labels stable; AMBIGUOUS diagnostic sample retained from prior rule stratum. No population estimate of true sale prevalence.",
+    "Rules revised during diagnostic review; these records are not an independent final validation holdout."
+  ],
+  "sale_conservative_confirmation_rate": 0.97,
+  "rent_conservative_confirmation_rate": 0.95,
+  "sale_precision_98pct_verified": false
+}

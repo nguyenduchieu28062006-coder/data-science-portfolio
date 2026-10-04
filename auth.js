@@ -7,7 +7,7 @@
     const FORGOT_MESSAGE = "Nếu email này được liên kết với một tài khoản, bạn sẽ nhận được hướng dẫn đặt lại mật khẩu.";
     const SDK_URL = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js";
     const root = new URL("./", document.baseURI);
-    const publicPages = ["index.html", "data-analyzer.html", "health-prediction.html", "history.html"];
+    const publicPages = ["index.html", "data-analyzer.html", "health-prediction.html", "vietnam-house-price.html", "history.html"];
     const form = document.getElementById("authForm");
     const mode = form?.dataset.authForm;
     const fields = document.getElementById("authFields");

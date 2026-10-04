@@ -1,0 +1,182 @@
+{
+  "dataset": "tinixai/vietnam-real-estates",
+  "revision": "ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f",
+  "duckdb_version": "1.5.6",
+  "rule_version": "title-intent-v1",
+  "seed": 42,
+  "review_date": "2026-10-04",
+  "scan_scope": "all_10_original_parquet_files",
+  "row_count": 3500744,
+  "raw_rows_deleted": 0,
+  "raw_values_modified": 0,
+  "training_performed": false,
+  "declared_date_range": {
+    "start": "2025-06-01",
+    "end": "2026-03-31"
+  },
+  "sampling_method": "Top 100 per rule label ordered by md5(42|source_shard|zero_based_source_row); independent price sample uses price-42 prefix.",
+  "source_column_types": {
+    "name": "VARCHAR",
+    "description": "VARCHAR",
+    "property_type_name": "VARCHAR",
+    "province_name": "VARCHAR",
+    "district_name": "VARCHAR",
+    "ward_name": "VARCHAR",
+    "street_name": "VARCHAR",
+    "project_name": "VARCHAR",
+    "price": "VARCHAR",
+    "area": "DOUBLE",
+    "floor_count": "DOUBLE",
+    "frontage_width": "DOUBLE",
+    "house_depth": "DOUBLE",
+    "road_width": "DOUBLE",
+    "bedroom_count": "DOUBLE",
+    "bathroom_count": "DOUBLE",
+    "house_direction": "VARCHAR",
+    "balcony_direction": "VARCHAR",
+    "published_at": "VARCHAR"
+  },
+  "labels": [
+    {
+      "rule_label": "AMBIGUOUS",
+      "count": 1721930,
+      "percentage": 49.187544133475626
+    },
+    {
+      "rule_label": "RENT_HIGH_CONFIDENCE",
+      "count": 31052,
+      "percentage": 0.8870114467096137
+    },
+    {
+      "rule_label": "SALE_HIGH_CONFIDENCE",
+      "count": 1747762,
+      "percentage": 49.92544441981476
+    }
+  ],
+  "reasons": [
+    {
+      "rule_label": "SALE_HIGH_CONFIDENCE",
+      "rule_reason": "explicit_sale_title_no_opposing_primary_offer",
+      "count": 1700577
+    },
+    {
+      "rule_label": "AMBIGUOUS",
+      "rule_reason": "insufficient_primary_intent_in_title",
+      "count": 1691748
+    },
+    {
+      "rule_label": "SALE_HIGH_CONFIDENCE",
+      "rule_reason": "explicit_sale_title_with_rental_cashflow_context",
+      "count": 47185
+    },
+    {
+      "rule_label": "RENT_HIGH_CONFIDENCE",
+      "rule_reason": "explicit_rent_or_monthly_title_no_sale_opening",
+      "count": 31052
+    },
+    {
+      "rule_label": "AMBIGUOUS",
+      "rule_reason": "sale_title_conflicts_with_rent_offer",
+      "count": 24131
+    },
+    {
+      "rule_label": "AMBIGUOUS",
+      "rule_reason": "rent_title_conflicts_with_sale_opening",
+      "count": 2998
+    },
+    {
+      "rule_label": "AMBIGUOUS",
+      "rule_reason": "dual_sale_rent_offer",
+      "count": 2513
+    },
+    {
+      "rule_label": "AMBIGUOUS",
+      "rule_reason": "wanted_or_negated_offer",
+      "count": 540
+    }
+  ],
+  "quality": {
+    "price_raw_null": 218494,
+    "price_numeric_parse_failed": 0,
+    "price_missing": 218494,
+    "price_nonpositive": 57320,
+    "price_zero": 57320,
+    "price_negative": 0,
+    "price_nonfinite": 0,
+    "area_missing": 4,
+    "area_nonpositive": 0,
+    "area_nonfinite": 0,
+    "province_null": 0,
+    "province_missing_or_blank": 0,
+    "district_null": 101933,
+    "ward_null": 496716,
+    "ward_missing_or_blank": 496716,
+    "province_names_distinct": 63,
+    "district_names_distinct": 626,
+    "province_district_keys": 649,
+    "ward_names_distinct": 4416,
+    "province_district_ward_keys": 6301
+  },
+  "sale_quality": {
+    "rows": 1747762,
+    "price_missing": 105009,
+    "price_nonpositive": 25545,
+    "area_missing": 3,
+    "area_nonpositive": 0,
+    "ward_null": 245487
+  },
+  "dates": {
+    "min_timestamp": "2025-06-01 00:01:38.762000",
+    "max_timestamp": "2026-03-30 23:59:56.217000",
+    "null_dates": 0,
+    "unparseable_dates": 0,
+    "future_after_review_date": 0,
+    "outside_declared_dates": 0,
+    "SALE_HIGH_CONFIDENCE": {
+      "min_timestamp": "2025-06-01 00:01:54.565000",
+      "max_timestamp": "2026-03-30 23:55:51.948000"
+    },
+    "RENT_HIGH_CONFIDENCE": {
+      "min_timestamp": "2025-06-01 01:25:24.427000",
+      "max_timestamp": "2026-03-30 22:27:41.045000"
+    },
+    "AMBIGUOUS": {
+      "min_timestamp": "2025-06-01 00:01:38.762000",
+      "max_timestamp": "2026-03-30 23:59:56.217000"
+    }
+  },
+  "exact_duplicates": {
+    "groups": 36,
+    "excess_rows": 50,
+    "rows_in_groups": 86,
+    "max_group_size": 6
+  },
+  "near_duplicates": {
+    "groups": 137978,
+    "excess_rows": 170624,
+    "rows_in_groups": 308602,
+    "max_group_size": 30
+  },
+  "sample_counts": {
+    "SALE_HIGH_CONFIDENCE": 100,
+    "RENT_HIGH_CONFIDENCE": 100,
+    "AMBIGUOUS": 100
+  },
+  "text_price_audit": {
+    "sample_rows": 1000,
+    "counts": {
+      "matched_2pct": 640,
+      "mismatch": 119,
+      "no_supported_price": 172,
+      "missing_structured_price": 25,
+      "multiple_text_prices": 44
+    },
+    "tolerance": 0.02,
+    "comparable_rows": 759,
+    "match_rate": 0.8432147562582345,
+    "records_with_candidates": 828,
+    "single_candidate_total": 784,
+    "limitations": "Parser compatibility only, not source accuracy. Known false mismatches: discounts, furniture gifts, down payments, rental abbreviations, omitted per-m2 units, decimal commas with 3 digits. Unsupported/no-price rows are not treated as matches."
+  },
+  "rule_script_sha256": "1efa114be8fcedbe34fdc5c3a8144afb0aface824ab2511df5f160fbddbd3d04"
+}

@@ -1,0 +1,31 @@
+﻿diagnostic_sample_rule_version,review_rank,source_record_1based,listing_id,price_raw,area_raw,text_reference_vnd_v4,finding,note
+v4,1,80761,1336547.0,315000.0,140.0,31500000000.0,PRICE_SCALE_INCONSISTENCY,Price × 1.000.000 lệch gần 10/100 lần so với giá có đơn vị rõ trong tin; nguyên nhân pipeline chưa xác minh.
+v4,2,99050,1343341.0,61000.0,54.0,6100000000.0,PRICE_SCALE_INCONSISTENCY,Price × 1.000.000 lệch gần 10/100 lần so với giá có đơn vị rõ trong tin; nguyên nhân pipeline chưa xác minh.
+v4,3,8753,1333135.0,172000.0,129.0,1720000000.0,PRICE_SCALE_INCONSISTENCY,Price × 1.000.000 lệch gần 10/100 lần so với giá có đơn vị rõ trong tin; nguyên nhân pipeline chưa xác minh.
+v4,4,46438,1315193.0,11000.0,210.0,1100000000.0,PRICE_SCALE_INCONSISTENCY,Price × 1.000.000 lệch gần 10/100 lần so với giá có đơn vị rõ trong tin; nguyên nhân pipeline chưa xác minh.
+v4,5,27403,1348760.0,165000.0,59.0,1650000000.0,PRICE_SCALE_INCONSISTENCY,Price × 1.000.000 lệch gần 10/100 lần so với giá có đơn vị rõ trong tin; nguyên nhân pipeline chưa xác minh.
+v4,6,230829,1302434.0,85000.0,80.0,8500000000.0,PRICE_SCALE_INCONSISTENCY,Price × 1.000.000 lệch gần 10/100 lần so với giá có đơn vị rõ trong tin; nguyên nhân pipeline chưa xác minh.
+v4,7,120632,1333571.0,2400.0,298.0,2000000000.0,UNRESOLVED_OR_AUDIT_PARSER_LIMITATION,"Giá hơn 2 tỷ là cận dưới; 2,4 tỷ chưa chứng minh lỗi."
+v4,8,183402,1310805.0,3790.0,57.0,3000000000.0,UNRESOLVED_OR_AUDIT_PARSER_LIMITATION,Hơn/nhỉnh 3 tỷ là khoảng; chưa chứng minh lỗi.
+v4,9,150436,1208552.0,2600.0,168.0,2000000000.0,UNRESOLVED_OR_AUDIT_PARSER_LIMITATION,Giá chỉ từ 2 tỷ và nhiều loại sản phẩm; chưa biết tổng giá căn cụ thể.
+v4,10,158603,1369594.0,154000.0,70.0,710000000.0,UNRESOLVED_OR_AUDIT_PARSER_LIMITATION,"710 triệu là vốn ban đầu, không phải tổng giá; lỗi tham chiếu audit v4."
+v4,11,110983,1307470.0,56000.0,92.0,5600000000.0,PRICE_SCALE_INCONSISTENCY,Price × 1.000.000 lệch gần 10/100 lần so với giá có đơn vị rõ trong tin; nguyên nhân pipeline chưa xác minh.
+v4,12,143293,1371803.0,1900.0,100.0,570000000.0,UNRESOLVED_OR_AUDIT_PARSER_LIMITATION,"570 triệu là giá quảng cáo/vốn có thể là một phần; mô tả 19,5 triệu/m²."
+v4,13,81946,1309712.0,285000.0,32.0,2850000000.0,PRICE_SCALE_INCONSISTENCY,Price × 1.000.000 lệch gần 10/100 lần so với giá có đơn vị rõ trong tin; nguyên nhân pipeline chưa xác minh.
+v4,14,228747,1361245.0,239000.0,60.0,2390000000.0,PRICE_SCALE_INCONSISTENCY,Price × 1.000.000 lệch gần 10/100 lần so với giá có đơn vị rõ trong tin; nguyên nhân pipeline chưa xác minh.
+v4,15,28183,1310489.0,275.0,39.0,150000000.0,UNRESOLVED_OR_AUDIT_PARSER_LIMITATION,Giá khởi điểm 150 triệu; chưa chứng minh tổng giá.
+v4,16,216642,1389123.0,52000.0,1990.0,59700000000.0,UNRESOLVED_OR_AUDIT_PARSER_LIMITATION,"Giá chưa đến 30 triệu/m² là cận trên, không phải giá chính xác."
+v4,17,228611,1365143.0,365000.0,72.0,3650000000.0,PRICE_SCALE_INCONSISTENCY,Price × 1.000.000 lệch gần 10/100 lần so với giá có đơn vị rõ trong tin; nguyên nhân pipeline chưa xác minh.
+v4,18,227929,1374646.0,75000.0,81.0,7500000000.0,PRICE_SCALE_INCONSISTENCY,Price × 1.000.000 lệch gần 10/100 lần so với giá có đơn vị rõ trong tin; nguyên nhân pipeline chưa xác minh.
+v4,19,136901,13130.0,5700.0,4500.0,3900000000.0,UNRESOLVED_OR_AUDIT_PARSER_LIMITATION,"Price 5700, tiêu đề 3,9 tỷ, không có mô tả; xung đột chưa xác định bên đúng."
+v4,20,108228,1387911.0,869000.0,106.0,8690000000.0,PRICE_SCALE_INCONSISTENCY,Price × 1.000.000 lệch gần 10/100 lần so với giá có đơn vị rõ trong tin; nguyên nhân pipeline chưa xác minh.
+v4,21,12698,1303228.0,299000.0,69.0,2990000000.0,PRICE_SCALE_INCONSISTENCY,Price × 1.000.000 lệch gần 10/100 lần so với giá có đơn vị rõ trong tin; nguyên nhân pipeline chưa xác minh.
+v4,22,228419,1369531.0,335000.0,65.0,3350000000.0,PRICE_SCALE_INCONSISTENCY,Price × 1.000.000 lệch gần 10/100 lần so với giá có đơn vị rõ trong tin; nguyên nhân pipeline chưa xác minh.
+v4,23,150046,1381926.0,13531000.0,3866.0,135310000000.0,PRICE_SCALE_INCONSISTENCY,Price × 1.000.000 lệch gần 10/100 lần so với giá có đơn vị rõ trong tin; nguyên nhân pipeline chưa xác minh.
+v4,24,40770,1230962.0,150000.0,1120.0,1500000000000.0,UNRESOLVED_OR_AUDIT_PARSER_LIMITATION,"Raw 150000 so với mô tả 1500 tỷ: khác hệ số triệu; có thể khác representation, không xác nhận giá nguồn."
+v4,25,221960,1207988.0,9600.0,150.0,9000000000.0,UNRESOLVED_OR_AUDIT_PARSER_LIMITATION,"Ngang/nhỉnh 9 tỷ; 9,6 tỷ có thể là báo giá cụ thể."
+v4,26,158672,1308100.0,173000.0,69.0,1725000000.0,PRICE_SCALE_INCONSISTENCY,Price × 1.000.000 lệch gần 10/100 lần so với giá có đơn vị rõ trong tin; nguyên nhân pipeline chưa xác minh.
+v4,27,101657,1248243.0,6790.0,77.0,6000000000.0,UNRESOLVED_OR_AUDIT_PARSER_LIMITATION,6 tỷ x là khoảng ẩn; parser v4 đọc sai thành 6 tỷ.
+v4,28,9858,1508175.0,2000.0,100.0,1800000000.0,UNRESOLVED_OR_AUDIT_PARSER_LIMITATION,"Giá chỉ từ 18 triệu/m² là giá bắt đầu, không xác nhận tổng."
+v4,29,208194,1001759.0,4300.0,125.0,200000000.0,UNRESOLVED_OR_AUDIT_PARSER_LIMITATION,Giảm 200 triệu bị v4 dùng làm tổng giá; giá thực trong mô tả khác.
+v4,30,118326,1410338.0,1200.0,40.0,30000000.0,UNRESOLVED_OR_AUDIT_PARSER_LIMITATION,30 triệu VND/m² chưa được v4 nhận rate; được xử lý trong v5.

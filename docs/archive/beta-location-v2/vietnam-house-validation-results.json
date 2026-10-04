@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-04",
+  "mode": "VERIFIED MARKET ESTIMATE BETA",
+  "house_browser": {
+    "viewports": [
+      320,
+      390,
+      768,
+      1440
+    ],
+    "checks_per_viewport": 71,
+    "fixture_count": 250,
+    "maximum_absolute_error_vnd": 0,
+    "maximum_relative_error": 0
+  },
+  "pipeline": {
+    "tests": 7,
+    "status": "PASS"
+  },
+  "auth": {
+    "checks_per_viewport": 168,
+    "status": "PASS"
+  },
+  "history_regression": {
+    "checks_per_viewport": 15,
+    "status": "PASS"
+  },
+  "health_regression": {
+    "checks": {
+      "320": 59,
+      "390": 59,
+      "768": 57,
+      "1440": 57
+    },
+    "status": "PASS",
+    "parameters_and_samples_unchanged": true
+  },
+  "supabase_backend": "NOT EXERCISED; browser SDK mock only",
+  "house_training_performed": false,
+  "raw_passes": 1,
+  "resume_did_not_scan_or_train": true,
+  "commit_push_deploy": false,
+  "model_version": "beta-location-v2",
+  "raw_files_rescanned": false,
+  "cached_location_enrichment_only": true,
+  "location_tests": {
+    "status": "PASS",
+    "same_city_wards": 3,
+    "distinct_stat_keys": 3,
+    "unknown_locations_no_result": true,
+    "known_sparse_fallback_disclosed": true,
+    "map_form_both_directions": true,
+    "disabled_type_map_cleared": true,
+    "history_exact_vs_province": true,
+    "api_actual_source_evaluated": true
+  },
+  "public_relative_links": {
+    "pages": [
+      "index.html",
+      "vietnam-house-price.html",
+      "history.html"
+    ],
+    "status": "PASS"
+  },
+  "same_city_stats": [
+    {
+      "ward_id": "w_01125a61962d03d2",
+      "median_price_per_m2": 118412942.99
+    },
+    {
+      "ward_id": "w_022ff3686db5e075",
+      "median_price_per_m2": 77479338.84
+    },
+    {
+      "ward_id": "w_05d4ed8923cdefa0",
+      "median_price_per_m2": 87847490.35
+    }
+  ]
+}
