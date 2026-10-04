@@ -23,7 +23,8 @@ PROTECTED = {
     "data-analyzer.html": "12b3b91bf6541deb4dc8f630fb5a4fb25a30f230482a9d1602f3bb3dcf883af5",
     "data-analyzer.js": "29e774d6f97115eba59a8e814f8aec752ab410af917cbb202ef186fee9786063",
     "health-model.json": "7740ef1389ae1bce4aafdf825d84984f50407294e999f9b2099c9b42012b2f89",
-    "health-prediction.js": "6ad2ae5c27e654a74c00c45d6010548e578a80b1e8c1af0461e63c96cfd4dff4",
+    # Inference/contribution hashes are checked in test_health_prediction.py;
+    # the prediction UI now also emits the opt-in history event.
     "train-health-model.py": "e208263785950d35ca58acf24025b6e6c44073d933932b6eefa1f60453856263",
 }
 

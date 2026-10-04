@@ -9,6 +9,7 @@
     <script src="supabase-config.js" defer></script>
     <script src="auth.js" defer></script>
     <script src="health-prediction.js" defer></script>
+    <script src="health-history-save.js" defer></script>
 </head>
 <body class="health-body">
     <header>
@@ -36,7 +37,7 @@
         <aside class="health-disclaimer" aria-label="Lưu ý y khoa và quyền riêng tư">
             <strong>Chỉ phục vụ học tập</strong>
             <p>Công cụ này là dự án Machine Learning phục vụ mục đích học tập và minh họa, không phải công cụ chẩn đoán y khoa. Kết quả không thay thế tư vấn từ bác sĩ hoặc chuyên gia y tế.</p>
-            <p class="health-privacy">Dữ liệu bạn nhập chỉ được xử lý trong trình duyệt, không lưu lại và không gửi lên server.</p>
+            <p class="health-privacy">Dự đoán được xử lý trong trình duyệt. Kết quả chỉ gửi lên Supabase khi bạn chọn lưu; dữ liệu đầu vào chỉ được lưu nếu bạn chủ động bật checkbox.</p>
         </aside>
         <section id="prediction" class="health-panel" aria-labelledby="input-title">
             <div class="health-panel-heading">
@@ -145,6 +146,12 @@
         </section>
         <section id="healthResult" class="health-result" aria-labelledby="result-title" aria-live="polite" hidden>
             <h2 id="result-title">❤️ Kết quả mô hình</h2>
+            <div class="health-panel history-save">
+                <label><input id="historySaveInputs" type="checkbox"> Lưu cả dữ liệu đầu vào của lần dự đoán này</label>
+                <div class="history-actions"><button id="historySave" type="button">Lưu vào lịch sử</button><a href="history.html">Lịch sử của tôi</a></div>
+                <p id="historySaveMessage" role="status"></p>
+                <a id="historySaveLogin" href="login.html?return=health-prediction.html" hidden>Đăng nhập</a>
+            </div>
             <div class="health-result-layout">
                 <article class="health-panel health-score-card" aria-label="Điểm và lớp dự đoán">
                     <p class="health-eyebrow">LOGISTIC REGRESSION</p>

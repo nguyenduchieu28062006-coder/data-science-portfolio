@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch sử của tôi | Data Science Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="supabase-config.js" defer></script>
+    <script src="auth.js" defer></script>
+    <script src="history.js" defer></script>
+</head>
+<body class="health-body history-body">
+    <header><nav aria-label="Điều hướng chính"><h2>DataScience.</h2><ul>
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="health-prediction.html">Health Prediction</a></li>
+        <li data-auth-guest><a href="login.html" data-auth-link="login.html">Đăng nhập</a></li>
+        <li data-auth-user hidden><span class="auth-nav-email" data-auth-email></span></li>
+        <li data-auth-user hidden><button type="button" class="auth-nav-logout" data-auth-logout>Đăng xuất</button></li>
+        <li data-auth-nav-message hidden role="status"></li>
+    </ul></nav></header>
+    <main class="health-page">
+        <section class="health-hero"><p class="health-eyebrow">DASHBOARD · MACHINE LEARNING</p><h1>Lịch sử của tôi</h1><p>Kết quả đã lưu của bạn, theo từng module.</p></section>
+        <p id="historyStatus" class="health-status" role="status">Đang kiểm tra phiên đăng nhập…</p>
+        <a id="historyLogin" href="login.html?return=history.html" hidden>Đăng nhập</a>
+        <div id="historyModules" class="history-modules"></div>
+        <noscript>Vui lòng bật JavaScript để xem lịch sử.</noscript>
+    </main>
+    <footer><p>Data Science Portfolio · Lịch sử của tôi</p></footer>
+</body>
+</html>

@@ -7,7 +7,7 @@
     const FORGOT_MESSAGE = "Nếu email này được liên kết với một tài khoản, bạn sẽ nhận được hướng dẫn đặt lại mật khẩu.";
     const SDK_URL = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js";
     const root = new URL("./", document.baseURI);
-    const publicPages = ["index.html", "data-analyzer.html", "health-prediction.html"];
+    const publicPages = ["index.html", "data-analyzer.html", "health-prediction.html", "history.html"];
     const form = document.getElementById("authForm");
     const mode = form?.dataset.authForm;
     const fields = document.getElementById("authFields");
@@ -91,6 +91,18 @@
 
     function renderNavbar() {
         const user = publicUser();
+        document.querySelectorAll('nav ul').forEach(list => {
+            if (!list.querySelector('[data-history-link]')) {
+                const item = document.createElement('li');
+                item.setAttribute('data-auth-user', '');
+                const link = document.createElement('a');
+                link.dataset.historyLink = '';
+                link.href = new URL('history.html', root).href;
+                link.textContent = 'Lịch sử';
+                item.append(link);
+                list.append(item);
+            }
+        });
         const continueLink = document.getElementById("authContinue");
         if (continueLink) { continueLink.hidden = !user; continueLink.href = returnPath; }
         document.querySelectorAll("[data-auth-guest]").forEach(element => { element.hidden = Boolean(user); });
@@ -378,6 +390,7 @@
         getUser: publicUser,
         getSession: () => session,
         getStatus: () => status,
+        getClient: () => client,
         signOut
     });
 })();

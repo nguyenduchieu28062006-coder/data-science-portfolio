@@ -324,6 +324,11 @@ healthForm.addEventListener("submit", event => {
             : "Đã sử dụng đủ 13 đặc trưng bạn nhập.";
         healthResult.hidden = false;
         renderHealthContributions(healthModel, input);
+        window.dispatchEvent(new CustomEvent('portfolio:healthprediction', { detail: {
+            model_score: probability, predicted_class: predictedClass, threshold: healthModel.threshold,
+            model_version: String(healthModel.model_version || 'v1'),
+            input_data: Object.fromEntries(healthFeatureNames.map(name => [name, Number(input[name])]))
+        } }));
     } catch (error) {
         healthError.textContent = error.message;
         healthError.hidden = false;
@@ -331,6 +336,7 @@ healthForm.addEventListener("submit", event => {
 });
 
 function clearHealthResult() {
+    window.dispatchEvent(new Event('portfolio:healthclear'));
     healthResult.hidden = true;
     healthError.hidden = true;
     for (const id of ["healthProbability", "healthPredictionMessage", "healthImputationNote"]) {

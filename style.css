@@ -665,6 +665,33 @@ footer {
     background: #3b82f6;
 }
 
+/* Shared prediction history dashboard */
+.history-modules { display: grid; gap: 24px; }
+.history-module, .history-record { min-width: 0; overflow-wrap: anywhere; }
+.history-records { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); gap: 16px; margin: 20px 0; }
+.history-record { padding: 20px; border: 1px solid #334155; border-radius: 14px; background: #0b1120; }
+.history-record h3 { font-size: 1rem; color: #94a3b8; }
+.history-score { font-size: 1.3rem; color: #38bdf8; margin: 12px 0; }
+.history-record details { margin: 16px 0; }
+.history-record summary { cursor: pointer; color: #38bdf8; }
+.history-inputs > div { padding: 8px 0; border-bottom: 1px solid #1e293b; }
+.history-inputs dt { color: #94a3b8; }
+.history-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 12px; }
+.history-save { margin: 16px 0; }
+.history-save label { display: flex; align-items: flex-start; gap: 10px; }
+.history-save input { margin-top: 6px; flex-shrink: 0; }
+.history-body button, .history-save button { padding: 10px 16px; border: 1px solid #38bdf8; border-radius: 8px; background: #0f172a; color: #e5e7eb; cursor: pointer; white-space: normal; }
+.history-body button.history-danger { border-color: #f87171; color: #fca5a5; }
+.history-body button:disabled, .history-save button:disabled { opacity: .6; cursor: default; }
+.history-body a, .history-save a { color: #38bdf8; }
+.history-body nav ul { flex-wrap: wrap; gap: 12px 20px; }
+@media (max-width: 600px) {
+    .history-body nav { flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px; }
+    .history-body .health-page { padding-left: 12px; padding-right: 12px; }
+    .history-records { grid-template-columns: 1fr; }
+    .history-record { padding: 14px; }
+}
+
 /* Data Analyzer cleaning and color controls */
 .analyzer-page #downloadCleanCsvBtn {
     margin-top: 18px;

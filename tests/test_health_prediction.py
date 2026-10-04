@@ -43,7 +43,7 @@ class PageParser(HTMLParser):
         attrs = dict(attrs)
         if "id" in attrs:
             self.ids.append(attrs["id"])
-        if tag in ("input", "select"):
+        if tag in ("input", "select") and "name" in attrs:
             self.names.append(attrs["name"])
         if tag not in ("meta", "link", "input", "br", "hr"):
             self.stack.append(tag)
