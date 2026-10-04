@@ -443,3 +443,240 @@ body input[type="checkbox"], body input[type="radio"] { accent-color: var(--prim
     .project-card, .workflow-card, #home a, button { transition: none; }
     .project-card:hover, .project-card.show:hover, .workflow-card:hover, #home a:hover { transform: none; }
 }
+
+/* Website decoration. CSS only: existing routes, hooks and behavior stay intact. */
+:root {
+    --page-accent-rgb: 37, 99, 235;
+    --page-companion-rgb: 6, 182, 212;
+    --card-depth: 0 8px 30px rgba(15, 23, 42, .045);
+    --card-depth-hover: 0 14px 40px rgba(15, 23, 42, .07);
+}
+body, body.house-body {
+    background-color: var(--page);
+    background-image:
+        radial-gradient(ellipse 650px 480px at 0 130px, rgba(var(--page-accent-rgb), .065), transparent 75%),
+        radial-gradient(ellipse 600px 500px at 100% 480px, rgba(var(--page-companion-rgb), .06), transparent 75%),
+        radial-gradient(ellipse 700px 420px at 40% 100%, rgba(124, 58, 237, .035), transparent 75%);
+    background-repeat: no-repeat;
+}
+.health-body:not(.history-body) { --page-companion-rgb: 16, 185, 129; }
+.house-body { --page-companion-rgb: 13, 148, 136; }
+.history-body, .auth-body { --page-companion-rgb: 124, 58, 237; }
+body > header {
+    background: rgba(255, 255, 255, .9);
+    box-shadow: 0 3px 18px rgba(15, 23, 42, .025);
+}
+footer, .house-body footer {
+    background: linear-gradient(110deg, #f0f5fc, #f8fbff 55%, #eef7f9);
+    border-color: #dce6f1;
+    color: var(--text);
+}
+.analyzer-page, .health-page, .house-page { padding-top: 24px; }
+
+/* Reusable hero treatment applied to the existing module headings. */
+:is(.module-hero, .analyzer-hero, .health-hero, .house-hero) {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    text-align: left;
+    padding: 28px 32px;
+    margin: 0 0 24px;
+    border: 1px solid rgba(var(--page-accent-rgb), .12);
+    border-radius: 22px;
+    background: linear-gradient(115deg, #eff6ff, #f7fbff 58%, rgba(var(--page-companion-rgb), .075));
+    box-shadow: 0 8px 30px rgba(var(--page-accent-rgb), .025);
+}
+:is(.module-hero, .analyzer-hero, .health-hero, .house-hero)::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0 0 0 50%;
+    pointer-events: none;
+    background-image: radial-gradient(rgba(var(--page-accent-rgb), .16) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: linear-gradient(90deg, transparent, #000);
+    opacity: .4;
+}
+:is(.module-hero, .analyzer-hero, .health-hero, .house-hero)::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 280px;
+    height: 280px;
+    top: -170px;
+    right: -75px;
+    border: 36px solid rgba(var(--page-companion-rgb), .05);
+    outline: 1px solid rgba(var(--page-accent-rgb), .08);
+    border-radius: 50%;
+    pointer-events: none;
+}
+:is(.analyzer-label, .health-eyebrow, .auth-eyebrow, .house-eyebrow) {
+    display: inline-block;
+    padding: 4px 9px;
+    border: 1px solid rgba(var(--page-accent-rgb), .12);
+    border-radius: 7px;
+    background: rgba(255, 255, 255, .72);
+    font-size: 10px;
+    line-height: 1.6;
+    letter-spacing: 1.25px;
+}
+.analyzer-hero h1, .health-hero h1 { margin: 12px 0; }
+.analyzer-hero > p:last-child, .health-hero > p:last-child { max-width: 750px; margin: 0; }
+.house-hero { grid-template-columns: minmax(0, 1fr) 300px; gap: 28px; }
+.house-hero h1 { font-size: clamp(30px, 3.4vw, 44px); margin-bottom: 16px; }
+.house-hero .house-badges { margin: 16px 0; }
+.house-freshness { background: rgba(255, 255, 255, .92); padding: 22px; }
+.house-freshness .house-eyebrow { background: transparent; border: 0; padding: 0; }
+
+/* Soft section layers and a shared, restrained card depth. */
+:is(.project-card, .workflow-card, .health-panel, .house-panel, .house-sample, .stat-card, .auth-card, .history-record) {
+    box-shadow: var(--card-depth);
+    border-radius: 18px;
+    border-color: #dfe7f0;
+}
+.analyzer-section { margin-top: 24px; }
+.analyzer-section:not(#upload):not(#overview) { border-radius: 20px; box-shadow: var(--card-depth); }
+.analyzer-section#data-profile { background: linear-gradient(155deg, #fff 40%, #f5f9ff); }
+.analyzer-section#visualization { background: linear-gradient(130deg, #f0f6ff, #f5fbfc); }
+.analyzer-section > h2, .house-section-heading h2, .history-module > h2 {
+    padding-left: 12px;
+    border-left: 3px solid rgba(var(--page-accent-rgb), .55);
+}
+.profile-card { background: #fff; border-color: #e2e8f0; }
+.table-container { border-radius: 12px; }
+.stat-card { border-top: 3px solid #79a6f6; padding: 20px; }
+.stat-card:nth-child(2) { border-top-color: #5fc9d6; }
+.stat-card:nth-child(3) { border-top-color: #73c4a2; }
+.stat-card:nth-child(4) { border-top-color: #b39bdd; }
+
+/* Compact upload layout: the input is visible alongside the description. */
+.analyzer-page #upload { margin-top: 24px; }
+.analyzer-page .upload-box {
+    display: grid;
+    grid-template-columns: 60px minmax(0, 1fr) minmax(260px, .8fr);
+    align-items: center;
+    gap: 6px 20px;
+    text-align: left;
+    padding: 26px;
+    border: 2px dashed #becfe5;
+    border-radius: 20px;
+    background: linear-gradient(180deg, #fff, #f8fbff);
+    box-shadow: var(--card-depth);
+    transition: border-color .18s, box-shadow .18s;
+}
+.analyzer-page .upload-icon {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    display: grid;
+    place-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    background: #edf4ff;
+    font-size: 30px;
+}
+.analyzer-page .upload-box h3 { grid-column: 2; margin: 0; font-size: 18px; }
+.analyzer-page .upload-box p { grid-column: 2; margin: 0; font-size: 13px; max-width: 460px; }
+.analyzer-page .upload-box input { grid-column: 3; grid-row: 1 / 3; width: 100%; padding: 10px; }
+.analyzer-page .upload-box:hover, .analyzer-page .upload-box:focus-within { border-color: #2563eb; box-shadow: 0 8px 26px rgba(37, 99, 235, .075); }
+
+.health-panel { margin-top: 24px; }
+.health-result { background: linear-gradient(125deg, #edf7ff, #f2faf5); padding: 24px; border-radius: 22px; margin-top: 28px; }
+.health-score-card { border-top: 3px solid #79a6f6; }
+.health-page #model-information { background: linear-gradient(160deg, #fff 55%, #f4f8ff); }
+.health-dashboard-chart, .health-metrics > div { background: #f8fbfe; border-radius: 14px; }
+.house-panel { background: #fff; }
+.house-result-panel { background: linear-gradient(145deg, #fff 60%, #f2faf8); border-top: 3px solid #81c7bc; }
+.house-empty { padding: 42px 16px; }
+.house-empty > span { font-size: 48px; margin-bottom: 16px; }
+.house-market-panel, .house-source { background: linear-gradient(150deg, #fff 40%, #f5f9ff); }
+.house-scenario-results, .house-market-state { background: #f6fafc; }
+.house-map-panel { box-shadow: var(--card-depth); }
+.history-module { padding: 24px; background: rgba(255, 255, 255, .94); border: 1px solid #dfe7f0; border-radius: 20px; box-shadow: var(--card-depth); }
+.history-record { background: linear-gradient(150deg, #fff 65%, #f6f9ff); }
+.history-records { margin: 16px 0; }
+
+/* Auth backgrounds have only two static glows and a small, clipped dot field. */
+.auth-page {
+    position: relative;
+    isolation: isolate;
+    background:
+        radial-gradient(ellipse 480px 440px at 10% 20%, rgba(37, 99, 235, .085), transparent 75%),
+        radial-gradient(ellipse 440px 400px at 90% 75%, rgba(124, 58, 237, .065), transparent 75%);
+    padding: 40px 20px;
+}
+.auth-page::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 18% 8% 18% 70%;
+    pointer-events: none;
+    background: radial-gradient(rgba(37, 99, 235, .13) 1px, transparent 1px) 0 0 / 24px 24px;
+    mask-image: radial-gradient(ellipse, #000, transparent 70%);
+}
+.auth-card { border-radius: 22px; border-top: 3px solid #93b7f6; box-shadow: 0 16px 48px rgba(15, 23, 42, .075); }
+.auth-card h1 { margin-top: 12px; }
+.auth-card .auth-eyebrow { margin-bottom: 2px; }
+
+/* Home keeps its existing structure, with the same light decoration language. */
+.home-body #home { position: relative; isolation: isolate; padding-top: 64px; padding-bottom: 56px; gap: 48px; }
+.home-body #home::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 8% 3% 10% 58%;
+    pointer-events: none;
+    border: 1px solid rgba(37, 99, 235, .06);
+    border-radius: 40px;
+    background:
+        linear-gradient(rgba(37, 99, 235, .035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, .035) 1px, transparent 1px);
+    background-size: 28px 28px;
+    transform: rotate(-4deg);
+}
+.home-body :is(#projects, #tools, #workflow, #about) { width: calc(100% - 56px); padding: 32px; margin: 0 auto 24px; border-radius: 22px; }
+.home-body #projects { background: rgba(239, 246, 255, .7); border: 1px solid #e3ecf8; }
+.home-body #tools { background: rgba(255, 255, 255, .65); border: 1px solid #e4ebf2; }
+.home-body #workflow { background: rgba(240, 249, 250, .7); border: 1px solid #e2ecef; }
+.home-body #about { background: linear-gradient(115deg, #eff6ff, #f7fbff); border: 1px solid #e0eafa; margin-bottom: 40px; }
+.home-body :is(.home-section-note, .section-description) { color: var(--text); }
+.hero-visual { box-shadow: 0 18px 48px rgba(37, 99, 235, .075); }
+@media (hover: hover) {
+    .project-card:hover, .workflow-card:hover, .house-sample:hover { box-shadow: var(--card-depth-hover); border-color: #bfd3ef; }
+}
+@media (max-width: 1000px) {
+    .house-hero { grid-template-columns: minmax(0, 1fr) 260px; gap: 22px; }
+    .analyzer-page .upload-box { grid-template-columns: 60px minmax(0, 1fr); }
+    .analyzer-page .upload-box input { grid-column: 2; grid-row: 3; }
+}
+@media (max-width: 800px) {
+    .analyzer-page, .health-page, .house-page { padding-top: 20px; }
+    :is(.module-hero, .analyzer-hero, .health-hero, .house-hero) { padding: 24px; }
+    .house-hero { grid-template-columns: minmax(0, 1fr); }
+    .home-body #home { padding-top: 40px; padding-bottom: 40px; gap: 30px; }
+    .home-body #home::before { inset: 42% 6% 3% 6%; transform: none; }
+    .home-body :is(#projects, #tools, #workflow, #about) { width: calc(100% - 40px); padding: 24px; }
+}
+@media (max-width: 600px) {
+    .analyzer-page, .health-page, .house-page { padding-top: 16px; }
+    :is(.module-hero, .analyzer-hero, .health-hero, .house-hero) { padding: 22px 18px; border-radius: 18px; margin-bottom: 20px; }
+    :is(.module-hero, .analyzer-hero, .health-hero, .house-hero)::before { opacity: .2; }
+    :is(.module-hero, .analyzer-hero, .health-hero, .house-hero)::after { width: 190px; height: 190px; border-width: 24px; top: -130px; }
+    .analyzer-hero h1, .health-hero h1 { font-size: 30px; letter-spacing: -.9px; }
+    .analyzer-hero > p:last-child, .health-hero > p:last-child { font-size: 14px; }
+    .analyzer-section, .analyzer-page #upload { margin-top: 20px; }
+    .analyzer-page .upload-box { display: flex; flex-direction: column; align-items: stretch; text-align: center; padding: 22px 16px; gap: 12px; }
+    .analyzer-page .upload-icon { width: 48px; height: 48px; margin: auto; font-size: 26px; border-radius: 12px; }
+    .analyzer-page .upload-box p { max-width: none; }
+    .stat-card { padding: 18px 14px; }
+    .health-result { padding: 20px 14px; }
+    .history-module { padding: 20px 16px; }
+    .auth-page { padding: 28px 16px; }
+    .auth-page::before { display: none; }
+    .house-hero h1 { font-size: 30px; }
+    .home-body #home { padding-top: 32px; padding-bottom: 32px; }
+    .home-body :is(#projects, #tools, #workflow, #about) { width: calc(100% - 32px); padding: 20px 16px; margin-bottom: 20px; border-radius: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .analyzer-page .upload-box { transition: none; }
+}
