@@ -1,0 +1,50 @@
+/* Scoped to the Data Analyzer visualization; no other page is affected. */
+.analyzer-body .profile-chart canvas { max-width: 100%; }
+#visualization { min-width: 0; }
+#visualization [hidden] { display: none !important; }
+#visualization .chart-selector { margin: 24px 0 16px; }
+#visualization .chart-selector h3 { color: #0f172a; font-size: 16px; margin-bottom: 12px; }
+#visualization .chart-type-picker { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+#visualization .chart-type-picker button { display: flex; align-items: center; justify-content: flex-start; gap: 10px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; color: #475569; padding: 14px 12px; font: inherit; font-size: 13px; font-weight: 600; min-width: 0; cursor: pointer; }
+#visualization .chart-type-picker button span { color: #118dff; font-size: 24px; line-height: 1; }
+#visualization .chart-type-picker button:hover { background: #f8fafc; border-color: #93c5fd; }
+#visualization .chart-type-picker button[aria-pressed="true"] { background: #eff6ff; border-color: #118dff; color: #0f172a; box-shadow: 0 0 0 1px #118dff; }
+#visualization :is(button, select, input, summary):focus-visible { outline: 3px solid #118dff; outline-offset: 3px; }
+#visualization .chart-select-fallback { display: none; }
+#visualization .chart-controls { align-items: flex-start; border-radius: 16px; gap: 18px; padding: 20px; }
+#visualization .chart-controls button { align-self: center; }
+#visualization .chart-helper { color: #64748b; font-size: 12px; line-height: 1.6; margin-top: 10px; overflow-wrap: anywhere; }
+#visualization .control-group small { display: block; }
+#visualization .analyzer-chart-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 22px; box-shadow: 0 3px 12px #0f172a05; min-width: 0; }
+#visualization #chartTitle { color: #0f172a; font-size: 18px; font-weight: 700; margin: 0 0 6px; overflow-wrap: anywhere; }
+#visualization #chartSubtitle { color: #64748b; font-size: 13px; margin: 0 0 18px; overflow-wrap: anywhere; }
+#visualization .chart-box { position: relative; height: 400px; border: 0; border-radius: 0; padding: 0; margin: 0; background: #fff; box-shadow: none; min-width: 0; }
+#visualization .chart-box canvas { max-width: 100%; }
+#visualization .chart-tooltip { position: absolute; z-index: 2; pointer-events: none; background: #0f172a; color: #fff; border-radius: 8px; padding: 10px 12px; font-size: 12px; max-width: min(300px, 100%); overflow-wrap: anywhere; box-sizing: border-box; }
+#visualization .chart-category-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; max-height: 112px; overflow: auto; margin-bottom: 12px; font-size: 12px; color: #475569; }
+#visualization .chart-category-legend:empty { display: none; }
+#visualization .chart-category-legend span { display: flex; align-items: center; gap: 6px; min-width: 0; overflow-wrap: anywhere; }
+#visualization .chart-category-legend i { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+#visualization .category-color-panel { padding: 16px 20px; border-radius: 14px; margin: 16px 0; }
+#visualization summary { color: #475569; font-size: 13px; font-weight: 600; cursor: pointer; }
+#visualization .category-colors { margin-top: 16px; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+#visualization .category-colors label { overflow-wrap: anywhere; min-width: 0; }
+#visualization .chart-pagination { margin-top: 12px; font-size: 12px; }
+#visualization .chart-pagination button { padding: 6px 12px; margin: 0 4px; }
+#visualization .chart-data-table { max-height: 280px; overflow: auto; margin-top: 12px; }
+#visualization .chart-data-table table { width: 100%; border-collapse: collapse; font-size: 12px; }
+#visualization .chart-data-table td, #visualization .chart-data-table th { padding: 8px; border-bottom: 1px solid #e2e8f0; text-align: left; overflow-wrap: anywhere; }
+#visualization #chartDataDetails { margin-top: 14px; }
+@media (max-width: 800px) {
+    #visualization .chart-type-picker { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+    #visualization .chart-type-picker { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    #visualization .chart-type-picker button { padding: 12px 10px; font-size: 12px; }
+    #visualization .chart-controls { padding: 16px; }
+    #visualization .chart-controls .control-group { flex: 1 1 100%; }
+    #visualization .chart-controls .control-group:has(input[type="color"]) { flex: 0 1 80px; }
+    #visualization .analyzer-chart-card { padding: 16px; }
+    #visualization .chart-box { height: 320px; }
+    #visualization .category-colors { grid-template-columns: minmax(0, 1fr); }
+}

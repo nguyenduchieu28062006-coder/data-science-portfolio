@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="analyzer-visualization.css">
 </head>
 
 <body class="analyzer-body">
@@ -189,6 +190,11 @@
     </div>
 
 
+    <div class="chart-selector">
+        <h3>1. Chọn biểu đồ</h3>
+        <div id="chartTypePicker" class="chart-type-picker" role="group" aria-label="Loại biểu đồ"></div>
+        <p id="chartTypeHelp" class="chart-helper"></p>
+    </div>
     <!-- Chọn X, Y -->
     <div class="chart-controls">
 
@@ -211,35 +217,52 @@
 
 
         <div class="control-group">
-            <label for="aggregationSelect">Cách tính Y</label>
+            <label for="aggregationSelect">Phép tính</label>
 
             <select id="aggregationSelect">
                 <option value="mean">Trung bình</option>
                 <option value="sum">Tổng</option>
-                <option value="count">Đếm</option>
+                <option value="count">Số lượng</option>
                 <option value="min">Nhỏ nhất</option>
                 <option value="max">Lớn nhất</option>
             </select>
+            <small class="chart-helper">Chọn cách tổng hợp giá trị khi một nhóm có nhiều dòng.</small>
         </div>
 
 
-        <div class="control-group">
+        <div class="control-group chart-select-fallback">
             <label for="chartTypeSelect">Loại biểu đồ</label>
 
             <select id="chartTypeSelect">
-                <option value="bar">Bar Chart</option>
-                <option value="line">Line Chart</option>
-                <option value="pie">Pie Chart</option>
-                <option value="scatter">Scatter Plot</option>
+                <option value="bar">Biểu đồ cột</option>
+                <option value="horizontalBar">Biểu đồ thanh ngang</option>
+                <option value="line">Biểu đồ đường</option>
+                <option value="area">Biểu đồ miền</option>
+                <option value="pie">Biểu đồ tròn</option>
+                <option value="doughnut">Biểu đồ vòng</option>
+                <option value="scatter">Biểu đồ phân tán</option>
+                <option value="treemap">Biểu đồ cây</option>
+                <option value="radar">Biểu đồ radar</option>
+                <option value="polarArea">Biểu đồ vùng cực</option>
             </select>
         </div>
 
 
         <div class="control-group">
             <label for="primaryColor">Màu chính</label>
-            <input type="color" id="primaryColor" value="#2563eb">
+            <input type="color" id="primaryColor" value="#118dff">
         </div>
 
+        <div class="control-group">
+            <label for="paletteSelect">Bảng màu nhóm</label>
+            <select id="paletteSelect">
+                <option value="bi">Cảm hứng Power BI</option>
+                <option value="modern">Hiện đại</option>
+                <option value="cool">Tông lạnh</option>
+                <option value="warm">Tông ấm</option>
+                <option value="pastel">Pastel</option>
+            </select>
+        </div>
         <button id="drawChartBtn">
             Vẽ biểu đồ
         </button>
@@ -247,19 +270,28 @@
     </div>
 
 
-    <div id="categoryColorPanel" class="category-color-panel" hidden>
-        <h3>Màu từng category</h3>
+    <details id="categoryColorPanel" class="category-color-panel" hidden>
+        <summary>Tùy chỉnh màu từng nhóm</summary>
         <div id="categoryColors" class="category-colors"></div>
-    </div>
+        <div id="categoryColorPages" class="chart-pagination"></div>
+    </details>
 
     <div id="chartInsight" class="chart-insight">
         Chưa có biểu đồ.
     </div>
 
 
-    <div class="chart-box">
-        <canvas id="dataChart"></canvas>
-    </div>
+    <article class="analyzer-chart-card">
+        <h3 id="chartTitle">Biểu đồ dữ liệu</h3>
+        <p id="chartSubtitle">Chọn các cột dữ liệu và vẽ biểu đồ để bắt đầu.</p>
+        <div id="chartLegend" class="chart-category-legend" aria-label="Chú thích nhóm"></div>
+        <div class="chart-box">
+            <canvas id="dataChart" role="img" aria-label="Chưa có biểu đồ"></canvas>
+            <div id="chartTooltip" class="chart-tooltip" role="status" hidden></div>
+        </div>
+        <p id="chartNotice" class="chart-helper" role="status"></p>
+        <details id="chartDataDetails"><summary>Xem dữ liệu biểu đồ</summary><div id="chartDataTable" class="chart-data-table"></div></details>
+    </article>
 
 </section>
     </main>
@@ -270,6 +302,7 @@
     </footer>
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="analyzer-visualization.js"></script>
 <script src="data-analyzer.js"></script>
 </body>
 

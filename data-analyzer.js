@@ -93,17 +93,14 @@ let uploadVersion = 0;
 const primaryColor = document.getElementById("primaryColor");
 const categoryColorMap = new Map();
 const autoCategoryColorMap = new Map();
-const categoryPalette = [
-    "#2563eb", "#f59e0b", "#8b5cf6", "#10b981", "#db2777",
-    "#eab308", "#06b6d4", "#ef4444", "#65a30d", "#6366f1"
-];
 
 function generateCategoryColor(index) {
+    const categoryPalette = chartAppearance.palettes[document.getElementById("paletteSelect").value];
     if (index < categoryPalette.length) return categoryPalette[index];
     // Golden-angle spacing spreads additional hues across the color wheel.
     const hue = ((index - categoryPalette.length) * 137.508 + 17) % 360;
-    const saturation = [0.72, 0.85, 0.64][Math.floor(index / 12) % 3];
-    const lightness = [0.65, 0.57, 0.73][Math.floor(index / 36) % 3];
+    const saturation = [0.62, 0.55, 0.68][Math.floor(index / 12) % 3];
+    const lightness = [0.48, 0.56, 0.42][Math.floor(index / 36) % 3];
     const amplitude = saturation * Math.min(lightness, 1 - lightness);
     const channel = offset => {
         const position = (offset + hue / 30) % 12;
@@ -288,13 +285,14 @@ document.getElementById("downloadCleanCsvBtn").addEventListener("click", () => {
     setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
 
-function updateCategoryColors(labels = []) {
+function updateCategoryColors(labels = [], page = 0) {
     const panel = document.getElementById("categoryColorPanel");
-    panel.hidden = !["bar", "pie"].includes(chartTypeSelect.value) || !labels.length;
+    panel.hidden = !categoryChart(chartTypeSelect.value) || !labels.length;
     const container = document.getElementById("categoryColors");
     container.replaceChildren();
     if (panel.hidden) return;
-    labels.forEach(category => {
+    const pageSize = 24;
+    labels.slice(page * pageSize, (page + 1) * pageSize).forEach(category => {
         const key = JSON.stringify([xColumnSelect.value, category]);
         const label = document.createElement("label");
         const input = document.createElement("input");
@@ -306,19 +304,30 @@ function updateCategoryColors(labels = []) {
             if (dataChart) {
                 const colors = dataChart.data.labels.map(value => getCategoryColor(xColumnSelect.value, value));
                 dataChart.data.datasets[0].backgroundColor = colors;
-                dataChart.data.datasets[0].borderColor = colors;
+                if (!["pie", "doughnut", "polarArea"].includes(chartTypeSelect.value)) dataChart.data.datasets[0].borderColor = colors;
                 dataChart.update();
+                document.getElementById("chartLegend").replaceChildren();
+                if (["pie", "doughnut", "polarArea"].includes(chartTypeSelect.value)) makeCategoryLegend(labels, colors);
             }
         });
-        label.append(input, document.createTextNode(category));
-        container.appendChild(label);
+        label.append(input, document.createTextNode(category)); container.appendChild(label);
     });
+    const navigation = document.getElementById("categoryColorPages"); navigation.replaceChildren();
+    if (labels.length > pageSize) {
+        const addButton = (text, next, disabled) => {
+            const button = document.createElement("button"); button.type = "button"; button.textContent = text; button.disabled = disabled;
+            button.addEventListener("click", () => updateCategoryColors(labels, next)); navigation.append(button);
+        };
+        addButton("Trước", page - 1, page === 0);
+        navigation.append(document.createTextNode(` ${page + 1} / ${Math.ceil(labels.length / pageSize)} `));
+        addButton("Sau", page + 1, (page + 1) * pageSize >= labels.length);
+    }
 }
 
 primaryColor.addEventListener("input", () => { if (dataChart) drawChart(); });
 [xColumnSelect, yColumnSelect, aggregationSelect, chartTypeSelect].forEach(select => select.addEventListener("change", () => {
     document.getElementById("categoryColorPanel").hidden = true;
-    aggregationSelect.disabled = chartTypeSelect.value === "scatter";
+    syncChartControls();
     if (xColumnSelect.value && yColumnSelect.value) drawChart();
 }));
 
@@ -359,11 +368,11 @@ function buildColumnProfile(header) {
 function createProfileChart(canvasId, type, labels, values, label, xTitle) {
     return new Chart(document.getElementById(canvasId).getContext("2d"), {
         type,
-        data: { labels, datasets: [{ label, data: values, backgroundColor: "#2563eb",
-            borderColor: "#2563eb", borderWidth: 1, tension: 0.2 }] },
+        data: { labels, datasets: [{ label, data: values, backgroundColor: chartAppearance.palettes.bi[0],
+            borderColor: chartAppearance.palettes.bi[0], borderWidth: 1, tension: 0.2 }] },
         options: {
             responsive: true, maintainAspectRatio: false,
-            plugins: { legend: { labels: { color: "#475569" } } },
+            plugins: { legend: { display: false }, title: { display: true, text: label, align: "start", color: chartAppearance.ink, font: { size: 16, weight: "600" } } },
             scales: {
                 x: { title: { display: true, text: xTitle, color: "#64748b" },
                     ticks: { color: "#64748b", maxRotation: 60 }, grid: { color: "#e2e8f0" } },
@@ -996,7 +1005,7 @@ function applySuggestion(
         suggestion.chart;
 
 
-    aggregationSelect.disabled = chartTypeSelect.value === "scatter";
+    syncChartControls();
     drawChart();
 
 }
@@ -1037,7 +1046,7 @@ function drawChart() {
     ) {
 
         alert(
-            "Hãy chọn cả trục X và trục Y."
+            "Hãy chọn đủ các cột dữ liệu để vẽ biểu đồ."
         );
 
         return;
@@ -1079,7 +1088,7 @@ function drawGroupedChart(
 ) {
 
     if (aggregation !== "count" && columnInfo[yColumn].type !== "numeric") {
-        alert("Mean, sum, min và max cần trục Y là cột số. Với cột text, hãy chọn count.");
+        alert("Trung bình, tổng, nhỏ nhất và lớn nhất cần giá trị từ cột số. Với cột chữ, hãy chọn Số lượng.");
         return;
     }
     const groups = Object.create(null);
@@ -1244,126 +1253,7 @@ function drawGroupedChart(
             .getContext("2d");
 
 
-    if (chartType === "pie" && values.some(value => value < 0)) {
-        chartInsight.textContent = "Pie cần giá trị không âm. Hãy chọn bar hoặc line.";
-        updateCategoryColors();
-        return;
-    }
-    const colors = ["bar", "pie"].includes(chartType)
-        ? labels.map(category => getCategoryColor(xColumn, category))
-        : primaryColor.value;
-    updateCategoryColors(labels);
-
-    dataChart =
-        new Chart(ctx, {
-
-            type:
-                chartType,
-
-            data: {
-
-                labels:
-                    labels,
-
-                datasets: [{
-
-                    label:
-                        `${yColumn} theo ${xColumn}`,
-
-                    data:
-                        values,
-
-                    backgroundColor:
-                        ["bar", "pie"].includes(chartType)
-                            ? colors
-                            : primaryColor.value,
-
-                    borderColor:
-                        ["bar", "pie"].includes(chartType)
-                            ? colors
-                            : primaryColor.value,
-
-                    borderWidth: 2,
-
-                    tension: 0.25
-
-                }]
-
-            },
-
-            options: {
-
-                responsive: true,
-
-                maintainAspectRatio:
-                    false,
-
-                plugins: {
-
-                    legend: {
-
-                        labels: {
-                            color:
-                                "#475569"
-                        }
-
-                    }
-
-                },
-
-                scales:
-                    chartType === "pie"
-                        ? {}
-                        : {
-
-                            x: {
-                                ticks: {
-                                    color:
-                                        "#64748b"
-                                }
-                            },
-
-                            y: {
-                                beginAtZero:
-                                    true,
-
-                                ticks: {
-                                    color:
-                                        "#64748b"
-                                }
-                            }
-
-                        }
-
-            }
-
-        });
-
-
-    const aggregationName = {
-
-        mean:
-            "Trung bình",
-
-        sum:
-            "Tổng",
-
-        count:
-            "Số lượng",
-
-        min:
-            "Giá trị nhỏ nhất",
-
-        max:
-            "Giá trị lớn nhất"
-
-    };
-
-
-    chartInsight.textContent =
-
-        `${aggregationName[aggregation]} ${yColumn} theo ${xColumn}.`;
-
+    renderGroupedVisualization(ctx, labels, values, xColumn, yColumn, aggregation, chartType);
 }
 
 
@@ -1384,7 +1274,7 @@ function drawScatterChart(
     ) {
 
         alert(
-            "Scatter Plot cần cả X và Y đều là dữ liệu số."
+            "Biểu đồ phân tán cần cả trục X và trục Y là cột dữ liệu số."
         );
 
         return;
@@ -1434,102 +1324,17 @@ function drawScatterChart(
             .getContext("2d");
 
 
-    dataChart =
-        new Chart(ctx, {
-
-            type:
-                "scatter",
-
-            data: {
-
-                datasets: [{
-
-                    label:
-                        `${xColumn} vs ${yColumn}`,
-
-                    data:
-                        points,
-
-                    backgroundColor:
-                        primaryColor.value
-
-                }]
-
-            },
-
-            options: {
-
-                responsive: true,
-
-                maintainAspectRatio:
-                    false,
-
-                plugins: {
-
-                    legend: {
-
-                        labels: {
-                            color:
-                                "#475569"
-                        }
-
-                    }
-
-                },
-
-                scales: {
-
-                    x: {
-
-                        title: {
-                            display:
-                                true,
-
-                            text:
-                                xColumn,
-
-                            color:
-                                "#475569"
-                        },
-
-                        ticks: {
-                            color:
-                                "#64748b"
-                        }
-
-                    },
-
-                    y: {
-
-                        title: {
-                            display:
-                                true,
-
-                            text:
-                                yColumn,
-
-                            color:
-                                "#475569"
-                        },
-
-                        ticks: {
-                            color:
-                                "#64748b"
-                        }
-
-                    }
-
-                }
-
-            }
-
-        });
-
-
-    chartInsight.textContent =
-
-        `Scatter Plot thể hiện mối quan hệ giữa ${xColumn} và ${yColumn}.`;
-
+    clearChartPresentation();
+    setChartHeading(`${yColumn} theo ${xColumn}`, "Biểu đồ phân tán · Từng cặp giá trị từ dữ liệu sạch");
+    const datasets = [{ label: `${xColumn} / ${yColumn}`, data: points,
+        backgroundColor: chartAlpha(primaryColor.value, 0.75), borderColor: primaryColor.value,
+        pointRadius: 4, pointHoverRadius: 6 }];
+    dataChart = new Chart(ctx, {
+        type: "scatter", data: { datasets },
+        options: chartOptions("scatter", xColumn, yColumn, null, datasets)
+    });
+    chartInsight.textContent = `Biểu đồ phân tán thể hiện mối quan hệ giữa ${xColumn} và ${yColumn}.`;
+    if (document.getElementById("chartDataDetails").open) renderChartDataPage();
 }
 
 
@@ -1538,6 +1343,9 @@ function drawScatterChart(
 // ==========================================
 
 function destroyChart() {
+
+    clearChartPresentation();
+    setChartHeading("Biểu đồ dữ liệu", "Chọn các cột dữ liệu và vẽ biểu đồ để bắt đầu.");
 
     if (dataChart !== null) {
 
