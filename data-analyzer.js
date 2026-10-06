@@ -272,17 +272,59 @@ csvFile.addEventListener("change", event => {
     });
 });
 
-document.getElementById("downloadCleanCsvBtn").addEventListener("click", () => {
+document.getElementById("downloadCleanCsvBtn").addEventListener("click", async () => {
     if (!currentRows.length) return;
     const csv = Papa.unparse({ fields: currentHeaders, data: currentRows.map(row => currentHeaders.map(header => row[header])) });
-    const url = URL.createObjectURL(new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8;" }));
+    const mimeType = "text/csv;charset=utf-8";
+    const csvBlob = new Blob(["\uFEFF", csv], { type: mimeType });
+    const filename = `${uploadedName}_clean.csv`;
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const isMobile = isIOS || navigator.userAgentData?.mobile === true ||
+        /Android|Mobile/.test(navigator.userAgent);
+    let shareFile;
+    if (isMobile && typeof navigator.share === "function" &&
+        typeof navigator.canShare === "function" && typeof File === "function") {
+        try {
+            const file = new File([csvBlob], filename, { type: mimeType });
+            if (navigator.canShare({ files: [file] })) shareFile = file;
+        } catch (_) {
+            // Unsupported file sharing still permits the object URL fallback.
+        }
+    }
+    let notice = document.getElementById("cleanCsvDownloadNotice");
+    if (notice) notice.remove();
+    if (shareFile) {
+        notice = document.createElement("p");
+        notice.id = "cleanCsvDownloadNotice";
+        notice.setAttribute("role", "status");
+        notice.textContent = isIOS
+            ? "Trên thiết bị này, file sẽ được mở bằng menu chia sẻ. Hãy chọn 'Lưu vào Tệp' để lưu CSV."
+            : "Chọn ứng dụng hoặc nơi lưu CSV trong menu chia sẻ.";
+        document.getElementById("downloadCleanCsvBtn").insertAdjacentElement("afterend", notice);
+        try {
+            await navigator.share({ files: [shareFile], title: filename });
+            return;
+        } catch (error) {
+            notice.remove();
+            // Closing the share sheet must not trigger an unwanted download.
+            if (error.name === "AbortError") return;
+        }
+    }
+    const url = URL.createObjectURL(csvBlob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `${uploadedName}_clean.csv`;
+    link.download = filename;
+    // iOS can preview the CSV in a new tab when it ignores the download attribute.
+    if (isIOS || !("download" in link)) {
+        link.target = "_blank";
+        link.rel = "noopener";
+    }
     document.body.appendChild(link);
     link.click();
     link.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    // Give previews time to consume the URL; desktop downloads need only a short delay.
+    setTimeout(() => URL.revokeObjectURL(url), isMobile ? 60000 : 5000);
 });
 
 function updateCategoryColors(labels = [], page = 0) {
