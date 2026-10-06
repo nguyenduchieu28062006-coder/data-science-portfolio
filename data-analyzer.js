@@ -272,7 +272,11 @@ csvFile.addEventListener("change", event => {
     });
 });
 
-document.getElementById("downloadCleanCsvBtn").addEventListener("click", async () => {
+const cleanCsvDownloadButton = document.getElementById("downloadCleanCsvBtn");
+const useGoogleIOSTap = /CriOS|GSA\//.test(navigator.userAgent) &&
+    (/iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1));
+const downloadCleanCsv = async () => {
     if (!currentRows.length) return;
     const csv = Papa.unparse({ fields: currentHeaders, data: currentRows.map(row => currentHeaders.map(header => row[header])) });
     const mimeType = "text/csv;charset=utf-8";
@@ -325,7 +329,36 @@ document.getElementById("downloadCleanCsvBtn").addEventListener("click", async (
     link.remove();
     // Give previews time to consume the URL; desktop downloads need only a short delay.
     setTimeout(() => URL.revokeObjectURL(url), isMobile ? 60000 : 5000);
-});
+};
+
+if (useGoogleIOSTap) {
+    let touchStart = null;
+    let lastDownloadTouch = -Infinity;
+    cleanCsvDownloadButton.addEventListener("touchstart", event => {
+        const touch = event.touches.length === 1 ? event.touches[0] : null;
+        touchStart = touch ? { x: touch.clientX, y: touch.clientY } : null;
+    }, { passive: true });
+    cleanCsvDownloadButton.addEventListener("touchmove", () => { touchStart = null; }, { passive: true });
+    cleanCsvDownloadButton.addEventListener("touchcancel", () => { touchStart = null; }, { passive: true });
+    cleanCsvDownloadButton.addEventListener("touchend", event => {
+        const start = touchStart;
+        touchStart = null;
+        const touch = event.changedTouches[0];
+        if (!start || !touch || event.touches.length || cleanCsvDownloadButton.disabled ||
+            Math.hypot(touch.clientX - start.x, touch.clientY - start.y) > 10) return;
+        event.preventDefault();
+        lastDownloadTouch = Date.now();
+        // Call directly in the touch gesture, before any await or timer.
+        downloadCleanCsv();
+    }, { passive: false });
+    cleanCsvDownloadButton.addEventListener("click", event => {
+        // Keep keyboard activation; ignore the click synthesized after a tap.
+        if (event.detail !== 0 && Date.now() - lastDownloadTouch < 800) return;
+        downloadCleanCsv();
+    });
+} else {
+    cleanCsvDownloadButton.addEventListener("click", downloadCleanCsv);
+}
 
 function updateCategoryColors(labels = [], page = 0) {
     const panel = document.getElementById("categoryColorPanel");
