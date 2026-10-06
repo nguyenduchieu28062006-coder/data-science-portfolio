@@ -296,10 +296,18 @@ async function loadHealthModel() {
     }
 }
 
+function renderHealthRecommendations(predictedClass) {
+    // Use the existing prediction class; recommendations do not calculate risk.
+    document.getElementById("healthLowRiskAdvice").hidden = predictedClass !== 0;
+    document.getElementById("healthHighRiskAdvice").hidden = predictedClass !== 1;
+    document.getElementById("healthRecommendations").hidden = false;
+}
+
 healthForm.addEventListener("submit", event => {
     event.preventDefault();
     healthError.hidden = true;
     healthResult.hidden = true;
+    document.getElementById("healthRecommendations").hidden = true;
     if (!healthModel) return;
     try {
         const input = Object.fromEntries(healthFeatureNames.map(name => [name, healthForm.elements.namedItem(name).value]));
@@ -324,6 +332,7 @@ healthForm.addEventListener("submit", event => {
             : "Đã sử dụng đủ 13 đặc trưng bạn nhập.";
         healthResult.hidden = false;
         renderHealthContributions(healthModel, input);
+        renderHealthRecommendations(predictedClass);
         window.dispatchEvent(new CustomEvent('portfolio:healthprediction', { detail: {
             model_score: probability, predicted_class: predictedClass, threshold: healthModel.threshold,
             model_version: String(healthModel.model_version || 'v1'),
@@ -339,6 +348,9 @@ function clearHealthResult() {
     window.dispatchEvent(new Event('portfolio:healthclear'));
     healthResult.hidden = true;
     healthError.hidden = true;
+    for (const id of ["healthRecommendations", "healthLowRiskAdvice", "healthHighRiskAdvice"]) {
+        document.getElementById(id).hidden = true;
+    }
     for (const id of ["healthProbability", "healthPredictionMessage", "healthImputationNote"]) {
         document.getElementById(id).textContent = "";
     }
