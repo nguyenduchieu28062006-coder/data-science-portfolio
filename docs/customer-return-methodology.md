@@ -459,3 +459,188 @@ mean **0.0164–0.1189 ms** and p95 **0.10–0.30 ms**, including input validati
 feature contributions and band calculation. These are desktop headless Edge
 measurements at mobile viewport sizes, not timings on physical mobile hardware.
 Browser timing records are included in `quality_upgrade.verification`.
+
+## Vietnam normalization and local batch CSV analysis
+
+The page now has two accessible modes: single-customer prediction and transaction
+file analysis. This enhancement does **not** retrain, tune or modify the production
+JSON, scaler, trees, calibration, threshold or probability formula. Existing
+sample probabilities remain 90.1%, 34.2% and 15.8%. All analysis stays in page
+memory; selecting a file does not upload it, save it to browser storage, send it
+to Supabase, or add anything to shared History. Model/auth assets still load in
+the usual way; uploaded transaction contents are never part of those requests.
+
+### Vietnam and the existing country fallback
+
+The artifact has no Vietnam category and no learned `OTHER` bucket. Its existing
+`unknown_category_policy` is an **all-zero country one-hot vector**, with a domain
+warning. The dropdown presents “Việt Nam” near the top. `Vietnam`, `Viet Nam`,
+`Việt Nam` and `VN`, case/whitespace/accent normalized, use `__UNKNOWN__` internally
+and exactly the original all-zero encoder behavior. Display/export retains the
+Vietnam label; it does not claim the model was trained on Vietnamese customers.
+No country coefficient, tree or metadata change was needed. Numeric model inputs
+remain in GBP, independent of country. A currency conversion is not evidence
+that calibration or retailer behavior transfers to Vietnam.
+
+The single-input consistency guard now permits `recency_days == 90` with a recent
+order. Training includes transactions exactly at `cutoff - 90 days`, so this
+boundary can legitimately have an order. Recency above 90 still cannot have a
+recent order. This corrects input eligibility, not numeric model inference.
+
+### File preparation and column mapping
+
+`customer-return-batch.js` has a local CSV parser supporting BOM, comma/semicolon/
+tab separators, quoted separators, escaped quotes, quoted newlines, CRLF, blank
+rows and trimmed headers. Ambiguous or missing auto mappings remain unselected;
+users choose columns explicitly. Duplicate/empty headers and malformed quoting
+fail with inline messages. Unequal-length data rows are counted and skipped.
+Limits are 25 MiB, 100,000 nonblank data rows, 20,000 customer identifiers,
+100 columns and 10,000 characters per cell. Parsing, cleaning and inference
+periodically yield to the browser and can be superseded by another file/config.
+Only 25 customer rows are rendered per table page.
+
+The canonical fields are customer identifier, order identifier, transaction date,
+quantity, monetary value and country. No name, phone, email or address is needed.
+SKU/product identity is needed to reconstruct unique products; without it the
+file can still be inspected, but affected customers are not scored. Missing
+product features are exported blank, not as an invented zero/one. Rating,
+feedback and order status are optional. Header aliases cover common marketplace,
+POS/CRM and Vietnamese names, without assuming one Shopee schema. The generated
+four-row template is synthetic, uses GBP and contains no real customer data.
+
+Users explicitly distinguish **unit price** from **product-line total**. Unit
+price is multiplied by quantity; line totals are not multiplied again. Repeated
+order totals, shipment charges and adjustment totals are not acceptable product
+spend inputs. Files use one declared currency. VND files require a positive
+user-supplied `VND per GBP` rate; amounts are divided by that rate before monetary
+aggregation. No rate is guessed, fetched or represented as a current quotation.
+
+Select ISO, DMY or MDY dates explicitly. Invalid calendar dates are rejected;
+ambiguous slash dates are not guessed under ISO. ISO offsets normalize to UTC;
+timestamps without offsets and the analysis-time control use a common UTC
+interpretation. Date-only transactions are midnight. Numeric conventions are
+explicit: dot-decimal/comma-thousands or comma-decimal/dot-thousands, with strict
+grouping and finite-value checks. Currency-symbol text is not silently coerced.
+
+### Cleaning and source-specific purchase definitions
+
+Both source profiles discard invalid/missing customer, order or dates,
+nonpositive/malformed quantity or monetary values, and missing country. The UCI
+profile applies the training-specific cancelled-invoice `C` prefix and product
+StockCode regex `^\d{5}[A-Za-z]?$`, excluding postage/adjustment codes. Original
+Description is part of duplicate identity when provided in a UCI file.
+
+A generic merchant's legitimate order code can start with C and its SKU need
+not be a UCI numeric code. Therefore the generic profile does not misinterpret
+those source-specific encodings. It accepts mapped product identifiers, filters
+known cancellation/refund statuses when supplied, and asks users to confirm that
+the file contains product purchases with cancelled/refunded/non-product lines
+marked or removed. This is explicit source normalization, not a new model rule.
+
+Duplicate identity uses the mapped transaction columns, excluding rating,
+feedback and irrelevant/PII columns. Descriptive metadata cannot turn a duplicate
+into another purchase or change a prediction. Blank rows, skipped rows and each
+reason are reported; there is no silent bulk deletion. Invalid optional ratings
+do not reject a transaction and are reported separately. Exact duplicates in
+the UCI parity fixture are removed consistently with source cleaning.
+
+### Cutoff and feature construction
+
+Default analysis time is the latest **valid** transaction timestamp, not today's
+date or the latest malformed/cancelled row. Users can change it. History is
+strictly before cutoff; a transaction at the cutoff is excluded. The UI explains
+this boundary and reports rows at/after it separately. Customers with only future
+rows or only rejected purchases are “Không đủ dữ liệu”. They do not enter the
+return/non-return denominator. The uploaded customer count includes identifiable
+customers even when their rows cannot be used.
+
+Provide all observed history for tenure and gap; a short/exported history is
+left-censored and cannot recover omitted earlier purchases. Existing training
+eligibility allows a customer with one past invoice, using gap zero. No new
+minimum-purchase or minimum-history rule is invented.
+
+The implementation ports `make_cohort`'s historical feature construction:
+
+- Group historical invoices within customer, using the **minimum** transaction
+  timestamp per invoice. Recency/tenure are whole days from the latest/earliest
+  of these invoice timestamps.
+- Recent activity uses transaction rows in `[cutoff - 90 days, cutoff)`; distinct
+  invoice IDs are orders, distinct product IDs are products and product amounts
+  sum to monetary. Monetary rounds to two decimals with ties to even.
+- Gap is `(latest invoice - earliest invoice)/(invoice count - 1)` in fractional
+  days, rounded to four decimals with ties to even; a single invoice has gap 0.
+- Country is the final historical transaction's country, stable in original row
+  order when timestamps tie. It is not read from future rows.
+
+Amounts use compensated summation. Model consistency/range validation remains
+shared with single prediction. Inconsistent inputs, missing SKU history or an
+unconstructable feature produce a reason and no probability, rather than
+imputation. The batch processor creates no target/outcome label: it only scores
+the unchanged 60-day-return model on the historical features.
+
+### Dashboard semantics and descriptive analytics
+
+Eligible customers are individually classified at the artifact's **0.38**
+threshold. `return_count + non_return_count = eligible_count`. Chart percentages
+use those counts, not summed probabilities; displayed complements total 100.0%.
+Average probability is a separate KPI. No eligible customers produces “—” rather
+than invented chart percentages. Band boundaries remain exactly
+`0.2302687157944977` and `0.4536477550365929`. Charts expose labels/counts and text
+semantics, with the original blue/teal and coral palette. The table supports
+identifier search, band/class filters, ascending/descending probability and
+paging; top-five priority customers come only from eligible predictions.
+
+Rating is **descriptive**, accepting integer 1–5 stars. Its mean, 1–2/4–5 shares,
+distribution and per-customer means use valid historical product lines after
+cleaning. These are line-level observations, not unique-customer prevalence;
+multiple product-line ratings can weight an order repeatedly. Missing or invalid
+ratings are not filled. Feedback analytics count nonempty historical feedback
+only. No sentiment/NLP model, keyword diagnosis or external AI request is used,
+and raw feedback is not displayed/exported. Neither field enters the seven model
+inputs, preprocessing, duplicate identity or probability calculation.
+
+If non-return count exceeds return count, the retention action panel emphasizes
+six strategies: relevant offers, reactivation, post-purchase experience, loyalty,
+product suggestions and purchase-friction review. Return share above 55% uses
+six maintenance/growth suggestions. Between 50–55% return share, wording describes
+a relatively balanced mix with LOW/MEDIUM attention; these display rules do not
+change classification threshold or probabilities. Zero eligible customers has
+no probability-based action cards.
+
+Descriptive priority is transparent: at least 25% 1–2-star observations prioritizes
+experience; otherwise a majority of eligible customers with recency at least
+60 days prioritizes reactivation, or a majority with at most one recent invoice
+prioritizes loyalty. These are illustrative business triage rules, not learned
+features, causal treatment effects or measured ROI. Suggestions call for consent
+and controlled business experiments; nothing contacts a customer automatically.
+
+### Local export and verification
+
+The CSV export contains customer IDs, complementary probabilities, class/status,
+band, historical summary features, country and optional average rating. It omits
+raw reviews and unnecessary PII. Every cell is quoted/escaped; formula-like
+values beginning with `=`, `+`, `-`, `@` or control/leading whitespace are prefixed
+with a literal apostrophe to prevent spreadsheet execution. UTF-8 BOM assists
+Vietnamese spreadsheet display. Desktop uses a local Blob download; mobile uses
+file sharing if supported, with an iOS preview/save fallback. Cancelling a share
+does not trigger a second download. iOS Google browsers have a direct-touch
+activation path. This code is separate from Data Analyzer.
+
+Run `python -B tests/test_customer_return.py` for the original 250-sample model
+parity checks plus `tests/customer-return-batch-browser.js`. The Python test
+generates a small transaction fixture in memory and calls the **actual existing
+training `make_cohort`** for expected features, then independently evaluates the
+frozen artifact. The fixture covers ten eligible customers, repeated orders,
+inactive customers, all four Vietnam names, UK, inclusive 90-day boundary,
+ties-to-even monetary rounding, optional rating/feedback, invalid dates,
+cancellation/refund/non-product rows, duplicates and future-only history.
+
+Browser checks exercise actual file input, arbitrary-header manual mapping,
+date/number formats, currency semantics, insufficient history, unchanged single
+versus batch inference, both business-action branches, count-based chart math,
+sorting/filtering/paging, ratings independence even on duplicate rows, injection
+safety, desktop/mobile export, upload cancellation and all five requested
+viewports. The performance fixture generates 20,000 transactions / 5,000
+customers in memory, checks browser responsiveness and ensures only one table
+page is rendered. Reports and screenshots live in OS temporary storage, not in
+new dataset/report files in the repository.

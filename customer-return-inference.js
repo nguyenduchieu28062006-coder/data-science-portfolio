@@ -3,6 +3,9 @@
 (() => {
     const sigmoid = value => value >= 0 ? 1 / (1 + Math.exp(-value)) : Math.exp(value) / (1 + Math.exp(value));
     const finiteArray = (values, length) => Array.isArray(values) && values.length === length && values.every(Number.isFinite);
+    // Vietnam is not a training category: retain all-zero unseen encoding.
+    const isVietnam = value => ['vietnam', 'viet nam', 'vn'].includes(String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toLowerCase().replace(/\s+/g, ' '));
+    const normalizeCountry = value => isVietnam(value) ? '__UNKNOWN__' : String(value).trim();
 
     function validateModel(model) {
         const pre = model?.preprocessing, estimator = model?.estimator;
@@ -69,7 +72,9 @@
         }
         if (values.recency_days > values.tenure_days) throw Error('Thời gian từ lần mua gần nhất không thể lớn hơn thời gian đã là khách hàng.');
         if ((values.orders_90d === 0) !== (values.monetary_90d === 0) || (values.orders_90d === 0) !== (values.products_90d === 0)) throw Error('Số đơn, chi tiêu và số sản phẩm trong 90 ngày phải cùng bằng 0 hoặc cùng lớn hơn 0.');
-        if (values.recency_days >= 90 && values.orders_90d > 0) throw Error('Khách chưa mua trong ít nhất 90 ngày thì số đơn trong 90 ngày phải bằng 0.');
+        // The training lookback includes cutoff - 90 days; whole-day recency
+        // equal to 90 can therefore have an order exactly on that boundary.
+        if (values.recency_days > 90 && values.orders_90d > 0) throw Error('Khách chưa mua trong hơn 90 ngày thì số đơn trong 90 ngày phải bằng 0.');
         if (values.recency_days < 90 && values.orders_90d === 0) throw Error('Nếu lần mua gần nhất chưa tới 90 ngày, cần có ít nhất một đơn trong 90 ngày.');
         // Tenure is whole days, while gaps keep fractional days.
         if (values.avg_purchase_gap_days >= values.tenure_days + 1) throw Error('Khoảng cách trung bình giữa các đơn không thể lớn hơn thời gian đã là khách hàng.');
@@ -81,7 +86,8 @@
     function predict(model, input) {
         const values = validateInput(model, input), pre = model.preprocessing, estimator = model.estimator;
         const vector = pre.numeric_features.map((name, i) => (Math.log1p(values[name]) - pre.scaler_mean[i]) / pre.scaler_scale[i]);
-        vector.push(...pre.categories.map(category => Number(category === values.country)));
+        const modelCountry = normalizeCountry(values.country);
+        vector.push(...pre.categories.map(category => Number(category === modelCountry)));
         const contributions = vector.map(() => 0);
         let raw, baseline;
         if (estimator.kind === 'logistic_regression') {
@@ -138,5 +144,5 @@
         const returnTenths = Math.round(probability * 1000);
         return { returned: (returnTenths / 10).toFixed(1) + '%', nonReturned: ((1000 - returnTenths) / 10).toFixed(1) + '%' };
     }
-    globalThis.CustomerReturnModel = Object.freeze({ validateModel, validateInput, predict, percentageLabels });
+    globalThis.CustomerReturnModel = Object.freeze({ validateModel, validateInput, predict, percentageLabels, normalizeCountry, isVietnam });
 })();

@@ -6,9 +6,11 @@ probabilities, explanation reconstruction, all result bands and five viewports.
 Browser profiles and screenshots are written to the OS temporary directory.
 """
 import base64
+import csv
 import functools
 import hashlib
 import importlib.util
+import io
 import json
 import os
 from pathlib import Path
@@ -38,6 +40,7 @@ CREATED = {
     'data/NOTICE-customer-return.txt', 'data/customer-return-cohorts.csv',
     'data/customer-return-parity-fixtures.json', 'docs/customer-return-model-report.json',
     'docs/customer-return-methodology.md', 'tests/test_customer_return.py',
+    'customer-return-batch.js', 'tests/customer-return-batch-browser.js',
 }
 
 
@@ -165,6 +168,49 @@ def quality_checks(training, model, report):
                 inference.assert_not_called()
 
 
+def batch_fixture():
+    """In-memory transactions and features computed by the actual training code."""
+    spec = importlib.util.spec_from_file_location('batch_training', ROOT / 'scripts/train-customer-return.py')
+    training = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(training)
+    rows = []
+    def add(customer, order, date, quantity=2, price=12.5, country='United Kingdom', sku='10001', rating=4, feedback=''):
+        rows.append([customer, order, date, quantity, price, country, sku, rating, feedback])
+    for i, country in enumerate(['Vietnam', 'Viet Nam', 'Việt Nam', 'VN', 'United Kingdom']):
+        add('active-' + str(i), 'A' + str(i), '2011-01-01', country=country)
+        for j in range(6):
+            add('active-' + str(i), f'B{i}-{j}', f'2011-09-{20+j:02d} 10:00:00', quantity=5, price=20, country=country, sku=str(10001+j), rating=1 if i < 2 else 5, feedback='A "quoted", multi-line\nreview')
+    add('old', 'OLD', '2011-02-01')
+    add('=1+1', 'FORMULA', '2011-03-01')
+    add('<img src=x onerror="window.__batchInjected=true">', 'HTML', '2011-03-01')
+    add('boundary90', 'EDGE', '2011-07-03', quantity=1, price=2.675)
+    add('half-round', 'ROUND', '2011-09-01', quantity=1, price=.125)
+    add('bad-date', 'BAD', '2011-02-30')
+    add('cancelled', 'C999', '2011-09-01')
+    add('refund', 'REF', '2011-09-01', quantity=-1)
+    add('zero-price', 'ZERO', '2011-09-01', price=0)
+    add('adjustment', 'POSTAGE', '2011-09-01', sku='POST')
+    rows.append(rows[1].copy())
+    add('future-only', 'AT-CUTOFF', '2011-10-01')
+    add('future-only', 'FUTURE', '2011-12-01')  # only to mature make_cohort's label assertion
+    columns = ['CustomerID', 'InvoiceNo', 'InvoiceDate', 'Quantity', 'UnitPrice', 'Country', 'StockCode', 'rating', 'feedback']
+    raw = pd.DataFrame(rows, columns=columns).drop_duplicates().copy()
+    raw.InvoiceDate = pd.to_datetime(raw.InvoiceDate, format='mixed', errors='coerce')
+    clean = raw.loc[raw.InvoiceDate.notna() & ~raw.InvoiceNo.str.upper().str.startswith('C') & (raw.Quantity > 0) & (raw.UnitPrice > 0) & raw.StockCode.str.match(r'^\d{5}[A-Za-z]?$')].copy()
+    clean['amount'] = clean.Quantity * clean.UnitPrice
+    cutoff = '2011-10-01'
+    expected = training.make_cohort(clean, cutoff)
+    model = json.loads((ROOT / 'customer-return-model.json').read_text(encoding='utf-8'))
+    probabilities = training.predict_exported(model, expected)
+    ids = {hashlib.sha256(('uci-retail:' + str(value)).encode()).hexdigest()[:16]: str(value) for value in clean.CustomerID.unique()}
+    features = [{'id': ids[row.customer_key], 'features': {name: str(row[name]) if name == 'country' else float(row[name]) for name in training.FEATURES + ['country']}, 'probability': float(probabilities[i])} for i, row in expected.iterrows()]
+    output = io.StringIO(newline='')
+    writer = csv.writer(output)
+    writer.writerow(columns)
+    writer.writerows(rows)
+    return {'csv': output.getvalue(), 'snapshot': cutoff, 'features': features, 'rawRows': len(rows)}
+
+
 MOCK = r'''
 window.__customerErrors=[];
 addEventListener('error',e=>window.__customerErrors.push(e.message));
@@ -284,6 +330,8 @@ return {ok:true,width:innerWidth,checks:checks.length,paritySamples:fixtures.len
 def main():
     sys.stdout.reconfigure(encoding='utf-8')
     static_checks()
+    fixture = batch_fixture()
+    batch_checks = (ROOT / 'tests/customer-return-batch-browser.js').read_text(encoding='utf-8')
     print('PASS: HTML references, audited temporal cohorts, train-only preprocessing, leakage invariance and evaluation consistency.', flush=True)
     browser = os.environ.get('HEALTH_TEST_BROWSER', r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe')
     if not Path(browser).exists():
@@ -361,6 +409,16 @@ def main():
                 assert report['ok'] and report['width'] == width
                 reports.append(report)
                 print(json.dumps(report, ensure_ascii=False), flush=True)
+                js('window.__batchFixture=' + json.dumps(fixture, ensure_ascii=False))
+                batch_report = js(batch_checks)
+                assert batch_report['ok'] and batch_report['width'] == width
+                report['batch'] = batch_report
+                print(json.dumps(batch_report, ensure_ascii=False), flush=True)
+                y = js("window.scrollTo(0,0);document.getElementById('customerBatchDashboard').getBoundingClientRect().top+scrollY")
+                dimensions = cdp.call('Page.getLayoutMetrics')['cssContentSize']
+                shot = cdp.call('Page.captureScreenshot', {'format': 'png', 'captureBeyondViewport': True, 'clip': {'x': 0, 'y': max(0, y - 10), 'width': width, 'height': min(2000, dimensions['height'] - y), 'scale': 1}})
+                (output / f'batch-{width}.png').write_bytes(base64.b64decode(shot['data']))
+                js('CustomerReturnBatchPage.selectTab(0)')
                 js('window.scrollTo(0,0)')
                 shot = cdp.call('Page.captureScreenshot', {'format': 'png', 'captureBeyondViewport': False})
                 (output / f'page-{width}.png').write_bytes(base64.b64decode(shot['data']))
@@ -377,7 +435,13 @@ def main():
                 navigate('index.html')
                 assert js("document.querySelector('a[href=\"customer-return.html\"]').textContent==='Thử dự đoán' && document.querySelector('a[href=\"health-prediction.html\"]') && document.querySelector('a[href=\"vietnam-house-price.html\"]') && document.querySelector('a[href=\"data-analyzer.html\"]') && document.documentElement.scrollWidth<=innerWidth")
             cdp.call('Browser.close')
-            process.wait(timeout=10)
+            try:
+                process.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                # Edge may retain background profile processes after CDP closes
+                # the tested browser. Terminate only our launched test process.
+                process.terminate()
+                process.wait(timeout=10)
         assert all(method == 'GET' for method, _ in methods)
     finally:
         if process and process.poll() is None:

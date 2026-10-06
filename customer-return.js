@@ -307,6 +307,7 @@
             model = CustomerReturnModel.validateModel(await response.json());
             const country = form.elements.namedItem('country');
             country.replaceChildren(new Option('Chọn quốc gia', ''));
+            country.add(new Option('Việt Nam', 'Vietnam'));
             model.preprocessing.categories.forEach(value => country.add(new Option(value, value)));
             country.add(new Option('Quốc gia khác / chưa quan sát', '__UNKNOWN__'));
             renderEvaluation();
