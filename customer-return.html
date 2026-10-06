@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dự đoán khả năng khách hàng mua lại trong 60 ngày, giải thích yếu tố ảnh hưởng và gợi ý chiến lược giữ chân từ dữ liệu UCI Online Retail.">
+    <title>Dự đoán khách hàng quay lại | Data Science Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="customer-return.css">
+    <script src="supabase-config.js" defer></script>
+    <script src="auth.js" defer></script>
+    <script src="customer-return-inference.js" defer></script>
+    <script src="customer-return.js" defer></script>
+</head>
+<body class="customer-return-body">
+    <header>
+        <nav aria-label="Điều hướng chính">
+            <h2>DataScience.</h2>
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="#customer-input">Dự đoán</a></li>
+                <li><a href="#customer-evaluation">Chất lượng mô hình</a></li>
+                <li data-auth-guest><a href="login.html" data-auth-link="login.html">Đăng nhập</a></li>
+                <li data-auth-guest><a href="register.html" data-auth-link="register.html">Đăng ký</a></li>
+                <li data-auth-user hidden><span class="auth-nav-email" data-auth-email></span></li>
+                <li data-auth-user hidden><button type="button" class="auth-nav-logout" data-auth-logout>Đăng xuất</button></li>
+                <li data-auth-nav-message class="auth-nav-message" role="status" hidden></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="cr-page">
+        <p class="cr-breadcrumb"><a href="index.html#projects">Dự án</a><span aria-hidden="true"> / </span> Customer Retention Intelligence</p>
+        <section class="cr-hero" aria-labelledby="customer-title">
+            <div class="cr-hero-copy">
+                <p class="cr-eyebrow"><span aria-hidden="true">↗</span> CUSTOMER INTELLIGENCE</p>
+                <h1 id="customer-title">Hiểu khách hàng.<br><span>Nuôi dưỡng lần mua tiếp theo.</span></h1>
+                <p class="cr-subtitle">Dự đoán khả năng khách hàng quay lại mua hàng trong <strong>60 ngày</strong>, hiểu các yếu tố ảnh hưởng và chọn cách giữ chân phù hợp.</p>
+                <div class="cr-hero-tags"><span>Giao dịch mua thật</span><span>Giải thích từng dự đoán</span><span>Xử lý trên thiết bị</span></div>
+            </div>
+            <div class="cr-hero-visual" aria-label="Quy trình phân tích khách hàng">
+                <div class="cr-visual-top"><span class="cr-dot" aria-hidden="true"></span> RETENTION WORKSPACE <span class="cr-version">v1.0</span></div>
+                <p class="cr-visual-heading">Từ lịch sử mua<br>đến hành động tiếp theo.</p>
+                <div class="cr-mini-flow"><span><b>01</b>Hành vi mua</span><i aria-hidden="true">→</i><span><b>02</b>Xác suất</span><i aria-hidden="true">→</i><span><b>03</b>Giữ chân</span></div>
+                <div class="cr-visual-footer"><span><b>90 ngày</b>Lịch sử mua gần đây</span><span><b>60 ngày</b>Khoảng dự báo</span></div>
+            </div>
+        </section>
+        <aside class="cr-context" aria-label="Phạm vi của dự đoán"><span class="cr-context-icon" aria-hidden="true">i</span><p>Mô hình học từ cửa hàng quà tặng tại Anh, giai đoạn 2010–2011. Chi tiêu dùng <strong>GBP</strong>. Kết quả là ước lượng mua lại trong 60 ngày; cần kiểm chứng trên dữ liệu doanh nghiệp trước khi dùng cho chiến dịch thật.</p></aside>
+
+        <section id="customer-input" class="cr-panel" aria-labelledby="customer-input-title">
+            <div class="cr-section-heading"><div><p class="cr-kicker">01 / HỒ SƠ KHÁCH HÀNG</p><h2 id="customer-input-title">Dự đoán lần mua tiếp theo</h2><p>Nhập thông tin tại một thời điểm đánh giá. Chỉ dùng các đơn mua hợp lệ đã xảy ra trước thời điểm đó.</p></div><span class="cr-local-badge">● Dự đoán trong trình duyệt</span></div>
+            <p id="customerModelStatus" class="cr-status" role="status">Đang tải mô hình…</p>
+            <form id="customerForm" autocomplete="off" novalidate aria-describedby="customerModelStatus customerInputError">
+                <fieldset id="customerFields" disabled>
+                    <legend class="cr-sr-only">Thông tin khách hàng dùng để dự đoán</legend>
+                    <div class="cr-samples" aria-label="Điền hồ sơ khách hàng mẫu"><span>Khám phá bằng một mẫu:</span><button type="button" data-customer-sample="high"><span aria-hidden="true">💎</span> Mẫu khách hàng trung thành</button><button type="button" data-customer-sample="medium">Mẫu trung bình</button><button type="button" data-customer-sample="low"><span aria-hidden="true">↘</span> Mẫu khách hàng có nguy cơ rời bỏ</button></div>
+                    <div class="cr-form-groups">
+                        <section class="cr-form-group" aria-labelledby="customer-profile-title"><h3 id="customer-profile-title"><span aria-hidden="true">A</span> Thông tin khách hàng</h3><div class="cr-form-grid">
+                            <div class="cr-field"><label for="customer-tenure">Thời gian đã là khách hàng <span>(ngày)</span></label><input id="customer-tenure" name="tenure_days" type="number" min="0" max="1000000000" step="1" required placeholder="Ví dụ: 180" aria-describedby="customer-tenure-help"><small id="customer-tenure-help">Số ngày từ đơn mua đầu tiên được ghi nhận.</small></div>
+                            <div class="cr-field"><label for="customer-country">Quốc gia của khách hàng</label><select id="customer-country" name="country" required aria-describedby="customer-country-help"><option value="">Chọn quốc gia</option></select><small id="customer-country-help">Quốc gia ghi nhận ở đơn mua gần nhất.</small></div>
+                        </div></section>
+                        <section class="cr-form-group" aria-labelledby="customer-behavior-title"><h3 id="customer-behavior-title"><span aria-hidden="true">B</span> Hành vi mua hàng</h3><div class="cr-form-grid">
+                            <div class="cr-field"><label for="customer-recency">Ngày từ lần mua gần nhất</label><input id="customer-recency" name="recency_days" type="number" min="0" max="1000000000" step="1" required placeholder="Ví dụ: 14"><small>Số ngày đã trôi qua từ đơn mua hợp lệ gần nhất.</small></div>
+                            <div class="cr-field"><label for="customer-orders">Số đơn mua trong 90 ngày</label><input id="customer-orders" name="orders_90d" type="number" min="0" max="1000000000" step="1" required placeholder="Ví dụ: 4"><small>Đếm đơn mua, không đếm số dòng sản phẩm.</small></div>
+                            <div class="cr-field"><label for="customer-monetary">Tổng chi tiêu trong 90 ngày <span>(GBP)</span></label><input id="customer-monetary" name="monetary_90d" type="number" min="0" max="1000000000" step="0.01" required placeholder="Ví dụ: 650.00"><small>Tổng tiền sản phẩm của các đơn hợp lệ; không đổi trực tiếp từ VND.</small></div>
+                            <div class="cr-field"><label for="customer-products">Số sản phẩm khác nhau trong 90 ngày</label><input id="customer-products" name="products_90d" type="number" min="0" max="1000000000" step="1" required placeholder="Ví dụ: 12"><small>Số mã sản phẩm duy nhất, không phải tổng số lượng mua.</small></div>
+                        </div></section>
+                        <section class="cr-form-group" aria-labelledby="customer-rhythm-title"><h3 id="customer-rhythm-title"><span aria-hidden="true">C</span> Nhịp mua &amp; mức độ tương tác qua giao dịch</h3><div class="cr-form-grid">
+                            <div class="cr-field"><label for="customer-gap">Khoảng cách trung bình giữa các đơn <span>(ngày)</span></label><input id="customer-gap" name="avg_purchase_gap_days" type="number" min="0" max="1000000000" step="0.0001" required placeholder="Ví dụ: 24.5"><small>Tính trên toàn bộ lịch sử đã quan sát. Điền 0 nếu mới có một đơn.</small></div>
+                            <aside class="cr-field-note"><strong>D. Dịch vụ / hỗ trợ</strong><p>Nguồn dữ liệu không có mức độ hài lòng, khiếu nại hay tương tác hỗ trợ. Những thông tin này không được dùng để dự đoán.</p></aside>
+                        </div></section>
+                    </div>
+                    <div class="cr-form-actions"><button class="cr-primary" type="submit">Dự đoán khả năng quay lại <span aria-hidden="true">→</span></button><button class="cr-secondary" type="reset">Xóa dữ liệu</button><span>Không gửi hồ sơ lên máy chủ</span></div>
+                </fieldset>
+                <p id="customerInputError" class="cr-input-error" role="alert" hidden></p>
+            </form>
+            <noscript><p>Vui lòng bật JavaScript để tải mô hình và dự đoán.</p></noscript>
+        </section>
+
+        <section id="customerResult" class="cr-result" aria-labelledby="customer-result-title" aria-live="polite" hidden>
+            <div class="cr-section-heading"><div><p class="cr-kicker">02 / RETENTION INSIGHT</p><h2 id="customer-result-title">Kết quả dự đoán</h2></div><span id="customerBandBadge" class="cr-band-badge"></span></div>
+            <div class="cr-result-grid">
+                <article class="cr-score-card"><p class="cr-score-label">Khả năng quay lại mua</p><p id="customerReturnProbability" class="cr-main-score"></p><p class="cr-score-horizon">trong 60 ngày tiếp theo</p><div class="cr-nonreturn"><span>Khả năng không quay lại</span><strong id="customerNonReturnProbability"></strong></div><p id="customerClassification" class="cr-classification"></p><p id="customerResultSummary" class="cr-result-summary"></p></article>
+                <figure class="cr-chart-card" aria-labelledby="customer-chart-title"><figcaption id="customer-chart-title">Khả năng khách hàng quay lại</figcaption><p class="cr-chart-subtitle">Hai khả năng bổ sung nhau, tổng bằng 100%.</p><div id="customerProbabilityChart" class="cr-stacked-chart" role="group" aria-label="Biểu đồ thanh ngang 100%"><button id="customerReturnSegment" class="cr-bar-segment cr-bar-return" type="button" aria-describedby="customerChartTooltip"><span aria-hidden="true"></span></button><button id="customerNonReturnSegment" class="cr-bar-segment cr-bar-nonreturn" type="button" aria-describedby="customerChartTooltip"><span aria-hidden="true"></span></button></div><p id="customerChartTooltip" class="cr-chart-tooltip" role="tooltip" hidden></p><div class="cr-chart-labels"><div><span class="cr-legend-label"><i class="cr-swatch cr-swatch-return" aria-hidden="true"></i>Quay lại mua</span><strong id="customerChartReturnLabel"></strong></div><div><span class="cr-legend-label"><i class="cr-swatch cr-swatch-nonreturn" aria-hidden="true"></i>Không quay lại mua</span><strong id="customerChartNonReturnLabel"></strong></div></div><div class="cr-chart-footer"><span>Ước lượng theo mô hình</span><span id="customerResultModel"></span></div></figure>
+            </div>
+            <aside id="customerProbabilityCaution" class="cr-domain-warning" hidden></aside>
+            <aside id="customerDomainWarning" class="cr-domain-warning" role="status" hidden></aside>
+            <article class="cr-explanation-card" aria-labelledby="customer-factors-title"><div><p class="cr-kicker">VÌ SAO CÓ KẾT QUẢ NÀY?</p><h3 id="customer-factors-title">Các yếu tố ảnh hưởng chính</h3><p class="cr-factor-caption">Top 5 yếu tố có mức đóng góp lớn nhất trong lần dự đoán này.</p><div class="cr-factor-legend"><span>↑ Tăng khả năng quay lại</span><span>↓ Giảm khả năng quay lại</span></div></div><ol id="customerFactors" class="cr-factors"></ol><p id="customerExplanationNote" class="cr-explanation-note"></p><details class="cr-explanation-details"><summary>Chi tiết cách giải thích mô hình</summary><p id="customerExplanationDetail"></p><p>Đóng góp thể hiện tác động trong mô hình, không chứng minh quan hệ nhân quả. Thay một giá trị đầu vào không đảm bảo thay đổi hành vi mua thật.</p></details></article>
+            <section class="cr-recommendations" aria-labelledby="customer-advice-title"><div class="cr-section-heading"><div><p class="cr-kicker">03 / NEXT BEST ACTION</p><h3 id="customer-advice-title">Biện pháp giúp tăng khả năng khách hàng quay lại mua</h3><p id="customerAdviceGoal"></p></div></div><div id="customerAdvice" class="cr-advice-grid"></div><p class="cr-advice-footnote">Đây là gợi ý theo phân khúc xác suất. Kiểm chứng hiệu quả bằng A/B test và tuân thủ lựa chọn nhận liên hệ của khách hàng trước khi triển khai.</p></section>
+            <p class="cr-result-disclaimer">“Không quay lại” nghĩa là chưa quan sát thấy đơn mua hợp lệ trong 60 ngày. Kết quả không khẳng định khách sẽ rời bỏ vĩnh viễn và không bảo đảm hành vi tương lai.</p>
+        </section>
+
+        <section id="customer-evaluation" class="cr-panel cr-evaluation" aria-labelledby="customer-evaluation-title"><div class="cr-section-heading"><div><p class="cr-kicker">04 / MODEL QUALITY</p><h2 id="customer-evaluation-title">Một dự đoán có cơ sở</h2><p>Đánh giá trên cohort ở thời điểm sau dữ liệu train, calibration và chọn mô hình.</p></div><span id="customerCalibrationBadge" class="cr-calibration-badge">Đang tải đánh giá</span></div><div id="customerMetrics" class="cr-metrics"><p>Metrics sẽ được tải từ artifact mô hình.</p></div><p id="customerEvaluationSummary" class="cr-evaluation-summary"></p><div class="cr-evaluation-charts"><article><h3>Confusion Matrix</h3><p>Hàng: thực tế · Cột: dự đoán. Class 1 là có mua lại trong 60 ngày.</p><table class="cr-confusion"><caption class="cr-sr-only">Số hồ sơ test theo class thực tế và class dự đoán</caption><thead><tr><th scope="col">Thực tế ↓ / Dự đoán →</th><th scope="col">Class 0</th><th scope="col">Class 1</th></tr></thead><tbody><tr><th scope="row">Class 0</th><td data-customer-cm="0,0">—</td><td data-customer-cm="0,1">—</td></tr><tr><th scope="row">Class 1</th><td data-customer-cm="1,0">—</td><td data-customer-cm="1,1">—</td></tr></tbody></table></article><article><h3>Calibration: xác suất &amp; thực tế</h3><p>Gần đường chéo hơn nghĩa là xác suất dự báo phù hợp tỷ lệ mua lại quan sát.</p><svg id="customerCalibrationChart" viewBox="0 0 400 290" role="img" aria-label="Biểu đồ calibration trên tập test"></svg><p id="customerCalibrationNote"></p></article><article><h3>ROC Curve</h3><p>Mức phân biệt khách có mua lại và không mua lại ở các ngưỡng.</p><svg id="customerRocChart" viewBox="0 0 400 290" role="img" aria-label="Đường ROC trên tập test"></svg></article><article><h3>Precision–Recall Curve</h3><p>PR-AUC được báo cáo theo average precision; mốc tham chiếu là tỷ lệ mua lại.</p><svg id="customerPrChart" viewBox="0 0 400 290" role="img" aria-label="Đường precision recall trên tập test"></svg></article></div>
+            <details class="cr-methodology"><summary>Dữ liệu, so sánh mô hình &amp; phương pháp</summary><div class="cr-methodology-grid"><article><h3>Nguồn dữ liệu</h3><p><a href="https://archive.ics.uci.edu/dataset/352/online%2Bretail" target="_blank" rel="noopener noreferrer">UCI Online Retail — Daqing Chen (2015)</a>, <a href="https://doi.org/10.24432/C5BW33" target="_blank" rel="noopener noreferrer">DOI: 10.24432/C5BW33</a>. Giấy phép <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</p><p id="customerDatasetSummary"></p><p>Loại dòng trùng chính xác, dòng thiếu customer ID, đơn hủy, số lượng/giá không dương và dòng điều chỉnh không phải sản phẩm. Giữ đơn giá trị lớn hợp lệ; log1p giảm độ lệch.</p></article><article><h3>Target &amp; kiểm tra leakage</h3><p>Class 1: có ít nhất một đơn hợp lệ trong khoảng [ngày đánh giá, ngày đánh giá + 60 ngày). Class 0: không có đơn hợp lệ trong khoảng đó.</p><p id="customerSplitSummary"></p><p>Đặc trưng chỉ lấy từ lịch sử trước ngày đánh giá. Customer ID, đơn tương lai và target không vào model. Scaler và encoder chỉ fit trên train. Cùng khách hàng có thể xuất hiện ở thời điểm khác, phù hợp bài toán theo dõi khách hiện hữu.</p></article></div><h3>So sánh trên validation, trước khi mở test</h3><div class="cr-table-scroll" tabindex="0" aria-label="Bảng so sánh mô hình, có thể cuộn ngang"><table class="cr-comparison"><caption>Ba mô hình cùng đặc trưng; calibration chọn bằng Brier trên tập selection độc lập.</caption><thead><tr><th scope="col">Mô hình</th><th scope="col">ROC-AUC</th><th scope="col">PR-AUC</th><th scope="col">F1</th><th scope="col">Brier ↓</th><th scope="col">AUC theo thời gian</th></tr></thead><tbody id="customerComparison"></tbody></table></div><p id="customerSelectionReason"></p><h3>Ngưỡng phân loại &amp; ba mức chăm sóc</h3><p id="customerThresholdPolicy"></p><p id="customerBandPolicy"></p><p>Không dùng Accuracy làm tiêu chí duy nhất; không resample test. Xác suất và biện pháp giữ chân chưa đại diện cho hiệu quả doanh nghiệp hay tác động của ưu đãi. Nhịp mua mùa lễ cuối năm có thể khác dữ liệu train.</p><p><a href="docs/customer-return-model-report.json">Xem báo cáo audit &amp; đánh giá đầy đủ (JSON)</a></p></details>
+        </section>
+    </main>
+    <footer><p>Data Science Portfolio · Customer Retention Intelligence</p></footer>
+</body>
+</html>

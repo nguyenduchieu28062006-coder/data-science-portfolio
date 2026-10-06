@@ -1,0 +1,18 @@
+Dataset: Online Retail (UCI dataset 352).
+Creator: Daqing Chen (2015). DOI: https://doi.org/10.24432/C5BW33
+Source: https://archive.ics.uci.edu/dataset/352/online%2Bretail
+Download: https://archive.ics.uci.edu/static/public/352/online+retail.zip
+License: Creative Commons Attribution 4.0 International (CC BY 4.0).
+License URL: https://creativecommons.org/licenses/by/4.0/
+
+customer-return-cohorts.csv is an adaptation: cleaned transactions aggregated
+into customer snapshots; source IDs replaced with deterministic pseudonymous
+keys. Future valid purchases define a 60-day binary repeat-purchase target.
+customer-return-parity-fixtures.json contains anonymized feature vectors and
+Python model probabilities, not customer identifiers or transaction details.
+See docs/customer-return-methodology.md and docs/customer-return-model-report.json
+for exact exclusions, time windows, leakage checks and model evaluation.
+
+The raw XLSX is not bundled with the website. Download the official source to
+reproduce training with scripts/train-customer-return.py. No other project's
+datasets or model artifacts are used or modified.

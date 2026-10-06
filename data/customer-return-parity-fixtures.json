@@ -1,0 +1,3002 @@
+[
+  {
+    "input": {
+      "recency_days": 255.0,
+      "tenure_days": 255.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 39.0,
+      "tenure_days": 172.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 252.9,
+      "products_90d": 7.0,
+      "avg_purchase_gap_days": 132.8674,
+      "country": "Unspecified"
+    },
+    "probability": 0.29405695603755727
+  },
+  {
+    "input": {
+      "recency_days": 5.0,
+      "tenure_days": 256.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 1728.01,
+      "products_90d": 45.0,
+      "avg_purchase_gap_days": 62.7531,
+      "country": "Australia"
+    },
+    "probability": 0.658442516339664
+  },
+  {
+    "input": {
+      "recency_days": 238.0,
+      "tenure_days": 238.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0007,
+      "country": "Switzerland"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 102.0,
+      "tenure_days": 295.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 96.5031,
+      "country": "Denmark"
+    },
+    "probability": 0.20854883789561474
+  },
+  {
+    "input": {
+      "recency_days": 148.0,
+      "tenure_days": 254.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 106.3535,
+      "country": "Switzerland"
+    },
+    "probability": 0.18331516473323006
+  },
+  {
+    "input": {
+      "recency_days": 28.0,
+      "tenure_days": 259.0,
+      "orders_90d": 3.0,
+      "monetary_90d": 1080.92,
+      "products_90d": 58.0,
+      "avg_purchase_gap_days": 19.2527,
+      "country": "Germany"
+    },
+    "probability": 0.7760335820690386
+  },
+  {
+    "input": {
+      "recency_days": 36.0,
+      "tenure_days": 263.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 360.0,
+      "products_90d": 4.0,
+      "avg_purchase_gap_days": 45.4253,
+      "country": "Germany"
+    },
+    "probability": 0.41213210918386106
+  },
+  {
+    "input": {
+      "recency_days": 9.0,
+      "tenure_days": 261.0,
+      "orders_90d": 4.0,
+      "monetary_90d": 569.94,
+      "products_90d": 32.0,
+      "avg_purchase_gap_days": 36.0298,
+      "country": "France"
+    },
+    "probability": 0.8280332024861644
+  },
+  {
+    "input": {
+      "recency_days": 96.0,
+      "tenure_days": 96.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "Spain"
+    },
+    "probability": 0.19720990393062657
+  },
+  {
+    "input": {
+      "recency_days": 51.0,
+      "tenure_days": 51.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 248.35,
+      "products_90d": 14.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "France"
+    },
+    "probability": 0.22391910302497672
+  },
+  {
+    "input": {
+      "recency_days": 247.0,
+      "tenure_days": 247.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "Italy"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 207.0,
+      "tenure_days": 207.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "Germany"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 21.0,
+      "tenure_days": 253.0,
+      "orders_90d": 3.0,
+      "monetary_90d": 3271.75,
+      "products_90d": 89.0,
+      "avg_purchase_gap_days": 38.6737,
+      "country": "France"
+    },
+    "probability": 0.8063233250518109
+  },
+  {
+    "input": {
+      "recency_days": 2.0,
+      "tenure_days": 163.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 1679.82,
+      "products_90d": 57.0,
+      "avg_purchase_gap_days": 53.6986,
+      "country": "France"
+    },
+    "probability": 0.653698720386459
+  },
+  {
+    "input": {
+      "recency_days": 3.0,
+      "tenure_days": 43.0,
+      "orders_90d": 3.0,
+      "monetary_90d": 541.36,
+      "products_90d": 28.0,
+      "avg_purchase_gap_days": 19.9406,
+      "country": "France"
+    },
+    "probability": 0.6012285392907594
+  },
+  {
+    "input": {
+      "recency_days": 86.0,
+      "tenure_days": 145.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 966.62,
+      "products_90d": 59.0,
+      "avg_purchase_gap_days": 58.8778,
+      "country": "France"
+    },
+    "probability": 0.5958667213870912
+  },
+  {
+    "input": {
+      "recency_days": 1.0,
+      "tenure_days": 1.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 202.25,
+      "products_90d": 18.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "France"
+    },
+    "probability": 0.2464151130060014
+  },
+  {
+    "input": {
+      "recency_days": 262.0,
+      "tenure_days": 262.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "France"
+    },
+    "probability": 0.1683021437802525
+  },
+  {
+    "input": {
+      "recency_days": 72.0,
+      "tenure_days": 141.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 835.65,
+      "products_90d": 28.0,
+      "avg_purchase_gap_days": 34.3556,
+      "country": "Portugal"
+    },
+    "probability": 0.5860131250722062
+  },
+  {
+    "input": {
+      "recency_days": 21.0,
+      "tenure_days": 122.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 171.56,
+      "products_90d": 7.0,
+      "avg_purchase_gap_days": 101.1167,
+      "country": "Netherlands"
+    },
+    "probability": 0.25388758677912887
+  },
+  {
+    "input": {
+      "recency_days": 25.0,
+      "tenure_days": 106.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 195.7,
+      "products_90d": 12.0,
+      "avg_purchase_gap_days": 80.9701,
+      "country": "Poland"
+    },
+    "probability": 0.3698113848348715
+  },
+  {
+    "input": {
+      "recency_days": 67.0,
+      "tenure_days": 241.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 451.13,
+      "products_90d": 24.0,
+      "avg_purchase_gap_days": 87.0844,
+      "country": "United Kingdom"
+    },
+    "probability": 0.46362627667210515
+  },
+  {
+    "input": {
+      "recency_days": 8.0,
+      "tenure_days": 248.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 505.88,
+      "products_90d": 32.0,
+      "avg_purchase_gap_days": 119.9722,
+      "country": "United Kingdom"
+    },
+    "probability": 0.41642190054342376
+  },
+  {
+    "input": {
+      "recency_days": 11.0,
+      "tenure_days": 21.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 507.7,
+      "products_90d": 4.0,
+      "avg_purchase_gap_days": 10.0944,
+      "country": "United Kingdom"
+    },
+    "probability": 0.46305899420160207
+  },
+  {
+    "input": {
+      "recency_days": 106.0,
+      "tenure_days": 242.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 136.1264,
+      "country": "United Kingdom"
+    },
+    "probability": 0.19636469338574095
+  },
+  {
+    "input": {
+      "recency_days": 31.0,
+      "tenure_days": 287.0,
+      "orders_90d": 4.0,
+      "monetary_90d": 28610.0,
+      "products_90d": 24.0,
+      "avg_purchase_gap_days": 25.609,
+      "country": "United Kingdom"
+    },
+    "probability": 0.8371090749624007
+  },
+  {
+    "input": {
+      "recency_days": 8.0,
+      "tenure_days": 8.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 731.54,
+      "products_90d": 41.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3728742210662247
+  },
+  {
+    "input": {
+      "recency_days": 63.0,
+      "tenure_days": 63.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 187.18,
+      "products_90d": 11.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2174822993263647
+  },
+  {
+    "input": {
+      "recency_days": 248.0,
+      "tenure_days": 248.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 43.0,
+      "tenure_days": 284.0,
+      "orders_90d": 3.0,
+      "monetary_90d": 3072.0,
+      "products_90d": 6.0,
+      "avg_purchase_gap_days": 48.1742,
+      "country": "United Kingdom"
+    },
+    "probability": 0.6606106354997371
+  },
+  {
+    "input": {
+      "recency_days": 43.0,
+      "tenure_days": 257.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 435.13,
+      "products_90d": 29.0,
+      "avg_purchase_gap_days": 106.933,
+      "country": "United Kingdom"
+    },
+    "probability": 0.4350898792008206
+  },
+  {
+    "input": {
+      "recency_days": 122.0,
+      "tenure_days": 122.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 205.0,
+      "tenure_days": 303.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 13.9835,
+      "country": "United Kingdom"
+    },
+    "probability": 0.28903343650518687
+  },
+  {
+    "input": {
+      "recency_days": 114.0,
+      "tenure_days": 114.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2302687157944977
+  },
+  {
+    "input": {
+      "recency_days": 15.0,
+      "tenure_days": 170.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 907.84,
+      "products_90d": 52.0,
+      "avg_purchase_gap_days": 51.6338,
+      "country": "United Kingdom"
+    },
+    "probability": 0.5706019710038213
+  },
+  {
+    "input": {
+      "recency_days": 71.0,
+      "tenure_days": 228.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 375.26,
+      "products_90d": 18.0,
+      "avg_purchase_gap_days": 78.5108,
+      "country": "United Kingdom"
+    },
+    "probability": 0.4987807663709999
+  },
+  {
+    "input": {
+      "recency_days": 16.0,
+      "tenure_days": 264.0,
+      "orders_90d": 4.0,
+      "monetary_90d": 1558.5,
+      "products_90d": 36.0,
+      "avg_purchase_gap_days": 41.3324,
+      "country": "United Kingdom"
+    },
+    "probability": 0.8545256421075398
+  },
+  {
+    "input": {
+      "recency_days": 58.0,
+      "tenure_days": 291.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 1793.64,
+      "products_90d": 87.0,
+      "avg_purchase_gap_days": 58.2672,
+      "country": "United Kingdom"
+    },
+    "probability": 0.6758924164503527
+  },
+  {
+    "input": {
+      "recency_days": 11.0,
+      "tenure_days": 11.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 358.0,
+      "products_90d": 2.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.24441061653062912
+  },
+  {
+    "input": {
+      "recency_days": 54.0,
+      "tenure_days": 119.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 78.21,
+      "products_90d": 5.0,
+      "avg_purchase_gap_days": 64.9826,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3845943177344991
+  },
+  {
+    "input": {
+      "recency_days": 19.0,
+      "tenure_days": 19.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 140.96,
+      "products_90d": 8.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.20239473104433117
+  },
+  {
+    "input": {
+      "recency_days": 198.0,
+      "tenure_days": 198.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 128.0,
+      "tenure_days": 288.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 40.0127,
+      "country": "United Kingdom"
+    },
+    "probability": 0.32633694866644597
+  },
+  {
+    "input": {
+      "recency_days": 35.0,
+      "tenure_days": 206.0,
+      "orders_90d": 4.0,
+      "monetary_90d": 5551.51,
+      "products_90d": 61.0,
+      "avg_purchase_gap_days": 42.7319,
+      "country": "United Kingdom"
+    },
+    "probability": 0.8678364252968152
+  },
+  {
+    "input": {
+      "recency_days": 147.0,
+      "tenure_days": 147.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 4.0,
+      "tenure_days": 4.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 544.08,
+      "products_90d": 13.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.28786537456797573
+  },
+  {
+    "input": {
+      "recency_days": 11.0,
+      "tenure_days": 11.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 275.0,
+      "products_90d": 11.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2311824385822734
+  },
+  {
+    "input": {
+      "recency_days": 21.0,
+      "tenure_days": 21.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 296.64,
+      "products_90d": 13.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2311824385822734
+  },
+  {
+    "input": {
+      "recency_days": 262.0,
+      "tenure_days": 262.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 66.0,
+      "tenure_days": 144.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 593.74,
+      "products_90d": 22.0,
+      "avg_purchase_gap_days": 39.0899,
+      "country": "Switzerland"
+    },
+    "probability": 0.5425872306902494
+  },
+  {
+    "input": {
+      "recency_days": 173.0,
+      "tenure_days": 173.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.18788775134908703
+  },
+  {
+    "input": {
+      "recency_days": 19.0,
+      "tenure_days": 256.0,
+      "orders_90d": 4.0,
+      "monetary_90d": 1262.15,
+      "products_90d": 107.0,
+      "avg_purchase_gap_days": 47.4081,
+      "country": "United Kingdom"
+    },
+    "probability": 0.8483301521141072
+  },
+  {
+    "input": {
+      "recency_days": 3.0,
+      "tenure_days": 131.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 2508.83,
+      "products_90d": 80.0,
+      "avg_purchase_gap_days": 42.6875,
+      "country": "United Kingdom"
+    },
+    "probability": 0.7162046866298929
+  },
+  {
+    "input": {
+      "recency_days": 1.0,
+      "tenure_days": 303.0,
+      "orders_90d": 4.0,
+      "monetary_90d": 1512.45,
+      "products_90d": 14.0,
+      "avg_purchase_gap_days": 23.2248,
+      "country": "United Kingdom"
+    },
+    "probability": 0.7570950978420299
+  },
+  {
+    "input": {
+      "recency_days": 141.0,
+      "tenure_days": 141.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 103.0,
+      "tenure_days": 173.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 34.9431,
+      "country": "United Kingdom"
+    },
+    "probability": 0.36966752995566854
+  },
+  {
+    "input": {
+      "recency_days": 44.0,
+      "tenure_days": 171.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 549.32,
+      "products_90d": 35.0,
+      "avg_purchase_gap_days": 127.1889,
+      "country": "United Kingdom"
+    },
+    "probability": 0.4086685720432838
+  },
+  {
+    "input": {
+      "recency_days": 267.0,
+      "tenure_days": 269.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 1.916,
+      "country": "United Kingdom"
+    },
+    "probability": 0.17438061162661211
+  },
+  {
+    "input": {
+      "recency_days": 197.0,
+      "tenure_days": 245.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 48.1917,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3223308670867341
+  },
+  {
+    "input": {
+      "recency_days": 37.0,
+      "tenure_days": 240.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 303.09,
+      "products_90d": 16.0,
+      "avg_purchase_gap_days": 50.7578,
+      "country": "United Kingdom"
+    },
+    "probability": 0.6457368090733541
+  },
+  {
+    "input": {
+      "recency_days": 70.0,
+      "tenure_days": 266.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 325.44,
+      "products_90d": 1.0,
+      "avg_purchase_gap_days": 65.3727,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3705881459068709
+  },
+  {
+    "input": {
+      "recency_days": 26.0,
+      "tenure_days": 169.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 454.55,
+      "products_90d": 67.0,
+      "avg_purchase_gap_days": 142.9521,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3731100820803088
+  },
+  {
+    "input": {
+      "recency_days": 239.0,
+      "tenure_days": 239.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 74.0,
+      "tenure_days": 191.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 115.49,
+      "products_90d": 17.0,
+      "avg_purchase_gap_days": 116.9299,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2839142336385163
+  },
+  {
+    "input": {
+      "recency_days": 100.0,
+      "tenure_days": 100.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2547722134880761
+  },
+  {
+    "input": {
+      "recency_days": 49.0,
+      "tenure_days": 239.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 159.2,
+      "products_90d": 9.0,
+      "avg_purchase_gap_days": 95.0108,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2174700192933299
+  },
+  {
+    "input": {
+      "recency_days": 176.0,
+      "tenure_days": 176.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.18788775134908703
+  },
+  {
+    "input": {
+      "recency_days": 2.0,
+      "tenure_days": 2.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 679.03,
+      "products_90d": 39.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3728742210662247
+  },
+  {
+    "input": {
+      "recency_days": 19.0,
+      "tenure_days": 302.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 1028.04,
+      "products_90d": 8.0,
+      "avg_purchase_gap_days": 94.3572,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3692607017353917
+  },
+  {
+    "input": {
+      "recency_days": 75.0,
+      "tenure_days": 75.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 80.7,
+      "products_90d": 2.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.19720990393062657
+  },
+  {
+    "input": {
+      "recency_days": 143.0,
+      "tenure_days": 143.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 7.0,
+      "tenure_days": 7.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 505.18,
+      "products_90d": 39.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.36021719528256196
+  },
+  {
+    "input": {
+      "recency_days": 214.0,
+      "tenure_days": 214.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 14.0,
+      "tenure_days": 214.0,
+      "orders_90d": 7.0,
+      "monetary_90d": 1934.2,
+      "products_90d": 151.0,
+      "avg_purchase_gap_days": 11.7674,
+      "country": "United Kingdom"
+    },
+    "probability": 0.917738998708592
+  },
+  {
+    "input": {
+      "recency_days": 54.0,
+      "tenure_days": 54.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 375.1,
+      "products_90d": 12.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2882933641226806
+  },
+  {
+    "input": {
+      "recency_days": 31.0,
+      "tenure_days": 31.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 291.33,
+      "products_90d": 16.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.25765456008123855
+  },
+  {
+    "input": {
+      "recency_days": 249.0,
+      "tenure_days": 249.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 196.0,
+      "tenure_days": 196.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 16.0,
+      "tenure_days": 109.0,
+      "orders_90d": 3.0,
+      "monetary_90d": 441.33,
+      "products_90d": 19.0,
+      "avg_purchase_gap_days": 31.0558,
+      "country": "United Kingdom"
+    },
+    "probability": 0.7337791697362831
+  },
+  {
+    "input": {
+      "recency_days": 169.0,
+      "tenure_days": 169.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.19590132734696034
+  },
+  {
+    "input": {
+      "recency_days": 0.0,
+      "tenure_days": 199.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 185.77,
+      "products_90d": 12.0,
+      "avg_purchase_gap_days": 99.4198,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2906298657193675
+  },
+  {
+    "input": {
+      "recency_days": 149.0,
+      "tenure_days": 193.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 43.916,
+      "country": "United Kingdom"
+    },
+    "probability": 0.32633694866644597
+  },
+  {
+    "input": {
+      "recency_days": 155.0,
+      "tenure_days": 155.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 50.0,
+      "tenure_days": 205.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 325.32,
+      "products_90d": 19.0,
+      "avg_purchase_gap_days": 25.8027,
+      "country": "United Kingdom"
+    },
+    "probability": 0.5446063236530737
+  },
+  {
+    "input": {
+      "recency_days": 59.0,
+      "tenure_days": 196.0,
+      "orders_90d": 3.0,
+      "monetary_90d": 693.95,
+      "products_90d": 29.0,
+      "avg_purchase_gap_days": 34.2556,
+      "country": "United Kingdom"
+    },
+    "probability": 0.7606876410531659
+  },
+  {
+    "input": {
+      "recency_days": 148.0,
+      "tenure_days": 148.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 5.0,
+      "tenure_days": 206.0,
+      "orders_90d": 4.0,
+      "monetary_90d": 2799.47,
+      "products_90d": 113.0,
+      "avg_purchase_gap_days": 18.2654,
+      "country": "United Kingdom"
+    },
+    "probability": 0.8674475901585251
+  },
+  {
+    "input": {
+      "recency_days": 8.0,
+      "tenure_days": 302.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 658.06,
+      "products_90d": 73.0,
+      "avg_purchase_gap_days": 48.9613,
+      "country": "United Kingdom"
+    },
+    "probability": 0.5678945170394372
+  },
+  {
+    "input": {
+      "recency_days": 21.0,
+      "tenure_days": 288.0,
+      "orders_90d": 6.0,
+      "monetary_90d": 1279.78,
+      "products_90d": 71.0,
+      "avg_purchase_gap_days": 44.5067,
+      "country": "United Kingdom"
+    },
+    "probability": 0.9102800568649713
+  },
+  {
+    "input": {
+      "recency_days": 295.0,
+      "tenure_days": 295.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 3.0,
+      "tenure_days": 72.0,
+      "orders_90d": 5.0,
+      "monetary_90d": 1817.86,
+      "products_90d": 437.0,
+      "avg_purchase_gap_days": 17.2476,
+      "country": "United Kingdom"
+    },
+    "probability": 0.8603834082397132
+  },
+  {
+    "input": {
+      "recency_days": 187.0,
+      "tenure_days": 187.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 18.0,
+      "tenure_days": 119.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 72.0,
+      "products_90d": 2.0,
+      "avg_purchase_gap_days": 50.6378,
+      "country": "United Kingdom"
+    },
+    "probability": 0.5479090286356223
+  },
+  {
+    "input": {
+      "recency_days": 71.0,
+      "tenure_days": 71.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 252.45,
+      "products_90d": 14.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2174822993263647
+  },
+  {
+    "input": {
+      "recency_days": 5.0,
+      "tenure_days": 239.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 442.03,
+      "products_90d": 42.0,
+      "avg_purchase_gap_days": 233.8972,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3553031796122214
+  },
+  {
+    "input": {
+      "recency_days": 5.0,
+      "tenure_days": 114.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 513.77,
+      "products_90d": 33.0,
+      "avg_purchase_gap_days": 54.4837,
+      "country": "United Kingdom"
+    },
+    "probability": 0.5304380813539978
+  },
+  {
+    "input": {
+      "recency_days": 143.0,
+      "tenure_days": 143.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 135.0,
+      "tenure_days": 213.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 78.1444,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2860276926393926
+  },
+  {
+    "input": {
+      "recency_days": 86.0,
+      "tenure_days": 205.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 356.99,
+      "products_90d": 21.0,
+      "avg_purchase_gap_days": 118.9743,
+      "country": "United Kingdom"
+    },
+    "probability": 0.44809478827612653
+  },
+  {
+    "input": {
+      "recency_days": 19.0,
+      "tenure_days": 240.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 544.52,
+      "products_90d": 24.0,
+      "avg_purchase_gap_days": 73.6986,
+      "country": "United Kingdom"
+    },
+    "probability": 0.527620375194888
+  },
+  {
+    "input": {
+      "recency_days": 1.0,
+      "tenure_days": 142.0,
+      "orders_90d": 3.0,
+      "monetary_90d": 1329.47,
+      "products_90d": 43.0,
+      "avg_purchase_gap_days": 47.0498,
+      "country": "United Kingdom"
+    },
+    "probability": 0.7449954905036819
+  },
+  {
+    "input": {
+      "recency_days": 5.0,
+      "tenure_days": 42.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 421.47,
+      "products_90d": 20.0,
+      "avg_purchase_gap_days": 37.059,
+      "country": "United Kingdom"
+    },
+    "probability": 0.4815571496980464
+  },
+  {
+    "input": {
+      "recency_days": 58.0,
+      "tenure_days": 283.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 647.75,
+      "products_90d": 7.0,
+      "avg_purchase_gap_days": 224.8438,
+      "country": "United Kingdom"
+    },
+    "probability": 0.302332166921933
+  },
+  {
+    "input": {
+      "recency_days": 42.0,
+      "tenure_days": 162.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 298.6,
+      "products_90d": 17.0,
+      "avg_purchase_gap_days": 119.9181,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3724691436995904
+  },
+  {
+    "input": {
+      "recency_days": 249.0,
+      "tenure_days": 249.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 127.0,
+      "tenure_days": 127.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 25.0,
+      "tenure_days": 238.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 213.04,
+      "products_90d": 12.0,
+      "avg_purchase_gap_days": 106.4785,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3004447533988625
+  },
+  {
+    "input": {
+      "recency_days": 10.0,
+      "tenure_days": 296.0,
+      "orders_90d": 3.0,
+      "monetary_90d": 6663.24,
+      "products_90d": 29.0,
+      "avg_purchase_gap_days": 95.2706,
+      "country": "United Kingdom"
+    },
+    "probability": 0.7225593731127244
+  },
+  {
+    "input": {
+      "recency_days": 266.0,
+      "tenure_days": 266.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 176.0,
+      "tenure_days": 176.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "Italy"
+    },
+    "probability": 0.18788775134908703
+  },
+  {
+    "input": {
+      "recency_days": 7.0,
+      "tenure_days": 226.0,
+      "orders_90d": 4.0,
+      "monetary_90d": 3090.48,
+      "products_90d": 70.0,
+      "avg_purchase_gap_days": 27.3847,
+      "country": "United Kingdom"
+    },
+    "probability": 0.862783813689212
+  },
+  {
+    "input": {
+      "recency_days": 67.0,
+      "tenure_days": 246.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 337.5,
+      "products_90d": 5.0,
+      "avg_purchase_gap_days": 89.5493,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3321225042555205
+  },
+  {
+    "input": {
+      "recency_days": 8.0,
+      "tenure_days": 296.0,
+      "orders_90d": 7.0,
+      "monetary_90d": 1458.89,
+      "products_90d": 145.0,
+      "avg_purchase_gap_days": 13.7105,
+      "country": "United Kingdom"
+    },
+    "probability": 0.9283436598872896
+  },
+  {
+    "input": {
+      "recency_days": 40.0,
+      "tenure_days": 212.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 110.96,
+      "products_90d": 19.0,
+      "avg_purchase_gap_days": 172.034,
+      "country": "United Kingdom"
+    },
+    "probability": 0.247058500748742
+  },
+  {
+    "input": {
+      "recency_days": 203.0,
+      "tenure_days": 203.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 109.0,
+      "tenure_days": 109.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2302687157944977
+  },
+  {
+    "input": {
+      "recency_days": 46.0,
+      "tenure_days": 302.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 630.42,
+      "products_90d": 14.0,
+      "avg_purchase_gap_days": 63.9122,
+      "country": "United Kingdom"
+    },
+    "probability": 0.47250022262288416
+  },
+  {
+    "input": {
+      "recency_days": 302.0,
+      "tenure_days": 302.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 35.0,
+      "tenure_days": 192.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 352.36,
+      "products_90d": 23.0,
+      "avg_purchase_gap_days": 78.4948,
+      "country": "United Kingdom"
+    },
+    "probability": 0.48473724347964736
+  },
+  {
+    "input": {
+      "recency_days": 14.0,
+      "tenure_days": 117.0,
+      "orders_90d": 6.0,
+      "monetary_90d": 1956.13,
+      "products_90d": 91.0,
+      "avg_purchase_gap_days": 17.1233,
+      "country": "United Kingdom"
+    },
+    "probability": 0.9038577963492322
+  },
+  {
+    "input": {
+      "recency_days": 297.0,
+      "tenure_days": 297.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 9.0,
+      "tenure_days": 241.0,
+      "orders_90d": 3.0,
+      "monetary_90d": 824.82,
+      "products_90d": 51.0,
+      "avg_purchase_gap_days": 57.9998,
+      "country": "United Kingdom"
+    },
+    "probability": 0.7437331420079398
+  },
+  {
+    "input": {
+      "recency_days": 296.0,
+      "tenure_days": 296.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 25.0,
+      "tenure_days": 114.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 472.64,
+      "products_90d": 23.0,
+      "avg_purchase_gap_days": 88.9764,
+      "country": "United Kingdom"
+    },
+    "probability": 0.45287064970780194
+  },
+  {
+    "input": {
+      "recency_days": 213.0,
+      "tenure_days": 213.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 66.0,
+      "tenure_days": 263.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 264.37,
+      "products_90d": 16.0,
+      "avg_purchase_gap_days": 28.1044,
+      "country": "United Kingdom"
+    },
+    "probability": 0.6389459143767101
+  },
+  {
+    "input": {
+      "recency_days": 204.0,
+      "tenure_days": 204.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 138.0,
+      "tenure_days": 138.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 4.0,
+      "tenure_days": 295.0,
+      "orders_90d": 5.0,
+      "monetary_90d": 1957.91,
+      "products_90d": 132.0,
+      "avg_purchase_gap_days": 17.1201,
+      "country": "United Kingdom"
+    },
+    "probability": 0.9206107037868082
+  },
+  {
+    "input": {
+      "recency_days": 143.0,
+      "tenure_days": 198.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 54.9243,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3223308670867341
+  },
+  {
+    "input": {
+      "recency_days": 78.0,
+      "tenure_days": 126.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 185.36,
+      "products_90d": 13.0,
+      "avg_purchase_gap_days": 47.9479,
+      "country": "United Kingdom"
+    },
+    "probability": 0.42390695973444564
+  },
+  {
+    "input": {
+      "recency_days": 184.0,
+      "tenure_days": 184.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0014,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 1.0,
+      "tenure_days": 194.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 166.08,
+      "products_90d": 9.0,
+      "avg_purchase_gap_days": 192.9493,
+      "country": "United Kingdom"
+    },
+    "probability": 0.15815265446378116
+  },
+  {
+    "input": {
+      "recency_days": 46.0,
+      "tenure_days": 46.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 905.5,
+      "products_90d": 45.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "Malta"
+    },
+    "probability": 0.38551949518643236
+  },
+  {
+    "input": {
+      "recency_days": 292.0,
+      "tenure_days": 292.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 17.0,
+      "tenure_days": 17.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 259.05,
+      "products_90d": 41.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2951931194966176
+  },
+  {
+    "input": {
+      "recency_days": 12.0,
+      "tenure_days": 292.0,
+      "orders_90d": 4.0,
+      "monetary_90d": 1316.05,
+      "products_90d": 167.0,
+      "avg_purchase_gap_days": 28.0042,
+      "country": "United Kingdom"
+    },
+    "probability": 0.8645193003814338
+  },
+  {
+    "input": {
+      "recency_days": 39.0,
+      "tenure_days": 208.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 679.25,
+      "products_90d": 39.0,
+      "avg_purchase_gap_days": 56.2778,
+      "country": "United Kingdom"
+    },
+    "probability": 0.5842500755879891
+  },
+  {
+    "input": {
+      "recency_days": 134.0,
+      "tenure_days": 134.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 71.0,
+      "tenure_days": 71.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 301.03,
+      "products_90d": 19.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2600280580732285
+  },
+  {
+    "input": {
+      "recency_days": 266.0,
+      "tenure_days": 297.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 31.1444,
+      "country": "United Kingdom"
+    },
+    "probability": 0.32633694866644597
+  },
+  {
+    "input": {
+      "recency_days": 24.0,
+      "tenure_days": 200.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 939.76,
+      "products_90d": 14.0,
+      "avg_purchase_gap_days": 44.0132,
+      "country": "United Kingdom"
+    },
+    "probability": 0.6184660832905712
+  },
+  {
+    "input": {
+      "recency_days": 9.0,
+      "tenure_days": 256.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 378.95,
+      "products_90d": 18.0,
+      "avg_purchase_gap_days": 41.1494,
+      "country": "United Kingdom"
+    },
+    "probability": 0.5501451501867229
+  },
+  {
+    "input": {
+      "recency_days": 164.0,
+      "tenure_days": 164.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 3.0,
+      "tenure_days": 166.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 304.9,
+      "products_90d": 18.0,
+      "avg_purchase_gap_days": 162.8889,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3033650717468036
+  },
+  {
+    "input": {
+      "recency_days": 18.0,
+      "tenure_days": 206.0,
+      "orders_90d": 3.0,
+      "monetary_90d": 1585.45,
+      "products_90d": 86.0,
+      "avg_purchase_gap_days": 37.6715,
+      "country": "United Kingdom"
+    },
+    "probability": 0.7859050190109785
+  },
+  {
+    "input": {
+      "recency_days": 2.0,
+      "tenure_days": 232.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 637.79,
+      "products_90d": 28.0,
+      "avg_purchase_gap_days": 46.0081,
+      "country": "United Kingdom"
+    },
+    "probability": 0.6884502601081735
+  },
+  {
+    "input": {
+      "recency_days": 137.0,
+      "tenure_days": 169.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 31.9611,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3501186300455569
+  },
+  {
+    "input": {
+      "recency_days": 102.0,
+      "tenure_days": 102.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2547722134880761
+  },
+  {
+    "input": {
+      "recency_days": 122.0,
+      "tenure_days": 122.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 79.0,
+      "tenure_days": 79.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 179.17,
+      "products_90d": 11.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.20625633904824411
+  },
+  {
+    "input": {
+      "recency_days": 298.0,
+      "tenure_days": 298.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 12.0,
+      "tenure_days": 12.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 1708.24,
+      "products_90d": 29.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.34365306110840166
+  },
+  {
+    "input": {
+      "recency_days": 25.0,
+      "tenure_days": 218.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 840.16,
+      "products_90d": 43.0,
+      "avg_purchase_gap_days": 38.6458,
+      "country": "United Kingdom"
+    },
+    "probability": 0.7164637267411667
+  },
+  {
+    "input": {
+      "recency_days": 141.0,
+      "tenure_days": 141.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 21.0,
+      "tenure_days": 232.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 309.25,
+      "products_90d": 5.0,
+      "avg_purchase_gap_days": 42.1872,
+      "country": "United Kingdom"
+    },
+    "probability": 0.5575324953863658
+  },
+  {
+    "input": {
+      "recency_days": 5.0,
+      "tenure_days": 5.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 484.11,
+      "products_90d": 104.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.36947934651044173
+  },
+  {
+    "input": {
+      "recency_days": 213.0,
+      "tenure_days": 213.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 0.0,
+      "tenure_days": 0.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 1290.7,
+      "products_90d": 76.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3728742210662247
+  },
+  {
+    "input": {
+      "recency_days": 2.0,
+      "tenure_days": 2.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 309.48,
+      "products_90d": 11.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.23952911836621282
+  },
+  {
+    "input": {
+      "recency_days": 179.0,
+      "tenure_days": 179.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.18788775134908703
+  },
+  {
+    "input": {
+      "recency_days": 15.0,
+      "tenure_days": 15.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 801.94,
+      "products_90d": 15.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3442028170210701
+  },
+  {
+    "input": {
+      "recency_days": 35.0,
+      "tenure_days": 141.0,
+      "orders_90d": 3.0,
+      "monetary_90d": 537.91,
+      "products_90d": 15.0,
+      "avg_purchase_gap_days": 26.4622,
+      "country": "United Kingdom"
+    },
+    "probability": 0.735771961722627
+  },
+  {
+    "input": {
+      "recency_days": 54.0,
+      "tenure_days": 257.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 121.11,
+      "products_90d": 14.0,
+      "avg_purchase_gap_days": 101.4924,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21958645575282476
+  },
+  {
+    "input": {
+      "recency_days": 79.0,
+      "tenure_days": 207.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 353.08,
+      "products_90d": 56.0,
+      "avg_purchase_gap_days": 42.6669,
+      "country": "United Kingdom"
+    },
+    "probability": 0.5598724991131162
+  },
+  {
+    "input": {
+      "recency_days": 100.0,
+      "tenure_days": 100.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2547722134880761
+  },
+  {
+    "input": {
+      "recency_days": 46.0,
+      "tenure_days": 46.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 411.7,
+      "products_90d": 25.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.34199579297683746
+  },
+  {
+    "input": {
+      "recency_days": 45.0,
+      "tenure_days": 263.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 3209.15,
+      "products_90d": 94.0,
+      "avg_purchase_gap_days": 217.8667,
+      "country": "United Kingdom"
+    },
+    "probability": 0.4279598881273142
+  },
+  {
+    "input": {
+      "recency_days": 5.0,
+      "tenure_days": 264.0,
+      "orders_90d": 4.0,
+      "monetary_90d": 797.93,
+      "products_90d": 70.0,
+      "avg_purchase_gap_days": 32.3715,
+      "country": "United Kingdom"
+    },
+    "probability": 0.8375649770828305
+  },
+  {
+    "input": {
+      "recency_days": 17.0,
+      "tenure_days": 299.0,
+      "orders_90d": 4.0,
+      "monetary_90d": 1550.13,
+      "products_90d": 28.0,
+      "avg_purchase_gap_days": 20.1418,
+      "country": "United Kingdom"
+    },
+    "probability": 0.8563344706329185
+  },
+  {
+    "input": {
+      "recency_days": 192.0,
+      "tenure_days": 192.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 165.0,
+      "tenure_days": 165.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 121.0,
+      "tenure_days": 121.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 127.0,
+      "tenure_days": 210.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 82.9236,
+      "country": "United Kingdom"
+    },
+    "probability": 0.23786346613345574
+  },
+  {
+    "input": {
+      "recency_days": 17.0,
+      "tenure_days": 176.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 179.19,
+      "products_90d": 45.0,
+      "avg_purchase_gap_days": 79.5576,
+      "country": "United Kingdom"
+    },
+    "probability": 0.4313187544906004
+  },
+  {
+    "input": {
+      "recency_days": 137.0,
+      "tenure_days": 246.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 109.0458,
+      "country": "United Kingdom"
+    },
+    "probability": 0.18331516473323006
+  },
+  {
+    "input": {
+      "recency_days": 9.0,
+      "tenure_days": 245.0,
+      "orders_90d": 6.0,
+      "monetary_90d": 3553.81,
+      "products_90d": 80.0,
+      "avg_purchase_gap_days": 16.8619,
+      "country": "United Kingdom"
+    },
+    "probability": 0.924855612922842
+  },
+  {
+    "input": {
+      "recency_days": 93.0,
+      "tenure_days": 290.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 17.9157,
+      "country": "United Kingdom"
+    },
+    "probability": 0.34526344651173146
+  },
+  {
+    "input": {
+      "recency_days": 1.0,
+      "tenure_days": 1.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 451.44,
+      "products_90d": 28.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.36021719528256196
+  },
+  {
+    "input": {
+      "recency_days": 3.0,
+      "tenure_days": 288.0,
+      "orders_90d": 4.0,
+      "monetary_90d": 864.88,
+      "products_90d": 57.0,
+      "avg_purchase_gap_days": 28.5178,
+      "country": "United Kingdom"
+    },
+    "probability": 0.8395450957866328
+  },
+  {
+    "input": {
+      "recency_days": 10.0,
+      "tenure_days": 127.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 384.14,
+      "products_90d": 26.0,
+      "avg_purchase_gap_days": 116.9299,
+      "country": "United Kingdom"
+    },
+    "probability": 0.4253583957896292
+  },
+  {
+    "input": {
+      "recency_days": 99.0,
+      "tenure_days": 134.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 35.0944,
+      "country": "United Kingdom"
+    },
+    "probability": 0.39035555728114213
+  },
+  {
+    "input": {
+      "recency_days": 8.0,
+      "tenure_days": 8.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 720.94,
+      "products_90d": 74.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3728742210662247
+  },
+  {
+    "input": {
+      "recency_days": 201.0,
+      "tenure_days": 201.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 8.0,
+      "tenure_days": 8.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 301.72,
+      "products_90d": 19.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2504544057689837
+  },
+  {
+    "input": {
+      "recency_days": 8.0,
+      "tenure_days": 264.0,
+      "orders_90d": 3.0,
+      "monetary_90d": 1202.64,
+      "products_90d": 57.0,
+      "avg_purchase_gap_days": 63.9889,
+      "country": "United Kingdom"
+    },
+    "probability": 0.7591512193779988
+  },
+  {
+    "input": {
+      "recency_days": 26.0,
+      "tenure_days": 26.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 316.62,
+      "products_90d": 13.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.25493466657805314
+  },
+  {
+    "input": {
+      "recency_days": 1.0,
+      "tenure_days": 296.0,
+      "orders_90d": 3.0,
+      "monetary_90d": 2230.44,
+      "products_90d": 55.0,
+      "avg_purchase_gap_days": 19.686,
+      "country": "United Kingdom"
+    },
+    "probability": 0.7956751186959403
+  },
+  {
+    "input": {
+      "recency_days": 72.0,
+      "tenure_days": 200.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 469.76,
+      "products_90d": 30.0,
+      "avg_purchase_gap_days": 64.0465,
+      "country": "United Kingdom"
+    },
+    "probability": 0.5650275895682428
+  },
+  {
+    "input": {
+      "recency_days": 86.0,
+      "tenure_days": 86.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 197.22,
+      "products_90d": 11.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.23169999075674008
+  },
+  {
+    "input": {
+      "recency_days": 106.0,
+      "tenure_days": 106.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2547722134880761
+  },
+  {
+    "input": {
+      "recency_days": 117.0,
+      "tenure_days": 301.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 184.0958,
+      "country": "United Kingdom"
+    },
+    "probability": 0.15638254582579178
+  },
+  {
+    "input": {
+      "recency_days": 2.0,
+      "tenure_days": 2.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 379.14,
+      "products_90d": 18.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3146347661414553
+  },
+  {
+    "input": {
+      "recency_days": 5.0,
+      "tenure_days": 299.0,
+      "orders_90d": 5.0,
+      "monetary_90d": 1066.63,
+      "products_90d": 154.0,
+      "avg_purchase_gap_days": 21.0044,
+      "country": "United Kingdom"
+    },
+    "probability": 0.9164175310886677
+  },
+  {
+    "input": {
+      "recency_days": 114.0,
+      "tenure_days": 303.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 62.9595,
+      "country": "United Kingdom"
+    },
+    "probability": 0.34114268185772445
+  },
+  {
+    "input": {
+      "recency_days": 26.0,
+      "tenure_days": 299.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 300.13,
+      "products_90d": 41.0,
+      "avg_purchase_gap_days": 68.2337,
+      "country": "United Kingdom"
+    },
+    "probability": 0.48444820312167924
+  },
+  {
+    "input": {
+      "recency_days": 5.0,
+      "tenure_days": 5.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 280.76,
+      "products_90d": 13.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21679457877601924
+  },
+  {
+    "input": {
+      "recency_days": 17.0,
+      "tenure_days": 17.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 1267.32,
+      "products_90d": 75.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.39019469865154777
+  },
+  {
+    "input": {
+      "recency_days": 11.0,
+      "tenure_days": 169.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 360.23,
+      "products_90d": 13.0,
+      "avg_purchase_gap_days": 79.0191,
+      "country": "United Kingdom"
+    },
+    "probability": 0.4139446033776122
+  },
+  {
+    "input": {
+      "recency_days": 199.0,
+      "tenure_days": 199.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 89.0,
+      "tenure_days": 236.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 346.38,
+      "products_90d": 52.0,
+      "avg_purchase_gap_days": 147.0465,
+      "country": "United Kingdom"
+    },
+    "probability": 0.39494051020945187
+  },
+  {
+    "input": {
+      "recency_days": 17.0,
+      "tenure_days": 196.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 1658.9,
+      "products_90d": 8.0,
+      "avg_purchase_gap_days": 59.6593,
+      "country": "United Kingdom"
+    },
+    "probability": 0.4195763602218062
+  },
+  {
+    "input": {
+      "recency_days": 162.0,
+      "tenure_days": 290.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 127.8812,
+      "country": "United Kingdom"
+    },
+    "probability": 0.18331516473323006
+  },
+  {
+    "input": {
+      "recency_days": 108.0,
+      "tenure_days": 291.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 91.55,
+      "country": "United Kingdom"
+    },
+    "probability": 0.20854883789561474
+  },
+  {
+    "input": {
+      "recency_days": 183.0,
+      "tenure_days": 183.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 109.0,
+      "tenure_days": 292.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 45.7913,
+      "country": "United Kingdom"
+    },
+    "probability": 0.34526344651173146
+  },
+  {
+    "input": {
+      "recency_days": 138.0,
+      "tenure_days": 138.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 31.0,
+      "tenure_days": 54.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 498.42,
+      "products_90d": 30.0,
+      "avg_purchase_gap_days": 23.1819,
+      "country": "United Kingdom"
+    },
+    "probability": 0.5427464219871864
+  },
+  {
+    "input": {
+      "recency_days": 210.0,
+      "tenure_days": 210.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 109.0,
+      "tenure_days": 109.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.2302687157944977
+  },
+  {
+    "input": {
+      "recency_days": 96.0,
+      "tenure_days": 292.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 39.2175,
+      "country": "United Kingdom"
+    },
+    "probability": 0.34526344651173146
+  },
+  {
+    "input": {
+      "recency_days": 44.0,
+      "tenure_days": 185.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 124.93,
+      "products_90d": 7.0,
+      "avg_purchase_gap_days": 70.4319,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3064608283198676
+  },
+  {
+    "input": {
+      "recency_days": 253.0,
+      "tenure_days": 253.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 86.0,
+      "tenure_days": 177.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 61.8,
+      "products_90d": 2.0,
+      "avg_purchase_gap_days": 45.4962,
+      "country": "United Kingdom"
+    },
+    "probability": 0.36966752995566854
+  },
+  {
+    "input": {
+      "recency_days": 214.0,
+      "tenure_days": 214.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 178.0,
+      "tenure_days": 178.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.18788775134908703
+  },
+  {
+    "input": {
+      "recency_days": 136.0,
+      "tenure_days": 248.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 55.9896,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3223308670867341
+  },
+  {
+    "input": {
+      "recency_days": 233.0,
+      "tenure_days": 233.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 10.0,
+      "tenure_days": 10.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 119.12,
+      "products_90d": 16.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.23301393183896205
+  },
+  {
+    "input": {
+      "recency_days": 30.0,
+      "tenure_days": 162.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 537.96,
+      "products_90d": 11.0,
+      "avg_purchase_gap_days": 66.0646,
+      "country": "United Kingdom"
+    },
+    "probability": 0.48641737792639983
+  },
+  {
+    "input": {
+      "recency_days": 11.0,
+      "tenure_days": 235.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 945.77,
+      "products_90d": 45.0,
+      "avg_purchase_gap_days": 24.8981,
+      "country": "United Kingdom"
+    },
+    "probability": 0.719425569640142
+  },
+  {
+    "input": {
+      "recency_days": 206.0,
+      "tenure_days": 206.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 141.0,
+      "tenure_days": 141.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 193.0,
+      "tenure_days": 193.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 24.0,
+      "tenure_days": 211.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 556.26,
+      "products_90d": 30.0,
+      "avg_purchase_gap_days": 93.3542,
+      "country": "United Kingdom"
+    },
+    "probability": 0.4754048592940457
+  },
+  {
+    "input": {
+      "recency_days": 5.0,
+      "tenure_days": 185.0,
+      "orders_90d": 8.0,
+      "monetary_90d": 2806.04,
+      "products_90d": 68.0,
+      "avg_purchase_gap_days": 13.849,
+      "country": "United Kingdom"
+    },
+    "probability": 0.9264267833570723
+  },
+  {
+    "input": {
+      "recency_days": 78.0,
+      "tenure_days": 212.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 791.57,
+      "products_90d": 35.0,
+      "avg_purchase_gap_days": 66.8531,
+      "country": "United Kingdom"
+    },
+    "probability": 0.6886341308514797
+  },
+  {
+    "input": {
+      "recency_days": 141.0,
+      "tenure_days": 141.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 3.0,
+      "tenure_days": 59.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 1112.95,
+      "products_90d": 2.0,
+      "avg_purchase_gap_days": 55.9799,
+      "country": "United Kingdom"
+    },
+    "probability": 0.4368930871640582
+  },
+  {
+    "input": {
+      "recency_days": 207.0,
+      "tenure_days": 207.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0083,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 115.0,
+      "tenure_days": 157.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 41.9778,
+      "country": "United Kingdom"
+    },
+    "probability": 0.39035555728114213
+  },
+  {
+    "input": {
+      "recency_days": 1.0,
+      "tenure_days": 296.0,
+      "orders_90d": 7.0,
+      "monetary_90d": 578.76,
+      "products_90d": 98.0,
+      "avg_purchase_gap_days": 42.1555,
+      "country": "United Kingdom"
+    },
+    "probability": 0.9023492217374831
+  },
+  {
+    "input": {
+      "recency_days": 252.0,
+      "tenure_days": 291.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 38.8382,
+      "country": "United Kingdom"
+    },
+    "probability": 0.32633694866644597
+  },
+  {
+    "input": {
+      "recency_days": 18.0,
+      "tenure_days": 18.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 1304.04,
+      "products_90d": 23.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3567285047535649
+  },
+  {
+    "input": {
+      "recency_days": 89.0,
+      "tenure_days": 89.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 99.14,
+      "products_90d": 12.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.20625633904824411
+  },
+  {
+    "input": {
+      "recency_days": 302.0,
+      "tenure_days": 302.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 75.0,
+      "tenure_days": 75.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 152.68,
+      "products_90d": 48.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.27008005334413465
+  },
+  {
+    "input": {
+      "recency_days": 85.0,
+      "tenure_days": 85.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 187.29,
+      "products_90d": 31.0,
+      "avg_purchase_gap_days": 0.0021,
+      "country": "United Kingdom"
+    },
+    "probability": 0.36224440519003603
+  },
+  {
+    "input": {
+      "recency_days": 289.0,
+      "tenure_days": 289.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 36.0,
+      "tenure_days": 290.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 404.8,
+      "products_90d": 24.0,
+      "avg_purchase_gap_days": 36.3117,
+      "country": "United Kingdom"
+    },
+    "probability": 0.5689632582518764
+  },
+  {
+    "input": {
+      "recency_days": 57.0,
+      "tenure_days": 57.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 168.31,
+      "products_90d": 19.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.24110202387221724
+  },
+  {
+    "input": {
+      "recency_days": 131.0,
+      "tenure_days": 246.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 57.4337,
+      "country": "United Kingdom"
+    },
+    "probability": 0.3223308670867341
+  },
+  {
+    "input": {
+      "recency_days": 70.0,
+      "tenure_days": 131.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 185.7,
+      "products_90d": 12.0,
+      "avg_purchase_gap_days": 61.2056,
+      "country": "United Kingdom"
+    },
+    "probability": 0.42390695973444564
+  },
+  {
+    "input": {
+      "recency_days": 288.0,
+      "tenure_days": 288.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.172205602958094
+  },
+  {
+    "input": {
+      "recency_days": 25.0,
+      "tenure_days": 220.0,
+      "orders_90d": 1.0,
+      "monetary_90d": 235.85,
+      "products_90d": 61.0,
+      "avg_purchase_gap_days": 195.0062,
+      "country": "United Kingdom"
+    },
+    "probability": 0.32852341502093996
+  },
+  {
+    "input": {
+      "recency_days": 156.0,
+      "tenure_days": 156.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  },
+  {
+    "input": {
+      "recency_days": 1.0,
+      "tenure_days": 147.0,
+      "orders_90d": 2.0,
+      "monetary_90d": 1366.02,
+      "products_90d": 75.0,
+      "avg_purchase_gap_days": 72.8931,
+      "country": "United Kingdom"
+    },
+    "probability": 0.6373616784667195
+  },
+  {
+    "input": {
+      "recency_days": 102.0,
+      "tenure_days": 288.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 37.1519,
+      "country": "United Kingdom"
+    },
+    "probability": 0.34526344651173146
+  },
+  {
+    "input": {
+      "recency_days": 131.0,
+      "tenure_days": 131.0,
+      "orders_90d": 0.0,
+      "monetary_90d": 0.0,
+      "products_90d": 0.0,
+      "avg_purchase_gap_days": 0.0,
+      "country": "United Kingdom"
+    },
+    "probability": 0.21557045973101024
+  }
+]
