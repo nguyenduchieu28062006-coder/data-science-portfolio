@@ -82,7 +82,261 @@ def weak_fixture():
     return payload
 
 
+def tiny_fixture(task='regression'):
+    headers = ['name', 'age', 'score', 'city']
+    ages = [31, 24, 42, '', 27, 38, 22, 47, 35, 29, 44]
+    scores = [7.1, 4.8, 9.2, 5.7, 8.3, 6.4, 3.9, 7.6, '', 8.7, 5.2]
+    rows = [[f'Person-{i}', ages[i], scores[i], ['Hanoi', 'Hue', 'Saigon', 'Danang'][i % 4]] for i in range(11)]
+    rows.append(rows[0].copy())
+    return dict(action='benchmark', csv=csv_text(headers, rows), task=task,
+                target='score' if task=='regression' else 'city',
+                features=['age', 'city'] if task=='regression' else ['age', 'score'], split='random')
+
+
+def linelist_fixture(count=120):
+    output = io.StringIO(); writer = csv.writer(output, delimiter=';')
+    headers = ['case_id', '', 'latitude', 'age', 'event_date', 'location', 'outcome'] + [f'field_{i}' for i in range(21)]
+    writer.writerow(headers)
+    rng = np.random.default_rng(17)
+    for i in range(count):
+        writer.writerow([f'CASE-{i}', f'CODE-{i}', f'{rng.normal(-13, 2):.8f}'.replace('.', ','),
+                         f'{rng.uniform(20, 70):.2f}'.replace('.', ','), f'2025-01-{i%28+1:02d}', f'LOC-{i}',
+                         ['recovered', 'hospitalized', 'deceased'][i%3]] + [f'cat-{(i+j)%8}' for j in range(21)])
+    return dict(action='benchmark', csv=output.getvalue(), target='outcome', task='classification',
+                features=['latitude', 'age', 'location', 'field_0'], split='random')
+
+
+def large_fixture(task='classification', count=6600):
+    rng = np.random.default_rng(29)
+    output = io.StringIO(); writer = csv.writer(output, delimiter=';')
+    headers = ['case_id', 'gender', 'age', 'latitude', 'longitude', 'hospital', 'outcome', 'date_of_outcome', 'time', 'location', ''] + [f'lab_{j}' for j in range(16)] + ['salary']
+    writer.writerow(headers)
+    for i in range(count):
+        age = rng.uniform(18, 80); labs = rng.normal(size=16)
+        gender = '' if i % 71 == 0 else ('f' if labs[0] + rng.normal() > 0 else 'm')
+        writer.writerow([f'C-{i}', gender, f'{age:.2f}'.replace('.', ','), f'{rng.normal(-13,2):.8f}'.replace('.', ','),
+            f'{rng.normal(8,2):.9f}'.replace('.', ','), f'H-{i%12}', ['recovered','admitted','dead'][i%3],
+            f'{2020+i//336:04d}-{i//28%12+1:02d}-{i%28+1:02d}', f'{i//60%24:02d}:{i%60:02d}', f'LOC-{i}', ''] +
+            [('' if i%97==0 else f'{v:.4f}'.replace('.', ',')) for v in labs] + [f'{age*100+labs[1]*500+rng.normal(0,100):.2f}'.replace('.', ',')])
+    target = 'gender' if task == 'classification' else 'salary'
+    return dict(action='benchmark', csv=output.getvalue(), task=task, target=target,
+        features=['age','latitude','longitude','hospital','outcome'] + [f'lab_{j}' for j in range(16)], split='random')
+
+
+def dirty_fixture(task='regression', target=None):
+    headers = ['employee_name','age','salary','score','city','department','join_date','note','','empty']
+    rows = [[f'Person-{i}', '' if i%7==0 else 20+i%27, '--' if i%11==0 else f'{1000+i*13.7:.2f}'.replace('.', ','),
+        '' if i%9==0 else (i*17)%100, ['Hue','Hanoi','Saigon'][i%3], ['HR','IT'][i%2], f'2025-01-{i%28+1:02d}', 'NA' if i%3 else 'note', '', ''] for i in range(39)]
+    rows.append(rows[0].copy())
+    output=io.StringIO(); writer=csv.writer(output,delimiter=';');writer.writerow(headers);writer.writerows(rows)
+    return dict(action='benchmark',csv=output.getvalue(),task=task,target=target or ('salary' if task=='regression' else 'department'),
+                features=['age','score','city','department','join_date','empty'] if task=='regression' else ['age','score','city','salary','join_date','empty'],split='random')
+
+
 class Backend(unittest.TestCase):
+    def test_numeric_target_column_evidence_and_diagnostics(self):
+        p=dict(action='benchmark',csv='x;target\n1;12,5\n2;1,234\n3;13,7\n4;--\n5;bad\n6;NA',target='target',task='regression',features=['x'])
+        d=lab.prepare(p)
+        self.assertEqual(d['summary']['audit']['numeric_target'], dict(total_rows=6,nonblank_target_rows=4,valid_numeric_target_rows=3,missing_target_rows=2,invalid_numeric_target_rows=1,unique_numeric_target_values=3))
+        self.assertIn(1.234,d['y'])
+        self.assertIsNone(lab.number('1,234'))
+
+    def test_leakage_structured_exclude_and_confirm_without_422_loop(self):
+        p=fixture(); headers,rows,_=lab.load_data(p)
+        headers+=['outcome','copy']; rows=[tuple(r)+('known-'+str(i%3),r[-1]) for i,r in enumerate(rows)]
+        p['csv']=csv_text(headers,rows);p['features']+=['outcome','copy']
+        d=lab.prepare(p);self.assertNotIn('copy',d['names']);self.assertNotIn('outcome',d['names'])
+        self.assertTrue(any(m['severity']=='hard' for m in d['leakage']))
+        self.assertTrue(any(m['severity']=='warning' for m in d['leakage']))
+        d=lab.prepare({**p,'ack_leakage':True});self.assertIn('outcome',d['names']);self.assertNotIn('copy',d['names'])
+
+    def test_date_target_validation_and_time_guard(self):
+        p=large_fixture(count=120);p.update(target='date_of_outcome')
+        with self.assertRaisesRegex(lab.LabError,'ngày tháng'):lab.prepare(p)
+        with self.assertRaisesRegex(lab.LabError,'duration'):lab.prepare({**p,'task':'regression'})
+        p.update(target='gender',features=['age','latitude','longitude','time','date_of_outcome','lab_0'])
+        d=lab.prepare(p);self.assertNotIn('time',d['names']);self.assertNotIn('date_of_outcome',d['names'])
+        self.assertIn('latitude',[d['names'][i] for i in d['numeric']]);self.assertNotIn('gender',d['names'])
+
+    def test_dirty_classification_and_regression(self):
+        for task,target in [('classification','department'),('classification','city'),('regression','salary'),('regression','score')]:
+            p=dirty_fixture(task,target);p['features']=[f for f in p['features'] if f!=target]
+            r=lab.benchmark(p);self.assertTrue(r['models']);self.assertEqual(r['summary']['audit']['duplicates_removed'],1)
+            self.assertNotIn('empty',r['methodology']['selected_features'])
+
+    def test_large_gender_and_regression_bounded_partial_leaderboard(self):
+        for task in ('classification','regression'):
+            p=large_fixture(task,6600 if task=='classification' else 5100)
+            r=lab.benchmark(p);self.assertTrue(r['models']);self.assertLess(r['duration_ms'],50000)
+            self.assertNotIn(p['target'],r['methodology']['selected_features'])
+            self.assertFalse(r['methodology']['test_used_for_selection'])
+            self.assertTrue(any(s['status']=='SKIPPED_TIME_BUDGET' for s in r['skipped']))
+            self.assertLessEqual(r['methodology']['feature_guard']['estimated_after'],lab.MAX_EXPANDED)
+
+    def test_soft_time_budget_preserves_completed_models(self):
+        original=lab.time.perf_counter; started=original(); fits=[0]
+        original_fit=lab.fit_with_budget
+        def fit(*args):
+            result=original_fit(*args);fits[0]+=1;return result
+        def clock():
+            return original() if fits[0]<6 else started+46
+        with patch.object(lab.time,'perf_counter',side_effect=clock), patch.object(lab,'fit_with_budget',side_effect=fit):
+            r=lab.benchmark(fixture())
+        self.assertTrue(r['models']);self.assertTrue(r['skipped'])
+
+    def test_delimiters_bom_quotes_blank_rows_and_header_fallback(self):
+        for delimiter in [',', ';', '\t', '|']:
+            with self.subTest(delimiter=delimiter):
+                buffer=io.StringIO(); writer=csv.writer(buffer,delimiter=delimiter)
+                writer.writerows([[' col ', '', 'col', 'col_2', 'target'], ['1', '2', 'contains'+delimiter+'quoted', '4', 'yes'], ['2'], [], ['3','4','x','5','no']])
+                with patch.object(lab.csv.Sniffer,'sniff',side_effect=csv.Error):
+                    headers,rows,audit=lab.parse_csv('\ufeff'+buffer.getvalue())
+                self.assertEqual(audit['delimiter'],delimiter)
+                self.assertEqual(len(headers),len(set(headers)))
+                self.assertEqual(headers[:3],['col','unnamed_2','col_2'])
+                self.assertEqual(rows[0][2],'contains'+delimiter+'quoted')
+                self.assertEqual(audit['blank_rows'],1)
+                self.assertEqual(audit['short_rows_padded'],1)
+        headers,rows,audit=lab.parse_csv('\ufeff\n\n x ; y \n1;2\n')
+        self.assertEqual(headers,['x','y']);self.assertEqual(audit['blank_rows'],2)
+
+    def test_decimal_locales_and_ambiguous_number_never_guessed(self):
+        for token,value in [('123.45',123.45),('123,45',123.45),('1,234.56',1234.56),('1.234,56',1234.56),('-13,21573511',-13.21573511),('1.2e2',120)]:
+            with self.subTest(token=token):self.assertAlmostEqual(lab.number(token),value)
+        self.assertIsNone(lab.number('1,234')); self.assertIsNone(lab.number('1,23,456'))
+        headers,rows,audit=lab.parse_csv('value;target\n1,234;yes\n2,345;no\n')
+        self.assertEqual(lab.profile(headers,rows,audit)['columns'][0]['kind'],'categorical')
+        self.assertEqual(audit['ambiguous_numeric_cells'],2)
+        self.assertTrue(audit['warnings'])
+        p=linelist_fixture(); data=lab.prepare(p)
+        self.assertEqual(data['summary']['audit']['delimiter'],';')
+        self.assertGreater(data['summary']['audit']['localized_numeric_cells'],0)
+        self.assertIn('unnamed_2',[c['name'] for c in data['summary']['columns']])
+        self.assertEqual(data['numeric'],[0,1])
+        self.assertEqual(len(lab.benchmark(p)['models']),7)
+
+    def test_twelve_row_regression_cv_only_and_target_cleaning(self):
+        result=lab.benchmark(tiny_fixture())
+        self.assertEqual(result['evaluation']['tier'],'tiny')
+        self.assertEqual(result['evaluation']['mode'],'cv_only')
+        self.assertEqual(result['evaluation']['usable_rows'],10)
+        self.assertEqual(result['summary']['audit']['duplicates_removed'],1)
+        self.assertEqual(result['summary']['audit']['target_rows_removed'],1)
+        self.assertEqual(result['selection_source'],'cv_only')
+        self.assertEqual(len(result['models']),8)
+        self.assertEqual(result['recommended'],result['models'][0]['name'])
+        self.assertTrue(all(r['test'] is None and r['generalization_gap'] is None and r['cv_scores'] for r in result['models']))
+        self.assertEqual(result['methodology']['test_rows'],0)
+        self.assertTrue(any('Đã loại 1 dòng' in w for w in result['warnings']))
+        json.dumps(lab.sanitize(result),allow_nan=False)
+
+    def test_twelve_row_multiclass_adapts_folds_and_knn(self):
+        p=tiny_fixture('classification'); data=lab.prepare(p); result=lab.benchmark(p)
+        self.assertEqual(result['evaluation']['class_count'],4)
+        self.assertEqual(result['methodology']['folds'],2)
+        self.assertEqual(len(result['models']),7)
+        self.assertEqual(result['selection_source'],'cv_only')
+        for a,b in data['splits']:
+            self.assertEqual(set(data['y'][a]),set(data['y']))
+            self.assertFalse(set(a)&set(b))
+        knn=next(r for r in result['models'] if r['name']=='K-Nearest Neighbors')
+        self.assertLessEqual(knn['hyperparameters']['n_neighbors'],min(len(a) for a,_ in data['splits']))
+
+    def test_extreme_tiny_binary_and_regression_knn_adaptation(self):
+        for task in ['classification','regression']:
+            p=fixture(task,count=6,mixed=False); result=lab.benchmark(p); data=lab.prepare(p)
+            self.assertEqual(result['evaluation']['tier'],'extreme_tiny')
+            self.assertEqual(result['selection_source'],'cv_only')
+            knn=next(r for r in result['models'] if r['name'] in ('K-Nearest Neighbors','KNN Regressor'))
+            self.assertLessEqual(knn['hyperparameters']['n_neighbors'],min(len(a) for a,_ in data['splits']))
+            self.assertTrue(any('Dữ liệu rất ít' in w for w in result['warnings']))
+
+    def test_exploratory_singleton_classes_and_two_row_regression(self):
+        for task,text in [('classification','x,target\n1,a\n4,b\n2,c\n'),('regression','x,target\n1,2\n3,8\n')]:
+            result=lab.benchmark(dict(action='benchmark',csv=text,target='target',task=task,features=['x']))
+            self.assertEqual(result['evaluation']['mode'],'exploratory')
+            self.assertIsNone(result['recommended'])
+            self.assertTrue(result['best_exploratory_model'])
+            self.assertEqual(result['selection_source'],'exploratory_train')
+            self.assertTrue(all(r['cv_mean'] is None and r['test'] is None and not r['cv_scores'] for r in result['models']))
+            self.assertFalse(result['evaluation']['independent_evaluation'])
+            self.assertTrue(any('không có đánh giá độc lập' in w for w in result['warnings']))
+
+    def test_small_rare_class_uses_cv_only_instead_of_reject(self):
+        p=fixture(count=32,mixed=False); headers,rows,_=lab.load_data(p)
+        rows=[tuple(r[:-1])+('rare' if i<2 else 'common',) for i,r in enumerate(rows)]
+        p['csv']=csv_text(headers,rows)
+        data=lab.prepare(p)
+        self.assertEqual(data['evaluation']['mode'],'cv_only')
+        self.assertEqual(len(data['splits']),2)
+        rows=[tuple(r[:-1])+('rare' if i<3 else 'common',) for i,r in enumerate(rows)]
+        p['csv']=csv_text(headers,rows)
+        data=lab.prepare(p)
+        self.assertEqual(data['evaluation']['mode'],'holdout_cv')
+        self.assertEqual(data['evaluation']['label'],f"Small Data {len(data['splits'])}-Fold CV")
+        self.assertEqual(len(data['splits']),2)
+
+    def test_model_and_diagnostics_failures_are_isolated_and_sanitized(self):
+        with patch.object(lab.LogisticRegression,'fit',side_effect=RuntimeError('PRIVATE_MODEL_ERROR')), self.assertLogs(lab.logger,level='ERROR'):
+            result=lab.benchmark(fixture(mixed=False))
+        self.assertEqual(len(result['models']),6)
+        self.assertEqual(result['skipped'][0]['status'],'FAILED_SAFE')
+        self.assertNotIn('PRIVATE_MODEL_ERROR',json.dumps(result))
+        original=lab.add_diagnostics
+        def fail_one(record,pipe,data):
+            if record['name']=='Support Vector Machine':raise RuntimeError('PRIVATE_DIAGNOSTICS')
+            return original(record,pipe,data)
+        with patch.object(lab,'add_diagnostics',side_effect=fail_one), self.assertLogs(lab.logger,level='ERROR'):
+            result=lab.benchmark(fixture(mixed=False))
+        self.assertEqual(len(result['models']),7)
+        self.assertTrue(any(r.get('diagnostics_status')=='FAILED_SAFE' for r in result['models']))
+        self.assertNotIn('PRIVATE_DIAGNOSTICS',json.dumps(result))
+
+    def test_feature_explosion_groups_categories_within_budget(self):
+        headers=[f'category_{i}' for i in range(90)]+['target']
+        rows=[[f'value-{(j+i*7)%70}' for i in range(90)]+[j%2] for j in range(160)]
+        p=dict(action='benchmark',csv=csv_text(headers,rows),target='target',task='classification',features=headers[:-1])
+        data=lab.prepare(p)
+        self.assertLessEqual(data['expanded_estimate'],lab.MAX_EXPANDED)
+        self.assertLess(data['max_categories'],32)
+        transformed=lab.preprocessor(data,False).fit_transform(data['X'][data['train']])
+        self.assertLessEqual(transformed.shape[1],lab.MAX_EXPANDED)
+        self.assertLessEqual(transformed.shape[1]*len(rows),lab.MAX_CELLS)
+        self.assertTrue(any('ngân sách' in w or 'gộp category' in w for w in data['warnings']))
+
+    def test_all_missing_feature_dropped_but_impossible_input_clear(self):
+        p=tiny_fixture();headers,rows,_=lab.load_data(p);headers+=['empty'];rows=[tuple(r)+(None,) for r in rows]
+        p['csv']=csv_text(headers,rows);p['features']+=['empty']
+        self.assertNotIn('empty',lab.prepare(p)['names'])
+        for text in ['x,target\n1,NA\n2,NA\n','x,target\n1,a\n2,a\n','x,target\n1,a\n']:
+            with self.assertRaises(lab.LabError) as error:
+                lab.prepare(dict(csv=text,target='target',task='classification',features=['x']))
+            self.assertEqual(error.exception.status,422)
+
+    def test_tiny_temporal_cv_keeps_equal_timestamps_together(self):
+        p=fixture('regression',count=24);headers,rows,_=lab.load_data(p)
+        index=headers.index('event_date')
+        rows=[tuple(f'2025-01-{int(i**.5)+1:02d}' if j==index else v for j,v in enumerate(row)) for i,row in enumerate(rows)]
+        p.update(csv=csv_text(headers,rows),split='temporal',time_column='event_date')
+        data=lab.prepare(p)
+        self.assertEqual(data['evaluation']['mode'],'cv_only')
+        self.assertEqual(data['cv_name'],'TimeSeriesSplit')
+        for a,b in data['splits']:
+            earlier={rows[data['train'][i]][index] for i in a}
+            later={rows[data['train'][i]][index] for i in b}
+            self.assertFalse(earlier&later)
+            self.assertLess(max(earlier),min(later))
+
+    def test_numeric_id_target_can_be_chosen_with_warning(self):
+        p=fixture('regression',count=24,mixed=False);headers,rows,_=lab.load_data(p)
+        headers[-1]='case_id';rows=[tuple(r[:-1])+(str(i+1),) for i,r in enumerate(rows)]
+        p.update(csv=csv_text(headers,rows),target='case_id')
+        data=lab.prepare(p)
+        self.assertTrue(any('Target có dạng ID/ngày' in w for w in data['warnings']))
+        self.assertEqual(data['evaluation']['mode'],'cv_only')
+        headers,rows,audit=lab.parse_csv(csv_text(['age','city'],[[20+i,['a','b','c','d'][i%4]] for i in range(12)]))
+        self.assertFalse(lab.profile(headers,rows,audit)['columns'][0]['id_like'])
+
     def test_worker_environment_preserves_order_existing_paths_and_separator(self):
         with tempfile.TemporaryDirectory() as directory:
             existing = str(Path(directory) / 'existing')
@@ -156,7 +410,7 @@ class Backend(unittest.TestCase):
             return original(name, *args, **kwargs)
         with patch.object(builtins, '__import__', no_pandas):
             headers, rows, audit = lab.load_data({'xlsx': base64.b64encode(buffer.getvalue()).decode()})
-        self.assertEqual(headers, ['x', 'column_2', 'target'])
+        self.assertEqual(headers, ['x', 'unnamed_2', 'target'])
         self.assertEqual(rows, [('1', None, 'yes'), ('2', None, 'no'), ('3', None, 'yes')])
         self.assertEqual(audit['blank_rows'], 1)
         self.assertEqual(audit['short_rows_padded'], 0)
@@ -247,7 +501,7 @@ class Backend(unittest.TestCase):
 
     def test_small_data_and_low_quality_do_not_change_cv_recommendation(self):
         self.assertTrue(any('khá nhỏ' in w for w in lab.prepare(fixture(count=60))['warnings']))
-        self.assertTrue(any('rất nhỏ' in w for w in lab.prepare(fixture(count=35))['warnings']))
+        self.assertEqual(lab.prepare(fixture(count=35))['evaluation']['tier'],'small')
         original=lab.evaluate
         for task in ['classification','regression']:
             def weak_test(pipe,X,y,current_task):
@@ -361,7 +615,7 @@ class Backend(unittest.TestCase):
     def test_csv_quality(self):
         text='\ufeff a ,a, target\n1,NA,yes\n1,NA,yes\n\n2,null,no\n3\n'
         headers,rows,audit=lab.parse_csv(text)
-        self.assertEqual(headers,['a','a__2','target'])
+        self.assertEqual(headers,['a','a_2','target'])
         self.assertEqual(audit['duplicates_removed'],1)
         self.assertEqual(audit['blank_rows'],1)
         self.assertEqual(audit['short_rows_padded'],1)
@@ -375,7 +629,9 @@ class Backend(unittest.TestCase):
         p['csv']=csv_text(headers,rows);p['features']+=['event_date']
         self.assertTrue(lab.profile(headers,rows,audit)['columns'][i]['date'])
         self.assertNotIn('event_date',lab.prepare(p)['names'])
-        with self.assertRaises(lab.LabError):lab.prepare({**p,'date_features':'extract'})
+        extracted=lab.prepare({**p,'date_features':'extract'})
+        self.assertNotIn('event_date',extracted['names'])
+        self.assertTrue(any('ngày mơ hồ' in w for w in extracted['warnings']))
         self.assertEqual(lab.date('31/12/2025').month,12)
         self.assertEqual(lab.date('12/31/2025').month,12)
 
@@ -419,9 +675,9 @@ class Backend(unittest.TestCase):
 
     def test_small_and_large_guards(self):
         result=lab.benchmark(fixture(count=35,mixed=False))
-        self.assertEqual(len(result['models']),3)
-        self.assertEqual(len(result['skipped']),4)
-        with self.assertRaises(lab.LabError):lab.prepare(fixture(count=15,mixed=False))
+        self.assertEqual(len(result['models']),7)
+        self.assertEqual(len(result['skipped']),0)
+        self.assertEqual(lab.prepare(fixture(count=15,mixed=False))['evaluation']['mode'],'cv_only')
         with self.assertRaises(lab.LabError) as error:lab.parse_csv('a,b\n'+'x'*(lab.MAX_CSV_BYTES+1))
         self.assertEqual(error.exception.status,413)
         with self.assertRaises(lab.LabError) as error:lab.parse_csv('a,b\n'+'1,2\n'*20001)
@@ -436,7 +692,10 @@ class Backend(unittest.TestCase):
         headers+=['copy'];rows=[tuple(r)+(r[-1],) for r in rows]
         p['csv']=csv_text(headers,rows);p['features']+=['copy']
         self.assertTrue(lab.leakage_warnings(headers,rows,'target',['copy']))
-        with self.assertRaises(lab.LabError):lab.prepare({**p,'ack_leakage':True})
+        data=lab.prepare({**p,'ack_leakage':True})
+        self.assertNotIn('copy',data['names'])
+        self.assertTrue(any('bản sao của target' in w for w in data['warnings']))
+        with self.assertRaises(lab.LabError):lab.prepare({**p,'features':['copy'],'ack_leakage':True})
 
     def test_high_cardinality_bounded(self):
         p=fixture();headers,rows,audit=lab.load_data(p)
@@ -600,7 +859,7 @@ def browser_checks():
                 time.sleep(.1)
             port=int(portfile.read_text().splitlines()[0])
             target=json.load(urllib.request.urlopen(urllib.request.Request(f'http://127.0.0.1:{port}/json/new?about:blank',method='PUT')))
-            cdp=CDP(target['webSocketDebuggerUrl']);cdp.s.settimeout(180);cdp.call('Page.enable')
+            cdp=CDP(target['webSocketDebuggerUrl']);cdp.s.settimeout(600);cdp.call('Page.enable')
             def js(code):
                 response=cdp.call('Runtime.evaluate',{'expression':code,'returnByValue':True,'awaitPromise':True})
                 if 'exceptionDetails' in response:raise RuntimeError(str(response['exceptionDetails']))
@@ -611,7 +870,17 @@ def browser_checks():
                 for _ in range(150):
                     if js("document.readyState==='complete'&&typeof MLComparison!=='undefined'"):break
                     time.sleep(.05)
-                js('window.__mlFixtures='+json.dumps({'classification':fixture(),'regression':fixture('regression'), 'excel':excel_fixture(multiple=True),'weak':weak_fixture()}))
+                js('window.__mlFixtures={}')
+                for name,payload in {'classification':fixture(),'regression':fixture('regression'), 'excel':excel_fixture(multiple=True),'weak':weak_fixture(),
+                                     'tinyRegression':tiny_fixture(),'tinyClassification':tiny_fixture('classification'),'semicolon':linelist_fixture(),
+                                     'dirty':dirty_fixture(),'gender':large_fixture(count=120),
+                                     'exploratory':dict(csv='x,target\n1,a\n4,b\n2,c\n',target='target',task='classification')}.items():
+                    js('window.__mlFixtures['+json.dumps(name)+']='+json.dumps(payload))
+                if width==390:
+                    for name,payload in {'largeClassification':large_fixture(),'largeRegression':large_fixture('regression',5100)}.items():
+                        encoded=json.dumps(payload);js('window.__mlChunks=[]')
+                        for offset in range(0,len(encoded),16000):js('window.__mlChunks.push('+json.dumps(encoded[offset:offset+16000])+')')
+                        js('window.__mlFixtures['+json.dumps(name)+']=JSON.parse(window.__mlChunks.join(""))')
                 report=js(scripts);reports.append(report);print(json.dumps(report),flush=True)
                 js('scrollTo(0,0)')
                 screenshot=cdp.call('Page.captureScreenshot',{'format':'png'})

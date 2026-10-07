@@ -44,11 +44,12 @@
     $('sheet').innerHTML = options(summary.audit.sheets || []);
     if (state.xlsx) $('sheet').value = summary.audit.selected_sheet;
     $('smallDataWarning').hidden = summary.rows >= 100;
-    $('smallDataWarning').classList.toggle('warning-strong', summary.rows < 50);
-    $('smallDataWarning').textContent = summary.rows < 50 ? 'Dữ liệu rất nhỏ (dưới 50 dòng). CV và Test có thể biến động rất mạnh; kết quả chỉ mang tính thăm dò.' : 'Dữ liệu khá nhỏ. Kết quả Cross Validation và Test có thể biến động mạnh.';
+    $('smallDataWarning').classList.toggle('warning-strong', summary.rows < 30);
+    $('smallDataWarning').textContent = summary.rows < 10 ? 'Dữ liệu rất ít. Kết quả chỉ mang tính thử nghiệm, không nên dùng để lựa chọn mô hình thực tế.' : summary.rows < 30 ? 'Dữ liệu rất nhỏ. Hệ thống sẽ thử Adaptive CV hoặc Exploratory; metric có thể biến động rất mạnh và có thể không có test set riêng.' : 'Dữ liệu tương đối nhỏ; metric có thể biến động.';
     const cards = [['Dòng dùng được',summary.rows],['Cột',summary.columns.length],['Missing',fmt(summary.missing / (summary.rows * summary.columns.length),true)],['Dòng trùng',summary.audit.duplicates_removed],['Numeric',summary.numeric],['Categorical',summary.categorical]];
     $('qualityCards').innerHTML = cards.map(([label,value]) => `<div class="kpi"><b>${esc(value)}</b><span>${label}</span></div>`).join('');
     $('cleaningSummary').textContent = `Đã loại ${summary.audit.duplicates_removed} dòng trùng và ${summary.audit.blank_rows} dòng trắng. ${summary.audit.short_rows_padded} dòng thiếu ô được giữ với missing. ${summary.audit.headers_normalized ? 'Header đã được cắt khoảng trắng/đổi tên trùng.' : ''} Missing được impute trong train, không bịa target.`;
+    $('cleaningSummary').textContent += ' ' + (summary.audit.warnings || []).join(' · ');
     $('preview').innerHTML = table(summary.columns.map(c => c.name), summary.preview.map(row => row.map(v => v ?? '—')));
     const warnings = summary.columns.filter(c => c.id_like || c.date || c.high_cardinality || c.malformed_numeric).map(c => `${c.name}: ${[c.id_like && 'có vẻ là mã định danh, có thể gây overfitting', c.date && 'ngày ISO tiềm năng', c.high_cardinality && 'nhiều category; đề xuất loại hoặc gộp nhóm hiếm', c.malformed_numeric && `${c.malformed_numeric} ô không phải số, sẽ được coi là missing nếu chọn numeric`].filter(Boolean).join('; ')}`);
     warnings.push('Target candidates: ' + summary.columns.filter(c => c.target_candidate).map(c => c.name).join(', '));
@@ -60,7 +61,7 @@
     if (!file || state.busy) return;
     error(''); busy(true,'Đang đọc tệp và kiểm tra chất lượng dữ liệu…');
     try {
-      if (!/\.(csv|xlsx)$/i.test(file.name)) throw Error('Hãy chọn tệp .csv hoặc .xlsx.');
+      if (!/\.(csv|tsv|xlsx)$/i.test(file.name)) throw Error('Hãy chọn tệp .csv, .tsv hoặc .xlsx.');
       if (file.size > 2 * 1024 * 1024) throw Error('Tệp vượt giới hạn 2 MiB.');
       const bytes = new Uint8Array(await file.arrayBuffer());
       let input;
@@ -111,14 +112,16 @@
     const info = state.summary?.columns.find(c => c.name === $('target').value);
     if (!info) {$('targetInfo').textContent = 'Chọn target để xem gợi ý loại bài toán.'; return;}
     $('targetInfo').textContent = `Kiểu: ${info.kind} · ${info.unique} unique (${fmt(info.unique_ratio,true)}) · ${info.missing} missing. Loại bài toán được gợi ý: ${info.suggested_task === 'classification' ? 'Classification' : 'Regression'}. Bạn cần xác nhận hoặc đổi bên dưới.`;
-    if (info.unique < 2 || info.id_like || info.date) {error('Target chỉ có một giá trị, toàn thiếu hoặc giống ID/ngày. Hãy chọn cột khác.'); return;}
+    if (info.unique < 2) {error('Target chỉ có một giá trị hoặc toàn thiếu. Hãy chọn cột khác.'); return;}
+    if (info.id_like || info.date) $('targetInfo').textContent += ' ⚠ Target có dạng ID/ngày: hãy kiểm tra ý nghĩa bài toán; hệ thống vẫn giữ lựa chọn của bạn.';
+    if (info.date) $('targetInfo').textContent += ' Cột mục tiêu này là ngày tháng. Mỗi ngày riêng biệt sẽ trở thành một lớp khác nhau; hãy chọn outcome/gender hoặc tạo số ngày giữa hai mốc để dùng Regression.';
     renderFeatures(); $('toConfig').disabled = false;
     try {const summary = await api({...source(),action:'inspect',target:info.name},15000); if (revision !== state.revision) return; state.leakage = summary.leakage || []; renderLeakage();}
     catch(e) {if (revision === state.revision) error(e.message);}
   };
   function renderFeatures() {
     const columns = state.summary.columns.filter(c => c.name !== $('target').value);
-    $('features').innerHTML = columns.map(c => `<label><input type="checkbox" value="${esc(c.name)}" ${!c.id_like && !c.high_cardinality ? 'checked' : ''}> ${esc(c.name)}<small>${[c.kind,c.id_like && '⚠ mã định danh',c.date && 'ngày',c.high_cardinality && '⚠ nhiều category'].filter(Boolean).join(' · ')}</small></label>`).join('');
+    $('features').innerHTML = columns.map(c => `<label><input type="checkbox" value="${esc(c.name)}" ${!c.id_like && !c.high_cardinality && !c.date ? 'checked' : ''}> ${esc(c.name)}<small>${[c.kind,c.id_like && '⚠ mã định danh',c.date && 'ngày/giờ',c.high_cardinality && '⚠ nhiều category'].filter(Boolean).join(' · ')}</small></label>`).join('');
     const dates = columns.filter(c => c.date).map(c => c.name);
     $('timeColumn').innerHTML = options(dates); $('dateLabel').hidden = !dates.length; $('temporalWarning').hidden = !dates.length;
     $('split').value = 'random'; $('dateFeatures').value = 'drop'; $('timeLabel').hidden = true;
@@ -126,12 +129,14 @@
   }
   function renderLeakage() {
     const features = selectedFeatures();
-    const warnings = state.leakage.filter(message => features.some(f => message.startsWith(f + ':')));
-    $('leakage').textContent = 'Potential leakage warning · ' + warnings.join(' · '); $('leakage').hidden = !warnings.length; $('leakageAckLabel').hidden = !warnings.length;
+    const warnings = state.leakage.filter(item => features.includes(item.column));
+    $('leakage').textContent = 'Các feature sau có nguy cơ gây rò rỉ target: ' + warnings.map(item=>`${item.column}: ${item.reason} (${item.severity})`).join(' · ') + ' Mặc định loại các cột cảnh báo và tiếp tục. Bản sao target luôn bị loại.'; $('leakage').hidden = !warnings.length; $('leakageAckLabel').hidden = !warnings.some(item=>item.severity==='warning');
+    $('excludeLeakage').hidden = !warnings.length;
   }
+  $('excludeLeakage').onclick = () => {const columns=state.leakage.map(item=>item.column);document.querySelectorAll('#features input').forEach(c=>{if(columns.includes(c.value))c.checked=false;});$('leakageAck').checked=false;renderLeakage();$('run').click();};
   $('toConfig').onclick = () => {$('configPanel').hidden = false; progress(2); $('configPanel').scrollIntoView({behavior:'smooth',block:'start'});};
   $('selectAll').onclick = () => {document.querySelectorAll('#features input').forEach(c => c.checked = true); invalidate(); renderLeakage();};
-  $('selectSafe').onclick = () => {document.querySelectorAll('#features input').forEach(c => {const info = state.summary.columns.find(x => x.name === c.value); c.checked = !info.id_like && !info.high_cardinality;}); invalidate(); renderLeakage();};
+  $('selectSafe').onclick = () => {document.querySelectorAll('#features input').forEach(c => {const info = state.summary.columns.find(x => x.name === c.value); c.checked = !info.id_like && !info.high_cardinality && !info.date;}); invalidate(); renderLeakage();};
   document.querySelectorAll('input[name=task]').forEach(r => r.onchange = invalidate);
   ['dateFeatures','timeColumn','leakageAck'].forEach(id => $(id).onchange = invalidate);
   $('split').onchange = () => {$('timeLabel').hidden = $('split').value !== 'temporal'; invalidate();};
@@ -140,9 +145,8 @@
     const task = checkedTask(), features = selectedFeatures();
     if (!task) return error('Hãy xác nhận Classification hoặc Regression.');
     if (!features.length) return error('Hãy chọn ít nhất một feature.');
-    if (!$('leakageAckLabel').hidden && !$('leakageAck').checked) return error('Hãy kiểm tra Potential leakage warning và xác nhận nguồn features.');
     if ($('split').value === 'temporal' && !$('timeColumn').value) return error('Temporal split cần cột ngày ISO.');
-    invalidate(); progress(3); busy(true,'Đang huấn luyện và đánh giá các mô hình: CV trên train, sau đó đánh giá test…');
+    invalidate(); progress(3); busy(true,'Đang huấn luyện và so sánh mô hình...' + (state.summary.rows >= 4000 ? ' Dữ liệu lớn có thể mất thêm thời gian.' : ''));
     try {
       const result = await api({...source(),action:'benchmark',target:$('target').value,task,features,split:$('split').value,time_column:$('timeColumn').value,date_features:$('dateFeatures').value,ack_leakage:$('leakageAck').checked});
       state.result = result; renderResults(result); progress(4); $('results').scrollIntoView({behavior:'smooth',block:'start'});
@@ -195,24 +199,37 @@
     $('results').hidden=false;
     const classification=result.task==='classification',best=result.models[0],key=classification?'f1':'rmse';
     const quality = result.quality;
+    const evaluation = result.evaluation || {mode:'holdout_cv',label:'Normal Holdout + CV',usable_rows:result.summary.rows,folds:result.methodology.folds,has_holdout:true};
+    const exploratory = evaluation.mode === 'exploratory', hasHoldout = evaluation.has_holdout;
+    $('evaluationMode').textContent = evaluation.label;
+    $('evaluationMeta').textContent = `${evaluation.usable_rows} dòng dùng được · ${evaluation.class_count == null ? 'Regression' : evaluation.class_count + ' lớp'} · ${evaluation.folds} folds. ` + (hasHoldout ? 'Có test set độc lập; ranking bằng train CV.' : exploratory ? 'Exploratory / không có đánh giá độc lập. Chỉ báo cáo điểm trên dữ liệu fit.' : 'CV-only — không có test set riêng. Ranking bằng CV score.');
+    $('evaluationCard').classList.toggle('warning-strong', exploratory);
+    $('rankingNote').textContent = exploratory ? 'Thứ tự theo điểm trên dữ liệu fit; đây không phải validation/test performance và không phải khuyến nghị triển khai.' : hasHoldout ? 'Xếp hạng theo CV của train. Test chỉ báo cáo sau khi chốt model.' : 'Xếp hạng theo Adaptive CV. Không tạo test score khi không có test set riêng.';
     $('modelQualityWarning').hidden = !quality || quality.level === 'normal';
     $('modelQualityWarning').classList.toggle('warning-strong', quality?.level === 'low');
     $('modelQualityWarning').textContent = quality && quality.level !== 'normal' ? (quality.level === 'low' ? 'Chất lượng mô hình thấp. ' : 'Khả năng dự đoán còn hạn chế. ') + quality.message : '';
-    $('recommendation').innerHTML=`<div><p class="eyebrow">MÔ HÌNH ĐƯỢC ĐỀ XUẤT CHO BỘ DỮ LIỆU NÀY</p><h2>${esc(result.recommended)}</h2><p>Đạt ${classification?'CV F1 Macro cao nhất':'CV RMSE thấp nhất'} trong các model hoàn tất. Khi bằng điểm, ưu tiên CV std thấp, sau đó thời gian CV thấp. Kết quả từ cấu hình baseline, chưa tối ưu toàn diện.</p><p>Model được đề xuất dựa trên Cross Validation để tránh tối ưu theo test set.</p></div><div class="recommendation-metrics"><div><small>CV ${esc(result.primary_metric)}</small><strong>${fmt(best.cv_mean,classification)}</strong><small>± ${fmt(best.cv_std,classification)}</small></div><div><small>Final Test ${esc(result.primary_metric)}</small><strong>${fmt(best.test[key],classification)}</strong><small>Overfit risk · ${esc(best.overfit_risk)}</small></div></div>`;
+    $('recommendation').innerHTML=`<div><p class="eyebrow">${exploratory?'MÔ HÌNH CÓ KẾT QUẢ TỐT NHẤT TRONG THỬ NGHIỆM NÀY':'MÔ HÌNH ĐƯỢC ĐỀ XUẤT CHO BỘ DỮ LIỆU NÀY'}</p><h2>${esc(result.recommended || result.best_exploratory_model)}</h2><p>${exploratory?'Chỉ so sánh trên dữ liệu đã dùng để fit, không có đánh giá độc lập. Không dùng kết quả này để lựa chọn mô hình thực tế.':`Đạt ${classification?'CV F1 Macro cao nhất':'CV RMSE thấp nhất'} trong các model hoàn tất. Khi bằng điểm, ưu tiên CV std thấp, sau đó thời gian CV thấp. Kết quả baseline, chưa tối ưu toàn diện.`}</p><p>${exploratory?'Cần thêm dữ liệu để kiểm chứng.':'Chọn bằng Cross Validation; không tối ưu theo test set.'}</p></div><div class="recommendation-metrics"><div><small>${exploratory?'Train · Exploratory':'CV'} ${esc(result.primary_metric)}</small><strong>${fmt(exploratory?best.exploratory_score:best.cv_mean,classification)}</strong><small>${exploratory?'Không phải validation/test':'± '+fmt(best.cv_std,classification)}</small></div><div><small>${hasHoldout?'Final Test':'Không có test set riêng'}</small><strong>${fmt(best.test?.[key],classification)}</strong><small>Overfit risk · ${esc(best.overfit_risk)}</small></div></div>`;
     $('resultWarnings').textContent=result.warnings.join(' · ');$('resultWarnings').hidden=!result.warnings.length;
     const m=result.methodology;
-    $('methodology').textContent=`${m.train_rows} train / ${m.test_rows} test · ${m.cv} ${m.folds} folds · ${m.split} split · Seed ${m.seed} · Preprocessing fit riêng trong mỗi fold. Tổng ${fmt(result.duration_ms/1000)} giây. CV std là độ lệch chuẩn giữa folds.`;
+    $('methodology').textContent=exploratory?`${m.train_rows} dòng fit · không có CV/test độc lập · ${m.split} · Seed ${m.seed}. Tổng ${fmt(result.duration_ms/1000)} giây.`:`${m.train_rows} train / ${m.test_rows} test · ${m.cv} ${m.folds} folds · ${m.split} split · Seed ${m.seed} · Preprocessing fit riêng trong mỗi fold. Tổng ${fmt(result.duration_ms/1000)} giây. CV std là độ lệch chuẩn giữa folds.`;
     const headers=classification?['Rank','Model','CV F1','CV Std','Test F1','Accuracy','Precision','Recall','ROC-AUC','Train F1','Fit ms','Predict ms','Overfit risk']:['Rank','Model','CV RMSE','CV Std','Test RMSE','MAE','R²','Train R²','Fit ms','Predict ms','Overfit risk'];
-    $('leaderboard').innerHTML=`<thead><tr>${headers.map(h=>`<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${result.models.map(r=>{const values=classification?[fmt(r.cv_mean,true),fmt(r.cv_std,true),metric(r.test.f1,'f1'),metric(r.test.accuracy,'accuracy'),metric(r.test.precision,'precision'),metric(r.test.recall,'recall'),metric(r.test.roc_auc,'roc_auc'),metric(r.train.f1,'f1')]:[fmt(r.cv_mean),fmt(r.cv_std),fmt(r.test.rmse),fmt(r.test.mae),fmt(r.test.r2),fmt(r.train.r2)];return `<tr class="${r.name===result.recommended?'recommended':''}"><td>${r.rank}</td><td><button data-model="${esc(r.name)}">${esc(r.name)}</button></td>${[...values,fmt(r.fit_time_ms),fmt(r.predict_time_ms),r.overfit_risk].map(v=>`<td>${esc(v)}</td>`).join('')}</tr>`;}).join('')}</tbody>`;
+    if(exploratory) headers[2]='Exploratory Train '+result.primary_metric;
+    $('leaderboard').innerHTML=`<thead><tr>${headers.map(h=>`<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${result.models.map(r=>{const values=classification?[fmt(exploratory?r.exploratory_score:r.cv_mean,true),fmt(r.cv_std,true),metric(r.test?.f1,'f1'),metric(r.test?.accuracy,'accuracy'),metric(r.test?.precision,'precision'),metric(r.test?.recall,'recall'),metric(r.test?.roc_auc,'roc_auc'),metric(r.train.f1,'f1')]:[fmt(exploratory?r.exploratory_score:r.cv_mean),fmt(r.cv_std),fmt(r.test?.rmse),fmt(r.test?.mae),fmt(r.test?.r2),fmt(r.train.r2)];return `<tr class="${r.name===result.recommended?'recommended':''}"><td>${r.rank}</td><td><button data-model="${esc(r.name)}">${esc(r.name)}</button></td>${[...values,fmt(r.fit_time_ms),fmt(r.predict_time_ms),r.overfit_risk].map(v=>`<td>${esc(v)}</td>`).join('')}</tr>`;}).join('')}</tbody>`;
     $('leaderboard').onclick=e=>{const button=e.target.closest('[data-model]');if(button){$('detailModel').value=button.dataset.model;renderDetail();$('modelDetail').scrollIntoView({behavior:'smooth'});}};
     $('skipped').innerHTML=result.skipped.map(s=>`<p><strong>${esc(s.status)}: ${esc(s.name)}</strong> — ${esc(s.reason)}</p>`).join('');$('skipped').hidden=!result.skipped.length;
     const labels=result.models.map(r=>r.name);
     $('comparisonTitle').textContent=classification?'Accuracy / Precision / Recall / F1 · Test':'MAE / RMSE · Test (đơn vị target)';
     const keys=classification?['accuracy','precision','recall','f1']:['mae','rmse'];
-    bars('comparisonChart',labels,keys.map(k=>({name:k.toUpperCase(),values:result.models.map(r=>r.test[k])})),'So sánh hiệu suất trên test',classification);
+    bars('comparisonChart',labels,keys.map(k=>({name:k.toUpperCase(),values:result.models.map(r=>r.test?.[k])})),'So sánh hiệu suất trên test',classification);
     bars('stabilityChart',labels,[{name:'CV '+result.primary_metric,values:result.models.map(r=>r.cv_mean)}],'CV mean và độ lệch chuẩn',classification,result.models.map(r=>r.cv_std));
-    bars('gapChart',labels,[{name:classification?'Train F1':'Train R²',values:result.models.map(r=>r.train[classification?'f1':'r2'])},{name:classification?'Test F1':'Test R²',values:result.models.map(r=>r.test[classification?'f1':'r2'])}],'Train và Test',classification);
-    $('radarPanel').hidden=!classification;
+    bars('gapChart',labels,[{name:classification?'Train F1':'Train R²',values:result.models.map(r=>r.train[classification?'f1':'r2'])},{name:classification?'Test F1':'Test R²',values:result.models.map(r=>r.test?.[classification?'f1':'r2'])}],'Train và Test',classification);
+    $('radarPanel').hidden=!classification || !hasHoldout;
+    if(!hasHoldout){
+      $('comparisonTitle').textContent='Không có test set riêng';
+      empty('comparisonChart','Không tạo metric test. Xem điểm CV hoặc điểm train được gắn nhãn Exploratory.');
+      empty('gapChart','Không có train/test gap vì không có held-out test.');
+      if(exploratory) empty('stabilityChart','Không có CV độc lập; không báo CV mean/std.');
+    }
     $('radarChoices').innerHTML=result.models.map((r,i)=>`<label><input type="checkbox" value="${esc(r.name)}" ${i<3?'checked':''}> ${esc(short(r.name))}</label>`).join('');
     $('radarChoices').onchange=e=>{if(document.querySelectorAll('#radarChoices input:checked').length>3){e.target.checked=false;error('Radar chỉ cho phép tối đa 3 model.');}else{error('');renderRadar();}};
     if(classification)renderRadar();
@@ -220,28 +237,37 @@
     renderVersus();renderDetail();
   }
   function renderRadar() {
-    const chosen=[...document.querySelectorAll('#radarChoices input:checked')].map(c=>state.result.models.find(r=>r.name===c.value));
+    if(!state.result.models.some(r=>r.test))return empty('radarChart','Không có test set riêng.');
+    const chosen=[...document.querySelectorAll('#radarChoices input:checked')].map(c=>state.result.models.find(r=>r.name===c.value)).filter(r=>r?.test);
     if(!chosen.length)return empty('radarChart','Chọn từ 1 đến 3 model.');
-    const keys=['accuracy','precision','recall','f1'];if(chosen.every(r=>r.test.roc_auc!=null))keys.push('roc_auc');
+    const keys=['accuracy','precision','recall','f1'];if(chosen.every(r=>r.test?.roc_auc!=null))keys.push('roc_auc');
     const width=Math.max(260,Math.min(600,$('radarChart').clientWidth||600)),cx=width/2,cy=145,radius=Math.min(90,width*.27),angle=i=>-Math.PI/2+i*Math.PI*2/keys.length;
     const point=(i,v)=>[cx+Math.cos(angle(i))*radius*v,cy+Math.sin(angle(i))*radius*v];let content='';
     for(let k=1;k<=4;k++){content+=`<polygon points="${keys.map((_,i)=>point(i,k/4).join(',')).join(' ')}" fill="none" stroke="#dce4ee"/><text x="${cx+4}" y="${cy-radius*k/4+10}">${k/4}</text>`;}
     keys.forEach((key,i)=>{const p=point(i,1),label=point(i,1.2);content+=`<line x1="${cx}" y1="${cy}" x2="${p[0]}" y2="${p[1]}" stroke="#dce4ee"/><text x="${label[0]}" y="${label[1]}" text-anchor="middle">${key.replace('roc_auc','ROC-AUC').toUpperCase()}</text>`;});
-    chosen.forEach((r,k)=>{content+=`<polygon points="${keys.map((key,i)=>point(i,r.test[key]).join(',')).join(' ')}" fill="${colors[k]}" fill-opacity=".10" stroke="${colors[k]}" stroke-width="2"/><text x="${cx}" y="${270+k*15}" text-anchor="middle" style="fill:${colors[k]}">${esc(r.name)}</text>`;});
+    chosen.forEach((r,k)=>{content+=`<polygon points="${keys.map((key,i)=>point(i,r.test?.[key]).join(',')).join(' ')}" fill="${colors[k]}" fill-opacity=".10" stroke="${colors[k]}" stroke-width="2"/><text x="${cx}" y="${270+k*15}" text-anchor="middle" style="fill:${colors[k]}">${esc(r.name)}</text>`;});
     $('radarChart').innerHTML=svg('Radar metric test thang 0–1, không chuẩn hóa lại',content,width,320);
   }
   function renderVersus() {
     const a=state.result.models.find(r=>r.name===$('modelA').value),b=state.result.models.find(r=>r.name===$('modelB').value),cls=state.result.task==='classification';
-    const rows=[['CV '+state.result.primary_metric,fmt(a.cv_mean,cls),fmt(b.cv_mean,cls)],['Final Test',fmt(a.test[cls?'f1':'rmse'],cls),fmt(b.test[cls?'f1':'rmse'],cls)],['CV std',fmt(a.cv_std,cls),fmt(b.cv_std,cls)],['Train / Test gap',fmt(a.generalization_gap),fmt(b.generalization_gap)],['Overfit heuristic',a.overfit_risk,b.overfit_risk],['Fit (ms)',fmt(a.fit_time_ms),fmt(b.fit_time_ms)],['Predict test (ms)',fmt(a.predict_time_ms),fmt(b.predict_time_ms)],['Model size (KiB)',fmt(a.model_size_bytes/1024),fmt(b.model_size_bytes/1024)]];
+    const exploratory=state.result.evaluation?.mode==='exploratory';
+    const rows=[[`${exploratory?'Exploratory Train':'CV'} ${state.result.primary_metric}`,fmt(exploratory?a.exploratory_score:a.cv_mean,cls),fmt(exploratory?b.exploratory_score:b.cv_mean,cls)],['Final Test',fmt(a.test?.[cls?'f1':'rmse'],cls),fmt(b.test?.[cls?'f1':'rmse'],cls)],['CV std',fmt(a.cv_std,cls),fmt(b.cv_std,cls)],['Train / Test gap',fmt(a.generalization_gap),fmt(b.generalization_gap)],['Overfit heuristic',a.overfit_risk,b.overfit_risk],['Fit (ms)',fmt(a.fit_time_ms),fmt(b.fit_time_ms)],['Predict test (ms)',fmt(a.predict_time_ms),fmt(b.predict_time_ms)],['Model size (KiB)',fmt(a.model_size_bytes/1024),fmt(b.model_size_bytes/1024)]];
     $('versus').innerHTML='<table>'+table(['Metric',a.name,b.name],rows)+'</table>';
   }
   $('modelA').onchange=renderVersus;$('modelB').onchange=renderVersus;$('detailModel').onchange=renderDetail;
   function renderDetail() {
     const r=state.result.models.find(m=>m.name===$('detailModel').value),cls=state.result.task==='classification';
     const values=[['CV mean ± std',`${fmt(r.cv_mean,cls)} ± ${fmt(r.cv_std,cls)}`],['Fit time',fmt(r.fit_time_ms)+' ms'],['Predict test',fmt(r.predict_time_ms)+' ms'],['Model size',fmt(r.model_size_bytes/1024)+' KiB']];
-    Object.entries(r.test).forEach(([key,value])=>values.push(['Test '+key,metric(value,key)]));
+    Object.entries(r.test || {}).forEach(([key,value])=>values.push(['Test '+key,metric(value,key)]));
     Object.entries(r.train).forEach(([key,value])=>values.push(['Train '+key,metric(value,key)]));
     $('modelDetail').innerHTML=`<h3>${esc(r.name)} · ${esc(r.algorithm_type)}</h3><p class="muted">Numeric: ${esc(r.preprocessing.numeric)} · Categorical: ${esc(r.preprocessing.categorical)} · Overfit heuristic: ${esc(r.overfit_risk)}</p><div class="detail-metrics">${values.map(([name,value])=>`<div><small>${esc(name)}</small><b>${esc(value)}</b></div>`).join('')}</div><details><summary>Hyperparameters & CV từng fold</summary><p class="hyperparameters">${esc(JSON.stringify(r.hyperparameters))}</p><p class="muted">Fold scores: ${r.cv_scores.map(v=>fmt(v,cls)).join(' · ')}</p></details>`;
+    if(!r.test || r.diagnostics_status==='FAILED_SAFE'){
+      $('diagnosticTitle').textContent='Đánh giá độc lập';$('secondaryTitle').textContent='Diagnostics';
+      ['diagnosticChart','secondaryChart','prChart','importanceChart'].forEach(id=>empty(id,'Không có test diagnostics cho cấu hình này.'));
+      $('classReport').hidden=true;$('prPanel').hidden=true;
+      $('errorAnalysis').textContent=state.result.evaluation?.mode==='exploratory'?'Exploratory: Train metrics là train-resubstitution, không phải validation hoặc test performance.':'Không tạo test set riêng; hãy xem CV score và độ bất định.';
+      return;
+    }
     if(cls){
       $('diagnosticTitle').textContent='Confusion matrix · Actual ↓ / Predicted →';
       const {labels,matrix}=r.confusion,max=Math.max(1,...matrix.flat());
@@ -269,12 +295,15 @@
   function reportCSV(result) {
     const classification = result.task === 'classification';
     const headers = classification ? ['Rank','Model','CV F1 Macro','CV Std','Test F1 Macro','Accuracy','Precision Macro','Recall Macro','ROC-AUC','Train F1','Fit Time (ms)','Predict Time (ms)','Model Size (bytes)','Overfit Risk','Recommended'] : ['Rank','Model','CV RMSE','CV Std','Test RMSE','MAE','R2','Train R2','Fit Time (ms)','Predict Time (ms)','Model Size (bytes)','Overfit Risk','Recommended'];
+    headers.push('Evaluation Mode','Selection Source','Usable Rows','Class Count','Folds','Exploratory Train Metric','Status','Skip Reason');
     const cell = value => {
       let text = value == null ? '' : String(value);
       if (typeof value === 'string' && /^[\s\uFEFF]*[=+\-@]/.test(text)) text = "'" + text;
       return '"' + text.replace(/"/g,'""') + '"';
     };
-    const rows = result.models.map(r => [r.rank,r.name,r.cv_mean,r.cv_std,...(classification ? [r.test.f1,r.test.accuracy,r.test.precision,r.test.recall,r.test.roc_auc,r.train.f1] : [r.test.rmse,r.test.mae,r.test.r2,r.train.r2]),r.fit_time_ms,r.predict_time_ms,r.model_size_bytes,r.overfit_risk,r.name === result.recommended ? 'Yes' : 'No']);
+    const rows = result.models.map(r => [r.rank,r.name,r.cv_mean,r.cv_std,...(classification ? [r.test?.f1,r.test?.accuracy,r.test?.precision,r.test?.recall,r.test?.roc_auc,r.train.f1] : [r.test?.rmse,r.test?.mae,r.test?.r2,r.train.r2]),r.fit_time_ms,r.predict_time_ms,r.model_size_bytes,r.overfit_risk,r.name === result.recommended ? 'Yes' : 'No']);
+    rows.forEach((row,i)=>row.push(result.evaluation?.label || 'Normal Holdout + CV',result.selection_source,result.evaluation?.usable_rows ?? result.summary.rows,result.evaluation?.class_count,result.methodology.folds,result.models[i].exploratory_score,result.models[i].status || 'SUCCESS',''));
+    (result.skipped || []).forEach(item=>{const row=Array(headers.length).fill('');row[1]=item.name;row[headers.indexOf('Status')]=item.status;row[headers.indexOf('Skip Reason')]=item.reason;rows.push(row);});
     return '\uFEFF' + [headers,...rows].map(row=>row.map(cell).join(',')).join('\r\n') + '\r\n';
   }
   $('downloadCSV').onclick = () => {

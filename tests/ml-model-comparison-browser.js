@@ -21,7 +21,7 @@
   assert(!$('qualityPanel').hidden&&$('preview').tBodies[0].rows.length===12,'CSV preview bounded');
   assert($('qualityCards').children.length===6,'data quality cards');
   assert($('target').value==='','target never auto selected');
-  change('target','customer_id');assert(!$('error').hidden&&$('toConfig').disabled,'ID target rejected');
+  change('target','customer_id');assert(!$('toConfig').disabled&&$('targetInfo').textContent.includes('ID/ngày'),'ID target allowed with explicit warning');
   change('target','target');await wait(()=>$('toConfig').disabled===false);await new Promise(r=>setTimeout(r,150));
   assert($('targetInfo').textContent.includes('Classification'),'task detection');$('toConfig').click();
   assert(!$('configPanel').hidden,'wizard configuration');
@@ -76,6 +76,55 @@
   assert($('error').hidden&&MLComparison.state.result.methodology.folds===3,'small dataset still uses three CV folds');
   assert(MLComparison.state.result.models[0].test.r2<0&&!$('modelQualityWarning').hidden&&$('modelQualityWarning').textContent.includes('Chất lượng mô hình thấp'),'negative R2 prominent warning from real backend');
   assert(MLComparison.state.result.selection_source==='train_cv','quality warning preserves train CV recommendation');noOverflow();
+  const standardResult=MLComparison.state.result;
+  for(const [name,payload] of [['tiny regression',__mlFixtures.tinyRegression],['tiny classification',__mlFixtures.tinyClassification],['semicolon CSV',__mlFixtures.semicolon],['exploratory',__mlFixtures.exploratory]]){
+    await upload(payload.csv);change('target',payload.target);await new Promise(r=>setTimeout(r,250));$('toConfig').click();
+    document.querySelector(`input[name=task][value=${payload.task}]`).click();
+    if(!$('leakageAckLabel').hidden&&!$('leakageAck').checked)$('leakageAck').click();
+    $('run').click();assert(!$('loading').hidden&&$('run').disabled,name+' button responds');await wait(()=>!MLComparison.state.busy);
+    assert($('error').hidden&&MLComparison.state.result.models.length>0,name+' result rendered');
+    assert($('evaluationCard').textContent.includes('Chế độ đánh giá'),name+' evaluation mode visible');
+    if(name.startsWith('tiny')){
+      assert(MLComparison.state.result.selection_source==='cv_only'&&MLComparison.state.result.models.every(r=>r.test===null),name+' no fake test score');
+      assert($('evaluationMeta').textContent.includes('không có test set riêng'),name+' no holdout label');
+      assert($('diagnosticChart').textContent.includes('Không có test'),name+' diagnostics absent honestly');
+    }
+    if(name==='semicolon CSV')assert(MLComparison.state.result.summary.audit.delimiter===';'&&$('cleaningSummary').textContent.includes('decimal comma'),'semicolon numeric locale recognized');
+    if(name==='exploratory'){
+      assert(MLComparison.state.result.recommended===null&&$('recommendation').textContent.includes('TRONG THỬ NGHIỆM NÀY'),'exploratory not strong recommendation');
+      assert($('evaluationMeta').textContent.includes('không có đánh giá độc lập'),'exploratory independence label');
+    }
+    const exported=await download('downloadCSV','ml-model-comparison-report.csv');
+    assert(exported.includes('Evaluation Mode')&&exported.includes('Selection Source'),name+' CSV evaluation metadata');
+    const report=JSON.parse(await download('download','ml-model-comparison-report.json'));
+    assert(report.evaluation.mode===MLComparison.state.result.evaluation.mode,name+' JSON evaluation metadata');
+    change('detailModel',MLComparison.state.result.models.at(-1).name);change('modelA',MLComparison.state.result.models.at(-1).name);noOverflow();
+  }
+  MLComparison.state.result=standardResult;MLComparison.renderResults(standardResult);
+  for(const [name,payload] of [['dirty',__mlFixtures.dirty],['large classification',__mlFixtures.largeClassification],['large regression',__mlFixtures.largeRegression]]){
+    if(!payload)continue;
+    await upload(payload.csv);change('target',payload.target);await new Promise(r=>setTimeout(r,350));$('toConfig').click();
+    document.querySelector(`input[name=task][value=${payload.task}]`).click();
+    $('run').click();$('run').click();assert(MLComparison.state.busy&&$('run').disabled,name+' duplicate guard');
+    if(name.startsWith('large'))assert($('loading').textContent.includes('Dữ liệu lớn'),name+' loading explanation');
+    await wait(()=>!MLComparison.state.busy);assert($('error').hidden&&MLComparison.state.result.models.length>0,name+' real result');
+    assert(!MLComparison.state.result.methodology.selected_features.includes(payload.target),name+' target excluded');
+    if(name.startsWith('large')){
+      assert(MLComparison.state.result.skipped.length>0&&!$('skipped').hidden,name+' partial reasons');
+      const csv=await download('downloadCSV','ml-model-comparison-report.csv');assert(csv.includes('SKIPPED_TIME_BUDGET')&&csv.includes('Skip Reason'),name+' partial CSV');
+    }
+    noOverflow();
+  }
+  await upload(__mlFixtures.gender.csv);change('target','gender');await new Promise(r=>setTimeout(r,350));$('toConfig').click();
+  document.querySelector('input[name=task][value=classification]').click();
+  const outcome=[...document.querySelectorAll('#features input')].find(c=>c.value==='outcome');outcome.checked=true;outcome.dispatchEvent(new Event('change',{bubbles:true}));
+  assert(!$('leakage').hidden&&!$('excludeLeakage').hidden,'structured leakage choices visible');
+  $('excludeLeakage').click();await wait(()=>!MLComparison.state.busy);assert($('error').hidden&&!MLComparison.state.result.methodology.selected_features.includes('outcome'),'exclude + continue no 422 loop');
+  outcome.checked=true;outcome.dispatchEvent(new Event('change',{bubbles:true}));$('leakageAck').click();$('run').click();await wait(()=>!MLComparison.state.busy);
+  assert($('error').hidden&&MLComparison.state.result.methodology.selected_features.includes('outcome'),'confirm + continue heuristic');
+  change('target','date_of_outcome');await new Promise(r=>setTimeout(r,350));assert($('targetInfo').textContent.includes('số ngày giữa hai mốc'),'date target explanation');$('toConfig').click();
+  document.querySelector('input[name=task][value=classification]').click();$('run').click();await wait(()=>!MLComparison.state.busy);assert(!$('error').hidden&&$('error').textContent.includes('ngày tháng'),'date validation specific');noOverflow();
+  MLComparison.state.result=standardResult;MLComparison.renderResults(standardResult);
   // Save the real result only for responsive screenshot replay after error recovery.
   const result=MLComparison.state.result;
   const originalFetch=window.fetch;window.fetch=async()=>new Response(JSON.stringify({error:'CSV quá lớn'}),{status:413,headers:{'Content-Type':'application/json'}});
