@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "api/ml-compare.py": {
+      "maxDuration": 60,
+      "excludeFiles": "{data/**,assets/**,docs/**,tests/**,scripts/**,supabase/**,.local-deps/**,*.html,*.css,*.js,*-model.json,requirements-*.txt,train-health-model.py}"
+    }
+  }
+}

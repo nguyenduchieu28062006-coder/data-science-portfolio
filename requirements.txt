@@ -1,0 +1,7 @@
+# Runtime dependencies for api/ml-compare.py only (Python 3.12).
+numpy==1.26.4
+scipy==1.17.1
+scikit-learn==1.8.0
+joblib==1.5.3
+threadpoolctl==3.6.0
+openpyxl==3.1.5

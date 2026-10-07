@@ -4,3 +4,8 @@ __pycache__/
 data/verified-vietnam-house-sales.parquet
 *.parquet
 docs/verified-vietnam-house-quality-sample.json
+
+.vercel
+.env*
+
+_uv/
