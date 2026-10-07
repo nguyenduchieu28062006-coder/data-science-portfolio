@@ -81,7 +81,7 @@
             const candidates = headers.map((header, index) => aliases.map(headerKey).includes(headerKey(header)) ? index : -1).filter(index => index >= 0);
             mapping[key] = candidates.length === 1 ? candidates[0] : -1;
             // Prefer the real product identifier over a description when both exist.
-            if (key === 'product' && candidates.length > 1) mapping[key] = candidates.find(index => ['stockcode', 'sku', 'productid'].includes(headerKey(headers[index]))) ?? -1;
+            if (key === 'product' && candidates.length > 1) mapping[key] = candidates.find(index => ['stockcode', 'sku', 'productid', 'product'].includes(headerKey(headers[index]))) ?? -1;
         }
         return mapping;
     }
@@ -99,9 +99,11 @@
 
     function parseDate(value, format = 'ISO') {
         const text = String(value ?? '').trim();
-        const pattern = format === 'ISO' ? /^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,3}))?)?(Z|[+-]\d{2}:\d{2})?)?$/ : /^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:[T ](\d{1,2}):(\d{2})(?::(\d{2}))?)?$/;
+        const pattern = format === 'ISO' ? /^(\d{4})[-/](\d{2})[-/](\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,3}))?)?(Z|[+-]\d{2}:\d{2})?)?$/ : /^(\d{1,2})[-/](\d{1,2})[-/](\d{4})(?:[T ](\d{1,2}):(\d{2})(?::(\d{2}))?)?$/;
         const match = text.match(pattern);
         if (!match) return NaN;
+        const datePart = text.split(/[T ]/)[0];
+        if (datePart.includes('/') && datePart.includes('-')) return NaN;
         const year = Number(match[format === 'ISO' ? 1 : 3]);
         const month = Number(match[format === 'ISO' ? 2 : format === 'DMY' ? 2 : 1]);
         const day = Number(match[format === 'ISO' ? 3 : format === 'DMY' ? 1 : 2]);
@@ -119,6 +121,52 @@
         return timestamp;
     }
 
+    const FORMAT_SAMPLE = Object.freeze({ rows: 200, values: 20 });
+    function detectFormats(parsed, mapping) {
+        // One bounded pass; invalid cells do not vote for a format. Integers are
+        // neutral because both number conventions produce the same value.
+        let dates = ['ISO', 'DMY', 'MDY'], numbers = ['dot', 'comma'];
+        let dateSamples = 0, numberSamples = 0, differentNumbers = false, scannedRows = 0;
+        for (const row of parsed.rows.slice(0, FORMAT_SAMPLE.rows)) {
+            scannedRows++;
+            if (row.length !== parsed.headers.length) continue;
+            if (dateSamples < FORMAT_SAMPLE.values && mapping.date >= 0) {
+                const candidates = ['ISO', 'DMY', 'MDY'].filter(format => Number.isFinite(parseDate(row[mapping.date], format)));
+                if (candidates.length) { dateSamples++; dates = dates.filter(format => candidates.includes(format)); }
+            }
+            for (const key of ['quantity', 'value']) if (numberSamples < FORMAT_SAMPLE.values && mapping[key] >= 0) {
+                const value = row[mapping[key]], dot = parseNumber(value, 'dot'), comma = parseNumber(value, 'comma');
+                const candidates = ['dot', 'comma'].filter(format => Number.isFinite(format === 'dot' ? dot : comma));
+                if (candidates.length) {
+                    numberSamples++; numbers = numbers.filter(format => candidates.includes(format));
+                    differentNumbers ||= Number.isFinite(dot) && Number.isFinite(comma) && dot !== comma;
+                }
+            }
+            if (dateSamples >= FORMAT_SAMPLE.values && numberSamples >= FORMAT_SAMPLE.values) break;
+        }
+        return {
+            date: { format: dateSamples && dates.length === 1 ? dates[0] : null, candidates: dates, samples: dateSamples },
+            number: { format: numberSamples && numbers.length === 1 ? numbers[0] : numberSamples && numbers.length === 2 && !differentNumbers ? 'dot' : null,
+                candidates: numbers, samples: numberSamples, integersOnly: numbers.length === 2 && !differentNumbers },
+            scannedRows,
+        };
+    }
+
+    function resolveFormats(parsed, mapping, options) {
+        const detected = detectFormats(parsed, mapping);
+        const dateMode = options.dateFormat ?? 'auto', numberMode = options.numberFormat ?? 'auto';
+        const dateFormat = dateMode === 'auto' ? detected.date.format : dateMode;
+        const numberFormat = numberMode === 'auto' ? detected.number.format : numberMode;
+        const errors = [];
+        if (!dateFormat) errors.push(detected.date.samples && !detected.date.candidates.length
+            ? 'Các định dạng ngày trong mẫu không thống nhất. Vui lòng chọn định dạng ngày hoặc chuẩn hóa tệp.'
+            : 'Không thể xác định chắc chắn định dạng ngày. Vui lòng chọn DMY hoặc MDY. Nếu tệp dùng năm/tháng/ngày, chọn ISO.');
+        if (!numberFormat) errors.push(detected.number.samples && !detected.number.candidates.length
+            ? 'Các định dạng số trong mẫu không thống nhất. Vui lòng chọn định dạng số hoặc chuẩn hóa tệp.'
+            : 'Không thể xác định chắc chắn định dạng số. Vui lòng chọn dấu chấm hoặc dấu phẩy thập phân.');
+        return { dateMode, numberMode, dateFormat, numberFormat, detected, errors };
+    }
+
     function validateMapping(parsed, mapping) {
         const indices = [];
         for (const [key, label, required] of fields) {
@@ -132,10 +180,13 @@
 
     async function prepareTransactions(parsed, mapping, options = {}, signal) {
         validateMapping(parsed, mapping);
-        const config = { valueKind: 'unit_price', currency: 'GBP', dateFormat: 'ISO', numberFormat: 'dot', profile: 'generic', ...options };
-        if (!['unit_price', 'line_total'].includes(config.valueKind) || !['GBP', 'VND'].includes(config.currency) || !['ISO', 'DMY', 'MDY'].includes(config.dateFormat) || !['dot', 'comma'].includes(config.numberFormat) || !['generic', 'uci'].includes(config.profile)) throw Error('Cấu hình tệp không hợp lệ.');
+        const config = { valueKind: 'unit_price', currency: 'GBP', dateFormat: 'auto', numberFormat: 'auto', profile: 'generic', ...options };
+        if (!['unit_price', 'line_total'].includes(config.valueKind) || !['GBP', 'VND'].includes(config.currency) || !['auto', 'ISO', 'DMY', 'MDY'].includes(config.dateFormat) || !['auto', 'dot', 'comma'].includes(config.numberFormat) || !['generic', 'uci'].includes(config.profile)) throw Error('Cấu hình tệp không hợp lệ.');
         const rate = config.currency === 'GBP' ? 1 : Number(config.exchangeRate);
         if (!Number.isFinite(rate) || rate <= 0) throw Error('Vui lòng nhập tỷ giá VND cho 1 GBP hợp lệ.');
+        const formats = resolveFormats(parsed, mapping, config);
+        if (formats.errors.length) throw Error(formats.errors.join(' '));
+        Object.assign(config, formats);
         const transactions = [], customers = new Set(), seen = new Set(), ignored = {};
         const descriptionIndex = config.profile === 'uci' ? parsed.headers.findIndex(header => headerKey(header) === 'description') : -1;
         const skip = reason => { ignored[reason] = (ignored[reason] || 0) + 1; };
@@ -173,8 +224,14 @@
             }
             if (i % 1000 === 0) { checkAbort(signal); await pause(); }
         }
-        if (!transactions.length) throw Error('Không có giao dịch hợp lệ. Kiểm tra ngày, số, quốc gia và cấu hình dòng sản phẩm.');
-        return { transactions, customers: [...customers], maxDate, config, audit: { totalRows: parsed.rows.length, validRows: transactions.length, ignoredRows: parsed.rows.length - transactions.length, blankRows: parsed.blankRows, invalidRatings, ignored } };
+        const audit = { totalRows: parsed.rows.length, inputRows: parsed.rows.length + parsed.blankRows, validRows: transactions.length, ignoredRows: parsed.rows.length - transactions.length, blankRows: parsed.blankRows, invalidRatings, ignored };
+        if (!transactions.length) {
+            const reasons = Object.entries(ignored).map(([reason, count]) => `${reason}: ${count}`).join('; ');
+            const error = Error('Không có đủ giao dịch hợp lệ để phân tích. ' + reasons + '. Kiểm tra ánh xạ cột và định dạng ngày/số.');
+            error.audit = audit;
+            throw error;
+        }
+        return { transactions, customers: [...customers], maxDate, config, audit };
     }
 
     async function analyze(prepared, model, snapshot = prepared.maxDate, signal, progress) {
@@ -234,7 +291,7 @@
 
     function actionPlan(result) {
         const s = result.summary;
-        const mode = s.eligible === 0 ? 'empty' : s.nonReturnCount > s.returnCount ? 'retention' : s.returnRatio > .55 ? 'growth' : 'balanced';
+        const mode = s.eligible === 0 ? 'empty' : s.returnRatio < .45 ? 'retention' : s.returnRatio > .55 ? 'growth' : 'balanced';
         const eligible = result.records.filter(r => r.probability !== null);
         const old = eligible.filter(r => r.features.recency_days >= 60).length;
         const infrequent = eligible.filter(r => r.features.orders_90d <= 1).length;
@@ -256,7 +313,7 @@
         return '\uFEFF' + [columns, ...rows].map(row => row.map(csvCell).join(',')).join('\r\n');
     }
     const sampleCSV = () => 'customer_id,order_id,order_date,quantity,unit_price,country,product,rating,feedback\r\nDEMO01,O01,2026-01-01,1,20,Vietnam,SKU01,5,"Giao hàng đúng hẹn"\r\nDEMO01,O02,2026-09-20,2,20,Vietnam,SKU02,4,""\r\nDEMO02,O03,2026-02-01,1,12,United Kingdom,SKU03,2,"Cần hỗ trợ sau mua"\r\nDEMO03,O04,2026-10-01,1,15,VN,SKU04,,""\r\n';
-    globalThis.CustomerReturnBatch = Object.freeze({ LIMITS, fields, parseCSV, detectColumns, parseDate, parseNumber, prepareTransactions, analyze, actionPlan, exportCSV, sampleCSV });
+    globalThis.CustomerReturnBatch = Object.freeze({ LIMITS, FORMAT_SAMPLE, fields, parseCSV, detectColumns, detectFormats, resolveFormats, parseDate, parseNumber, prepareTransactions, analyze, actionPlan, exportCSV, sampleCSV });
 
     if (typeof document !== 'undefined') initializeUI();
 
@@ -278,6 +335,25 @@
         const cancel = () => { revision++; controller?.abort(); controller = null; $('customerBatchAnalyze').disabled = false; };
         function config() { return { valueKind: $('customerValueKind').value, currency: $('customerCurrency').value, exchangeRate: $('customerExchangeRate').value, dateFormat: $('customerDateFormat').value, numberFormat: $('customerNumberFormat').value, profile: $('customerSourceProfile').value }; }
         function mapping() { return Object.fromEntries(fields.map(([key]) => [key, Number($('customerMap-' + key).value)])); }
+        const dateLabels = { ISO: 'YYYY-MM-DD / YYYY/MM/DD', DMY: 'DD/MM/YYYY / DD-MM-YYYY', MDY: 'MM/DD/YYYY / MM-DD-YYYY' };
+        const numberLabels = { dot: '1,234.56', comma: '1.234,56' };
+        function formatDescriptions(formats) {
+            return [
+                formats.dateMode === 'auto' ? `✓ Đã nhận dạng ngày: ${dateLabels[formats.dateFormat]}` : `Định dạng ngày: ${dateLabels[formats.dateFormat]} (do người dùng chọn)`,
+                formats.numberMode !== 'auto' ? `Định dạng số: ${numberLabels[formats.numberFormat]} (do người dùng chọn)` : formats.detected.number.integersOnly ? '✓ Đã nhận dạng số: số nguyên, không có dấu phân cách mơ hồ' : `✓ Đã nhận dạng số: ${numberLabels[formats.numberFormat]}`,
+            ];
+        }
+        function refreshFormats() {
+            if (!parsed) return null;
+            try { validateMapping(parsed, mapping()); }
+            catch { $('customerDateDetection').textContent = 'Kiểm tra ánh xạ các cột bắt buộc để nhận dạng ngày.'; $('customerNumberDetection').textContent = 'Kiểm tra ánh xạ các cột bắt buộc để nhận dạng số.'; return null; }
+            const formats = resolveFormats(parsed, mapping(), config()), descriptions = formatDescriptions(formats);
+            $('customerDateDetection').textContent = formats.dateFormat ? descriptions[0] : formats.errors.find(e => e.includes('ngày'));
+            $('customerNumberDetection').textContent = formats.numberFormat ? descriptions[1] : formats.errors.find(e => e.includes('số'));
+            $('customerBatchAnalyze').disabled = formats.errors.length > 0;
+            if (formats.errors.length) { $('customerBatchStatus').textContent = 'Cần chọn định dạng ngày/số trước khi phân tích.'; return null; }
+            return formats;
+        }
         function renderMapping() {
             const detected = detectColumns(parsed.headers);
             $('customerColumnMapping').replaceChildren();
@@ -292,7 +368,7 @@
             $('customerSourceProfile').value = parsed.headers.some(h => headerKey(h) === 'stockcode') && parsed.headers.some(h => headerKey(h) === 'invoiceno') ? 'uci' : 'generic';
         }
         async function updateDefaultSnapshot() {
-            if (!parsed || !defaultSnapshot) return;
+            if (!parsed || !refreshFormats() || !defaultSnapshot) return;
             const version = revision;
             controller ??= new AbortController();
             try {
@@ -331,8 +407,9 @@
             if (e.target.id === 'customerSnapshot') defaultSnapshot = false;
             $('customerExchangeField').hidden = $('customerCurrency').value !== 'VND';
             if (e.target.id !== 'customerSnapshot' && e.target.id !== 'customerPurchaseConfirm') updateDefaultSnapshot();
+            else refreshFormats();
         });
-        $('customerBatchClear').addEventListener('click', () => { cancel(); clearResult(); parsed = null; $('customerCsvFile').value = ''; $('customerBatchForm').hidden = true; $('customerColumnMapping').replaceChildren(); message(''); $('customerBatchStatus').textContent = 'Đã xóa tệp và kết quả khỏi phiên phân tích.'; });
+        $('customerBatchClear').addEventListener('click', () => { cancel(); clearResult(); parsed = null; $('customerCsvFile').value = ''; $('customerBatchForm').hidden = true; $('customerColumnMapping').replaceChildren(); $('customerDateDetection').textContent = ''; $('customerNumberDetection').textContent = ''; message(''); $('customerBatchStatus').textContent = 'Đã xóa tệp và kết quả khỏi phiên phân tích.'; });
         $('customerBatchForm').addEventListener('submit', async e => {
             e.preventDefault(); cancel(); clearResult(); message('');
             if (!parsed) return;
@@ -351,12 +428,35 @@
                 result = nextResult;
                 renderDashboard(); $('customerBatchStatus').textContent = 'Đã hoàn tất phân tích trên thiết bị.';
             } catch (error) { if (version === revision && error.name !== 'AbortError') { clearResult(); message(error.message); $('customerBatchStatus').textContent = 'Chưa thể phân tích. Kiểm tra các cột và cấu hình.'; } }
-            finally { if (version === revision) $('customerBatchAnalyze').disabled = false; }
+            finally { if (version === revision) { $('customerBatchAnalyze').disabled = false; refreshFormats(); } }
         });
+
+        function renderCleaningSummary() {
+            const a = result.audit, reasons = a.ignored;
+            const count = key => reasons[key] || 0;
+            const counts = [
+                ['input', 'Tổng dòng trong tệp (không tính header)', a.inputRows], ['valid', 'Dòng hợp lệ', a.validRows],
+                ['blank', 'Dòng trống', a.blankRows], ['duplicate', 'Dòng trùng', count('Dòng trùng chính xác')],
+                ['date', 'Ngày không hợp lệ', count('Ngày không hợp lệ')],
+                ['number', 'Số lượng / giá không hợp lệ', count('Số lượng / giá trị không dương hoặc không hợp lệ') + count('Không thể tính tiền sản phẩm')],
+                ['cancelled', 'Đơn hủy / hoàn tiền', count('Đơn hủy / hoàn tiền')],
+                ['id', 'Mã khách / mã đơn không hợp lệ', count('Thiếu hoặc mã khách/đơn quá dài')],
+                ['country', 'Quốc gia không hợp lệ', count('Quốc gia không hợp lệ')],
+                ['shape', 'Số ô không khớp header', count('Số ô không khớp header')],
+                ['product', 'StockCode không phải sản phẩm UCI', count('StockCode không phải sản phẩm UCI')],
+                ['rating', 'Đánh giá không hợp lệ (không bỏ giao dịch)', a.invalidRatings], ['ignored', 'Dòng bị bỏ (không gồm dòng trống)', a.ignoredRows],
+                ['eligible', 'Khách đủ dữ liệu', result.summary.eligible], ['insufficient', 'Khách không đủ dữ liệu', result.summary.insufficient],
+            ];
+            $('customerCleaningCounts').replaceChildren(...counts.map(([key, label, value]) => { const row = node('div'); row.dataset.cleaning = key; row.append(node('dt', label), node('dd', value.toLocaleString('vi-VN'))); return row; }));
+            $('customerCleaningFormats').textContent = formatDescriptions(result.config).join(' · ');
+            $('customerCleaningReconciliation').textContent = `Đối soát: ${a.inputRows} dòng = ${a.validRows} hợp lệ + ${a.ignoredRows} bị bỏ + ${a.blankRows} trống. Mỗi dòng bị bỏ chỉ có một lý do đầu tiên; đánh giá lỗi không cộng vào dòng bị bỏ. Dòng CSV nhiều dòng trong dấu ngoặc kép được tính là một bản ghi.`;
+            $('customerCleaningWarning').hidden = !(a.totalRows && a.ignoredRows / a.totalRows > .2);
+        }
 
         function renderDashboard() {
             const s = result.summary;
             $('customerBatchDashboard').hidden = false;
+            renderCleaningSummary();
             const explanations = Object.entries(result.audit.ignored).map(([reason, count]) => `${reason}: ${count}`).join('; ');
             $('customerBatchAudit').textContent = `${result.audit.validRows} dòng hợp lệ; ${result.audit.ignoredRows} dòng bỏ qua; ${result.audit.blankRows} dòng trống. ${result.audit.beforeRows} dòng trước mốc; ${result.audit.atOrAfterSnapshot} dòng tại/sau mốc không vào feature. ${s.insufficient} khách không đủ dữ liệu; ${s.domainWarnings} khách có cảnh báo ngoài phạm vi train.${explanations ? ' Lý do bỏ qua: ' + explanations + '.' : ''}`;
             const kpis = [['Tổng số khách hàng', s.total], ['Khách đủ dữ liệu dự đoán', s.eligible], ['Dự đoán quay lại', s.returnCount], ['Nguy cơ không quay lại', s.nonReturnCount], ['Xác suất quay lại trung bình', s.averageProbability === null ? '—' : (s.averageProbability * 100).toFixed(1) + '%']];

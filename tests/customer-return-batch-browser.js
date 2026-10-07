@@ -15,11 +15,87 @@
         assert(p.probability === CustomerReturnModel.predict(model, { ...high, country: '__UNKNOWN__' }).probability, 'Vietnam all-zero parity ' + country);
     }
     assert([...$('customer-country').options].some(o => o.value === 'Vietnam' && o.textContent === 'Việt Nam'), 'visible Vietnam option');
+    assert(document.querySelector('label[for="customer-products"]').textContent === 'Số loại sản phẩm khác nhau đã mua trong 90 ngày' && $('customer-products-help').textContent.includes('Số mã/loại sản phẩm riêng biệt đã mua, không phải tổng số lượng sản phẩm.'), 'distinct product label and quantity distinction');
     document.querySelector('[data-customer-sample="high"]').click(); $('customer-country').value = 'Vietnam'; $('customerForm').requestSubmit();
     assert(CustomerReturnPage.getResult() && !$('customerDomainWarning').hidden, 'Vietnam single form predicts with disclosure');
     $('customerBatchTab').focus(); $('customerBatchTab').dispatchEvent(new KeyboardEvent('keydown', { key: 'End', bubbles: true }));
     assert($('customerSinglePanel').hidden && !$('customerBatchPanel').hidden && $('customerBatchTab').getAttribute('aria-selected') === 'true', 'keyboard mode switch');
     assert($('customerBatchDashboard').hidden && $('customerBatchForm').hidden, 'batch empty state');
+    assert($('customerDateFormat').value === 'auto' && $('customerNumberFormat').value === 'auto', 'automatic format defaults');
+    const formatCSV = async (date, price) => B.parseCSV(`customer_id;order_id;order_date;quantity;unit_price;country;product\nVN;O1;${date};2;${price};Vietnam;SKU1`);
+    for (const [date, expected] of [['2026-09-15', 'ISO'], ['2026/09/15', 'ISO'], ['15/09/2026', 'DMY'], ['15-09-2026', 'DMY'], ['09/15/2026', 'MDY'], ['09-15-2026', 'MDY']]) {
+        const file = await formatCSV(date, '1234.56'), prepared = await B.prepareTransactions(file, B.detectColumns(file.headers));
+        assert(prepared.config.dateFormat === expected && prepared.transactions[0].date === Date.UTC(2026, 8, 15), 'auto date format ' + date);
+    }
+    for (const [price, expected] of [['1234.56', 'dot'], ['1,234.56', 'dot'], ['1234,56', 'comma'], ['1.234,56', 'comma']]) {
+        const file = await formatCSV('2026-09-15', price), prepared = await B.prepareTransactions(file, B.detectColumns(file.headers));
+        assert(prepared.config.numberFormat === expected && prepared.transactions[0].amount === 2469.12, 'auto decimal/thousands ' + price);
+    }
+    const ambiguousDate = await formatCSV('05/06/2026', '10.50'), dateMapping = B.detectColumns(ambiguousDate.headers);
+    await fails(() => B.prepareTransactions(ambiguousDate, dateMapping), 'Không thể xác định chắc chắn định dạng ngày');
+    for (const [format, timestamp] of [['DMY', Date.UTC(2026, 5, 5)], ['MDY', Date.UTC(2026, 4, 6)]]) {
+        const prepared = await B.prepareTransactions(ambiguousDate, dateMapping, { dateFormat: format });
+        assert(prepared.transactions[0].date === timestamp && prepared.config.dateMode === format, 'manual date override ' + format);
+    }
+    const ambiguousNumber = await formatCSV('2026-09-15', '1,234'), numberMapping = B.detectColumns(ambiguousNumber.headers);
+    await fails(() => B.prepareTransactions(ambiguousNumber, numberMapping), 'Không thể xác định chắc chắn định dạng số');
+    for (const [format, amount] of [['dot', 2468], ['comma', 2.468]]) {
+        const prepared = await B.prepareTransactions(ambiguousNumber, numberMapping, { numberFormat: format });
+        assert(prepared.transactions[0].amount === amount && prepared.config.numberMode === format, 'manual number override ' + format);
+    }
+    const mixed = await B.parseCSV('customer_id;order_id;order_date;quantity;unit_price;country;product\nA;O1;31/12/2026;1;1;VN;S1\nA;O2;12/31/2026;1;1;VN;S1');
+    await fails(() => B.prepareTransactions(mixed, B.detectColumns(mixed.headers)), 'không thống nhất');
+    const mixedNumbers = await B.parseCSV('customer_id;order_id;order_date;quantity;unit_price;country;product\nA;O1;2026-09-15;1;1.234,56;VN;S1\nA;O2;2026-09-16;1;1,234.56;VN;S1');
+    await fails(() => B.prepareTransactions(mixedNumbers, B.detectColumns(mixedNumbers.headers)), 'không thống nhất');
+    const bounded = B.detectFormats({ ...mixed, rows: Array(1000).fill(mixed.rows[0]) }, B.detectColumns(mixed.headers));
+    assert(bounded.scannedRows <= B.FORMAT_SAMPLE.rows && bounded.date.samples <= 20 && bounded.number.samples <= 20, 'bounded detection sample');
+    const dirtyHeaders = ['customer_id', 'order_id', 'order_date', 'quantity', 'unit_price', 'country', 'product', 'rating', 'feedback', 'order_status', 'description'];
+    const validDirty = ['khách-VN', 'V1', '31/08/2026', '2', '1.234,56', 'Việt Nam', 'SKU1', '9', '', '', ''];
+    const dirtyRow = (id, changes) => { const row = validDirty.slice(); row[0] = id; row[1] = 'O-' + id; for (const [key, value] of Object.entries(changes)) row[dirtyHeaders.indexOf(key)] = value; return row.join(';'); };
+    const dirtyCSV = [dirtyHeaders.map(h => ' ' + h + ' ').join(';'), validDirty.join(';'), '', [...validDirty.slice(0, 10), 'description changed'].join(';'),
+        dirtyRow('khách-VN', { order_id: 'V2', order_date: '14-09-2026', quantity: '1', unit_price: '10,50', product: 'SKU2', rating: '', country: 'VN' }),
+        dirtyRow('bad-date', { order_date: '31/02/2026' }), dirtyRow('bad-qty', { quantity: 'oops' }), dirtyRow('bad-price', { unit_price: '0' }),
+        dirtyRow('cancel', { order_status: 'cancelled' }), dirtyRow('refund', { order_status: 'refunded' }), dirtyRow('', { order_id: '' }),
+        dirtyRow('x'.repeat(201), {}), dirtyRow('no-country', { country: '' }), 'broken;shape',
+    ].join('\n') + '\n';
+    const dirtyParsed = await B.parseCSV(dirtyCSV), dirtyMapping = B.detectColumns(dirtyParsed.headers);
+    assert(dirtyMapping.product === 6, 'product ID preferred over optional description');
+    const dirtyPrepared = await B.prepareTransactions(dirtyParsed, dirtyMapping), dirtyResult = await B.analyze(dirtyPrepared, model, B.parseDate('2026-09-15')), audit = dirtyPrepared.audit;
+    assert(audit.inputRows === 13 && audit.totalRows === 12 && audit.validRows === 2 && audit.ignoredRows === 10 && audit.blankRows === 1 && audit.invalidRatings === 1, 'dirty fixture cleaning counts');
+    assert(audit.inputRows === audit.validRows + audit.ignoredRows + audit.blankRows && Object.values(audit.ignored).reduce((x, y) => x + y, 0) === audit.ignoredRows, 'input reconciliation and no double-counted rejection');
+    for (const [reason, count] of Object.entries({ 'Dòng trùng chính xác': 1, 'Ngày không hợp lệ': 1, 'Số lượng / giá trị không dương hoặc không hợp lệ': 2, 'Đơn hủy / hoàn tiền': 2, 'Thiếu hoặc mã khách/đơn quá dài': 2, 'Quốc gia không hợp lệ': 1, 'Số ô không khớp header': 1 })) assert(audit.ignored[reason] === count, 'first-failure reason ' + reason);
+    const clean = await B.parseCSV('customer_id,order_id,order_date,quantity,unit_price,country,product\nkhách-VN,V1,2026-08-31,2,1234.56,Việt Nam,SKU1\nkhách-VN,V2,2026-09-14,1,10.50,VN,SKU2');
+    const cleanResult = await B.analyze(await B.prepareTransactions(clean, B.detectColumns(clean.headers)), model, B.parseDate('2026-09-15'));
+    const dirtyCustomer = dirtyResult.records.find(r => r.customer_id === 'khách-VN');
+    assert(JSON.stringify(dirtyCustomer.features) === JSON.stringify(cleanResult.records[0].features) && dirtyCustomer.probability === cleanResult.records[0].probability && dirtyCustomer.features.monetary_90d === 2479.62, 'dirty normalization preserves clean features and probability');
+    assert(dirtyResult.summary.eligible === 1 && dirtyResult.ratings.count === 0 && dirtyResult.feedbackCount === 0, 'optional missing/invalid metadata retains valid purchases');
+    await P.loadFile(new File([dirtyCSV], 'dirty-company.csv'));
+    assert($('customerDateFormat').value === 'auto' && $('customerNumberFormat').value === 'auto' && $('customerDateDetection').textContent.includes('DD/MM/YYYY') && $('customerNumberDetection').textContent.includes('1.234,56'), 'auto format status in upload UI');
+    input('customerSnapshot', '2026-09-15T00:00:00'); $('customerPurchaseConfirm').click(); $('customerBatchForm').requestSubmit(); await wait(() => P.getResult() || !$('customerBatchError').hidden);
+    assert(P.getResult()?.summary.eligible === 1 && $('customerCleaningTitle').textContent === 'Tóm tắt làm sạch dữ liệu', 'dirty file to cleaning dashboard');
+    for (const [key, count] of Object.entries({ input: 13, valid: 2, blank: 1, duplicate: 1, date: 1, number: 2, cancelled: 2, id: 2, country: 1, shape: 1, rating: 1, ignored: 10, eligible: 1 })) assert(Number($('customerCleaningCounts').querySelector('[data-cleaning="' + key + '"] dd').textContent.replace(/\./g, '')) === count, 'visible cleaning count ' + key);
+    assert(!$('customerCleaningWarning').hidden && $('customerCleaningReconciliation').textContent.includes('13 dòng = 2 hợp lệ + 10 bị bỏ + 1 trống'), 'high rejection warning and visible reconciliation');
+    assert(document.documentElement.scrollWidth <= innerWidth, 'cleaning summary responsive');
+    await P.loadFile(new File([B.sampleCSV()], 'clean-template.csv')); input('customerSnapshot', '2026-10-02T00:00:00'); $('customerPurchaseConfirm').click(); $('customerBatchForm').requestSubmit(); await wait(() => P.getResult() || !$('customerBatchError').hidden);
+    assert(P.getResult() && $('customerCleaningWarning').hidden, 'clean file clears rejection warning');
+    await P.loadFile(new File([ambiguousDate.headers.join(';') + '\n' + ambiguousDate.rows[0].join(';')], 'ambiguous-date.csv'));
+    assert($('customerBatchAnalyze').disabled && $('customerDateDetection').textContent.includes('Không thể xác định chắc chắn định dạng ngày') && $('customerBatchDashboard').hidden, 'ambiguous date blocks UI');
+    input('customerSnapshot', '2026-09-15T00:00:00'); $('customerPurchaseConfirm').click();
+    assert($('customerBatchAnalyze').disabled, 'snapshot/confirmation edits cannot unlock ambiguous formats');
+    input('customerDateFormat', 'DMY'); assert(!$('customerBatchAnalyze').disabled && $('customerDateDetection').textContent.includes('do người dùng chọn'), 'manual date unlocks UI');
+    input('customerValueKind', 'line_total'); assert($('customerDateFormat').value === 'DMY', 'manual date persists');
+    input('customerDateFormat', 'auto');
+    await P.loadFile(new File([ambiguousNumber.headers.join(';') + '\n' + ambiguousNumber.rows[0].join(';')], 'ambiguous-number.csv'));
+    assert($('customerBatchAnalyze').disabled && $('customerNumberDetection').textContent.includes('Không thể xác định chắc chắn định dạng số'), 'ambiguous number blocks UI');
+    input('customerNumberFormat', 'comma'); assert(!$('customerBatchAnalyze').disabled && $('customerNumberDetection').textContent.includes('do người dùng chọn'), 'manual number unlocks UI');
+    input('customerDateFormat', 'ISO'); assert($('customerNumberFormat').value === 'comma', 'manual number persists');
+    input('customerNumberFormat', 'dot');
+    await P.loadFile(new File(['customer_id,order_id,order_date,quantity,unit_price,country,product\nVN,O1,2026-02-30,1,oops,VN,S1'], 'all-invalid.csv'));
+    $('customerPurchaseConfirm').click(); $('customerBatchForm').requestSubmit(); await wait(() => !$('customerBatchError').hidden);
+    assert(!P.getResult() && $('customerBatchDashboard').hidden && $('customerBatchError').textContent.includes('Không có đủ giao dịch hợp lệ để phân tích') && $('customerBatchError').textContent.includes('Ngày không hợp lệ: 1'), 'no silent zero dashboard and explanatory first failure');
+    const noNumbers = await formatCSV('2026-09-15', 'oops');
+    await fails(() => B.prepareTransactions(noNumbers, B.detectColumns(noNumbers.headers)), 'Không có đủ giao dịch hợp lệ để phân tích');
+    input('customerDateFormat', 'auto'); input('customerNumberFormat', 'auto'); $('customerBatchClear').click();
 
     const quote = await B.parseCSV('\uFEFF a ; b ; c \r\n"x;y";"a""b";"multi\nline"\r\n\r\n');
     assert(quote.delimiter === ';' && quote.headers[0] === 'a' && quote.rows[0][0] === 'x;y' && quote.rows[0][1] === 'a"b' && quote.rows[0][2] === 'multi\nline' && quote.blankRows === 1, 'BOM, headers, quoted separators/newlines and blank rows');
@@ -71,9 +147,14 @@
     assert(B.actionPlan({ ...result, summary: { ...result.summary, returnCount: 2, nonReturnCount: 3, returnRatio: .4 } }).mode === 'retention', 'non-return majority action trigger');
     assert(B.actionPlan({ ...result, summary: { ...result.summary, returnCount: 3, nonReturnCount: 2, returnRatio: .6 } }).mode === 'growth', 'return majority growth trigger');
     assert(B.actionPlan({ ...result, summary: { ...result.summary, returnCount: 50, nonReturnCount: 50, returnRatio: .5 } }).mode === 'balanced', 'balanced wording');
+    for (const ratio of [.45, .49, .51, .55]) assert(B.actionPlan({ ...result, summary: { ...result.summary, returnCount: ratio * 100, nonReturnCount: (1 - ratio) * 100, returnRatio: ratio } }).mode === 'balanced', 'close case on either side ' + ratio);
 
     const exported = await B.parseCSV(B.exportCSV(result));
     assert(exported.rows.length === result.records.length && exported.headers.includes('return_probability') && exported.headers.includes('non_return_probability') && !exported.headers.includes('feedback'), 'safe CSV export schema');
+    assert(['customer_id', 'return_probability', 'non_return_probability', 'prediction', 'band'].every(key => exported.headers.includes(key)) && !['email', 'phone', 'address', 'name'].some(key => exported.headers.includes(key)), 'required export columns without unnecessary PII');
+    const countryColumn = exported.headers.indexOf('country');
+    assert(['active-0', 'active-1', 'active-2', 'active-3'].every(id => exported.rows.find(row => row[0] === id)?.[countryColumn] === 'Việt Nam'), 'all Vietnam aliases export Vietnamese country label');
+    assert(B.exportCSV(result).startsWith('\uFEFF') && new TextDecoder('utf-8', { fatal: true, ignoreBOM: true }).decode(new TextEncoder().encode(B.exportCSV(result))) === B.exportCSV(result), 'UTF-8 Vietnamese export round trip');
     const formula = exported.rows.find(r => r[0] === "'=1+1");
     assert(formula && Number(formula[1]) >= 0 && Number(formula[1]) <= 1, 'spreadsheet formula injection guarded');
     const vndParsed = await B.parseCSV('customer_id,order_id,order_date,quantity,unit_price,country,product\nV,V1,2026-01-01,2,500000,VN,sku1\nV,V2,2026-09-01,1,1000000,Vietnam,sku2');
@@ -129,10 +210,16 @@
         }
         assert(!window.__batchInjected && !$('customerBatchRows').querySelector('img'), 'customer ID rendered as inert text');
         input('customerBatchSearch', 'active-'); assert($('customerBatchRows').children.length === 5, 'search customer IDs');
-        input('customerBatchSearch', ''); input('customerBatchBandFilter', 'LOW');
-        assert([...$('customerBatchRows').rows].every(r => r.cells[5].textContent === 'LOW'), 'filter band');
+        input('customerBatchSearch', '');
+        for (const band of ['LOW', 'MEDIUM', 'HIGH']) {
+            input('customerBatchBandFilter', band);
+            const visible = [...$('customerBatchRows').rows].filter(r => r.cells.length > 1);
+            assert(visible.length === P.getResult().records.filter(r => r.band === band).length && visible.every(r => r.cells[5].textContent === band), 'filter band ' + band);
+        }
         input('customerBatchBandFilter', ''); input('customerBatchClassFilter', '1');
         assert([...$('customerBatchRows').rows].every(r => r.cells[6].textContent === 'Dự đoán quay lại'), 'filter classification');
+        input('customerBatchClassFilter', '0');
+        assert([...$('customerBatchRows').rows].every(r => r.cells[6].textContent === 'Nguy cơ không quay lại'), 'filter non-return classification');
         input('customerBatchClassFilter', 'missing'); assert([...$('customerBatchRows').rows].some(r => r.cells[4].textContent === '—'), 'filter insufficient');
         input('customerBatchClassFilter', ''); input('customerBatchSort', 'desc');
         const percentages = [...$('customerBatchRows').rows].map(r => parseFloat(r.cells[4].textContent)).filter(Number.isFinite);
@@ -143,13 +230,14 @@
         assert(CustomerReturnPage.getResult() && !$('customerSinglePanel').hidden && $('customerBatchPanel').hidden, 'tab preserves single result');
         $('customerBatchTab').click();
         // Mapping from arbitrary names, parsed correctly without vendor schema.
-        const manual = fixture.csv.replace('CustomerID,InvoiceNo,InvoiceDate,Quantity,UnitPrice,Country,StockCode,rating,feedback', 'col1,col2,col3,col4,col5,col6,col7,col8,col9');
+        const manual = fixture.csv.replace('CustomerID,InvoiceNo,InvoiceDate,Quantity,UnitPrice,Country,StockCode,rating,feedback', 'ma_khach,ma_don,ngay_mua,so_luong,gia,quoc_gia,san_pham,so_sao,nhan_xet');
         await P.loadFile(new File([manual], 'manual.csv'));
         assert($('customerMap-customer').value === '-1', 'unknown headers remain unmapped');
         for (const [key, index] of Object.entries(mapping)) input('customerMap-' + key, index);
         input('customerSourceProfile', 'uci'); input('customerValueKind', 'unit_price'); input('customerSnapshot', '2011-10-01T00:00:00'); $('customerPurchaseConfirm').click();
         $('customerBatchForm').requestSubmit(); await wait(() => P.getResult() || !$('customerBatchError').hidden);
-        assert(P.getResult()?.summary.eligible === result.summary.eligible, 'manual mapping complete UI flow');
+        assert(P.getResult()?.summary.eligible === result.summary.eligible && P.getResult().records.every((r, i) => r.probability === result.records[i].probability) && P.getResult().ratings.count === result.ratings.count && P.getResult().feedbackCount === result.feedbackCount, 'manual mapping all nine fields complete UI flow');
+        assert(document.documentElement.scrollWidth <= innerWidth, 'mapping and dashboard stay inside viewport');
         input('customerMap-product', -1);
         assert($('customerBatchDashboard').hidden && P.getResult() === null, 'configuration edit clears old dashboard');
         $('customerBatchForm').requestSubmit(); await wait(() => P.getResult() || !$('customerBatchError').hidden);
@@ -165,7 +253,7 @@
     assert(requests === 0, 'upload/processing use no fetch or XHR');
 
     let performance = null;
-    if (innerWidth === 1440) {
+    if (innerWidth === 1440 && window.__customerBatchPerformance) {
         const lines = ['customer_id,order_id,order_date,quantity,unit_price,country,product'];
         for (let i = 0; i < 5000; i++) for (let j = 0; j < 4; j++) lines.push(`P${i},O${i}-${j},2011-${['01-01', '07-05', '08-10', '09-20'][j]},2,10,${i % 2 ? 'VN' : 'United Kingdom'},SKU${j}`);
         let beats = 0; const timer = setInterval(() => beats++, 10), start = globalThis.performance.now();
@@ -178,20 +266,44 @@
         assert(P.getResult()?.summary.eligible === 5000 && $('customerBatchRows').rows.length === 25, 'large UI renders only one page');
         $('customerBatchNext').click(); assert($('customerBatchPage').textContent.includes('2/200'), 'large pagination');
     }
-    // Exercise real business dashboard branches with generated transactions.
-    const branch = async growth => {
+    // Real uploaded transactions exercise inference, eligible denominators and
+    // chart rendering together. No mocked probability or production-model edit.
+    let classificationCase = null;
+    const branch = async (returned, nonReturned) => {
         const lines = ['customer_id,order_id,order_date,quantity,unit_price,country,product,rating'];
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < returned + nonReturned; i++) {
+            const growth = i < returned;
             lines.push(`T${i},FIRST${i},2011-01-01,1,20,VN,S1,${growth ? 5 : 1}`);
             if (growth) for (let j = 0; j < 15; j++) lines.push(`T${i},LAST${i}-${j},2011-09-${10+j},10,20,VN,S${j},5`);
         }
+        lines.push('INSUFFICIENT,FUTURE,2011-10-01,1,20,VN,S1,');
         await P.loadFile(new File([lines.join('\n')], 'branch.csv')); input('customerSnapshot', '2011-10-01T00:00:00'); $('customerPurchaseConfirm').click(); $('customerBatchForm').requestSubmit(); await wait(() => P.getResult() || !$('customerBatchError').hidden);
-        assert(P.getResult() && $('customerBatchActions').dataset.mode === (growth ? 'growth' : 'retention'), 'real business action branch ' + growth);
+        const output = P.getResult(), s = output?.summary, ratio = returned / (returned + nonReturned);
+        assert(s && s.returnCount === returned && s.nonReturnCount === nonReturned && s.eligible === returned + nonReturned && s.total === s.eligible + 1 && s.insufficient === 1, 'real classification count and excluded insufficient customer ' + returned + '/' + nonReturned);
+        assert(s.returnCount + s.nonReturnCount === s.eligible && near(s.returnRatio, ratio) && near(s.returnRatio + s.nonReturnRatio, 1), 'classification denominator math ' + ratio);
+        const labels = CustomerReturnModel.percentageLabels(ratio);
+        assert($('customerBatchReturnPercent').textContent === labels.returned && $('customerBatchNonReturnPercent').textContent === labels.nonReturned && parseFloat(labels.returned) + parseFloat(labels.nonReturned) === 100, 'visible count-based chart ' + ratio);
+        assert($('customerBatchReturnCount').textContent === returned + ' khách' && $('customerBatchNonReturnCount').textContent === nonReturned + ' khách', 'visible customer counts');
+        const averageKpi = [...$('customerBatchKpis').children].find(el => el.querySelector('dt').textContent === 'Xác suất quay lại trung bình');
+        const mean = output.records.filter(r => r.probability !== null).reduce((sum, r) => sum + r.probability, 0) / s.eligible;
+        assert(averageKpi && near(s.averageProbability, mean) && averageKpi.querySelector('dd').textContent === (mean * 100).toFixed(1) + '%' && !near(mean, ratio), 'mean probability KPI distinct from classification rate');
+        assert($('customerBatchAverageHelp').textContent.includes('trung bình xác suất quay lại của các khách hàng đủ dữ liệu') && $('customerBatchReturnChart').closest('figure').querySelector('figcaption').textContent === 'Tỷ lệ khách hàng được dự đoán quay lại', 'unambiguous KPI and chart semantics');
+        const expectedMode = ratio < .45 ? 'retention' : ratio > .55 ? 'growth' : 'balanced';
+        assert($('customerBatchActions').dataset.mode === expectedMode, 'real business recommendation branch ' + expectedMode);
+        if (expectedMode === 'balanced') assert($('customerBatchActionTitle').textContent.includes('LOW và MEDIUM'), 'close case prioritizes LOW and MEDIUM');
+        if (expectedMode === 'growth') assert(['loyalty', 'vip', 'products', 'feedback'].every(key => $('customerBatchAdvice').querySelector('[data-action="' + key + '"]')), 'growth loyalty VIP cross-sell and feedback');
+        const chart = $('customerBatchReturnChart').getBoundingClientRect(), a = $('customerBatchReturnBar').getBoundingClientRect(), b = $('customerBatchNonReturnBar').getBoundingClientRect();
+        assert(Math.abs(a.width / chart.width - ratio) < .001 && Math.abs(a.width + b.width - chart.width) < 1, 'chart bar geometry uses customer count ' + ratio);
+        const firstLabel = $('customerBatchReturnPercent').getBoundingClientRect(), secondLabel = $('customerBatchNonReturnPercent').getBoundingClientRect();
+        assert(firstLabel.width > 0 && secondLabel.width > 0 && firstLabel.right <= secondLabel.left + 1, 'chart labels visible without overlap ' + ratio);
+        assert(getComputedStyle($('customerBatchReturnBar')).backgroundImage.includes('17, 141, 255') && getComputedStyle($('customerBatchNonReturnBar')).backgroundImage.includes('253, 98, 94'), 'Power BI return blue and non-return coral');
+        assert(!$('customerBatchDashboard').innerText.includes('NaN') && document.documentElement.scrollWidth <= innerWidth, 'no NaN or dashboard page overflow ' + ratio);
+        if (returned === 12 && nonReturned === 3) classificationCase = { eligible: s.eligible, insufficient: s.insufficient, returned: labels.returned, nonReturned: labels.nonReturned, averageProbability: averageKpi.querySelector('dd').textContent };
     };
-    await branch(false); await branch(true);
+    await branch(0, 6); await branch(6, 0); await branch(3, 3); await branch(12, 3);
     assert(document.documentElement.scrollWidth <= innerWidth, 'growth dashboard responsive');
     $('customerBatchClear').click(); assert(P.getResult() === null && $('customerBatchDashboard').hidden && $('customerBatchForm').hidden, 'clear removes file/result');
-    await branch(true); // Leave a representative dashboard for browser screenshots.
+    await branch(12, 3); // Leave the requested 80/20 dashboard for screenshots.
     assert(!window.__batchInjected && window.__customerErrors.length === 0, 'no injected content or runtime errors');
-    return { ok: true, width: innerWidth, checks: checks.length, featureSamples: fixture.features.length, maxFeatureError, maxProbabilityError, performance };
+    return { ok: true, width: innerWidth, checks: checks.length, featureSamples: fixture.features.length, maxFeatureError, maxProbabilityError, classificationCase, performance };
 })()

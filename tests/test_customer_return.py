@@ -21,6 +21,7 @@ import tempfile
 import threading
 import time
 import urllib.request
+import unicodedata
 from unittest.mock import patch
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from html.parser import HTMLParser
@@ -79,6 +80,18 @@ def static_checks():
     training = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(training)
     train = cohorts.loc[cohorts.cutoff.isin(training.CUTOFFS[:2])]
+    vietnam_names = {'vietnam', 'viet nam', 'vn'}
+    def normalize_country(value):
+        return ' '.join(''.join(c for c in unicodedata.normalize('NFD', str(value))
+                               if not unicodedata.combining(c)).lower().split())
+    vietnam_train_rows = int(train.country.map(normalize_country).isin(vietnam_names).sum())
+    vietnam_cohort_rows = int(cohorts.country.map(normalize_country).isin(vietnam_names).sum())
+    assert len(train) == 4848 and vietnam_train_rows == vietnam_cohort_rows == 0
+    assert not any(normalize_country(c) in vietnam_names for c in model['preprocessing']['categories'])
+    assert model['preprocessing']['unknown_category_policy'] == 'all-zero one-hot vector; display out-of-domain warning'
+    print(json.dumps({'vietnam_found_in_training_data': False, 'vietnam_training_rows': vietnam_train_rows,
+                      'training_rows_inspected': len(train), 'cohort_rows_inspected': len(cohorts),
+                      'vietnam_cohort_rows': vietnam_cohort_rows}, ensure_ascii=False), flush=True)
     np.testing.assert_allclose(training.prepare(train)['scaler_mean'], model['preprocessing']['scaler_mean'], atol=1e-12)
     np.testing.assert_allclose(training.prepare(train)['scaler_scale'], model['preprocessing']['scaler_scale'], atol=1e-12)
     assert training.prepare(train)['categories'] == model['preprocessing']['categories']
@@ -327,6 +340,22 @@ return {ok:true,width:innerWidth,checks:checks.length,paritySamples:fixtures.len
 })()'''
 
 
+def stop_browser(process):
+    """Reap only this test's browser tree when graceful Edge shutdown stalls."""
+    if process.poll() is not None:
+        return
+    try:
+        process.wait(timeout=5)
+    except subprocess.TimeoutExpired:
+        if os.name == 'nt':
+            subprocess.run(['taskkill', '/PID', str(process.pid), '/T', '/F'],
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                           timeout=15, creationflags=subprocess.CREATE_NO_WINDOW)
+        else:
+            process.kill()
+        process.wait(timeout=10)
+
+
 def main():
     sys.stdout.reconfigure(encoding='utf-8')
     static_checks()
@@ -410,6 +439,7 @@ def main():
                 reports.append(report)
                 print(json.dumps(report, ensure_ascii=False), flush=True)
                 js('window.__batchFixture=' + json.dumps(fixture, ensure_ascii=False))
+                js('window.__customerBatchPerformance=' + json.dumps(os.environ.get('CUSTOMER_RETURN_PERFORMANCE') == '1' or '--performance' in sys.argv))
                 batch_report = js(batch_checks)
                 assert batch_report['ok'] and batch_report['width'] == width
                 report['batch'] = batch_report
@@ -435,18 +465,11 @@ def main():
                 navigate('index.html')
                 assert js("document.querySelector('a[href=\"customer-return.html\"]').textContent==='Thử dự đoán' && document.querySelector('a[href=\"health-prediction.html\"]') && document.querySelector('a[href=\"vietnam-house-price.html\"]') && document.querySelector('a[href=\"data-analyzer.html\"]') && document.documentElement.scrollWidth<=innerWidth")
             cdp.call('Browser.close')
-            try:
-                process.wait(timeout=10)
-            except subprocess.TimeoutExpired:
-                # Edge may retain background profile processes after CDP closes
-                # the tested browser. Terminate only our launched test process.
-                process.terminate()
-                process.wait(timeout=10)
+            stop_browser(process)
         assert all(method == 'GET' for method, _ in methods)
     finally:
         if process and process.poll() is None:
-            process.terminate()
-            process.wait(timeout=10)
+            stop_browser(process)
         server.shutdown()
         server.server_close()
     (output / 'report.json').write_text(json.dumps(reports, ensure_ascii=False, indent=2), encoding='utf-8')

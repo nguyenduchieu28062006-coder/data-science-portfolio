@@ -472,6 +472,14 @@ the usual way; uploaded transaction contents are never part of those requests.
 
 ### Vietnam and the existing country fallback
 
+Direct inspection of `data/customer-return-cohorts.csv` found **0 Vietnam rows**
+among the **4,848 training rows** at 2011-04-01 / 2011-06-01, and **0** among all
+**11,606 cohort rows**. The check normalizes accents, case and whitespace and
+matches `Vietnam`, `Viet Nam`, `Việt Nam` and `VN`. Training-country categories
+also contain none of those aliases. This finding comes from the actual cohort
+data, not an assumption based on the dropdown or source description. The
+automated static check repeats this audit without training a model.
+
 The artifact has no Vietnam category and no learned `OTHER` bucket. Its existing
 `unknown_category_policy` is an **all-zero country one-hot vector**, with a domain
 warning. The dropdown presents “Việt Nam” near the top. `Vietnam`, `Viet Nam`,
@@ -515,11 +523,26 @@ spend inputs. Files use one declared currency. VND files require a positive
 user-supplied `VND per GBP` rate; amounts are divided by that rate before monetary
 aggregation. No rate is guessed, fetched or represented as a current quotation.
 
-Select ISO, DMY or MDY dates explicitly. Invalid calendar dates are rejected;
-ambiguous slash dates are not guessed under ISO. ISO offsets normalize to UTC;
+Date and number selectors default to automatic detection, with ISO/DMY/MDY and
+decimal-dot/decimal-comma manual overrides. Detection examines at most the first
+200 nonblank records in a single bounded pass, using up to 20 valid date cells
+and 20 valid quantity/value cells. Invalid cells do not vote. A uniquely
+compatible format is required; conflicting formats or ambiguous dates/numbers
+block analysis and explain which selector needs a manual choice. Integer-only
+number samples are safe under either convention and are identified as integers,
+without claiming a decimal convention was learned. Manual selections persist
+across mapping/configuration edits and replacement files until changed by the user.
+
+ISO accepts YYYY-MM-DD and YYYY/MM/DD; DMY/MDY accept slash or hyphen separators.
+Invalid calendar dates and mixed separators within a date are rejected. An
+ambiguous 05/06/2026 is never guessed; 31/12/2026 identifies DMY and 12/31/2026
+identifies MDY. A value such as 1,234 is ambiguous without other evidence, whereas
+1,234.56 and 1.234,56 establish their respective numeric conventions. Detection
+sets the interpretation only, never repairs missing or invalid cells.
+ISO offsets normalize to UTC;
 timestamps without offsets and the analysis-time control use a common UTC
 interpretation. Date-only transactions are midnight. Numeric conventions are
-explicit: dot-decimal/comma-thousands or comma-decimal/dot-thousands, with strict
+resolved: dot-decimal/comma-thousands or comma-decimal/dot-thousands, with strict
 grouping and finite-value checks. Currency-symbol text is not silently coerced.
 
 ### Cleaning and source-specific purchase definitions
@@ -543,6 +566,24 @@ into another purchase or change a prediction. Blank rows, skipped rows and each
 reason are reported; there is no silent bulk deletion. Invalid optional ratings
 do not reject a transaction and are reported separately. Exact duplicates in
 the UCI parity fixture are removed consistently with source cleaning.
+
+The dashboard includes “Tóm tắt làm sạch dữ liệu”, detected/manual formats,
+counts for blanks, duplicates, invalid dates/numbers, cancellation/refunds,
+invalid identifiers/countries, malformed records, non-product UCI StockCodes,
+invalid optional ratings, eligible and insufficient customers. Input rows exclude
+the header and count CSV records rather than physical text lines (a quoted
+multiline field is one record). Reconciliation is `input = valid + ignored +
+blank`; each rejected nonblank row contributes only its first failed rule.
+Invalid ratings are reported only on retained valid transactions and do not
+increase the rejected-row total. A warning appears when more than 20% of
+nonblank input records are rejected; blanks are reported separately.
+
+No quantity/price/country/identifier is imputed and no invalid date is repaired.
+If no transactions survive, analysis fails with “Không có đủ giao dịch hợp lệ
+để phân tích”, the rejection reasons/counts and a request to check mapping and
+date/number conventions. The prediction dashboard remains hidden. This differs
+from valid purchases with insufficient historical features, which retain the
+existing explicit “Không đủ dữ liệu” behavior.
 
 ### Cutoff and feature construction
 
@@ -590,6 +631,15 @@ semantics, with the original blue/teal and coral palette. The table supports
 identifier search, band/class filters, ascending/descending probability and
 paging; top-five priority customers come only from eligible predictions.
 
+The KPI label is “Xác suất quay lại trung bình”; its helper describes the mean
+of probabilities for eligible customers. The main chart is “Tỷ lệ khách hàng
+được dự đoán quay lại”, explicitly describing customer counts and excluding
+insufficient customers from its denominator. For 12 return / 3 non-return
+customers, the chart must show **80.0% / 20.0%**, independently of a mean model
+probability such as 54.9%. Single-customer `products_90d` is labeled “Số loại
+sản phẩm khác nhau đã mua trong 90 ngày”: one order containing Áo and Quần has
+one order and two distinct product types. Feature construction is unchanged.
+
 Rating is **descriptive**, accepting integer 1–5 stars. Its mean, 1–2/4–5 shares,
 distribution and per-customer means use valid historical product lines after
 cleaning. These are line-level observations, not unique-customer prevalence;
@@ -599,10 +649,10 @@ only. No sentiment/NLP model, keyword diagnosis or external AI request is used,
 and raw feedback is not displayed/exported. Neither field enters the seven model
 inputs, preprocessing, duplicate identity or probability calculation.
 
-If non-return count exceeds return count, the retention action panel emphasizes
+If return share is below 45%, the retention action panel emphasizes
 six strategies: relevant offers, reactivation, post-purchase experience, loyalty,
 product suggestions and purchase-friction review. Return share above 55% uses
-six maintenance/growth suggestions. Between 50–55% return share, wording describes
+six maintenance/growth suggestions. Between 45–55% return share, wording describes
 a relatively balanced mix with LOW/MEDIUM attention; these display rules do not
 change classification threshold or probabilities. Zero eligible customers has
 no probability-based action cards.
@@ -643,4 +693,32 @@ safety, desktop/mobile export, upload cancellation and all five requested
 viewports. The performance fixture generates 20,000 transactions / 5,000
 customers in memory, checks browser responsiveness and ensures only one table
 page is rendered. Reports and screenshots live in OS temporary storage, not in
-new dataset/report files in the repository.
+new dataset/report files in the repository. The performance fixture is opt-in:
+run `python -B tests/test_customer_return.py --performance`, or
+set `$env:CUSTOMER_RETURN_PERFORMANCE = '1'` before running the suite. Routine UX
+checks omit that fixture when feature construction and inference are unchanged;
+the prior 20,000-row / 5,000-customer result was approximately 1.5 seconds.
+
+Additional browser regressions upload real transaction CSVs for 0/100, 100/0,
+50/50 and 80/20 classification charts at every viewport, verifying bar geometry,
+visible percentages/counts, nonoverlapping labels and exclusion of an extra
+future-only customer. They verify the mean KPI separately, all three band
+filters, both class filters, all nine manually mapped Vietnamese columns,
+Vietnamese UTF-8 export, and balanced recommendations on both sides of 50%.
+
+Cleaning-upgrade regressions cover all supported date separators and number
+conventions, conflicting and ambiguous samples, bounded detection, persistent
+manual overrides, the zero-valid error and warning reset after a clean file.
+The in-memory dirty merchant CSV has 13 input records: 2 valid, 10 rejected,
+1 blank and 1 invalid optional rating on a retained transaction. Rejected
+reasons reconcile without overlap. The retained Vietnam customer's historical
+features and probability match an equivalent clean ISO/decimal-dot CSV exactly.
+The UCI training-feature and Python/JS parity fixtures remain unchanged.
+
+Final cleaning-upgrade verification passed in Edge at 320/390/768/1024/1440:
+305 batch assertions per viewport (308 including performance at 1440), feature
+max error 0, batch Python/JS probability max error 2.7755575615628914e-17 and
+250-sample single parity max error 1.1102230246251565e-16. The 20,000-row /
+5,000-customer benchmark took 1,721.4 ms with 115 responsive timer ticks.
+These are desktop headless Edge measurements, including parsing, normalization,
+cleaning, aggregation and inference; physical mobile timing was not measured.
