@@ -4,6 +4,10 @@
     "api/ml-compare.py": {
       "maxDuration": 60,
       "excludeFiles": "{data/**,assets/**,docs/**,tests/**,scripts/**,supabase/**,.local-deps/**,*.html,*.css,*.js,*-model.json,requirements-*.txt,train-health-model.py}"
+    },
+    "api/sales-forecast.py": {
+      "maxDuration": 60,
+      "excludeFiles": "{data/**,assets/**,docs/**,tests/**,scripts/**,supabase/**,.local-deps/**,.env*,.github/**,_uv/**,*.html,*.css,*.js,*-model.json,requirements-*.txt,train-health-model.py}"
     }
   }
 }
