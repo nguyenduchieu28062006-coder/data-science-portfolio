@@ -822,7 +822,7 @@ class HTTP(unittest.TestCase):
             self.assertFalse(ref.startswith(('docs/','tests/','scripts/')),ref)
         config=json.loads((ROOT/'vercel.json').read_text())
         self.assertEqual(set(config),{'$schema','functions'})
-        self.assertEqual(set(config['functions']),{'api/ml-compare.py'})
+        self.assertEqual(set(config['functions']),{'api/ml-compare.py','api/sales-forecast.py'})
         self.assertEqual(config['functions']['api/ml-compare.py']['maxDuration'],60)
         js=(ROOT/'ml-model-comparison.js').read_text(encoding='utf-8')
         self.assertNotIn('http://localhost',js);self.assertNotIn('127.0.0.1',js)
