@@ -8,7 +8,7 @@
     "/login.html": "PASS",
     "/register.html": "PASS"
   },
-  "local_references_checked": 70,
+  "local_references_checked": 83,
   "production_localhost": false,
   "parquet_in_browser": false,
   "frontend_service_role": false,

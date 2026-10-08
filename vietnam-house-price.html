@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
     <script src="assets/vendor/leaflet/leaflet.js" defer></script>
     <script src="vietnam-estimate-core.js" defer></script>
+    <script src="vietnam-commune-map.js" defer></script>
     <script src="vietnam-estimate-page.js" defer></script>
     <script src="vietnam-house-history-save.js" defer></script>
     <link rel="stylesheet" href="theme.css">
@@ -81,7 +82,23 @@
                 <p id="scenarioError" class="house-error" role="alert" hidden></p><button id="houseApplyScenario" type="button" class="house-secondary">Áp dụng kịch bản vào form</button><p class="house-muted">Đây là phản ứng của công thức thống kê, không phải lời khuyên đầu tư hoặc định giá chuyên nghiệp.</p></section>
             </div>
         </section>
-        <section class="house-panel house-map-panel"><h2>Bản đồ giá bất động sản Việt Nam</h2><div id="houseMap" aria-label="Bản đồ ranh giới 34 tỉnh/thành phố"></div><p id="houseMapStatus" class="house-muted" role="status"></p><p id="houseMapSelection" class="house-muted" role="status"></p><p class="house-muted">Chọn tỉnh trên bản đồ hoặc tìm bằng danh sách. Nền OpenStreetMap qua HTTPS; ranh giới tỉnh rút gọn được lưu tại thiết bị để dùng khi tile lỗi. Ranh giới minh họa từ bando.com.vn qua bản dẫn xuất MIT, không phải bản đồ địa chính; chưa có hình học xã/phường hoặc vị trí listing.</p><p class="house-map-legend">Giá/m² theo loại đang chọn: <span>&lt;30 triệu</span> · <span>30–50</span> · <span>50–80</span> · <span>80–120</span> · <span>≥120</span></p></section>
+  <section class="house-panel house-map-panel house-map-card" aria-labelledby="mapTitle">
+    <h2 id="mapTitle">Bản đồ chọn địa phương</h2>
+    <p>Chọn tỉnh/thành, rồi chọn xã/phường sau sáp nhập 2025. Ranh giới dùng để điều hướng, không biểu diễn giá hoặc suy vị trí tin.</p>
+    <div class="house-map-toolbar"><p id="mapBreadcrumb">Việt Nam · 34 tỉnh/thành</p><button id="mapBack" type="button" class="house-secondary" hidden>← Bản đồ Việt Nam</button></div>
+    <div id="houseMap" class="house-map" aria-label="Bản đồ 34 tỉnh/thành"></div>
+    <p id="houseMapStatus" class="house-muted" role="status"></p>
+    <p id="mapStatus" class="house-muted" role="status" aria-live="polite"></p>
+    <p id="mapSelection" class="house-map-selection" role="status" aria-live="polite">Đã chọn: Chưa chọn địa phương</p>
+    <div id="mapCommunePanel" hidden>
+      <h3 id="mapCommuneTitle">Xã/phường</h3>
+      <label for="mapCommuneSearch">Tìm trong tỉnh đang xem</label><input id="mapCommuneSearch" type="search" placeholder="Tên không dấu hoặc mã xã/phường" autocomplete="off" aria-controls="mapCommuneList">
+      <p id="mapCommuneCount" class="house-muted" role="status"></p>
+      <div id="mapCommuneList" class="house-map-communes" role="group" aria-labelledby="mapCommuneTitle"></div>
+    </div>
+    <small>Ranh giới tham khảo: <a href="https://tinhthanhpho.com/api-docs" target="_blank" rel="noopener noreferrer">tinhthanhpho.com</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a> · hình học gốc NXB Tài nguyên Môi trường và Bản đồ Việt Nam, qua Vietnamese Provinces Database. Dữ liệu được ghép mã/tên và đóng gói theo tỉnh; không dùng làm địa giới đo đạc pháp lý.</small>
+    <small><a href="https://danhmuchanhchinh.nso.gov.vn/" target="_blank" rel="noopener noreferrer">Danh mục Cục Thống kê</a> · <a href="https://danhmuchanhchinh.nso.gov.vn/NghiDinh.aspx" target="_blank" rel="noopener noreferrer">Nghị quyết và cập nhật</a></small>
+  </section>
         <section class="house-panel"><h2>Phạm vi dữ liệu hiện tại</h2><p id="housePublicCoverage"></p><p class="house-muted">Ngưỡng 20 khu vực chi tiết / 30 xã/phường / 80 tỉnh áp dụng riêng từng loại BĐS. Listing chưa mapping chắc chắn chỉ dùng cấp tỉnh. Địa danh hợp lệ không đồng nghĩa có dữ liệu giá trực tiếp.</p><ul id="houseTypeLimitations" class="house-muted"></ul></section>
         <section class="house-panel house-market-panel"><div><p class="house-eyebrow">THAM KHẢO KHU VỰC</p><h2>Độ phủ & dữ liệu thị trường</h2><p id="houseTrainingContext">Chọn khu vực để xem thống kê đã xác minh.</p><p class="house-muted">Median chỉ mô tả dataset lịch sử, không phải giá thị trường hiện tại.</p></div><div class="house-market-state"><h3>THỊ TRƯỜNG KHU VỰC</h3><p id="houseStaticMarket">Chọn khu vực và loại tài sản để xem thống kê.</p><p class="house-muted">Đây là thống kê từ dữ liệu rao bán trong dataset, không phải giá giao dịch hoàn tất.</p><span>MARKET CONNECTION</span><p id="houseMarketStatus" role="status">Dữ liệu thị trường cập nhật tự động chưa được kết nối.</p></div></section>
         <section class="house-panel"><h2>Khám phá giá theo khu vực</h2><div class="house-form-grid"><label>Tỉnh/Thành phố<select id="houseBrowseProvince"></select></label><label>Loại BĐS<select id="houseBrowseType"></select></label><label>Lọc xã/phường<input id="houseBrowseFilter" type="search" placeholder="Gõ tên không dấu hoặc có dấu"></label><label>Sắp xếp<select id="houseBrowseSort"><option value="count">Số mẫu giảm dần</option><option value="price">Median giảm dần</option></select></label></div><p id="houseBrowseCount" class="house-muted"></p><div class="house-table-scroll"><table class="house-comparison"><thead><tr><th>Phường/Xã</th><th>Loại BĐS</th><th>Median/m²</th><th>Số mẫu</th><th>Coverage</th><th>Ngày tin mới nhất</th><th>Chọn</th></tr></thead><tbody id="houseBrowseRows"></tbody></table></div></section>

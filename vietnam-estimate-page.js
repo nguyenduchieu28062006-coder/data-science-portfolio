@@ -1,7 +1,7 @@
 "use strict";
 (() => {
     const $=id=>document.getElementById(id),api=window.VietnamHouse,form=$('houseForm');
-    let model,index,stats,coordinates,original,scenario,map,markers=[],pendingSearch=false,searchMatches=[],searchActive=-1,geoData,tileLayer,tilesLoaded=0,tileErrors=0;
+    let model,index,stats,coordinates,original,scenario,map,mapController,markers=[],pendingSearch=false,searchMatches=[],searchActive=-1,geoData,tileLayer,tilesLoaded=0,tileErrors=0;
     const pendingCombos=new Set(),provinceLayers=new Map(),combos={};
     const text=(id,value)=>{const el=$(id);if(el)el.textContent=value;};
     const node=(tag,value)=>{const el=document.createElement(tag);if(value!==undefined)el.textContent=value;return el;};
@@ -82,28 +82,23 @@
         $('houseBrowseRows').replaceChildren();for(const r of rows.slice(0,100)){const tr=node('tr');for(const v of [labels(r),index.property_types.find(t=>t.code===r.property_type)?.label,api.formatPrice(r.median_price_per_m2,1)+'/m²',String(r.sample_count),r.coverage,r.latest_date.slice(0,10)])tr.append(node('td',v));const button=node('button','Chọn');button.type='button';button.addEventListener('click',()=>{$('housePropertyType').value=r.property_type;selectLocation(index.wards.find(x=>x.id===r.ward));renderMap();});const td=node('td');td.append(button);tr.append(td);$('houseBrowseRows').append(tr);}
         text('houseBrowseCount',rows.length+' nhóm Phường/Xã · hiển thị tối đa 100. '+(!rows.length?'Chưa có statistic xã/phường đã mapping ở tỉnh và loại này; form vẫn có thể dùng tỉnh hoặc ước lượng khu vực.':''));
     }
-    function syncMap(){if(!map)return;const selected=$('houseProvince').value;
-        provinceLayers.forEach((layer,name)=>layer.setStyle({weight:name===selected?3:1,color:name===selected?'#f4eb95':'#193e54'}));
-        const layer=provinceLayers.get(selected);if(layer){map.fitBounds(layer.getBounds(),{padding:[14,14],animate:false,maxZoom:9});text('houseMapSelection','Đang chọn '+selected+'. Chỉ hiển thị ranh giới cấp tỉnh; chọn xã/phường và khu vực chi tiết bằng danh sách.');}
-        else if(provinceLayers.size){map.fitBounds(window.L.featureGroup([...provinceLayers.values()]).getBounds(),{padding:[12,12],animate:false});text('houseMapSelection','Chọn một tỉnh trên bản đồ hoặc tìm trong danh sách địa điểm.');}
-    }
+    function mapContext(){const province=pendingCombos.has('province')?null:index.provinces.find(p=>p.id===$('houseProvince').value),ward=pendingCombos.has('ward')?null:index.wards.find(w=>w.id===$('houseWard').value&&w.province===province?.id);return{province_code:province?.code||'',commune_code:ward?.code||''};}
+    function syncMap(){mapController?.sync(mapContext());}
     function tileStatus(){const online=tilesLoaded>0&&tileErrors===0;text('houseMapStatus',online?'Nền OpenStreetMap đã tải. Ranh giới tỉnh có sẵn tại thiết bị.':'Nền bản đồ trực tuyến chưa tải được. Bạn vẫn có thể chọn địa điểm bằng danh sách.');}
-    function renderMap(){if(!map||!geoData)return;provinceLayers.forEach(l=>l.remove());provinceLayers.clear();
-        const colors=['#4698bf','#49b6aa','#acb861','#e2a459','#db7274'],bins=[30,50,80,120];
-        for(const feature of geoData.features){const province=index.provinces.find(p=>p.code===String(feature.properties.province_code));if(!province)continue;
-            const r=api.resolve(stats,index,{province:province.id,property_type:$('housePropertyType').value}),ppm=r.median_price_per_m2/1e6,color=r.available?colors[bins.filter(x=>ppm>=x).length]:'#728195',popup=node('div');
-            for(const value of [province.label,index.property_types.find(t=>t.code===$('housePropertyType').value)?.label,r.available?api.formatPrice(r.median_price_per_m2,1)+'/m²':'Chưa đủ dữ liệu cùng loại',r.available?r.sample_count+' mẫu · '+r.coverage:'',r.available?'Ngày tin mới nhất: '+r.latest_date.slice(0,10):'',r.resolution_level==='REGIONAL_ESTIMATE'?'Ước lượng từ tỉnh lân cận; không phải giá trực tiếp trong tỉnh.':''])if(value)popup.append(node('p',value));
-            const layer=window.L.geoJSON(feature,{style:{weight:1,color:'#193e54',fillColor:color,fillOpacity:.6}}).addTo(map).bindPopup(popup);
-            layer.on('click',()=>selectLocation(province));provinceLayers.set(province.id,layer);
-        }
-    }
-    async function initMap(){if(!window.L){text('houseMapStatus','Không tải được bản đồ. Bạn vẫn có thể chọn vị trí từ danh sách.');return;}
-        try{geoData=await fetch('./data/vietnam-provinces.geojson').then(r=>{if(!r.ok)throw Error('map');return r.json();});}catch{text('houseMapStatus','Chưa tải được ranh giới tỉnh. Danh sách địa điểm vẫn hoạt động.');return;}
-        map=window.L.map('houseMap',{scrollWheelZoom:false}).setView([16,106],5);
-        tileLayer=window.L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · Ranh giới minh họa: bando.com.vn, bản dẫn xuất MIT'});
-        tileLayer.on('tileload',()=>{tilesLoaded++;tileErrors=0;tileStatus();});tileLayer.on('tileerror',()=>{tileErrors++;tileStatus();});tileLayer.addTo(map);
-        renderMap();syncMap();tileStatus();requestAnimationFrame(()=>map.invalidateSize());new ResizeObserver(()=>map.invalidateSize({pan:false})).observe($('houseMap'));
-    }
+    function renderMap(){syncMap();}
+    async function initMap(){try{
+        const json=async url=>{const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);try{const r=await fetch(url,{signal:controller.signal});if(!r.ok)throw Error('map');return await r.json();}finally{clearTimeout(timer);}};
+        const admin=await json('data/vietnam-administrative-v2.json');
+        const provinceByCode=new Map(index.provinces.map(p=>[p.code,p])),wardByCode=new Map(index.wards.map(w=>[w.code,w]));
+        if(admin.provinces.length!==34||admin.communes.length!==3321||admin.communes.some(w=>!wardByCode.has(w.commune_code)||wardByCode.get(w.commune_code).province!==provinceByCode.get(w.province_code)?.id))throw Error('map code mismatch');
+        mapController=window.VietnamCommuneMap.create({admin,json,context:mapContext,fold:api.searchFold,onProvince:code=>selectLocation(provinceByCode.get(code)),onCommune:code=>selectLocation(wardByCode.get(code))});
+        await mapController.ready;map=mapController.getMap();
+        for(const {code,layer} of mapController.getProvinceLayers())provinceLayers.set(provinceByCode.get(code).id,layer);
+        tileLayer=mapController.getTileLayer();({loaded:tilesLoaded,errors:tileErrors}=mapController.getTileStatus());
+        tileLayer?.on('tileload',()=>{tilesLoaded++;tileErrors=0;tileStatus();});tileLayer?.on('tileerror',()=>{tilesErrors();});
+        tileStatus();if(map){requestAnimationFrame(()=>map.invalidateSize());new ResizeObserver(()=>map.invalidateSize({pan:false})).observe($('houseMap'));}
+    }catch{text('houseMapStatus','Không tải được bản đồ. Các lựa chọn và công thức V1 vẫn sử dụng được.');}}
+    function tilesErrors(){tileErrors++;tileStatus();}
     async function load(){try{
         const responses=await Promise.all(['./vietnam-house-model.json','./data/vietnam-location-index.json','./data/vietnam-market-stats.json'].map(p=>fetch(p).then(r=>{if(!r.ok)throw Error('data');return r.json();})));
         [model,index,stats]=responses;api.validateModel(model);if(index.schema_version!==3||stats.schema_version!==3)throw Error('schema');
@@ -133,5 +128,5 @@
     $('houseBrowseFilter').addEventListener('input',browse);$('houseBrowseSort').addEventListener('change',browse);
     $('houseBrowseProvince').addEventListener('change',browse);$('houseBrowseType').addEventListener('change',browse);
     $('houseScenarioFields').addEventListener('input',scenarioUpdate);$('houseApplyScenario').addEventListener('click',()=>{if(scenario){form.elements.area_m2.value=scenario.input.area_m2;form.requestSubmit();}});
-    window.HousePage=Object.freeze({ready:load(),getModel:()=>model,getMap:()=>map,getProvinceLayers:()=>provinceLayers,getTileLayer:()=>tileLayer,getTileStatus:()=>({loaded:tilesLoaded,errors:tileErrors})});
+    window.HousePage=Object.freeze({ready:load(),getModel:()=>model,getMap:()=>map,getMapState:()=>mapController?.getState()||null,getCommuneLayers:()=>mapController?.getCommuneLayers()||[],getProvinceLayers:()=>provinceLayers,getTileLayer:()=>tileLayer,getTileStatus:()=>({loaded:tilesLoaded,errors:tileErrors})});
 })();

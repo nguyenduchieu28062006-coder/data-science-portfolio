@@ -1,0 +1,61 @@
+// Real V2 map assets integrated with the original Git V1 estimate/form.
+(async () => {
+    const $=id=>document.getElementById(id),pause=ms=>new Promise(r=>setTimeout(r,ms));
+    let checks=0;
+    const assert=(ok,message)=>{++checks;if(!ok)throw Error(message);};
+    await HousePage.ready;
+    const model=HousePage.getModel(),index=model.location_data,core=window.VietnamHouse;
+    const state=()=>HousePage.getMapState();
+    const pCode=()=>index.provinces.find(p=>p.id===$('houseProvince').value)?.code||'';
+    const wCode=()=>index.wards.find(w=>w.id===$('houseWard').value)?.code||'';
+    const choose=(id,code)=>{const record=(id==='houseProvince'?index.provinces:index.wards).find(w=>w.code===code);$(id).value=record?.id||'';$(id).dispatchEvent(new Event('change',{bubbles:true}));};
+    const layer=code=>HousePage.getCommuneLayers().find(x=>x.code===code).layer;
+    const province=code=>HousePage.getProvinceLayers().get(index.provinces.find(p=>p.code===code).id).fire('click');
+    const wait=async()=>{for(let i=0;i<400&&state().load==='LOADING';i++)await pause(50);assert(state().load==='READY','Commune load: '+JSON.stringify(state()));};
+    assert(model.schema_version===5&&model.regressor.kind==='market_median','Original V1 model');
+    assert(state().view==='NATIONAL'&&state().polygon_count===0&&state().geometry_requests===0,'National view: no initial commune download');
+    assert(HousePage.getProvinceLayers().size===34,'34 real provinces');
+    assert(!$('manualForm')&&!$('comparableFile'),'V1 has no sale price/comparable/import requirement');
+    province('01');await wait();
+    assert(pCode()==='01'&&wCode()===''&&state().polygon_count===126,'Click Hanoi: reset old ward, 126 polygons');
+    assert($('mapCommuneList').querySelectorAll('button').length===126&&!$('mapBack').hidden,'V2 list/back controls');
+    layer('00466').fire('mouseover',{latlng:layer('00466').getBounds().getCenter()});
+    assert(layer('00466').options.fillOpacity===.35&&layer('00466').getTooltip().getContent().textContent.includes('Phúc Thịnh')&&layer('00466').getTooltip().getContent().textContent.includes('Hà Nội'),'V2 hover highlight/tooltip');
+    layer('00466').fire('mouseout');layer('00466').fire('click');
+    assert(wCode()==='00466'&&$('houseWard').value==='vn_00466'&&$('houseWardSearch').value.includes('Phúc Thịnh'),'Polygon stable code → V1 canonical ward');
+    assert(state().selected.commune_code==='00466'&&layer('00466').options.fillOpacity===.5,'Preserve V2 selected color');
+    $('housePropertyType').value='APARTMENT';$('housePropertyType').dispatchEvent(new Event('change',{bubbles:true}));$('houseForm').elements.area_m2.value=80;
+    let prediction=null;const capture=e=>prediction=e.detail;addEventListener('portfolio:houseprediction',capture);$('houseForm').requestSubmit();
+    const expected=core.predict(model,{province:'Hà Nội',ward:'vn_00466',sub_area:'',property_type:'APARTMENT',area_m2:80});
+    assert(!$('houseResult').hidden&&prediction?.predicted_price_vnd===expected.total_price_vnd&&$('housePrice').textContent===core.formatPrice(expected.total_price_vnd),'V1 estimate after polygon click: unchanged result');removeEventListener('portfolio:houseprediction',capture);
+    choose('houseWard','00475');
+    assert(state().selected.commune_code==='00475'&&layer('00475').options.fillOpacity===.5&&layer('00466').options.fillOpacity===.16,'V1 form → Thu Lam highlight');
+    assert(HousePage.getMap().getBounds().contains(layer('00475').getBounds())&&$('houseResult').hidden,'V1 result invalidation and polygon zoom');
+    $('mapCommuneSearch').value='phuc thinh';$('mapCommuneSearch').dispatchEvent(new Event('input'));
+    assert($('mapCommuneList').querySelectorAll('button').length===1,'V2 accentless search');$('mapCommuneList').querySelector('button').click();assert(wCode()==='00466','V2 list selects V1 ward');
+    const requests=state().geometry_requests;$('mapBack').click();
+    assert(state().view==='NATIONAL'&&state().polygon_count===0&&$('mapCommunePanel').hidden&&wCode()==='00466'&&HousePage.getMap().getZoom()===5,'Back to country preserves V1 selection');
+    province('01');await wait();assert(wCode()===''&&state().geometry_requests===requests,'Cached province reopen clears old ward');
+    choose('houseWard','00475');$('houseWardSearch').value='thu';$('houseWardSearch').dispatchEvent(new Event('input'));
+    assert(state().selected.commune_code===''&&layer('00475').options.fillOpacity===.16&&$('houseEstimate').disabled,'Uncommitted V1 ward text clears map highlight, gates estimate');
+    $('houseProvinceSearch').value='Ho';$('houseProvinceSearch').dispatchEvent(new Event('input'));assert(state().view==='NATIONAL'&&$('houseEstimate').disabled,'Uncommitted province text clears map view');
+    province('79');await wait();const other=index.wards.find(w=>w.province===index.provinces.find(p=>p.code==='79').id);layer(other.code).fire('click');assert(pCode()==='79'&&wCode()===other.code,'Other province polygon → V1 IDs');
+    province('01');await wait();assert(wCode()===''&&state().polygon_count===126,'Province switch resets V1 ward and geometry');
+    const realFetch=window.fetch;window.fetch=(url,options)=>String(url).includes('/48.geojson')?Promise.resolve(new Response('unavailable',{status:503})):realFetch(url,options);
+    province('48');for(let i=0;i<100&&state().load==='LOADING';i++)await pause(30);
+    assert(state().load==='UNAVAILABLE'&&state().polygon_count===0&&$('mapStatus').textContent.includes('xác minh'),'No substitute geometry when download fails');
+    const fallback=$('mapCommuneList').querySelector('button');fallback.click();assert(wCode()===fallback.dataset.communeCode,'Existing V2 fallback selects exact V1 code');window.fetch=realFetch;province('01');await wait();
+    window.fetch=async(url,options)=>{const r=await realFetch(url,options);if(String(url).includes('/22.geojson')){const b=await r.arrayBuffer();await pause(500);return new Response(b,{status:r.status});}return r;};
+    province('22');await pause(100);province('79');await wait();await pause(750);
+    assert(state().province_code==='79'&&HousePage.getCommuneLayers().every(x=>x.layer.feature.properties.province_code==='79'),'Rapid switch never renders stale polygons');window.fetch=realFetch;
+    const render=[];
+    for(const code of innerWidth===1440?index.provinces.map(p=>p.code):['01','48','68']){
+        choose('houseProvince',code);await wait();const selectedProvince=index.provinces.find(p=>p.code===code),expected=index.wards.filter(w=>w.province===selectedProvince.id);
+        assert(state().polygon_count===expected.length&&HousePage.getCommuneLayers().every(x=>x.layer.feature.properties.province_code===code),'All province/commune joins: '+code);
+        choose('houseWard',expected[0].code);assert(layer(expected[0].code).options.fillOpacity===.5,'All V1 form → polygon joins: '+code);assert(state().cache_codes.length<=3,'Bounded cache');render.push({code,count:expected.length,render_ms:state().last_render_ms});
+    }
+    province('01');await wait();choose('houseWard','00466');
+    assert(document.documentElement.scrollWidth<=innerWidth+1,'No horizontal overflow');
+    assert([...$('mapCommuneList').querySelectorAll('button')].every(b=>b.getBoundingClientRect().height>=44),'Touch targets >=44px');assert(!window.__mapErrors.length,'No console/JS errors: '+window.__mapErrors.join(';'));
+    return{status:'PASS',width:innerWidth,checks,initial_commune_requests:0,cache_limit:3,geometry_requests:state().geometry_requests,maximum_render_ms:Math.max(...render.map(r=>r.render_ms)),render,source:'VERIFIED',overflow:false,console_errors:window.__mapErrors.length,v1_estimate:'PASS'};
+})()

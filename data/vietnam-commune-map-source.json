@@ -1,0 +1,313 @@
+{
+  "schema_version": 1,
+  "status": "VERIFIED",
+  "boundary_epoch": "post-reform-2025-07-01",
+  "administrative_version": "NSO-2026-10-04 / reform-2025-07-01",
+  "source_version": "2026.10.8",
+  "retrieved_at": "2026-10-08T07:19:21.523074+00:00",
+  "publisher": "tinhthanhpho.com",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_evidence_url": "https://tinhthanhpho.com/dieu-khoan",
+  "source_documentation_url": "https://tinhthanhpho.com/api-docs",
+  "original_geometry_source": "NXB Tài nguyên Môi trường và Bản đồ Việt Nam / sapnhap.bando.com.vn",
+  "original_geometry_via": "thanglequoc/vietnamese-provinces-database",
+  "geometry_processing": "Unchanged coordinates from publisher; compact JSON and official code/name join only.",
+  "verification_scope": "Published post-2025 reference boundaries for navigation, not cadastral/legal survey certification.",
+  "commune_count": 3321,
+  "province_count": 34,
+  "hanoi_checks": [
+    {
+      "commune_code": "00466",
+      "commune_name": "Xã Phúc Thịnh",
+      "gis_server_id": "diaphanhanhchinhcapxa_2025.3247",
+      "reference_url": "https://raw.githubusercontent.com/thanglequoc/vietnamese-provinces-database/8b78ba5118715e1fa81769286724db79346abf52/json/geojson/01_ha_noi/wards/00466_phuc_thinh.geojson",
+      "reference_sha256": "3c28d19edbfa7412012133f005de9d4bde9a4e043260781686808ac2df5a8008",
+      "maximum_vertex_to_boundary_deviation_degrees": 2.864395578528009e-05,
+      "reference_area_km2": 42.63
+    },
+    {
+      "commune_code": "00475",
+      "commune_name": "Xã Thư Lâm",
+      "gis_server_id": "diaphanhanhchinhcapxa_2025.3246",
+      "reference_url": "https://raw.githubusercontent.com/thanglequoc/vietnamese-provinces-database/8b78ba5118715e1fa81769286724db79346abf52/json/geojson/01_ha_noi/wards/00475_thu_lam.geojson",
+      "reference_sha256": "02cc2316be613e273340d52f1aab6ed2a621d29749deabd78c7d6b154b685ab3",
+      "maximum_vertex_to_boundary_deviation_degrees": 3.2000000004472895e-05,
+      "reference_area_km2": 43.84
+    }
+  ],
+  "provinces": {
+    "01": {
+      "url": "data/vietnam-communes/01.geojson",
+      "count": 126,
+      "bytes": 1418924,
+      "sha256": "e10bcf3ba35644bf044573001a960be17c91f7e5be8746d447073eb1f19adda1",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-01.geojson",
+      "original_sha256": "27067588e0960e2ee4f07f62f98ea73a2249ea1183e113ce3923681d87b02da6"
+    },
+    "04": {
+      "url": "data/vietnam-communes/04.geojson",
+      "count": 56,
+      "bytes": 2047055,
+      "sha256": "a490df9fb49314326a70a826fdcb26aba74d0dcf2ae8280a47526ba92f61c118",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-04.geojson",
+      "original_sha256": "e20cee846e99739a2f1f9f841be7eab26e6ec1c2f52085cdcd7f25c1c169feb4"
+    },
+    "08": {
+      "url": "data/vietnam-communes/08.geojson",
+      "count": 124,
+      "bytes": 4615778,
+      "sha256": "c5e27095229bc4c730c54c688a9c1c2cad0d0217dd9d75dbed8f437382a2ff12",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-08.geojson",
+      "original_sha256": "483062808b9e298e2ff3df2ef017db304403698cd0ea8d8c00b99df9306c0bf3"
+    },
+    "11": {
+      "url": "data/vietnam-communes/11.geojson",
+      "count": 45,
+      "bytes": 2202649,
+      "sha256": "c05a96d2049b8f2aa4f18d1f98fc7e2650d9748c8ae4fc32516a49ad2151fa45",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-11.geojson",
+      "original_sha256": "878a04fd9b7069e8797c1efe873e02b583d4a8d754e51398a15081c9250e2680"
+    },
+    "12": {
+      "url": "data/vietnam-communes/12.geojson",
+      "count": 38,
+      "bytes": 1960151,
+      "sha256": "057106b0d094df6049757451d7ff544c98e1c6332439c821664a4e0d27601b4a",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-12.geojson",
+      "original_sha256": "cc0d93af5030d33f29c6eee411014f6ab4458182ffe2eeae10f9ffb96005e6dd"
+    },
+    "14": {
+      "url": "data/vietnam-communes/14.geojson",
+      "count": 75,
+      "bytes": 3022838,
+      "sha256": "f09881790f8c55d1a4a6b0707f44aad9efbba07fb90c7a2610ef14a25f9f59b9",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-14.geojson",
+      "original_sha256": "e0d301399f79fc7fb2bae73193bda3c95a4b24e5e30e2f3bb73bb416b9c44968"
+    },
+    "15": {
+      "url": "data/vietnam-communes/15.geojson",
+      "count": 99,
+      "bytes": 3487980,
+      "sha256": "5d23cee04abf5a17a304e50245274f506ee1249c12fc06d4c9b0b95a4367806b",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-15.geojson",
+      "original_sha256": "76b850d8e49b6bdb1a4b528546a9c773153af7abe666ae000de77984d2f500b4"
+    },
+    "19": {
+      "url": "data/vietnam-communes/19.geojson",
+      "count": 92,
+      "bytes": 2801215,
+      "sha256": "96f357145c6c40b4d0227f64e3e59fb379a1664cff21679fb601de2851329258",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-19.geojson",
+      "original_sha256": "d7327a400a42ae043525ed21506c2c83ca1d831e0870007e12742cca7def7c8c"
+    },
+    "20": {
+      "url": "data/vietnam-communes/20.geojson",
+      "count": 65,
+      "bytes": 2798543,
+      "sha256": "2af60b3270f1f637914b200b03c2b2f7da1d8b387b227beb128257d68cf52a3f",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-20.geojson",
+      "original_sha256": "78022e2300aaf0fa1c941fa0ae443ae84fdeb15d0a57fc3fe7ddc392b0396591"
+    },
+    "22": {
+      "url": "data/vietnam-communes/22.geojson",
+      "count": 54,
+      "bytes": 3160726,
+      "sha256": "f91eb20d45798220638d4863ad026a87455e9219db4711269b1c25292d6ec73c",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-22.geojson",
+      "original_sha256": "ab3fe22b7ce9c690773806be37e7dbfcf0383ed742db28405d3c13757f4dc52a"
+    },
+    "24": {
+      "url": "data/vietnam-communes/24.geojson",
+      "count": 99,
+      "bytes": 2089004,
+      "sha256": "34635dc5af3a34f85269578ad669d81dee11e43572e8eebf77ebe31ba307f92e",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-24.geojson",
+      "original_sha256": "63973407fe3d9be4b08d87c133bfc98f2a72431cf0fb46cb824a979fe0334771"
+    },
+    "25": {
+      "url": "data/vietnam-communes/25.geojson",
+      "count": 148,
+      "bytes": 3839537,
+      "sha256": "ee887c691aa4ea90a4033ccf46b3ac410df5993c8b3439378fb4d32ed93bf2fa",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-25.geojson",
+      "original_sha256": "ab52018bfdc2ebd77d1d3de1ae2f5e698846123d3214e2bd64c1cf82bc1446ce"
+    },
+    "31": {
+      "url": "data/vietnam-communes/31.geojson",
+      "count": 114,
+      "bytes": 1377340,
+      "sha256": "48d163a4917222c48a0d83f051664dd0cfae4e5d2db24f846ba07ef0ebf1d771",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-31.geojson",
+      "original_sha256": "f38fd557fc13838ecc18c3fa5d1535c7bf526f0a52bd6307d13c4b53db04c431"
+    },
+    "33": {
+      "url": "data/vietnam-communes/33.geojson",
+      "count": 104,
+      "bytes": 1057974,
+      "sha256": "6a26d359119e979e5cf5640e767061e4f9aeb7dd8df3824517b5ad321828a7ca",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-33.geojson",
+      "original_sha256": "c1c83b4d3680c6f1cbb999010eb0187feb503ea208846d98ed9fe9b92a9bf14c"
+    },
+    "37": {
+      "url": "data/vietnam-communes/37.geojson",
+      "count": 129,
+      "bytes": 1305844,
+      "sha256": "60b2e89acf0a107f16b1eca1c90bea02ec49cea3dc2d1d0482fa107c784c49ff",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-37.geojson",
+      "original_sha256": "c1b46ed1c9928611b854c8c9086f61b7630bdb186ae05b66ca46a8c783cc011b"
+    },
+    "38": {
+      "url": "data/vietnam-communes/38.geojson",
+      "count": 166,
+      "bytes": 3476388,
+      "sha256": "630394aed7cd81f83960533dfe435434d3bd889cfeebb453eec2e076304ecb5e",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-38.geojson",
+      "original_sha256": "012f68f908f0d6e965e0f00861e0175529bce2a245dbb8afb7cd2a0b24e1be41"
+    },
+    "40": {
+      "url": "data/vietnam-communes/40.geojson",
+      "count": 130,
+      "bytes": 4066604,
+      "sha256": "c16afcb4188ae6293e59412ffea6dc8c15978187e5cfaf7f84cab9210b3be4e8",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-40.geojson",
+      "original_sha256": "80c4d20ae258e93b05453da3db603d348a941b338a1cb8b04347d0d0159ea6ed"
+    },
+    "42": {
+      "url": "data/vietnam-communes/42.geojson",
+      "count": 69,
+      "bytes": 1638757,
+      "sha256": "44b5707fda8f15ec8eb1ea9eb5cf4ecd20fc907ad0315bfe2cc03126bbda5ca4",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-42.geojson",
+      "original_sha256": "e95d24c2a2750c63e2ec99b1aec777588d02d2d5bef81101286ac47c322a5490"
+    },
+    "44": {
+      "url": "data/vietnam-communes/44.geojson",
+      "count": 78,
+      "bytes": 2569850,
+      "sha256": "17e69ea06c5ca4778bc0021ee34b2b49b5c1e8962d3307536571490b969bca45",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-44.geojson",
+      "original_sha256": "7176bc0d6f07af33102c0d7b203f6f95244de7a9915529f1dc9ede8bae18e25b"
+    },
+    "46": {
+      "url": "data/vietnam-communes/46.geojson",
+      "count": 40,
+      "bytes": 1309332,
+      "sha256": "ea933d5f5d6ca8394733dec4a03ffc9d6e1245e2a9113bf250ff586796561118",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-46.geojson",
+      "original_sha256": "3151593796f509abc80d641a845d08809bcfde0ab98b7c9604046411b7b054e8"
+    },
+    "48": {
+      "url": "data/vietnam-communes/48.geojson",
+      "count": 94,
+      "bytes": 2850180,
+      "sha256": "93cbe20fe9647cd6d270a15af673f6b4ff54a1803c2bd341b8b78b7135987a2c",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-48.geojson",
+      "original_sha256": "e4f2d501bfa706a2fb60e3bfab7087e66fef2307db5d04092d9a2a085f47cb67"
+    },
+    "51": {
+      "url": "data/vietnam-communes/51.geojson",
+      "count": 96,
+      "bytes": 3193511,
+      "sha256": "f7da7fb3b9a562a60b7f50878355610ce2d21618dc7a30b6d66fa521748d563d",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-51.geojson",
+      "original_sha256": "4e694f4abdbf61a3a4263907f5f508c7c362f61669801551f9d1a245bec17edd"
+    },
+    "52": {
+      "url": "data/vietnam-communes/52.geojson",
+      "count": 135,
+      "bytes": 5458962,
+      "sha256": "ea4bcb0d393b62ce6842f1fc65d60b67a9b6bbf03d2bda8b82e83acf81299eed",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-52.geojson",
+      "original_sha256": "d7d376c88a69bae8d193f1e3004cd3b468ed2d65876c2868cbe8b44808139654"
+    },
+    "56": {
+      "url": "data/vietnam-communes/56.geojson",
+      "count": 65,
+      "bytes": 2019851,
+      "sha256": "e844ed053e0dffb9b4f5a6f706318c7bbb5c71c64099226856cf675a797ee6fb",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-56.geojson",
+      "original_sha256": "be09fdd37e1b6ed1c47f2515eae932268d9fcded65007c7cc8986c7050340048"
+    },
+    "66": {
+      "url": "data/vietnam-communes/66.geojson",
+      "count": 102,
+      "bytes": 4744591,
+      "sha256": "05c2e2fd8e50b35ecc9924f1895770624377d2259c57663f60306b8822c85b81",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-66.geojson",
+      "original_sha256": "82f1dd91c27b6e92e80a801f33246d22c0e493dab72485a110e45b60608a43b3"
+    },
+    "68": {
+      "url": "data/vietnam-communes/68.geojson",
+      "count": 124,
+      "bytes": 5618685,
+      "sha256": "5e16ef292bda4970b136dfd52cfda57c235d8b72a32c2ba3fd8ec3702d45cd4d",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-68.geojson",
+      "original_sha256": "6151dccacf87052f95085f1f72523a5e945a2ed5211010c33b07285bd23e37f1"
+    },
+    "75": {
+      "url": "data/vietnam-communes/75.geojson",
+      "count": 95,
+      "bytes": 4035173,
+      "sha256": "6a4c1b93dffa98b3b7d7e339c63e9020dced004b4736b2c0be58779ca59ae94c",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-75.geojson",
+      "original_sha256": "b88368feae384ea5333ed9e32afae182a09dc76808e2da80d8d97c16c4f9a387"
+    },
+    "79": {
+      "url": "data/vietnam-communes/79.geojson",
+      "count": 168,
+      "bytes": 2240789,
+      "sha256": "bcb3060766138308296a9e6e694371ae83fd366348005b49ee233bb70d744580",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-79.geojson",
+      "original_sha256": "c53018efcee16c07f60def6e68d0d3005842b1d8ecd24e4e4f8fc66b01b5a7ab"
+    },
+    "80": {
+      "url": "data/vietnam-communes/80.geojson",
+      "count": 96,
+      "bytes": 1564843,
+      "sha256": "8ef21399928362f21757250b4f8bfc9fd01fdb641a5a8294c15e314ddf0e5ef7",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-80.geojson",
+      "original_sha256": "78d3ed2c3ffc44d579416ccb165848fe8bcb279517bd39a1edbd48427245a96a"
+    },
+    "82": {
+      "url": "data/vietnam-communes/82.geojson",
+      "count": 102,
+      "bytes": 1260961,
+      "sha256": "2570228a2996455c0b04f06a395eb3eb0cf65a736bb16aa066081dcdbe33ecdd",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-82.geojson",
+      "original_sha256": "c6799432e26ffdd960bb4a24709ccc865aeabda48e0e5c9bbbf2b0a415cdaceb"
+    },
+    "86": {
+      "url": "data/vietnam-communes/86.geojson",
+      "count": 124,
+      "bytes": 1582893,
+      "sha256": "6f5bad9c54ff9346c7783884ef5a8fa85ed4f682a5c9e140505e88e5a53e2b0b",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-86.geojson",
+      "original_sha256": "d40483da1c16911a3ac6858bd79870048a2220f1fbcc1ba5aae1104a61bd9cb4"
+    },
+    "91": {
+      "url": "data/vietnam-communes/91.geojson",
+      "count": 102,
+      "bytes": 1309877,
+      "sha256": "d69686e0864ebefbf60aac0c5721d052b21925caa80f69478c1f609a2874156d",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-91.geojson",
+      "original_sha256": "b991b5583a4bcfaf78b62f1ac2360db9e8c57bd8bbbc19152dbd5c843cf5221a"
+    },
+    "92": {
+      "url": "data/vietnam-communes/92.geojson",
+      "count": 103,
+      "bytes": 1325587,
+      "sha256": "61cbf75c35cf6d20ea067a478fbf899e6f4628dd309809a8e8fc1c4d4be16a72",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-92.geojson",
+      "original_sha256": "aca86c2e1ce52579bb200e239d1372660629264549a993c6c599b4d29973838b"
+    },
+    "96": {
+      "url": "data/vietnam-communes/96.geojson",
+      "count": 64,
+      "bytes": 1352907,
+      "sha256": "b6e36d82d1ff2be5e23e0f1b7e6d79bfd2f319b6c46c618b8383b26f54df7267",
+      "source_url": "https://www.tinhthanhpho.com/data/wards-96.geojson",
+      "original_sha256": "13d95d5d63366ac6d527adcbe2b681255b608a772df5d93eda8fecabaec8c2b1"
+    }
+  }
+}
